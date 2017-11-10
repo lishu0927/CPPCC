@@ -4,5 +4,6 @@
  * @type {{home: *, messages: *, comments: *}}
  */
 module.exports = {
-    news: require('./news/news')
+    news: require('./news/news'),
+    login: require('./login/login')
 }

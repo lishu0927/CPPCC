@@ -7,6 +7,7 @@ var controlles = require('../controllers');
 module.exports = function (app) {
     app.get('/news', controlles.news.init);
     app.get("/newsDetail", controlles.news.detail);
+    app.get("/newsSearch", controlles.news.search);
 }
 
 
