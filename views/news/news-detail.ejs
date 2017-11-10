@@ -5,14 +5,33 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <div class="wrap">
-        <%=result%>
+        <div class="new-datail">
+            <p class="title mui-ellipsis"><%= result.title%></p>
+            <p class="time"><%= result.add_time.split(' ')[0]%></p>
+            <div class="content">
+                <%- result.content%>
+            </div>
+        </div>
     </div>
 </div>
 </body>
 <script>
 </script>
 <style>
-
-
+    .container{
+        padding:42px 0 0 0;
+    }
+    .new-datail .title{
+        font-size: 22px;
+        color: #3b3b3b;
+        padding: 15px 15px 10px;
+    }
+    .new-datail .time{
+        color: #fa1414;
+        padding: 0 15px 10px;
+    }
+    .content{
+        padding: 10px;
+    }
 </style>
 </html>
