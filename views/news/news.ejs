@@ -2,7 +2,6 @@
 <html>
 <%-include ../base/checkHead.ejs%>
 <body>
-
 <div class="container">
     <%-include ../base/header-search.ejs%>
     <%-include ../base/footer-nav.ejs%>
@@ -13,35 +12,40 @@
                     <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
                     <div class="mui-slider-item mui-slider-item-duplicate">
                         <a href="#">
-                            <img src="/images/12.jpg">
+                            <img src="<%= sliderList[sliderList.length-1].img_url%>">
                             <div class="slide-layer">
-                                <p class="mui-ellipsis">顺义区发放电子执照顺义区发放电子执照顺义区发放电子执照</p>
+                                <p class="mui-ellipsis"><%= sliderList[sliderList.length-1].title%></p>
                             </div>
                         </a>
                     </div>
+                    <%for(var i=0;i<sliderList.length;i++){%>
                     <!-- 第一张 -->
-                    <%for(var i=0;i<articleList.length;i++){%>
                     <div class="mui-slider-item">
                         <a href="javascript:;">
-                            <img src="<%= articleList[i].img_url%>">
+                            <img src="<%= sliderList[i].img_url%>">
                             <div class="slide-layer">
-                                <p class="mui-ellipsis"><%= articleList[i].title%></p>
+                                <p class="mui-ellipsis"><%= sliderList[i].title%></p>
                             </div>
                         </a>
                     </div>
                     <%}%>
                     <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
                     <div class="mui-slider-item mui-slider-item-duplicate">
-                        <a href="#">
-                            <img src="/images/12.jpg">
+                        <a href="javascript:;">
+                            <img src="<%= sliderList[0].img_url%>">
+                            <div class="slide-layer">
+                                <p class="mui-ellipsis"><%= sliderList[0].title%></p>
+                            </div>
                         </a>
                     </div>
                 </div>
                 <div class="mui-slider-indicator">
-                    <div class="mui-indicator mui-active"></div>
-                    <div class="mui-indicator"></div>
-                    <div class="mui-indicator"></div>
-                    <div class="mui-indicator"></div>
+                    <%for(var i=0;i<sliderList.length;i++){
+                        if(i==0){%>
+                        <div class="mui-indicator mui-active"></div>
+                        <%}else {%>
+                        <div class="mui-indicator"></div>
+                    <%}}%>
                 </div>
             </div>
 
@@ -50,7 +54,7 @@
             <ul class="news-list">
                 <%for(var i=0;i<articleList.length;i++){%>
                 <li class="item">
-                    <a href="javascript:;">
+                    <a href="/news-detail">
                         <img class="image" src="<%= articleList[i].img_url%>">
                         <div class="info">
                             <p class="title mui-ellipsis"><%= articleList[i].title%></p>
@@ -114,7 +118,6 @@
         width: 100%;
         display: block;
         padding: 15px 10px 10px 120px;
-
     }
     .news-list .item .image{
         position: absolute;

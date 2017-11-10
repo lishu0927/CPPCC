@@ -27,9 +27,9 @@ router.get('/news', function (req, res) {
                 body += data;
             }).on('end', function () {
                 obj = JSON.parse(body);
-                console.log(obj.bannerArticle_list);
                 var sliderList=obj.bannerArticle_list;
                 var articleList=obj.article_list;
+                console.log(sliderList);
                 res.render('news/news',
                     {title: '政协要闻', type: 1,sliderList: sliderList,articleList: articleList}
                 );
@@ -56,6 +56,9 @@ router.get('/mine', function (req, res, next) {
 });
 router.get('/login', function (req, res, next) {
     res.render('login/login', {title: '登录'});
+});
+router.get('/news-detail', function (req, res, next) {
+    res.render('news/news-detail', {title: '政协要闻'});
 });
 
 module.exports = router;
