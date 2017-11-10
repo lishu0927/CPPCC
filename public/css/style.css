@@ -1,0 +1,29 @@
+html,body,.container{
+    height: 100%;
+    background: #fff;
+    font-family: "Microsoft YaHei" !important;
+
+}
+.mui-toast-container {
+    bottom: 50% !important;/*离布局底部的距离*/
+}
+.mui-toast-message {
+    background: #000;   /*toast的背景图片*/
+    opacity: 0.7;/*toast中背景色的透明度*/
+    color: #FFFFFF; /*toast中字体颜色*/
+    width: 180px; /*toast宽度*/
+    padding: 50px 5px 10px 5px;/*toast中文字的位置*/
+}
+.container{
+    height: 100%;
+    padding: 48px 0 50px 0;
+    overflow: hidden;
+    box-sizing: border-box;
+    position: relative;
+}
+.wrap{
+    height: 100%;
+    background: #fff;
+    overflow-y: auto;
+}
+

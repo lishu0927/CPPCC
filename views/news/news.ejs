@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<%-include ../base/checkHead.ejs%>
+<body>
+
+<div class="container">
+    <%-include ../base/header-search.ejs%>
+    <%-include ../base/footer-nav.ejs%>
+    <div class="wrap">
+        <div class="slide-content">
+            <div id="slider" class="mui-slider" >
+                <div class="mui-slider-group mui-slider-loop">
+                    <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+                    <div class="mui-slider-item mui-slider-item-duplicate">
+                        <a href="#">
+                            <img src="/images/12.jpg">
+                            <div class="slide-layer">
+                                <p class="mui-ellipsis">顺义区发放电子执照顺义区发放电子执照顺义区发放电子执照</p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- 第一张 -->
+                    <%for(var i=0;i<articleList.length;i++){%>
+                    <div class="mui-slider-item">
+                        <a href="javascript:;">
+                            <img src="<%= articleList[i].img_url%>">
+                            <div class="slide-layer">
+                                <p class="mui-ellipsis"><%= articleList[i].title%></p>
+                            </div>
+                        </a>
+                    </div>
+                    <%}%>
+                    <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+                    <div class="mui-slider-item mui-slider-item-duplicate">
+                        <a href="#">
+                            <img src="/images/12.jpg">
+                        </a>
+                    </div>
+                </div>
+                <div class="mui-slider-indicator">
+                    <div class="mui-indicator mui-active"></div>
+                    <div class="mui-indicator"></div>
+                    <div class="mui-indicator"></div>
+                    <div class="mui-indicator"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="news-content">
+            <ul class="news-list">
+                <%for(var i=0;i<articleList.length;i++){%>
+                <li class="item">
+                    <a href="javascript:;">
+                        <img class="image" src="<%= articleList[i].img_url%>">
+                        <div class="info">
+                            <p class="title mui-ellipsis"><%= articleList[i].title%></p>
+                            <p class="desc mui-ellipsis-2"><%= articleList[i].zhaiyao %></p>
+                            <p class="time"><%= articleList[i].add_time.split(' ')[0]%></p>
+                        </div>
+                    </a>
+                </li>
+                <%}%>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+<style>
+    .slide-content{
+        position: relative;
+    }
+    .mui-slider-indicator{
+        bottom: 0;
+    }
+    .mui-slider-indicator .mui-indicator{
+        width: 14px;
+        height: 3px;
+        background: #fff;
+        border-radius: 0;
+        margin: 2px 3px;
+    }
+    .mui-slider-indicator .mui-active.mui-indicator{
+        background: #006fb8;
+    }
+    .mui-slider .mui-slider-group .mui-slider-item img{
+        height: 200px;
+    }
+    .slide-content .mui-slider-item{
+        position: relative;
+    }
+    .slide-content .mui-slider-item .slide-layer{
+        position: absolute;
+        bottom: 12px;
+        z-index: 100;
+        background: rgba(255,255,255,0.45);
+        width: 100%;
+        height: 30px;
+    }
+    .slide-content .mui-slider-item .slide-layer p{
+        font-size: 16px;
+        color: #000;
+        padding: 0 10px;
+        text-align: center;
+        line-height: 28px;
+    }
+    .news-list{
+        padding: 0;
+    }
+    .news-list .item{
+        border-bottom: 1px solid #bcbcbc;
+    }
+    .news-list .item a{
+        position: relative;
+        width: 100%;
+        display: block;
+        padding: 15px 10px 10px 120px;
+
+    }
+    .news-list .item .image{
+        position: absolute;
+        top:15px;
+        left: 10px;
+        width: 110px;
+        height: 80px;
+    }
+    .news-list .item .info{
+        padding-left: 10px;
+    }
+    .news-list .item .info .title{
+        font-size: 16px;
+        color: #323232;
+        line-height: 24px;
+    }
+    .news-list .item .info .desc{
+        color: #808080;
+        line-height: 18px;
+        height: 36px;
+        font-size: 12px;
+    }
+    .news-list .item .info .time{
+        color: red;
+        font-size: 12px;
+        line-height: 24px;
+    }
+</style>
+<script>
+    var slider = mui("#slider");
+
+
+</script>
+</html>

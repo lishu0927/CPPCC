@@ -1,0 +1,58 @@
+<div class="footer-nav">
+    <ul class="nav-list">
+        <%for(var i=0;i<navList.length;i++){
+        if(type == i+1){%>
+        <li class="item active">
+            <%}else{%>
+        <li class="item">
+            <%}%>
+            <a href="<%= navList[i].item_rul%>">
+                <%if(type == i+1){%>
+                <img src="/images/<%= navList[i].item_pic%>.png">
+                <%}else{%>
+                <img src="/images/<%= navList[i].item_pic%>-a.png">
+                <%}%>
+                <p><%= navList[i].item_text%></p>
+            </a>
+        </li>
+        <%}%>
+    </ul>
+</div>
+<style>
+    .footer-nav{
+        position: fixed;
+        height: 54px;
+        bottom: -1px;
+        width: 100%;
+        background: #eeeeee;
+        border-top: 1px solid #808080;
+    }
+    .footer-nav .nav-list{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 0;
+        margin: 0;
+        height: 54px;
+    }
+    .footer-nav .nav-list .item{
+        text-align: center;
+    }
+    .footer-nav .nav-list .item.active a p{
+        color: #006fb8;
+    }
+    .footer-nav .nav-list .item a{
+        text-decoration: none;
+        color: inherit;
+        display: inline-block;
+        height: 100%;
+    }
+    .footer-nav .nav-list .item a img{
+        width: 20px;
+    }
+    .footer-nav .nav-list .item a p{
+        line-height: 16px;
+        font-size: 14px;
+        color: #7d7d7d;
+    }
+</style>

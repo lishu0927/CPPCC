@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="product" content="SandGlass">
+    <meta name="description" content="">
+    <meta name="author" content="lishu">
+    <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="public/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style.css">
+    <link rel="stylesheet" type="text/css" href="public/css/mui.min.css">
+    <script type='text/javascript' src='public/js/jquery-1.10.2.js'></script>
+    <script type='text/javascript' src='public/js/mui.min.js'></script>
+</head>
+<body>
+<div class="container">
+    <div class="login-content">
+        <div class="logo">
+            <img src="public/images/logo.png">
+        </div>
+        <h1 class="title">顺义政协移动议政平台</h1>
+        <div class="form">
+            <div class="form-item">
+                <label>姓&nbsp;&nbsp;&nbsp;&nbsp;名</label>
+                <input type="text" id="username"/>
+            </div>
+            <div class="form-item">
+                <label>手机号</label>
+                <input type="text" id="telephone"/>
+            </div>
+            <div class="form-item">
+                <label>密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+                <input type="text"  id="password"/>
+            </div>
+            <div class="form-item">
+                <button class="but" id="submit">登录</button>
+            </div>
+        </div>
+        <p class="desc">@北京大众在线网络技术有限公司提供技术支持</p>
+    </div>
+</div>
+</body>
+<script>
+    $(function() {
+        $("#submit").click(function () {
+            $.ajax({
+                url: 'http://114.215.98.96:8011/ZxApi/m1_01.ashx',
+                type: "POST",
+                dataType: 'jsonp',
+                data: {
+                    user_name: "宁克平",
+                    telephone: '18618600088',
+                    password: 'D12274B9968CCF50'
+                },
+                error: function (request) {      // 设置表单提交出错
+                    alert("系统错误，返回状态码为：" + request.status);
+                },
+                success: function (data, stats, request) {
+                    alert("返回状态为：" + stats);
+                    alert("返回状态码为：" + request.status);
+                    alert("m1_01调用成功，返回值为：" + data);
+                }
+            });
+        });
+    })
+
+</script>
+<style>
+    .container{
+        padding: 0;
+    }
+    .login-content{
+        height: 100%;
+        background-image: url("public/images/login-bg.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+    .login-content .logo{
+        padding-bottom: 5%;
+    }
+    .login-content .logo img{
+        width: 100px;
+    }
+    .login-content .title{
+        font-size: 20px;
+        color: #fff;
+        padding: 2% 0 10% 0;
+        letter-spacing: 1px;
+    }
+    .login-content .form{
+        width: 60%;
+        display: inline-block;
+        text-align: left;
+        margin-left: 20%;
+    }
+    .login-content .form .form-item{
+        padding: 3% 0;
+    }
+    .login-content .form .form-item label{
+        display: block;
+        padding: 3% 0;
+        color: #fff;
+    }
+    .login-content .form .form-item input{
+        display: block;
+        width: 100%;
+        height: 30px;
+        text-indent: 10px;
+        border-radius: 2px;
+        border: 0;
+        padding: 0;
+    }
+    .login-content .form .form-item .but{
+        display: inline-block;
+        width: 60%;
+        height: 35px;
+        border-radius: 5px;
+        margin-left: 20%;
+        margin-top: 15%;
+        border: 0;
+        font-size: 15px;
+    }
+    .login-content .desc{
+        position: fixed;
+        bottom: 10px;
+        width: 100%;
+        font-size: 12px;
+        text-align: center;
+    }
+</style>
+</html>
