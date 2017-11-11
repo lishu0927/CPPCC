@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <%-include ../base/checkHead.ejs%>
+<body>
+<div class="container">
+    <%-include ../base/header-right.ejs%>
+    <div class="wrap">
+        <div class="members-search">
+            <%-include ../base/search-box.ejs%>
+        </div>
+        <div class="members-groups">
+            <%for(var i=0;i<group_list.length;i++){
+                var item=group_list[i]
+            if(item.groupname!='常务委员会组成人员'){
+            %>
+            <div class="item">
+                <span class="groupname"><%=item.groupname%>:</span>
+                <%for(var j=0;j<item.weiyuan_list.length;j++){ var index=item.weiyuan_list[j]%>
+                <span><%=index.user_name%></span>
+                <%}%>
+            </div>
+            <%}else {%>
+            <div class="item-ex">
+                <p class="title">一、常务委员会组成名单（按照姓氏比划排序）</p>
+                <table width="100%">
+                <%for(var j=0;j<item.weiyuan_list.length;j++){ var index=item.weiyuan_list[j]%>
+                <td class="td"><%=index.user_name%></td>
+                <%}%>
+                </table>
+            </div>
+            <%}%>
+            <%}%>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+</script>
+<style>
+    .container{
+        padding: 42px 0 0 0;
+    }
+    .members-search{
+        padding: 15px;
+    }
+    .members-groups{
+        padding: 0 10px;
+    }
+    .members-groups .item{
+        background: #e1edfd;
+        border-radius: 5px;
+        padding: 0 10px 20px 80px;
+        position: relative;
+    }
+    .members-groups .item:first-child{
+        padding: 20px 10px 20px 80px !important;
+    }
+    .members-groups .item span{
+        color: #585757;
+        font-size: 15px;
+        letter-spacing: 1px;
+        line-height: 24px;
+    }
+    .members-groups .item span.groupname{
+        position: absolute;
+        color: #0071bd;
+        top:0;
+        left: 20px;
+    }
+    .members-groups .item:first-child span.groupname{
+        top:20px;
+    }
+    .item-ex{
+        padding: 20px 10px;
+        font-size: 14px;
+    }
+    .item-ex .title{
+        color: #0071bd;
+    }
+    .item-ex table{
+        border-collapse:collapse;
+        border: none;
+        width: 90%;
+        margin-left: 5%;
+        margin-top: 10px;
+    }
+    .item-ex .td{
+        display: inline-block;
+        width: 33.333%;
+        text-align: center;
+        border: 1px solid #adaaaa;
+        padding: 7px 0;
+    }
+
+
+
+
+</style>
+</html>

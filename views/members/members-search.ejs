@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <%-include ../base/checkHead.ejs%>
+<body>
+<div class="container">
+    <%-include ../base/header-right.ejs%>
+    <div class="wrap">
+        <div class="members-search">
+            <%-include ../base/search-box.ejs%>
+        </div>
+        <div class="members-search-content">
+            <%if(group_list==null||group_list==''){%>
+            <div class="empty">
+                <img src="/images/search-empty.png">
+                <p>没有找到您搜索的内容</p>
+            </div>
+            <%}%>
+
+            <%for(var i=0;i<group_list.length;i++){var item = group_list[i];%>
+            <div class="groups">
+                <div class="list-title">
+                    <span class="left"><%=item.groupname%></span>
+                    <span class="center"></span>
+                    <span class="right">找到<%=item.weiyuan_list.length%>条</span>
+                </div>
+                <%for(var j=0;j<item.weiyuan_list.length;j++){var weiyuan = item.weiyuan_list[j];%>
+                <p class="name"><%=weiyuan.user_name%></p>
+                <%}%>
+            </div>
+            <%}%>
+        </div>
+
+    </div>
+</div>
+</body>
+<script>
+</script>
+<style>
+    .container{
+        padding: 42px 0 0 0;
+    }
+    .members-search{
+        padding: 15px;
+    }
+    .empty{
+        position: absolute;
+        top: 50%;
+        transform: translate(0,-50%);
+        text-align: center;
+    }
+    .empty img{
+        width: 40%;
+        margin-bottom: 3%;
+    }
+    .empty p{
+        font-size: 17px;
+        color: #9a9898;
+    }
+    .groups{
+        padding-bottom: 10px;
+    }
+    .list-title{
+        display: flex;
+        align-items: center;
+    }
+    .list-title .left{
+        padding: 0 20px;
+        color: #3b3b3b;
+        font-size: 14px;
+    }
+    .list-title .center{
+        flex: 1;
+        height: 1px;
+        border-top: 1px dashed #585757;
+    }
+    .list-title .right{
+        padding: 0 20px;
+        font-size: 12px;
+        color: #585757;
+    }
+    .name{
+        padding:5px 0 5px 80px;
+        font-size: 14px;
+        color: #3b3b3b;
+    }
+
+
+</style>
+</html>

@@ -48,7 +48,6 @@
                     <% }} %>
                 </div>
             </div>
-
         </div>
         <div class="news-content">
             <ul class="news-list">
@@ -73,11 +72,9 @@
     .slide-content {
         position: relative;
     }
-
     .mui-slider-indicator {
         bottom: 0;
     }
-
     .mui-slider-indicator .mui-indicator {
         width: 14px;
         height: 3px;
@@ -85,19 +82,15 @@
         border-radius: 0;
         margin: 2px 3px;
     }
-
     .mui-slider-indicator .mui-active.mui-indicator {
         background: #006fb8;
     }
-
     .mui-slider .mui-slider-group .mui-slider-item img {
         height: 200px;
     }
-
     .slide-content .mui-slider-item {
         position: relative;
     }
-
     .slide-content .mui-slider-item .slide-layer {
         position: absolute;
         bottom: 12px;
@@ -106,7 +99,6 @@
         width: 100%;
         height: 30px;
     }
-
     .slide-content .mui-slider-item .slide-layer p {
         font-size: 16px;
         color: #000;
@@ -114,22 +106,18 @@
         text-align: center;
         line-height: 28px;
     }
-
     .news-list {
         padding: 0;
     }
-
     .news-list .item {
         border-bottom: 1px solid #bcbcbc;
     }
-
     .news-list .item a {
         position: relative;
         width: 100%;
         display: block;
         padding: 15px 10px 10px 120px;
     }
-
     .news-list .item .image {
         position: absolute;
         top: 15px;
@@ -137,33 +125,30 @@
         width: 110px;
         height: 80px;
     }
-
     .news-list .item .info {
         padding-left: 10px;
     }
-
     .news-list .item .info .title {
-        font-size: 16px;
+        font-size: 15px;
         color: #323232;
         line-height: 24px;
     }
-
     .news-list .item .info .desc {
         color: #808080;
         line-height: 18px;
         height: 36px;
         font-size: 12px;
     }
-
     .news-list .item .info .time {
-        color: red;
+        color: #fa1414;
         font-size: 12px;
         line-height: 24px;
     }
 </style>
 <script>
     var slider = mui("#slider");
-
-
+    slider.slider({
+        interval: 3000
+    });
 </script>
 </html>

@@ -6,14 +6,90 @@
     <%-include ../base/header-search.ejs%>
     <%-include ../base/footer-nav.ejs%>
     <div class="wrap">
-        lishuhhjkhu
-
+        <div class="member-content">
+            <div class="member-row">
+                <div class="member-item" onclick="location.href='/membersMd'">
+                    <img src="/images/wymd.png">
+                    <p>委员名单</p>
+                </div>
+                <div class="member-item">
+                    <img src="/images/zxta.png">
+                    <p>政协提案</p>
+                </div>
+            </div>
+            <div class="member-row">
+                <div class="member-item">
+                    <img src="/images/sqmy.png">
+                    <p>社情民意</p>
+                </div>
+                <div class="member-item">
+                    <img src="/images/wyfc.png">
+                    <p>委员风采</p>
+                </div>
+            </div>
+            <div class="member-row">
+                <div class="member-item">
+                    <img src="/images/xxyd.png">
+                    <p>学习园地</p>
+                </div>
+                <div class="member-item">
+                    <img src="/images/spdb.png">
+                    <p>视频点播</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>
 <style lang="stylus">
-    .wrap
-        color
+    .member-content{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .member-row{
+        flex: 1;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+    .member-row:before{
+        content: '';
+        position: absolute;
+        bottom:0;
+        left: 10%;
+        height: 1px;
+        width: 30%;
+        background: #0071bd;
+    }
+    .member-row:after{
+        content: '';
+        position: absolute;
+        bottom:0;
+        left: 60%;
+        height: 1px;
+        width: 30%;
+        background: #0071bd;
+    }
+    .member-row:last-child:before,.member-row:last-child:after{
+        display: none;
+    }
+    .member-item{
+        flex: 1;
+        text-align: center;
+    }
+    .member-item:nth-child(2n+1){
+        border-right: 1px solid #0071bd;
+    }
+    .member-item img{
+        width: 40%;
+    }
+    .member-item p{
+        color: #9a9898;
+        font-size: 18px;
+        margin-top: 5% !important;
+    }
 
 </style>
 

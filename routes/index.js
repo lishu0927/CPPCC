@@ -14,9 +14,6 @@ router.get('/work', function (req, res, next) {
 router.get('/mine', function (req, res, next) {
     res.render('mine/mine', {title: '我', type: 4});
 });
-router.get('/search', function (req, res, next) {
-    res.render('search/search', {title: '我', type: 4});
-});
 router.get('/login', function (req, res, next) {
     res.render('login/login', {title: '登录'});
 });

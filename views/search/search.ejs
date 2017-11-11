@@ -5,7 +5,7 @@
 <div class="container">
     <%-include ../base/header-search-back.ejs%>
     <div class="wrap search-content">
-        <%if(weiyuan_list==null&&tian_list==null&&article_list==null){%>
+        <%if(group_list==null&&tian_list==null&&article_list==null){%>
         <div class="empty">
             <img src="/images/search-empty.png">
             <p>没有找到您搜索的内容</p>
@@ -13,12 +13,18 @@
         <%}%>
 
 
-        <%if(weiyuan_list!=null&&weiyuan_list.length>0){%>
+        <%if(group_list!=null&&group_list.length>0){%>
         <div class="weiyuan_list">
             <div class="weiyuan_content">
-            <%for(var i=0;i<weiyuan_list.length;i++){%>
-            <p><%= weiyuan_list[i].groupName%></p>
-            <p><%= weiyuan_list[i].user_name%></p>
+            <%for(var i=0;i<group_list.length;i++){var item = group_list[i];%>
+                <div class="list-title">
+                    <span class="left"><%=item.groupname%></span>
+                    <span class="center"></span>
+                    <span class="right">找到<%=item.weiyuan_list.length%>条</span>
+                </div>
+                <%for(var j=0;j<item.weiyuan_list.length;j++){var weiyuan = item.weiyuan_list[j];%>
+                <p class="name"><%=weiyuan.user_name%></p>
+                <%}%>
             <%}%>
             </div>
         </div>
@@ -92,6 +98,11 @@
         border-radius: 5px;
         padding: 20px;
     }
+    .weiyuan_content .name{
+        padding-left: 80px;
+        font-size: 14px;
+        color: #585757;
+    }
     .search-content .weiyuan_list p{
         line-height: 30px;
     }
@@ -124,7 +135,7 @@
     .list-title .left{
         padding: 0 20px;
         color: #3b3b3b;
-        font-size: 16px;
+        font-size: 14px;
     }
     .list-title .center{
         flex: 1;
@@ -133,7 +144,7 @@
     }
     .list-title .right{
         padding: 0 20px;
-        font-size: 14px;
+        font-size: 12px;
         color: #585757;
     }
     .article_list .list {
@@ -159,7 +170,7 @@
         padding-left: 10px;
     }
     .article_list .list .item .info .title {
-        font-size: 16px;
+        font-size: 15px;
         color: #323232;
         line-height: 24px;
     }

@@ -8,6 +8,8 @@ module.exports = function (app) {
     app.get('/news', controlles.news.init);
     app.get("/newsDetail", controlles.news.detail);
     app.get("/search", controlles.search.search);
+    app.get("/membersMd", controlles.members.init);
+    app.get("/membersSearch", controlles.members.search);
 }
 
 
