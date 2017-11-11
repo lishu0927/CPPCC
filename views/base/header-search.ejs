@@ -1,6 +1,6 @@
 <header class="header-search">
     <div class="search-box">
-        <input type="text" placeholder="请输入您需要的内容" id="info"/>
+        <input type="text" placeholder="请输入您需要的内容" data-keyword="<%=keyword%>" id="info"/>
         <span class="header-icon-right" id="search">
             <img src="/images/icons/search.png">
         </span>
@@ -58,6 +58,8 @@
     }
 </style>
 <script>
+    var keyword=$("#info").attr("data-keyword");
+    $("#info").val(keyword);
     $("#search").click(function () {
         var info = $("#info").val();
         location.href = "/search?keyword=" + info;

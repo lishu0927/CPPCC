@@ -2,7 +2,7 @@ var createRequest = require("../../config/settings");
 
 module.exports = {
     search: function (req, res) {
-        var keyword = req.query.keyword;
+        var keyword = req.query.keyword||'';
         var data = {keyword: keyword};
         createRequest(res,data,"/ZxApi/m1_04.ashx",function () {
             console.log(body);
