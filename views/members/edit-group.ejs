@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-<%-include ../base/checkHead.ejs%>
+<%- include ../base/checkHead.ejs %>
 <body>
 <div class="container">
-    <%-include ../base/header.ejs%>
+    <%- include ../base/header.ejs %>
     <span class="header-right" id="changeName">确定</span>
     <div class="wrap">
         <input type="text" placeholder="编辑组名" id="groupname"/>
@@ -11,21 +11,23 @@
 </div>
 </body>
 <style>
-    .header-right{
+    .header-right {
         position: absolute;
         z-index: 10000000;
         height: 42px;
         text-align: center;
         line-height: 42px;
-        top:0;
+        top: 0;
         right: 0;
         padding: 0 15px 0 10px;
         color: #fff;
         font-size: 14px;
     }
-    .wrap{
+
+    .wrap {
         padding: 5px 10px;
     }
+
     input {
         height: 32px !important;
         text-indent: 10px;
@@ -40,9 +42,32 @@
     }
 </style>
 <script>
-    var name=$("groupname").val();
-    $("changeName").click(function () {
-        location.href="/editGroup?name="+name;
+    $("#changeName").click(function () {
+        var groupname = $("#groupname").val();
+        alert(groupname);
+        if (groupname == '') {
+            alert("名称不可以为空！");
+            return;
+        }
+        var params = {
+            groupname: groupname, groupid: "<%= groupid %>"
+        }
+        params = JSON.stringify(params);
+        alert(params);
+        $.ajax({
+            url: 'http://114.215.98.96:8011/ZxApi/m2_09.ashx',
+            type: "POST",
+            dataType: 'json',
+            data: params,
+            success: function (data) {
+                if (data.ecode == 1000) {
+                    history.go(-1);
+                    location.reload();
+                } else {
+                    alert("修改失败！");
+                }
+            }
+        });
     })
 
 </script>
