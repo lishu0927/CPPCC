@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html>
-<%-include ../base/checkHead.ejs%>
+<%- include ../base/checkHead.ejs %>
 <body>
 <div class="container">
-    <%-include ../base/header.ejs%>
+    <%- include ../base/header.ejs %>
     <a class="header-right" href="">确定</a>
     <div class="wrap">
         <div class="input-row">
             <label>照片:</label>
             <img src="" class="member-pic" id="img"/>
             <div class="upload">
-                <input type="file" name="upload" id="upload"/>
-                上传/替换
+                <form action="http://114.215.98.96:8011/ZxApi/uploadfile.aspx" enctype="multipart/form-data"
+                      method="post" id="uploadForm">
+                    <input type="file" name="file" id="upload"/>
+                    上传/替换
+                </form>
             </div>
         </div>
         <div class="input-row">
             <label>选择分组:</label>
             <select>
-                <option value ="volvo">Volvo</option>
-                <option value ="saab">Saab</option>
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
                 <option value="opel">Opel</option>
                 <option value="audi">Audi</option>
             </select>
@@ -87,22 +90,24 @@
 </div>
 </body>
 <style>
-    .header-right{
+    .header-right {
         position: absolute;
         z-index: 10000000;
         height: 42px;
         text-align: center;
         line-height: 42px;
-        top:0;
+        top: 0;
         right: 0;
         padding: 0 15px 0 10px;
         color: #fff;
         font-size: 14px;
     }
-    .wrap{
+
+    .wrap {
         padding: 5px 10px;
     }
-    .member-pic{
+
+    .member-pic {
         display: inline-block;
         width: 80px;
         height: 110px;
@@ -110,7 +115,8 @@
         margin: 0 10px 0 30px;
         vertical-align: bottom;
     }
-    .upload{
+
+    .upload {
         position: relative;
         display: inline-block;
         background: #0071bd;
@@ -119,12 +125,14 @@
         color: #fff;
         font-size: 14px;
     }
-    .upload input{
+
+    .upload input {
         position: absolute;
         width: 100%;
         height: 100%;
         opacity: 0;
     }
+
     input[type=text] {
         height: 32px !important;
         width: auto !important;
@@ -139,19 +147,16 @@
     }
 </style>
 <script>
-    $("#upload").change(function(){
-        console.log("1234")
-        $.ajaxFileUpload({
-                 url: 'http://114.215.98.96:8011/ZxApi/uploadfile.aspx',//上传的url，根据自己设置
-                 type: 'post',
-                 secureuri: false, //一般设置为false
-                 fileElementId: 'upload', // 上传文件的id、name属性名
-                 dataType: 'json', //返回值类型，一般设置为json、application/json
-                 async : true,
-                 success: function (data) {
-                    alert(data);
-                 }
-        });
+    $('#uploadForm').ajaxForm(function(data) {
+        data= JSON.parse(data);
+        if(data.ecode==1000){
+            $('#img').attr("src",data.imgurl_list[0].imgurl);
+        }else{
+            alert("上传失败！");
+        }
+    });
+    $("#upload").change(function () {
+        $('#uploadForm').submit();
     });
 </script>
 <style>
