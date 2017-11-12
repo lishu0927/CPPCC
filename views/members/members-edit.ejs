@@ -4,7 +4,7 @@
 <body>
 <div class="container">
     <%-include ../base/header.ejs%>
-    <a class="header-right" href="javascript:;">添加</a>
+    <a class="header-right" href="#picture">添加</a>
     <div class="wrap">
         <%if(group_list!=null&&group_list.length>0){%>
         <div class="weiyuan_list">
@@ -34,6 +34,21 @@
             <%}%>
         </div>
         <%}%>
+    </div>
+    <div id="picture" class="mui-popover mui-popover-action mui-popover-bottom">
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell">
+                <a href="#">添加组</a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a href="#">添加成员</a>
+            </li>
+        </ul>
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell">
+                <a href="#picture">取消</a>
+            </li>
+        </ul>
     </div>
 </div>
 </body>
@@ -113,6 +128,18 @@
         color: #3b3b3b;
         padding:0 3px;
     }
+    .mui-popover.mui-popover-action.mui-active{
+        background: #fff;
+    }
+    .mui-popover.mui-popover-action .mui-table-view .mui-table-view-cell{
+        background: #e1edfd;
+    }
+    .mui-popover.mui-popover-action .mui-table-view .mui-table-view-cell a{
+        color: #282828;
+        font-size: 16px;
+        font-family: "Microsoft YaHei";
+    }
+
 
 </style>
 <script>
