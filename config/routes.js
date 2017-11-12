@@ -10,6 +10,10 @@ module.exports = function (app) {
     app.get("/search", controlles.search.search);
     app.get("/membersMd", controlles.members.init);
     app.get("/membersSearch", controlles.members.search);
+    app.get("/membersDetail", controlles.members.detail);
+    app.get("/membersEdit", controlles.members.edit);
+    app.get("/editGroup", controlles.members.editGroup);
+    app.get("/ss", controlles.members.test);
 }
 
 

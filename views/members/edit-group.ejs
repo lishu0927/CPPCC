@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<%-include ../base/checkHead.ejs%>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <span class="header-right" id="changeName">确定</span>
+    <div class="wrap">
+        <input type="text" placeholder="编辑组名" id="groupname"/>
+    </div>
+</div>
+</body>
+<style>
+    .header-right{
+        position: absolute;
+        z-index: 10000000;
+        height: 42px;
+        text-align: center;
+        line-height: 42px;
+        top:0;
+        right: 0;
+        padding: 0 15px 0 10px;
+        color: #fff;
+        font-size: 14px;
+    }
+    .wrap{
+        padding: 5px 10px;
+    }
+    input {
+        height: 32px !important;
+        text-indent: 10px;
+        display: inline-block;
+        width: 100%;
+        border: 1px solid #00a0e9 !important;
+        outline: none;
+        padding: 0;
+        background: none;
+        margin: 0;
+        font-size: 14px;
+    }
+</style>
+<script>
+    var name=$("groupname").val();
+    $("changeName").click(function () {
+        location.href="/editGroup?name="+name;
+    })
+
+</script>
+<style>
+
+
+</style>
+</html>

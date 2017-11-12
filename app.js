@@ -44,9 +44,9 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.locals["navList"] = [{item_rul:'/news',item_text:'协政要闻',item_pic:'news'},
-    {item_rul:'/members',item_text:'协政委员',item_pic:'members'},
-    {item_rul:'/work',item_text:'协政工作',item_pic:'work'},
+app.locals["navList"] = [{item_rul:'/news',item_text:'政协要闻',item_pic:'news'},
+    {item_rul:'/members',item_text:'政协委员',item_pic:'members'},
+    {item_rul:'/work',item_text:'政协工作',item_pic:'work'},
     {item_rul:'/mine',item_text:'我',item_pic:'mine'}
 ];
 app.locals['body']='';

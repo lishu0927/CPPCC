@@ -6,13 +6,10 @@ module.exports = {
         var data = {};
         createRequest(res,data,"/ZxApi/m2_01.ashx",function () {
             body = JSON.parse(body);
-            console.log(body)
             var group_list=body.group_list
-            console.log(group_list)
             res.render('members/members-md',
                 {
                     title: '委员名单',
-                    rightText: '编 辑',
                     keyword:keyword,
                     group_list: group_list
                 }
@@ -32,10 +29,62 @@ module.exports = {
                 {
                     title: '查询结果',
                     group_list: group_list,
-                    /* tian_list: tian_list,
-                    article_list: article_list,*/
                     keyword:keyword,
-                    rightText:'编辑'
+                }
+            );
+        })
+    },
+    detail: function (req, res) {
+        var id = req.query.id;
+        var data = {user_id: id};
+        createRequest(res,data,"/ZxApi/m2_03.ashx",function () {
+            body = JSON.parse(body);
+            var member=body.user_info
+            res.render('members/members-detail',
+                {
+                    title: '政协委员信息表',
+                    member: member
+                }
+            );
+        });
+    },
+    edit: function (req, res) {
+        var data = {};
+        createRequest(res,data,"/ZxApi/m2_01.ashx",function () {
+            body = JSON.parse(body);
+            var group_list=body.group_list
+            console.log(group_list)
+            res.render('members/members-edit',
+                {
+                    title: '编辑信息',
+                    group_list: group_list
+                }
+            );
+        });
+    },
+    editGroup: function (req, res) {
+        var data = {};
+        createRequest(res,data,"/ZxApi/m2_01.ashx",function () {
+            body = JSON.parse(body);
+            console.log(body)
+            res.render('members/edit-group',
+                {
+                    title: '编辑组',
+                    group_list: group_list
+                }
+            );
+        });
+    },
+    test: function (req, res) {
+        var keyword = req.query.keyword||'';
+        var data = {keyword: keyword};
+        createRequest(res,data,"/ZxApi/m2_02.ashx",function () {
+            body = JSON.parse(body);
+            console.log(keyword)
+            res.json(
+                {
+                    title: '查询结果',
+                    keyword:keyword,
                 }
             );
         })

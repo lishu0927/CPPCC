@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<%-include ../base/checkHead.ejs%>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap">
+        <div class="members-datail">
+            <p class="name">姓名：<%=member.user_name%></p>
+            <p class="sex">性别：<%=member.sex%></p>
+            <p class="minzu">民族：<%=member.minzu%></p>
+            <p class="brithdatetime">出生年月：<%=member.brithdatetime.split(' ')[0]%></p>
+            <p class="mobile">联系电话：<%=member.mobile%></p>
+            <p class="jiguan">籍贯：<%=member.jiguan%></p>
+            <p class="mianmao">党派：<%=member.mianmao%></p>
+            <p class="zhicheng">专业技术职务：<%=member.zhicheng%></p>
+            <p class="jiebie">界别：<%=member.jiebie%></p>
+            <p class="fax">工作单位及职务：<%=member.fax%></p>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+</script>
+<style>
+    .container{
+        padding:42px 0 0 0;
+    }
+    .new-datail .title{
+        font-size: 22px;
+        color: #3b3b3b;
+        padding: 15px 15px 10px;
+    }
+    .new-datail .time{
+        color: #fa1414;
+        padding: 0 15px 10px;
+    }
+    .content{
+        padding: 10px;
+    }
+</style>
+</html>
