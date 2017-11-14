@@ -8,7 +8,7 @@
 <body>
 <div class="container">
     <%- include ../base/header.ejs %>
-    <a class="header-right" href="">确定</a>
+    <a class="header-right" href="" id="submit">确定</a>
     <div class="wrap">
         <div class="upload-content">
             <div class="upload">
@@ -21,7 +21,7 @@
         </div>
         <div class="input-row">
             <label>照片：</label>
-            <img src="<%=member.headImage%>" class="member-pic" id="img"  data-preview-src="" />
+            <img src="<%= member.headImage %>" class="member-pic" id="img" data-preview-src=""/>
         </div>
         <div class="input-row">
             <label>选择分组：</label>
@@ -30,7 +30,7 @@
         </div>
         <div class="input-row">
             <label>姓名：</label>
-            <input type="text" value="<%=member.user_name%>"/>
+            <input type="text" value="<%= member.user_name %>" id="name"/>
         </div>
         <div class="input-row">
             <label>姓别：</label>
@@ -45,59 +45,61 @@
         </div>
         <div class="input-row">
             <label>出生日期:</label>
-            <button id='date' class="date" data-options='{"type":"date"}'><%=member.brithdatetime.split(" ")[0]%></button>
+            <button id='date' class="date"
+                    data-options='{"type":"date"}'><%= member.brithdatetime.split(" ")[0] %></button>
         </div>
         <div class="input-row">
             <label>联系电话：</label>
-            <input type="text" value="<%=member.mobile%>"/>
+            <input type="text" value="<%= member.mobile %>" id="telephone"/>
         </div>
         <div class="input-row">
             <label>民族：</label>
-            <input type="text" value="<%=member.minzu%>" />
+            <input type="text" value="<%= member.minzu %>" id="minzu"/>
         </div>
         <div class="input-row">
             <label>籍贯：</label>
-            <input type="text" value="<%=member.jiguan%>" />
+            <input type="text" value="<%= member.jiguan %>" id="jiguan"/>
         </div>
         <div class="input-row">
             <label>党派：</label>
-            <input type="text" value="<%=member.mianmao%>" />
+            <input type="text" value="<%= member.mianmao %>" id="mianmao"/>
         </div>
         <div class="input-row">
             <label>手机：</label>
-            <input type="text" value="<%=member.telephone%>" />
+            <input type="text" value="<%= member.telephone %>" id="mobile"/>
         </div>
         <div class="input-row">
             <label>地址：</label>
-            <input type="text" value="<%=member.address%>" />
+            <input type="text" value="<%= member.address %>" id="address"/>
         </div>
         <div class="input-row">
             <label>邮箱：</label>
-            <input type="text" value="<%=member.email%>" />
+            <input type="text" value="<%= member.email %>" id="email"/>
         </div>
         <div class="input-row">
             <label>学历：</label>
-            <input type="text" value="<%=member.xueli%>" />
+            <input type="text" value="<%= member.xueli %>" id="xueli"/>
         </div>
         <div class="input-row">
             <label>毕业院校：</label>
-            <input type="text" value="<%=member.yuanxiao%>" />
+            <input type="text" value="<%= member.yuanxiao %>" id="yuanxiao"/>
         </div>
         <div class="input-row">
             <label>职称：</label>
-            <input type="text" value="<%=member.zhicheng%>" />
+            <input type="text" value="<%= member.zhicheng %>" id="zhicheng"/>
         </div>
         <div class="input-row">
             <label>界别：</label>
-            <input type="text" value="<%=member.jiebie%>" />
+            <input type="text" value="<%= member.jiebie %>" id="jiebie"/>
         </div>
     </div>
 </div>
 </body>
 <style>
-    .container{
+    .container {
         padding: 42px 0 0 0;
     }
+
     .header-right {
         position: absolute;
         z-index: 10000000;
@@ -110,16 +112,19 @@
         color: #fff;
         font-size: 14px;
     }
+
     .wrap {
         padding: 10px 20px 10px 10px;
         position: relative;
     }
-    .upload-content{
+
+    .upload-content {
         position: absolute;
         left: 230px;
-        top:90px;
+        top: 90px;
 
     }
+
     .member-pic {
         display: inline-block;
         width: 80px;
@@ -127,6 +132,7 @@
         margin: 0 10px 0 30px;
         vertical-align: bottom;
     }
+
     .upload {
         position: relative;
         display: inline-block;
@@ -136,23 +142,27 @@
         color: #fff;
         font-size: 14px;
     }
+
     .upload input {
         position: absolute;
         width: 100%;
         height: 100%;
         opacity: 0;
     }
+
     .mui-radio input[type=radio]:before {
         font-size: 20px !important;
         line-height: 1;
         text-decoration: none;
         color: #aaa;
     }
-    .input-row{
+
+    .input-row {
         display: flex;
         margin-bottom: 10px;
     }
-    .input-row input[type=text],select {
+
+    .input-row input[type=text], select {
         height: 32px !important;
         width: auto !important;
         text-indent: 10px;
@@ -166,7 +176,8 @@
         flex: 1;
         color: #3b3b3b;
     }
-    .input-row label{
+
+    .input-row label {
         color: #0071bd;
         min-width: 70px;
         display: inline-block;
@@ -174,22 +185,26 @@
         white-space: nowrap;
         font-size: 14px;
     }
-    label.radio-lable{
+
+    label.radio-lable {
         color: #3b3b3b !important;
-        padding:7px 0 5px 45px !important;
+        padding: 7px 0 5px 45px !important;
     }
-    .input-row .date{
+
+    .input-row .date {
         width: 100%;
         height: 32px;
         border: 1px solid #adaaaa;
         text-align: left;
         color: #3b3b3b;
     }
+
     .mui-preview-image.mui-fullscreen {
         position: fixed;
         z-index: 20;
         background-color: #000;
     }
+
     .mui-preview-header,
     .mui-preview-footer {
         position: absolute;
@@ -197,14 +212,17 @@
         left: 0;
         z-index: 10;
     }
+
     .mui-preview-header {
         height: 44px;
         top: 0;
     }
+
     .mui-preview-footer {
         height: 50px;
         bottom: 0px;
     }
+
     .mui-preview-header .mui-preview-indicator {
         display: block;
         line-height: 25px;
@@ -216,6 +234,7 @@
         border-radius: 12px;
         font-size: 16px;
     }
+
     .mui-preview-image {
         display: none;
         -webkit-animation-duration: 0.5s;
@@ -223,19 +242,23 @@
         -webkit-animation-fill-mode: both;
         animation-fill-mode: both;
     }
+
     .mui-preview-image.mui-preview-in {
         -webkit-animation-name: fadeIn;
         animation-name: fadeIn;
     }
+
     .mui-preview-image.mui-preview-out {
         background: none;
         -webkit-animation-name: fadeOut;
         animation-name: fadeOut;
     }
+
     .mui-preview-image.mui-preview-out .mui-preview-header,
     .mui-preview-image.mui-preview-out .mui-preview-footer {
         display: none;
     }
+
     .mui-zoom-scroller {
         position: absolute;
         display: -webkit-box;
@@ -256,26 +279,32 @@
         margin: 0;
         -webkit-backface-visibility: hidden;
     }
+
     .mui-zoom {
         -webkit-transform-style: preserve-3d;
         transform-style: preserve-3d;
     }
+
     .mui-slider .mui-slider-group .mui-slider-item img {
         width: auto;
         height: auto;
         max-width: 100%;
         max-height: 100%;
     }
+
     .mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
         width: 100%;
     }
+
     .mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
         display: inline-table;
     }
+
     .mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
         display: table-cell;
         vertical-align: middle;
     }
+
     .mui-preview-loading {
         position: absolute;
         width: 100%;
@@ -284,9 +313,11 @@
         left: 0;
         display: none;
     }
+
     .mui-preview-loading.mui-active {
         display: block;
     }
+
     .mui-preview-loading .mui-spinner-white {
         position: absolute;
         top: 50%;
@@ -296,10 +327,12 @@
         height: 50px;
         width: 50px;
     }
+
     .mui-preview-image img.mui-transitioning {
         -webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
         transition: transform 0.5s ease, opacity 0.5s ease;
     }
+
     @-webkit-keyframes fadeIn {
         0% {
             opacity: 0;
@@ -308,6 +341,7 @@
             opacity: 1;
         }
     }
+
     @keyframes fadeIn {
         0% {
             opacity: 0;
@@ -316,6 +350,7 @@
             opacity: 1;
         }
     }
+
     @-webkit-keyframes fadeOut {
         0% {
             opacity: 1;
@@ -324,6 +359,7 @@
             opacity: 0;
         }
     }
+
     @keyframes fadeOut {
         0% {
             opacity: 1;
@@ -332,6 +368,7 @@
             opacity: 0;
         }
     }
+
     p img {
         max-width: 100%;
         height: auto;
@@ -339,21 +376,21 @@
 </style>
 <script>
     mui.previewImage();
-    (function($) {
+    (function ($) {
         $.init();
         var date = $('#date')[0];
-        date.addEventListener('tap', function() {
+        date.addEventListener('tap', function () {
             var optionsJson = this.getAttribute('data-options') || '{}';
             var options = JSON.parse(optionsJson);
             var picker = new $.DtPicker(options);
-            picker.show(function(rs) {
-                date.innerText = rs.y.text+'/'+rs.m.text+'/'+rs.d.text;
+            picker.show(function (rs) {
+                date.innerText = rs.y.text + '/' + rs.m.text + '/' + rs.d.text;
                 picker.dispose();
             });
         }, false);
     })(mui);
-    $(function() {
-        $("input[name='sex'][value='<%=member.sex%>']").attr("checked",true);
+    $(function () {
+        $("input[name='sex'][value='<%= member.sex %>']").attr("checked", true);
         $("#groups").html("");
         $.ajax({  //取分组
             url: 'http://114.215.98.96:8011/ZxApi/m2_10.ashx',
@@ -364,24 +401,24 @@
                 mui.toast("系统错误");
             },
             success: function (data) {
-                if(data.ecode== 1000){
-                    var list=data.group_list;
-                    $.each(list,function (i) {
-                        var option='<option value="'+list[i].groupname+'">'+list[i].groupname+'</option>'
+                if (data.ecode == 1000) {
+                    var list = data.group_list;
+                    $.each(list, function (i) {
+                        var option = '<option value="' + list[i].groupname + '">' + list[i].groupname + '</option>'
                         $("#groups").append(option);
                     })
-                    $("#groups").find("option[value='<%=member.groupName%>']").attr("selected",true);
+                    $("#groups").find("option[value='<%= member.groupName %>']").attr("selected", true);
                 }
             }
         });
     })
 
     //上传图片
-    $('#uploadForm').ajaxForm(function(data) {
-        data= JSON.parse(data);
-        if(data.ecode==1000){
-            $('#img').attr("src",data.imgurl_list[0].imgurl);
-        }else{
+    $('#uploadForm').ajaxForm(function (data) {
+        data = JSON.parse(data);
+        if (data.ecode == 1000) {
+            $('#img').attr("src", data.imgurl_list[0].imgurl);
+        } else {
             mui.toast("上传失败！");
         }
     });
@@ -390,9 +427,40 @@
     });
 
     //保存委员信息
-
-
-
+    $('#submit').click(function () {
+        var params = {
+            user_id: '<%= member.user_id %>',
+            user_name: $('#name').val(),
+            sex: $("input[name='sex'][checked]").val(),
+            brithdatetime: $('#date').text(),
+            minzu: $('#minzu').val(),
+            mianmao: $('#mianmao').val(),
+            telephone: $('#telephone').val(),
+            mobile: $('#mobile').val(),
+            address: $('#address').val(),
+            email: $('#email').val(),
+            xueli: $('#xueli').val(),
+            jiguan: $('#jiguan').val(),
+            jiebie: $('#jiebie').val(),
+            yuanxiao: $('#yuanxiao').val(),
+            zhicheng: $('#zhicheng').val(),
+            groupName: $('#groupName').val(),
+            headImage: $('#headImage').val(),
+        }
+        var data = JSON.stringify(params)
+        $.ajax({
+            url: 'http://114.215.98.96:8011/ZxApi/m2_06.ashx',
+            type: "POST",
+            dataType: 'json',
+            data: data,
+            error: function (request) {      // 设置表单提交出错
+                mui.toast("系统错误，返回状态码为：" + request.status);
+            },
+            success: function (data) {
+                alert(data.ecode);
+            }
+        });
+    });
 </script>
 <style>
 
