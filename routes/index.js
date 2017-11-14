@@ -14,8 +14,8 @@ router.get('/work', function (req, res) {
 router.get('/login', function (req, res) {
     res.render('login/login', {title: '登录'});
 });
-router.get('/editMember', function (req, res) {
-    res.render('members/edit-member', {title: '编辑成员信息'});
+router.get('/addMember', function (req, res) {
+    res.render('members/add-member', {title: '添加成员'});
 });
 router.get('/proposals', function (req, res) {
     res.render('proposals/proposals', {title: '政协提案'});

@@ -19,7 +19,7 @@
                     <%for(var j=0;j<item.weiyuan_list.length;j++){
                         var weiyuan = item.weiyuan_list[j];%>
                         <div>
-                            <span class="name" onclick="window.location.href='/editMember'"><%=weiyuan.user_name%></span>
+                            <span class="name" onclick="window.location.href='/editMember?id=<%=weiyuan.user_id%>'"><%=weiyuan.user_name%></span>
                             <span class="delete" id="<%=weiyuan.user_id%>">×</span>
                         </div>
                     <%}%>
@@ -28,7 +28,7 @@
                     <%for(var j=0;j<item.weiyuan_list.length;j++){
                         var weiyuan = item.weiyuan_list[j];%>
                         <td class="td">
-                            <span onclick="window.location.href='/editMember'"><%=weiyuan.user_name%></span>
+                            <span onclick="window.location.href='/editMember?id=<%=weiyuan.user_id%>'"><%=weiyuan.user_name%></span>
                             <span class="delete" id="<%=weiyuan.user_id%>">×</span>
                         </td>
                     <%}%>
@@ -44,7 +44,7 @@
                 <a href="/editGroup?id=00">添加组</a>
             </li>
             <li class="mui-table-view-cell">
-                <a href="/editMember">添加成员</a>
+                <a href="/addMember">添加成员</a>
             </li>
         </ul>
         <ul class="mui-table-view">

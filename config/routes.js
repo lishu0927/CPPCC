@@ -13,8 +13,8 @@ module.exports = function (app) {
     app.get("/membersDetail", controlles.members.detail);
     app.get("/membersEdit", controlles.members.edit);
     app.get("/editGroup", controlles.members.editGroup);
+    app.get("/editMember", controlles.members.editMember);
     app.get("/mine", controlles.mine.init);
-    app.get("/ss", controlles.members.test);
 }
 
 

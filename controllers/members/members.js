@@ -72,19 +72,22 @@ module.exports = {
             }
         );
     },
-    test: function (req, res) {
-        var keyword = req.query.keyword || '';
-        var data = {keyword: keyword};
-        createRequest(res, data, "/ZxApi/m2_02.ashx", function () {
+    editMember: function (req, res) {
+        var id = req.query.id;
+        var data = {user_id: id};
+        createRequest(res, data, "/ZxApi/m2_03.ashx", function () {
             body = JSON.parse(body);
-            console.log(keyword)
-            res.json(
+            var member = body.user_info
+            var name = body.user_info.user_name
+            console.log(member);
+            console.log(name);
+            res.render('members/edit-member',
                 {
-                    title: '查询结果',
-                    keyword: keyword,
+                    title: "编辑成员信息",
+                    member: member
                 }
             );
-        })
+        });
     }
 }
 
