@@ -38,6 +38,9 @@ router.get('/honorDetail', function (req, res) {
 router.get('/proposalKnow', function (req, res) {
     res.render('proposals/proposal-know', {title: '提案知识'});
 });
+router.get('/proposalDown', function (req, res) {
+    res.render('proposals/proposal-down', {title: '提案表下载'});
+});
 router.get('/knowDetail', function (req, res) {
     res.render('proposals/know-detail', {title: '提案知识'});
 });

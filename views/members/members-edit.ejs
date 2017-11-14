@@ -13,7 +13,7 @@
                     <span class="left"><%=item.groupname%></span>
                     <span class="center"></span>
                     <a class="right" href="/editGroup?id=<%=item.grouporder%>">编辑</a>
-                    <span class="deletes">×</span>
+                    <span class="deletes" id="<%=item.grouporder%>">×</span>
                 </div>
                 <%if(item.weiyuan_list.length==1){%>
                     <%for(var j=0;j<item.weiyuan_list.length;j++){
