@@ -6,16 +6,61 @@
     <%-include ../base/header.ejs%>
     <div class="wrap">
         <div class="members-datail">
-            <p class="name">姓名：<%=member.user_name%></p>
-            <p class="sex">性别：<%=member.sex%></p>
-            <p class="minzu">民族：<%=member.minzu%></p>
-            <p class="brithdatetime">出生年月：<%=member.brithdatetime.split(' ')[0]%></p>
-            <p class="mobile">联系电话：<%=member.mobile%></p>
-            <p class="jiguan">籍贯：<%=member.jiguan%></p>
-            <p class="mianmao">党派：<%=member.mianmao%></p>
-            <p class="zhicheng">专业技术职务：<%=member.zhicheng%></p>
-            <p class="jiebie">界别：<%=member.jiebie%></p>
-            <p class="fax">工作单位及职务：<%=member.fax%></p>
+            <div class="pic">
+                <img src="<%=member.headImage%>" />
+            </div>
+            <p class="row">
+                <span>姓名：</span>
+                <%=member.user_name%>
+            </p>
+            <p class="row">
+                <span>性别：</span>
+                <%=member.sex%>
+            </p>
+            <p class="row">
+                <span>出生年月：</span>
+                <%=member.brithdatetime.split(' ')[0]%>
+            </p>
+            <p class="row">
+                <span>民族：</span>
+                <%=member.minzu%>
+            </p>
+            <p class="row">
+                <span>籍贯：</span>
+                <%=member.jiguan%>
+            </p>
+            <p class="row">
+                <span>党派：</span>
+                <%=member.mianmao%>
+            </p>
+            <p class="row">
+                <span>联系电话：</span>
+                <%=member.mobile%>
+            </p>
+            <p class="row">
+                <span>地址：</span>
+                <%=member.address%>
+            </p>
+            <p class="row">
+                <span>邮箱：</span>
+                <%=member.email%>
+            </p>
+            <p class="row">
+                <span>最高学历：</span>
+                <%=member.xueli%>
+            </p>
+            <p class="row">
+                <span>毕业院校：</span>
+                <%=member.yuanxiao%>
+            </p>
+            <p class="row">
+                <span>职称：</span>
+                <%=member.zhicheng%>
+            </p>
+            <p class="row">
+                <span>界别：</span>
+                <%=member.jiebie%>
+            </p>
         </div>
     </div>
 </div>
@@ -26,17 +71,25 @@
     .container{
         padding:42px 0 0 0;
     }
-    .new-datail .title{
-        font-size: 22px;
-        color: #3b3b3b;
-        padding: 15px 15px 10px;
+    .members-datail{
+        position: relative;
+        padding: 10px 0;
     }
-    .new-datail .time{
-        color: #fa1414;
-        padding: 0 15px 10px;
+    .members-datail .pic{
+        position: absolute;
+        right:30px;
+        top:20px;
     }
-    .content{
-        padding: 10px;
+    .members-datail .pic img{
+        width: 105px;
+        height: 135px;
+    }
+    .members-datail .row{
+        color: #585757;
+        padding: 10px 18px;
+    }
+    .members-datail .row span {
+        color:#0071bd;
     }
 </style>
 </html>

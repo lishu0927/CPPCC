@@ -6,9 +6,7 @@
     <%- include ../base/header.ejs %>
     <a class="header-right" href="">确定</a>
     <div class="wrap">
-        <div class="input-row">
-            <label>照片:</label>
-            <img src="" class="member-pic" id="img"/>
+        <div class="upload-content">
             <div class="upload">
                 <form action="http://114.215.98.96:8011/ZxApi/uploadfile.aspx" enctype="multipart/form-data"
                       method="post" id="uploadForm">
@@ -16,6 +14,10 @@
                     上传/替换
                 </form>
             </div>
+        </div>
+        <div class="input-row">
+            <label>照片:</label>
+            <img src="" class="member-pic" id="img"/>
         </div>
         <div class="input-row">
             <label>选择分组:</label>
@@ -29,6 +31,16 @@
         <div class="input-row">
             <label>姓名:</label>
             <input type="text"/>
+        </div>
+        <div>
+            <div class="mui-input-row mui-radio mui-left">
+                <label>radio</label>
+                <input name="radio1" type="radio">
+            </div>
+            <div class="mui-input-row mui-radio mui-left">
+                <label>radio</label>
+                <input name="radio1" type="radio" checked>
+            </div>
         </div>
         <div class="input-row">
             <label>出生日期:</label>
@@ -75,11 +87,7 @@
             <input type="text"/>
         </div>
         <div class="input-row">
-            <label>有何专长:</label>
-            <input type="text"/>
-        </div>
-        <div class="input-row">
-            <label>工作单位及职务:</label>
+            <label>界别:</label>
             <input type="text"/>
         </div>
         <div class="input-row">
@@ -90,6 +98,9 @@
 </div>
 </body>
 <style>
+    .container{
+        padding: 42px 0 0 0;
+    }
     .header-right {
         position: absolute;
         z-index: 10000000;
@@ -102,11 +113,16 @@
         color: #fff;
         font-size: 14px;
     }
-
     .wrap {
-        padding: 5px 10px;
+        padding: 10px 20px 10px 10px;
+        position: relative;
     }
+    .upload-content{
+        position: absolute;
+        left: 230px;
+        top:90px;
 
+    }
     .member-pic {
         display: inline-block;
         width: 80px;
@@ -115,7 +131,6 @@
         margin: 0 10px 0 30px;
         vertical-align: bottom;
     }
-
     .upload {
         position: relative;
         display: inline-block;
@@ -125,24 +140,35 @@
         color: #fff;
         font-size: 14px;
     }
-
     .upload input {
         position: absolute;
         width: 100%;
         height: 100%;
         opacity: 0;
     }
-
-    input[type=text] {
+    .input-row{
+        display: flex;
+        margin-bottom: 10px;
+    }
+    .input-row input[type=text],select {
         height: 32px !important;
         width: auto !important;
         text-indent: 10px;
         display: inline-block;
-        border: 1px solid #00a0e9 !important;
+        border: 1px solid #adaaaa !important;
         outline: none;
         padding: 0;
         background: none;
         margin: 0;
+        font-size: 14px;
+        flex: 1;
+    }
+    .input-row label{
+        color: #0071bd;
+        min-width: 80px;
+        display: inline-block;
+        margin-right: 5px;
+        white-space: nowrap;
         font-size: 14px;
     }
 </style>

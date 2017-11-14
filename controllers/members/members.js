@@ -40,9 +40,10 @@ module.exports = {
         createRequest(res, data, "/ZxApi/m2_03.ashx", function () {
             body = JSON.parse(body);
             var member = body.user_info
+            var name = body.user_info.user_name
             res.render('members/members-detail',
                 {
-                    title: '政协委员信息表',
+                    title: name,
                     member: member
                 }
             );
@@ -68,7 +69,8 @@ module.exports = {
             {
                 title: '编辑组',
                 groupid: id
-            });
+            }
+        );
     },
     test: function (req, res) {
         var keyword = req.query.keyword || '';

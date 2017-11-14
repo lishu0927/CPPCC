@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<%-include ../base/checkHead.ejs%>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap">
+        <ul class="list">
+            <li>
+                <a href="javascript:;">
+                    <img src="images/icons/flow1.png">
+                    <span>发起流传</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="images/icons/flow2.png">
+                    <span>待办流传</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="images/icons/flow2.png">
+                    <span>已办流传</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="images/icons/flow4.png">
+                    <span>查询流传</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<style>
+    .container{
+        padding: 42px 0 0 0;
+    }
+    .wrap{
+        padding: 0 10%;
+        display: flex;
+        align-items: center;
+    }
+    .list{
+        text-align: center;
+        padding: 0 0 10% 0;
+        width: 100%;
+    }
+    .list li{
+        border-bottom: 1px solid #adaaaa;
+        padding: 7% 10px;
+    }
+    .list li a img{
+        width: 60px;
+        vertical-align: middle;
+        margin-right: 20px;
+    }
+    .list li a span{
+        color: #000;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+</style>
+</html>

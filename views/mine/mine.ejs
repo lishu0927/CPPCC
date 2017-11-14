@@ -3,63 +3,136 @@
 <%-include ../base/checkHead.ejs%>
 <body>
 <div class="container">
-    <%-include ../base/header-search.ejs%>
     <%-include ../base/footer-nav.ejs%>
     <div class="wrap">
-        <div class="search-box">
-            <input type="text" placeholder="请输入您需要的内容" data-keyword="<%=keyword%>" id="infoss"/>
-            <span class="header-icon-right" id="searchss">
-                <img src="/images/icons/search.png">
-            </span>
+        <div class="top"></div>
+        <div class="exit">退出登录</div>
+        <div class="mine">
+            <div class="mine-content">
+                <div class="left">
+                    <img src="images/wyfc.png" />
+                </div>
+                <div class="right">
+                    <p class="name" id="name"></p>
+                    <p class="phone" id="phone"></p>
+                </div>
+            </div>
         </div>
-        <%-include ../base/ss.ejs%>
+        <ul class="list">
+            <li>
+                <a href="javascript:;" id="detail">
+                    <div class="left">
+                        <img src="images/icons/mine-xx.png" />
+                    </div>
+                    <p>我的信息</p>
+                </a>
+            </li>
+            <li>
+                <a href="/minePwd">
+                    <div class="left">
+                        <img src="images/icons/mine-mm.png" />
+                    </div>
+                    <p>修改密码</p>
+                </a>
+            </li>
+            <li>
+                <a href="/mineMsg">
+                    <div class="left">
+                        <img src="images/icons/mine-ly.png" />
+                    </div>
+                    <p>留言反馈</p>
+                </a>
+            </li>
+        </ul>
     </div>
 </div>
 </body>
 <style>
-    .search-box {
-        position: relative;
-        box-sizing: border-box;
-        width: 100%;
-        height: 34px;
-        padding: 0 50px 0 0;
-        border: 1px solid #00a0e9;
-        background: #fff;
+    .container{
+        padding: 0 0 50px 0;
     }
-    .search-box input {
-        height: 100%;
-        text-indent: 10px;
-        display: inline-block;
-        width: 100%;
-        border: 0;
-        outline: none;
-        padding: 0;
-        background: none;
-        margin: 0;
+    .top{
+        height: 100px;
+        background-image: url("images/mine-bg.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .exit{
+        position: absolute;
+        top:10px;
+        right: 10px;
+        color: #fff;
         font-size: 14px;
     }
-    .search-box span {
+    .mine{
         position: absolute;
-        right: 0;
-        top: 2px;
-        width: 50px;
-        height: 24px;
-        border-left: 1px solid #00a0e9;
+        top:45px;
+        width: 90%;
+        left: 5%;
+        border: 1px solid #adaaaa;
+        padding:10px 20px;
+        background: #fff;
+    }
+    .mine .mine-content{
+        display: flex;
+        align-items: center;
+    }
+    .mine .mine-content .left{
+        width: 80px;
+    }
+    .mine .mine-content .left img{
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        border: 1px solid #adaaaa;
+    }
+    .mine .mine-content .right{
+        flex: 1;
+    }
+    .mine .mine-content .right .name{
+        color: #000;
+        font-size: 18px;
+    }
+    .mine .mine-content .right .phone{
+        color: #3b3b3b;
+    }
+    .list{
+        margin-top: 50px;
+    }
+    .list li{
+        height: 50px;
+        line-height: 50px;
+        border-bottom: 1px solid #adaaaa;
+        background-image: url("/images/icons/back-right.png");
+        background-size: 8px;
+        background-repeat: no-repeat;
+        background-position: center right 10px;
+    }
+    .list li a{
+        display: flex;
+    }
+    .list li a .left{
+        width: 40px;
         text-align: center;
     }
-    .search-box span img {
+    .list li a .left img{
         height: 18px;
-        margin-top: 3px;
+        vertical-align: middle;
     }
+    .list li a p{
+        font-size: 16px;
+        color: #000;
+        flex: 1;
+    }
+
 </style>
 <script>
-    $("#searchss").click(function () {
-        var info = $("#infoss").val();
-        location.href = "/ss?keyword=" + info;
-    });
+    var name=sessionStorage.getItem('user_name');
+    var mobile=sessionStorage.getItem('user_mobile');
+    var id=sessionStorage.getItem('user_id');
+    $('#name').html(name);
+    $('#phone').html(mobile);
+    $('#detail').attr("href","/membersDetail?id="+id);
 </script>
-<style>
 
-
-</style>
 </html>

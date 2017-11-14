@@ -42,32 +42,55 @@
     }
 </style>
 <script>
+    var groupid="<%= groupid %>";
+
     $("#changeName").click(function () {
         var groupname = $("#groupname").val();
-        alert(groupname);
         if (groupname == '') {
-            alert("名称不可以为空！");
+            mui.toast("名称不可以为空！");
             return;
         }
-        var params = {
-            groupname: groupname, groupid: "<%= groupid %>"
-        }
-        params = JSON.stringify(params);
-        alert(params);
-        $.ajax({
-            url: 'http://114.215.98.96:8011/ZxApi/m2_09.ashx',
-            type: "POST",
-            dataType: 'json',
-            data: params,
-            success: function (data) {
-                if (data.ecode == 1000) {
-                    history.go(-1);
-                    location.reload();
-                } else {
-                    alert("修改失败！");
-                }
+        var params
+        if(groupid==00){  //增加组
+            params = {
+                groupname: groupname
             }
-        });
+            params = JSON.stringify(params);
+            $.ajax({
+                url: 'http://114.215.98.96:8011/ZxApi/m2_08.ashx',
+                type: "POST",
+                dataType: 'json',
+                data: params,
+                success: function (data) {
+                    if (data.ecode == 1000) {
+                        self.location = document.referrer;
+                    } else {
+                        mui.toast("增加失败！");
+                    }
+                }
+            });
+
+
+        }else {
+            //编辑组
+            params = {
+                groupname: groupname, groupid: "<%= groupid %>"
+            }
+            params = JSON.stringify(params);
+            $.ajax({
+                url: 'http://114.215.98.96:8011/ZxApi/m2_09.ashx',
+                type: "POST",
+                dataType: 'json',
+                data: params,
+                success: function (data) {
+                    if (data.ecode == 1000) {
+                        self.location = document.referrer;
+                    } else {
+                        mui.toast("修改失败！");
+                    }
+                }
+            });
+        }
     })
 
 </script>

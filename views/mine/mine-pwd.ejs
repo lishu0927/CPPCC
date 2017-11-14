@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<%-include ../base/checkHead.ejs%>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap">
+        <div class="row">
+            <input type="text" placeholder="请输入原始密码"/>
+        </div>
+        <div class="row">
+            <input type="text" placeholder="请输入新密码"/>
+        </div>
+        <div class="row">
+            <input type="text" placeholder="请再次输入新密码"/>
+        </div>
+        <div class="confirm">
+            <span>确认修改</span>
+        </div>
+    </div>
+</div>
+</body>
+<style>
+    .container{
+        padding: 42px 0 0 0;
+    }
+    .wrap{
+        padding: 15px;
+    }
+    .wrap .row{
+    }
+    .wrap .row input{
+        width: 100%;
+        border: 1px solid #00a0e9;
+        text-indent: 10px;
+    }
+    .confirm{
+        text-align: center;
+    }
+    .confirm span{
+        background: #e1edfd;
+        border-radius: 5px;
+        padding: 12px ;
+        display: block;
+        color: #343232;
+        margin-top: 30px;
+        font-size: 16px;
+    }
+</style>
+</html>
