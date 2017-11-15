@@ -15,6 +15,10 @@ module.exports = function (app) {
     app.get("/editGroup", controlles.members.editGroup);
     app.get("/editMember", controlles.members.editMember);
     app.get("/mine", controlles.mine.init);
+    app.get("/proposalDown", controlles.proposal.init);
+    app.get("/proposalManage", controlles.proposal.manage);
+    app.get("/proposalDetail1", controlles.proposal.detail1);
+    app.get("/proposalDetail2", controlles.proposal.detail2);
 }
 
 

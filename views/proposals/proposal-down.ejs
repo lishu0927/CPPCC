@@ -5,18 +5,13 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <div class="wrap">
-        <a class="item" href="/proposalDetail">
+        <%for(var i=0 ;i<tian_list.length;i++){%>
+        <a class="item" href="/proposalDetail2?id=<%=tian_list[i].tian_id%>">
             <span class="circle"></span>
-            <p class="anyou">顺义区政协顺义区政协顺义区政协
-                顺义区政协顺义区政协顺义区政协顺义区政协顺义区政协</p>
+            <p class="anyou"><%=tian_list[i].anyou%></p>
             <p class="down"><span>下载</span></p>
         </a>
-        <a class="item" href="/proposalDetail">
-            <span class="circle"></span>
-            <p class="anyou">顺义区政协顺义区政协顺义区政协
-                顺义区政协顺义区政协顺义区政协顺义区政协顺义区政协顺义区政协</p>
-            <p class="down"><span>下载</span></p>
-        </a>
+        <%}%>
     </div>
 </div>
 </body>

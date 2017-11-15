@@ -8,53 +8,37 @@
         <div class="proposal-content">
             <div class="row">
                 <span class="left">提案人姓名</span>
-                <span class="right" id="name"></span>
+                <span class="right" id="name"><%=tian.tianername%></span>
             </div>
             <div class="row">
                 <span class="left">电话号码</span>
-                <span class="right" id="mobile"></span>
+                <span class="right" id="mobile"><%=tian.mobile%></span>
             </div>
-            <!--<div class="row">
-                <span class="left">单位</span>
-                <span class="right">案由案由案由案由案由案由案由</span>
-            </div>
-            <div class="row">
-                <span class="left">委员证件号</span>
-                <span class="right">案由案由案由案由案由案由案由案由案由案由</span>
-            </div>-->
         </div>
         <div class="submit-content">
-            <!--<div class="row">
-                <p class="desc">提案人姓名</p>
-                <textarea placeholder="" rows="1"></textarea>
-            </div>
-            <div class="row">
-                <p class="desc">电话号码</p>
-                <textarea placeholder="" rows="1"></textarea>
-            </div>-->
             <div class="row">
                 <p class="desc">委员证号码</p>
-                <textarea placeholder="" rows="1" id="weinum"></textarea>
+                <textarea placeholder="" rows="1" id="weinum"><%=tian.weinum%></textarea>
             </div>
             <div class="row">
                 <p class="desc">单位</p>
-                <textarea placeholder="" rows="1" id="company"></textarea>
+                <textarea placeholder="" rows="1" id="company"><%=tian.company%></textarea>
             </div>
             <div class="row">
                 <p class="desc">案由</p>
-                <textarea placeholder="" rows="1" id="anyou"></textarea>
+                <textarea placeholder="" rows="1" id="anyou"><%=tian.anyou%></textarea>
             </div>
             <div class="row">
                 <p class="desc">问题</p>
-                <textarea placeholder="" rows="2" id="problem"></textarea>
+                <textarea placeholder="" rows="2" id="problem"><%=tian.problem%></textarea>
             </div>
             <div class="row">
                 <p class="desc">分析</p>
-                <textarea placeholder="" rows="1" id="analyse"></textarea>
+                <textarea placeholder="" rows="1" id="analyse"><%=tian.analyse%></textarea>
             </div>
             <div class="row">
                 <p class="desc">建议</p>
-                <textarea placeholder="" rows="2" id="advice"></textarea>
+                <textarea placeholder="" rows="2" id="advice"><%=tian.advice%></textarea>
             </div>
         </div>
     </div>
@@ -100,8 +84,8 @@
     }
     .proposal-content .row .right{
         flex: 1;
-        border-left: 1px solid #adaaaa;
         padding: 5px;
+        border-right: 1px solid #adaaaa;
     }
     .submit-content{
         margin-top: 10px;
@@ -145,22 +129,20 @@ $(function() {
     var user_id=sessionStorage.getItem('user_id');
     var tijiao_kind;
     var tian_id=0;
-    var company,weinum,anyou,problem,analyse,advice;
-    $("#name").html(user_name)
-    $("#mobile").html(mobile)
+    var company=$("#company").val();
+    var weinum=$("#weinum").val();
+    var anyou=$("#anyou").val();
+    var problem=$("#problem").val();
+    var analyse=$("#analyse").val();
+    var advice=$("#advice").val();
     $("#submit div").each(function () {
         $(this).click(function () {
-            company=$("#company").val();
-            weinum=$("#weinum").val();
-            anyou=$("#anyou").val();
-            problem=$("#problem").val();
-            analyse=$("#analyse").val();
-            advice=$("#advice").val();
             if($(this).text()=='提交'){
                 tijiao_kind=2;
             }else if($(this).text()=='保存'){
                 tijiao_kind=1;
             }
+            alert(tijiao_kind)
             if(user_name == null||mobile==null||company==null||weinum==null+
                 anyou==null||problem==null||analyse==null||advice==null){
                 mui.toast("请填写完整")

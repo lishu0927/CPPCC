@@ -9,4 +9,5 @@ module.exports = {
     search: require('./search/search'),
     members: require('./members/members'),
     mine: require('./mine/mine'),
+    proposal: require('./proposal/proposal'),
 }
