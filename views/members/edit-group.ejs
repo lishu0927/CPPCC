@@ -63,7 +63,10 @@
                 data: params,
                 success: function (data) {
                     if (data.ecode == 1000) {
-                        self.location = document.referrer;
+                        mui.toast("增加成功！");
+                        setTimeout(function () {
+                            self.location = document.referrer;
+                        },1000);
                     } else {
                         mui.toast("增加失败！");
                     }

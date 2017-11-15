@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<%-include ../base/checkHead.ejs%>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap">
+        <div class="proposal-content">
+            <div class="row">
+                <span class="left">提案人姓名</span>
+                <span class="right">案由案由</span>
+            </div>
+            <div class="row">
+                <span class="left">单位</span>
+                <span class="right">案由案由案由案由案由案由案由</span>
+            </div>
+            <div class="row">
+                <span class="left">委员证件号</span>
+                <span class="right">案由案由案由案由案由案由案由案由案由案由</span>
+            </div>
+            <div class="row">
+                <span class="left">电话号码</span>
+                <span class="right">1234567891</span>
+            </div>
+        </div>
+        <div class="submit-content">
+            <div class="row">
+                <p class="desc">案由</p>
+                <textarea placeholder="" rows="1"></textarea>
+            </div>
+            <div class="row">
+                <p class="desc">问题</p>
+                <textarea placeholder="" rows="2"></textarea>
+            </div>
+            <div class="row">
+                <p class="desc">分析</p>
+                <textarea placeholder="" rows="1"></textarea>
+            </div>
+            <div class="row">
+                <p class="desc">建议</p>
+                <textarea placeholder="" rows="2"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="content">
+            <div class="left">保存</div>
+            <div class="right">提交</div>
+        </div>
+    </div>
+</div>
+</body>
+<style>
+    .container{
+        padding: 42px 0 50px 0;
+    }
+    .wrap{
+        color: #3b3b3b;
+        padding: 5px 10px;
+    }
+    .wrap p{
+        color: #585757;
+        line-height: 24px;
+    }
+    .wrap p.text-right{
+        text-align: right;
+    }
+    .proposal-content{
+        border-bottom: 1px solid #adaaaa;
+        margin-top: 10px;
+    }
+    .proposal-content .row{
+        display: flex;
+        font-size: 14px;
+        color: #585757;
+        line-height: 30px;
+        align-items: center;
+        border: 1px solid #adaaaa;
+        border-bottom: 0;
+    }
+    .proposal-content .row .left{
+        width: 110px;
+        text-align: center;
+    }
+    .proposal-content .row .right{
+        flex: 1;
+        border-left: 1px solid #adaaaa;
+        padding: 5px;
+    }
+    .submit-content{
+        margin-top: 10px;
+    }
+    .submit-content .row .desc{
+        color: #0071bd;
+        letter-spacing: 10px;
+    }
+    .submit-content .row textarea{
+        border: 1px solid #00a0e9;
+    }
+    .bottom{
+        position: fixed;
+        height: 50px;
+        width: 100%;
+        bottom: 0;
+        right: 0;
+        background: #e1edfd;
+        border: 1px solid #00a0e9;
+    }
+    .bottom .content{
+        display: flex;
+        text-align: center;
+        height: 50px;
+        line-height: 50px;
+    }
+    .bottom .content .left{
+        width: 100px;
+        border-right: 1px solid #00a0e9;
+    }
+    .bottom .content .right{
+        flex: 1;
+    }
+
+</style>
+<script>
+
+</script>
+<style>
+
+
+</style>
+</html>

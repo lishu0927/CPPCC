@@ -38,11 +38,14 @@ router.get('/honorDetail', function (req, res) {
 router.get('/proposalKnow', function (req, res) {
     res.render('proposals/proposal-know', {title: '提案知识'});
 });
+router.get('/knowDetail', function (req, res) {
+    res.render('proposals/know-detail', {title: '提案知识'});
+});
 router.get('/proposalDown', function (req, res) {
     res.render('proposals/proposal-down', {title: '提案表下载'});
 });
-router.get('/knowDetail', function (req, res) {
-    res.render('proposals/know-detail', {title: '提案知识'});
+router.get('/submitProposal', function (req, res) {
+    res.render('proposals/submit-proposal', {title: '提案提交'});
 });
 router.get('/social', function (req, res) {
     res.render('social/social', {title: '社情民意'});

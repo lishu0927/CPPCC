@@ -13,14 +13,14 @@
                     <span class="left"><%=item.groupname%></span>
                     <span class="center"></span>
                     <a class="right" href="/editGroup?id=<%=item.grouporder%>">编辑</a>
-                    <span class="deletes" id="<%=item.grouporder%>">×</span>
+                    <span class="delete delete-group" id="<%=item.grouporder%>">×</span>
                 </div>
                 <%if(item.weiyuan_list.length==1){%>
                     <%for(var j=0;j<item.weiyuan_list.length;j++){
                         var weiyuan = item.weiyuan_list[j];%>
                         <div>
                             <span class="name" onclick="window.location.href='/editMember?id=<%=weiyuan.user_id%>'"><%=weiyuan.user_name%></span>
-                            <span class="delete" id="<%=weiyuan.user_id%>">×</span>
+                            <span class="delete delete-member" id="<%=weiyuan.user_id%>">×</span>
                         </div>
                     <%}%>
                 <%}else if(item.weiyuan_list.length>1){%>
@@ -29,7 +29,7 @@
                         var weiyuan = item.weiyuan_list[j];%>
                         <td class="td">
                             <span onclick="window.location.href='/editMember?id=<%=weiyuan.user_id%>'"><%=weiyuan.user_name%></span>
-                            <span class="delete" id="<%=weiyuan.user_id%>">×</span>
+                            <span class="delete delete-member" id="<%=weiyuan.user_id%>">×</span>
                         </td>
                     <%}%>
                     </table>
@@ -142,14 +142,11 @@
         font-size: 16px;
         font-family: "Microsoft YaHei";
     }
-
-
 </style>
 <script>
-    $(".delete").click(function(){
+    $(".delete-member").click(function(){
         var id=this.id;
         mui.confirm('确认删除？', function(e) {
-            alert
             if (e.index == 1) {
                 var params = {
                     user_id: id
@@ -157,6 +154,35 @@
                 params = JSON.stringify(params);
                 $.ajax({
                     url: 'http://114.215.98.96:8011/ZxApi/m2_04.ashx',
+                    type: "POST",
+                    dataType: 'json',
+                    data: params,
+                    success: function (data) {
+                        if(data.ecode==1000){
+                            mui.toast("删除成功");
+                            setTimeout(function () {
+                                location.reload();
+                            },1000)
+                        }else{
+                            mui.toast("删除失败！");
+                        }
+                    }
+                });
+            } else {
+                return;
+            }
+        })
+    });
+    $(".delete-group").click(function(){
+        var id=this.id;
+        mui.confirm('确认删除？', function(e) {
+            if (e.index == 1) {
+                var params = {
+                    groupid: id
+                }
+                params = JSON.stringify(params);
+                $.ajax({
+                    url: 'http://114.215.98.96:8011/ZxApi/m2_11.ashx',
                     type: "POST",
                     dataType: 'json',
                     data: params,

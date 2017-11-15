@@ -8,7 +8,7 @@
 <body>
 <div class="container">
     <%- include ../base/header.ejs %>
-    <a class="header-right" href="" id="submit">确定</a>
+    <span class="header-right" id="submit">确定</span>
     <div class="wrap">
         <div class="upload-content">
             <div class="upload">
@@ -50,7 +50,7 @@
         </div>
         <div class="input-row">
             <label>联系电话：</label>
-            <input type="text" value="<%= member.mobile %>" id="telephone"/>
+            <input type="text" value="<%= member.telephone %>" id="telephone"/>
         </div>
         <div class="input-row">
             <label>民族：</label>
@@ -66,7 +66,7 @@
         </div>
         <div class="input-row">
             <label>手机：</label>
-            <input type="text" value="<%= member.telephone %>" id="mobile"/>
+            <input type="text" value="<%= member.mobile %>" id="mobile"/>
         </div>
         <div class="input-row">
             <label>地址：</label>
@@ -428,38 +428,77 @@
 
     //保存委员信息
     $('#submit').click(function () {
-        var params = {
-            user_id: '<%= member.user_id %>',
-            user_name: $('#name').val(),
-            sex: $("input[name='sex'][checked]").val(),
-            brithdatetime: $('#date').text(),
-            minzu: $('#minzu').val(),
-            mianmao: $('#mianmao').val(),
-            telephone: $('#telephone').val(),
-            mobile: $('#mobile').val(),
-            address: $('#address').val(),
-            email: $('#email').val(),
-            xueli: $('#xueli').val(),
-            jiguan: $('#jiguan').val(),
-            jiebie: $('#jiebie').val(),
-            yuanxiao: $('#yuanxiao').val(),
-            zhicheng: $('#zhicheng').val(),
-            groupName: $('#groupName').val(),
-            headImage: $('#headImage').val(),
-        }
-        var data = JSON.stringify(params)
-        $.ajax({
-            url: 'http://114.215.98.96:8011/ZxApi/m2_06.ashx',
-            type: "POST",
-            dataType: 'json',
-            data: data,
-            error: function (request) {      // 设置表单提交出错
-                mui.toast("系统错误，返回状态码为：" + request.status);
-            },
-            success: function (data) {
-                alert(data.ecode);
+        var user_id='<%=member.user_id%>'
+        var user_name=$('#name').val()
+        var password='';
+        var sex= $("input[name='sex']:checked").val();
+        var brithdatetime= $('#date').text();
+        var minzu= $('#minzu').val();
+        var mianmao= $('#mianmao').val();
+        var telephone= $('#telephone').val();
+        var fax='无';
+        var mobile= $('#mobile').val();
+        var address= $('#address').val();
+        var email= $('#email').val();
+        var xueli= $('#xueli').val();
+        var jiguan= $('#jiguan').val();
+        var jiebie= $('#jiebie').val();
+        var yuanxiao= $('#yuanxiao').val();
+        var zhicheng= $('#zhicheng').val();
+        var groupName= $('#groups').val();
+        var headImage= $('#img').attr("src");
+        if(user_id==null||user_name==null||password==null||sex==null||brithdatetime==null||minzu==null+
+            mianmao==null||telephone==null||fax==null||mobile==null||address==null||email==null+
+            xueli==null||jiguan==null||jiebie==null||yuanxiao==null||zhicheng==null+
+            groupName==null||headImage==null
+        ){
+            mui.toast("请将信息填写完整")
+            setTimeout(function () {
+                return ;
+            },1000)
+        }else {
+            var params = {
+                user_id:user_id,
+                user_name: user_name,
+                password: password,
+                sex: sex,
+                brithdatetime: brithdatetime,
+                minzu: minzu,
+                mianmao: mianmao,
+                telephone: telephone,
+                fax: '无',
+                mobile: mobile,
+                address: address,
+                email: email,
+                xueli: xueli,
+                jiguan: jiguan,
+                jiebie: jiebie,
+                yuanxiao: yuanxiao,
+                zhicheng: zhicheng,
+                groupName: groupName,
+                headImage: headImage
             }
-        });
+            var data = JSON.stringify(params)
+            $.ajax({
+                url: 'http://114.215.98.96:8011/ZxApi/m2_06.ashx',
+                type: "POST",
+                dataType: 'json',
+                data: data,
+                error: function (request) {      // 设置表单提交出错
+                    mui.toast("系统错误");
+                },
+                success: function (data) {
+                    if (data.ecode == 1000) {
+                        mui.toast("编辑成功！");
+                        setTimeout(function () {
+                            self.location = document.referrer;
+                        },1000);
+                    } else {
+                        mui.toast("编辑失败！");
+                    }
+                }
+            });
+        }
     });
 </script>
 <style>
