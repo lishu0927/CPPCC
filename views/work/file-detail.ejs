@@ -5,13 +5,9 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <div class="wrap">
-        <p class="title">关于建设某某论坛的建议</p>
-        <img src="/images/default.png" />
-        <p>政协简介政协简介政协简介政协简介政协简介政协简
-            介政协简介政协简介政协简介政协简介政协简介政协简介
-            政协简介政协简介政协简介政协简介政协简介政协简介政
-            协简介政协简介政协简介政协简介政协简介政协简介政协简介
-            政协简介政协简介政协简介政协简介政协简介政协简介政协简介
+        <p class="title"><%=result.title%></p>
+        <img src="<%=result.link_url%>" />
+        <p><%-result.content%>
         </p>
     </div>
 </div>

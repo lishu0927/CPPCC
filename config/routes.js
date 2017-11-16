@@ -37,6 +37,12 @@ module.exports = function (app) {
     app.get("/studyDetail", controlles.study.detail);
     app.get("/video", controlles.video.init);
     app.get("/videoDetail", controlles.video.detail);
+    app.get("/workInfo", controlles.work.info);
+    app.get("/workOrder", controlles.work.order);
+    app.get("/workFiles", controlles.work.files);
+    app.get("/fileDetail", controlles.work.fileDetail);
+    app.get("/workNotices", controlles.work.notices);
+    app.get("/noticeDetail", controlles.work.noticeDetail);
 }
 
 

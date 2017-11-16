@@ -44,24 +44,6 @@ router.get('/socialFine', function (req, res) {
 router.get('/fineDetail', function (req, res) {
     res.render('social/fine-detail', {title: '优秀信息'});
 });
-router.get('/workInfo', function (req, res) {
-    res.render('work/work-info', {title: '政协简介'});
-});
-router.get('/workOrder', function (req, res) {
-    res.render('work/work-order', {title: '政协领导'});
-});
-router.get('/workFiles', function (req, res) {
-    res.render('work/work-files', {title: '政协文件'});
-});
-router.get('/fileDetail', function (req, res) {
-    res.render('work/file-detail', {title: '政协文件'});
-});
-router.get('/workNotices', function (req, res) {
-    res.render('work/work-notices', {title: '通知'});
-});
-router.get('/noticeDetail', function (req, res) {
-    res.render('work/notice-detail', {title: '通知'});
-});
 router.get('/workFlow', function (req, res) {
     res.render('work/work-flow', {title: '文件流传'});
 });

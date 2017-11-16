@@ -13,5 +13,6 @@ module.exports = {
     social: require('./social/social'),
     mien: require('./mien/mien'),
     study: require('./study/study'),
-    video: require('./video/video')
+    video: require('./video/video'),
+    work: require('./work/work')
 }
