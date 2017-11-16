@@ -10,4 +10,8 @@ module.exports = {
     members: require('./members/members'),
     mine: require('./mine/mine'),
     proposal: require('./proposal/proposal'),
+    social: require('./social/social'),
+    mien: require('./mien/mien'),
+    study: require('./study/study'),
+    video: require('./video/video')
 }

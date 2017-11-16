@@ -19,6 +19,24 @@ module.exports = function (app) {
     app.get("/proposalManage", controlles.proposal.manage);
     app.get("/proposalDetail1", controlles.proposal.detail1);
     app.get("/proposalDetail2", controlles.proposal.detail2);
+    app.get("/proposalDetail3", controlles.proposal.detail3);
+    app.get("/proposalDetail4", controlles.proposal.detail4);
+    app.get("/proposalDetail5", controlles.proposal.detail5);
+    app.get("/proposalSubmit2", controlles.proposal.submit2);
+    app.get("/proposalSearch", controlles.proposal.search);
+    app.get("/proposalCheck", controlles.proposal.check);
+    app.get("/proposalPublicity", controlles.proposal.publicity);
+    app.get("/proposalHonor", controlles.proposal.honor);
+    app.get("/honorDetail", controlles.proposal.honorDetail);
+    app.get("/proposalKnow", controlles.proposal.know);
+    app.get("/knowDetail", controlles.proposal.knowDetail);
+    app.get("/social", controlles.social.init);
+    app.get("/mien", controlles.mien.init);
+    app.get("/mienDetail", controlles.mien.detail);
+    app.get("/study", controlles.study.init);
+    app.get("/studyDetail", controlles.study.detail);
+    app.get("/video", controlles.video.init);
+    app.get("/videoDetail", controlles.video.detail);
 }
 
 

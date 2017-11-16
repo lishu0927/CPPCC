@@ -29,7 +29,7 @@
     .search-box span {
         position: absolute;
         right: 0;
-        top: 2px;
+        top: 4px;
         width: 50px;
         height: 24px;
         border-left: 1px solid #00a0e9;
@@ -41,10 +41,15 @@
     }
 </style>
 <script>
-    var keyword=$("#info").attr("data-keyword");
+    var search_type="<%=search_type%>";
+    var keyword="<%=keyword%>";
     $("#info").val(keyword)
     $("#search").click(function () {
         var info = $("#info").val();
-        location.href = "/membersSearch?keyword=" + info;
+        if(search_type=='member'){
+            location.href = "/membersSearch?keyword=" + info;
+        }else if(search_type=='proposal'){
+            location.href = "/proposalSearch?keyword=" + info;
+        }
     });
 </script>

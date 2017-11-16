@@ -5,14 +5,9 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <div class="wrap">
-        <p class="title">某某某</p>
-        <img src="/images/default.png" />
-        <p>政协简介政协简介政协简介政协简介政协简介政协简
-            介政协简介政协简介政协简介政协简介政协简介政协简介
-            政协简介政协简介政协简介政协简介政协简介政协简介政
-            协简介政协简介政协简介政协简介政协简介政协简介政协简介
-            政协简介政协简介政协简介政协简介政协简介政协简介政协简介
-        </p>
+        <p class="title"><%=article.title%></p>
+        <img src="<%=article.img_url%>" />
+        <p><%-article.content%></p>
     </div>
 </div>
 </body>
@@ -25,10 +20,12 @@
     }
     .wrap .title{
         background: #b8cae2;
-        height: 40px;
-        line-height: 40px;
+        min-height: 40px;
+        padding: 10px;
+        line-height: 26px;
         color: #0d0d0d;
         text-align: center;
+        font-size: 16px;
     }
     .wrap img{
         width: 50%;
@@ -42,6 +39,5 @@
         font-size: 13px;
         padding: 0 20px;
     }
-
 </style>
 </html>

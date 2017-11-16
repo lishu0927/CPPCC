@@ -4,9 +4,10 @@
 <body>
 <div class="container">
     <%-include ../base/header.ejs%>
+    <a class="header-right" href="/proposalSubmit2?id=<%=tian.tian_id%>">修改重提</a>
     <div class="wrap">
-        <p class="title"><%=tian.anyou%></p>
-        <p class="desc">审查意见：立案<span>第123456号</span></p>
+        <p class="text-left">审查意见：立案</p>
+        <p class="text-right">第123456号</p>
         <div class="proposal-content">
             <div class="row">
                 <span class="left">案由</span>
@@ -48,27 +49,32 @@
     .container{
         padding: 42px 0 0 0;
     }
+    .header-right{
+        position: absolute;
+        z-index: 10000000;
+        height: 42px;
+        text-align: center;
+        line-height: 42px;
+        top:0;
+        right: 0;
+        padding: 0 15px 0 10px;
+        color: #fff;
+        font-size: 14px;
+    }
     .wrap{
         color: #3b3b3b;
+        padding: 5px 10px;
     }
-    .wrap .title{
-        font-size: 16px;
-        color: #464444;
-        font-weight: bold;
-        padding: 15px;
-        text-align: center;
-        border-bottom: 1px solid #464444;
-    }
-    .wrap .desc{
+    .wrap p{
         color: #585757;
         line-height: 24px;
-        padding: 10px;
     }
-    .wrap .desc span{
-        float: right;
+    .wrap p.text-right{
+        text-align: right;
     }
     .proposal-content{
-        padding: 10px;
+        border-bottom: 1px solid #adaaaa;
+        margin-top: 10px;
     }
     .proposal-content .row{
         display: flex;
@@ -79,13 +85,9 @@
         border: 1px solid #adaaaa;
         border-bottom: 0;
     }
-    .proposal-content .row:last-child{
-        border-bottom: 1px solid #adaaaa;
-    }
     .proposal-content .row .left{
         width: 110px;
         text-align: center;
-
     }
     .proposal-content .row .right{
         flex: 1;

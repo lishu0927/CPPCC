@@ -3,6 +3,7 @@ var createRequest = require("../../config/settings");
 module.exports = {
     init: function (req, res) {
         var keyword = req.query.keyword || '';
+        var search_type = 'member';
         var data = {};
         createRequest(res, data, "/ZxApi/m2_01.ashx", function () {
             body = JSON.parse(body);
@@ -11,6 +12,7 @@ module.exports = {
                 {
                     title: '委员名单',
                     keyword: keyword,
+                    search_type: search_type,
                     group_list: group_list
                 }
             );
@@ -18,17 +20,17 @@ module.exports = {
     },
     search: function (req, res) {
         var keyword = req.query.keyword || '';
+        var search_type = "member";
         var data = {keyword: keyword};
         createRequest(res, data, "/ZxApi/m2_02.ashx", function () {
             body = JSON.parse(body);
             console.log(keyword);
             var group_list = body.group_list
-            /* var tian_list=body.tian_list
-            var article_list=body.article_list*/
             res.render('members/members-search',
                 {
                     title: '查询结果',
                     group_list: group_list,
+                    search_type: search_type,
                     keyword: keyword,
                 }
             );

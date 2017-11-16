@@ -7,32 +7,18 @@
     <div class="wrap">
         <div class="news-content">
             <ul class="news-list">
+                <%for(var i=0 ;i<article_list.length;i++){%>
                 <li class="item">
-                    <a href="/mienDetail">
-                        <img class="image" src="">
+                    <a href="/mienDetail?id=<%=article_list[i].article_id%>">
+                        <img class="image" src="<%=article_list[i].img_url%>">
                         <div class="info">
-                            <p class="title mui-ellipsis">顺义区政协顺义区政协</p>
-                            <p class="desc mui-ellipsis-2">
-                                顺义区政协顺义区政协顺义区政协顺义区政协顺义区政协
-                                顺义区政协顺义区政协顺义区政协
-                            </p>
-                            <p class="time">2017/09/12</p>
+                            <p class="title mui-ellipsis"><%=article_list[i].title%></p>
+                            <p class="desc mui-ellipsis-2"><%=article_list[i].zhaiyao%></p>
+                            <p class="time"><%=article_list[i].add_time.split(' ')[0]%></p>
                         </div>
                     </a>
                 </li>
-                <li class="item">
-                    <a href="/mienDetail">
-                        <img class="image" src="">
-                        <div class="info">
-                            <p class="title mui-ellipsis">顺义区政协顺义区政协</p>
-                            <p class="desc mui-ellipsis-2">
-                                顺义区政协顺义区政协顺义区政协顺义区政协顺义区政协
-                                顺义区政协顺义区政协顺义区政协
-                            </p>
-                            <p class="time">2017/09/12</p>
-                        </div>
-                    </a>
-                </li>
+                <%}%>
             </ul>
         </div>
     </div>

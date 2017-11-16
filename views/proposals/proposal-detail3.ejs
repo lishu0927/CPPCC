@@ -5,6 +5,8 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <div class="wrap">
+        <p class="text-left">审查意见：立案</p>
+        <p class="text-right">第123456号</p>
         <div class="proposal-content">
             <div class="row">
                 <span class="left">案由</span>
@@ -45,8 +47,8 @@
         </div>
         <div class="bottom">
             <div class="content" id="submit">
-                <div class="left">退回</div>
-                <div class="right">通过立案</div>
+                <div class="left">取消</div>
+                <div class="right">确定</div>
             </div>
         </div>
         <%}%>
@@ -90,24 +92,6 @@
         border-left: 1px solid #adaaaa;
         padding: 5px;
     }
-    .reject-content{
-        margin-top: 20px;
-        padding-bottom: 50px;
-    }
-    .reject-content textarea{
-        border: 1px solid #00a0e9;
-        padding: 5px 10px;
-        font-size: 14px;
-    }
-    .bottom{
-        position: fixed;
-        height: 50px;
-        width: 100%;
-        bottom: 0;
-        right: 0;
-        background: #e1edfd;
-        border: 1px solid #00a0e9;
-    }
     .bottom .content{
         display: flex;
         text-align: center;
@@ -123,46 +107,7 @@
     }
 </style>
 <script>
-    $(function() {
-        var audit_jieguo;
-        var tian_id="<%=tian.tian_id%>";
-        var tuihui;
-        $("#submit div").each(function () {
-            $(this).click(function () {
-                if($(this).text()=='退回'){
-                    tuihui=$("#tuihui").val();
-                    if(tuihui == null||tuihui==""){
-                        mui.toast("请填写退回理由")
-                        return;
-                    }
-                    audit_jieguo=0;
-                }else if($(this).text()=='通过立案'){
-                    tuihui="";
-                    audit_jieguo=1;
-                }
-                var params = {
-                    audit_jieguo: audit_jieguo,
-                    tian_id: tian_id,
-                    tuihui: tuihui
-                }
-                var data = JSON.stringify(params)
-                $.ajax({
-                    url: 'http://114.215.98.96:8011/ZxApi/m2_18.ashx',
-                    type: "POST",
-                    dataType: 'json',
-                    data: data,
-                    error: function (request) {      // 设置表单提交出错
-                        mui.toast("系统错误，返回状态码为：" + request.status);
-                    },
-                    success: function (data) {
-                        if(data.ecode==1000){
-                            mui.toast('操作成功');
-                        }
-                    }
-                });
-            })
-        })
-    })
+
 </script>
 <style>
 

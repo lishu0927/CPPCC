@@ -190,52 +190,13 @@ $(function() {
                     },
                     success: function (data) {
                         if(data.ecode==1000){
-                            mui.toast('提交成功');
+                            mui.toast('操作成功');
                         }
                     }
                 });
-
             }
-
         })
-
     })
-    $("").click(function () {
-        alert(name+mobile+id)
-        /*var username=$("#username").val();
-        var telephone=$("#telephone").val();
-        var password=$("#password").val();
-        if(username == ''){
-            mui.toast('用户名不能为空');
-            return ;
-        }else if(telephone == ''){
-            mui.toast('手机号不能为空');
-            return ;
-        }else if(password == ''){
-            mui.toast('密码不能为空');
-            return ;
-        }
-        var params = {
-            user_name: username,
-            telephone: telephone,
-            password: password
-        }
-        var data = JSON.stringify(params)
-        $.ajax({
-            url: 'http://114.215.98.96:8011/ZxApi/m2_16.ashx',
-            type: "POST",
-            dataType: 'json',
-            data: data,
-            error: function (request) {      // 设置表单提交出错
-                mui.toast("系统错误，返回状态码为：" + request.status);
-            },
-            success: function (data) {
-                if(data.ecode==1000){
-                    mui.toast('登录成功');
-                }
-            }
-        });*/
-    });
 })
 </script>
 </html>
