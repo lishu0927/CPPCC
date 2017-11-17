@@ -7,51 +7,47 @@
     <div class="wrap">
         <div class="proposal-content">
             <div class="row">
-                <span class="left">提案人姓名</span>
-                <span class="right" id="name"><%=tian.tianername%></span>
+                <span class="left">姓名</span>
+                <span class="right"><%=sqmy_info.username%></span>
             </div>
             <div class="row">
-                <span class="left">电话号码</span>
-                <span class="right" id="mobile"><%=tian.mobile%></span>
+                <span class="left">单位</span>
+                <span class="right"><%=sqmy_info.userfax%></span>
+            </div>
+            <div class="row">
+                <span class="left">组别</span>
+                <span class="right"><%=sqmy_info.usergroupname%></span>
             </div>
         </div>
         <div class="submit-content">
             <div class="row">
-                <p class="desc">委员证号码</p>
-                <textarea placeholder="" rows="1" id="weinum"><%=tian.weinum%></textarea>
+                <p class="desc">事由</p>
+                <p><%-sqmy_info.ideatitle%></p>
             </div>
             <div class="row">
-                <p class="desc">单位</p>
-                <textarea placeholder="" rows="1" id="company"><%=tian.company%></textarea>
+                <p class="desc">内容简介</p>
+                <p><%-sqmy_info.ideacontent%></p>
             </div>
-            <div class="row">
-                <p class="desc">案由</p>
-                <textarea placeholder="" rows="1" id="anyou"><%=tian.anyou%></textarea>
+            <%if(check==1){%>
+            <div class="row back">
+                <textarea placeholder="退回立案时请填写理由" rows="5" id="backreason"></textarea>
             </div>
-            <div class="row">
-                <p class="desc">问题</p>
-                <textarea placeholder="" rows="2" id="problem"><%=tian.problem%></textarea>
-            </div>
-            <div class="row">
-                <p class="desc">分析</p>
-                <textarea placeholder="" rows="1" id="analyse"><%=tian.analyse%></textarea>
-            </div>
-            <div class="row">
-                <p class="desc">建议</p>
-                <textarea placeholder="" rows="2" id="advice"><%=tian.advice%></textarea>
-            </div>
+            <%}%>
         </div>
     </div>
+    <%if(check==1){%>
     <div class="bottom">
         <div class="content" id="submit">
-            再次提交
+            <div class="left">退回</div>
+            <div class="right">通过立案</div>
         </div>
     </div>
+    <%}%>
 </div>
 </body>
 <style>
     .container{
-        padding: 42px 0 50px 0;
+        padding: 42px 0 10px 0;
     }
     .wrap{
         color: #3b3b3b;
@@ -83,12 +79,20 @@
     }
     .proposal-content .row .right{
         flex: 1;
-        padding: 5px;
         border-left: 1px solid #adaaaa;
+        padding: 5px;
         min-height: 30px;
     }
     .submit-content{
         margin-top: 10px;
+    }
+    .submit-content .row{
+        margin-bottom: 10px;
+        border-bottom: 1px solid #adaaaa;
+        padding: 10px 0;
+    }
+    .submit-content .row:last-child{
+        border-bottom: 0;
     }
     .submit-content .row .desc{
         color: #0071bd;
@@ -98,6 +102,9 @@
         border: 1px solid #00a0e9;
         padding: 5px 10px;
         font-size: 14px;
+    }
+    .back{
+        padding-bottom: 40px !important;
     }
     .bottom{
         position: fixed;
@@ -109,47 +116,43 @@
         border: 1px solid #00a0e9;
     }
     .bottom .content{
+        display: flex;
         text-align: center;
         height: 50px;
         line-height: 50px;
     }
+    .bottom .content .left{
+        width: 100px;
+        border-right: 1px solid #00a0e9;
+    }
+    .bottom .content .right{
+        flex: 1;
+    }
 </style>
 <script>
-$(function() {
-    var tijiao_kind=5;
-    var tian_id="<%=tian.tian_id%>";
-    var user_id="<%=tian.user_id%>";
-    var user_name="<%=tian.tianername%>";
-    var mobile="<%=tian.mobile%>";
-    var company,weinum,anyou,problem,analyse,advice;
-    $("#submit").click(function () {
-        company=$("#company").val();
-        weinum=$("#weinum").val();
-        anyou=$("#anyou").val();
-        problem=$("#problem").val();
-        analyse=$("#analyse").val();
-        advice=$("#advice").val();
-        if(user_name == null||mobile==null||company==null||weinum==null+
-            anyou==null||problem==null||analyse==null||advice==null){
-            mui.toast("请填写完整")
-            return;
-        }else {
+    var sqmy_id,audit_jieguo,tuihui;
+    sqmy_id="<%=sqmy_info.sqmy_id%>"
+    $("#submit div").each(function () {
+        $(this).click(function () {
+            if($(this).text()=='退回'){
+                audit_jieguo=0;
+                tuihui=$("#backreason").val();
+                if(tuihui == null||tuihui == ""){
+                    mui.toast("请填写退回理由")
+                    return;
+                }
+            }else if($(this).text()=='通过立案'){
+                audit_jieguo=1;
+                tuihui="";
+            }
             var params = {
-                tijiao_kind: tijiao_kind,
-                tian_id: tian_id,
-                user_id: user_id,
-                user_name: user_name,
-                company: company,
-                weinum: weinum,
-                mobile: mobile,
-                anyou: anyou,
-                problem: problem,
-                analyse: analyse,
-                advice: advice
+                audit_jieguo: audit_jieguo,
+                sqmy_id: sqmy_id,
+                tuihui: tuihui
             }
             var data = JSON.stringify(params)
             $.ajax({
-                url: 'http://114.215.98.96:8011/ZxApi/m2_16.ashx',
+                url: 'http://114.215.98.96:8011/ZxApi/m2_25.ashx',
                 type: "POST",
                 dataType: 'json',
                 data: data,
@@ -162,8 +165,7 @@ $(function() {
                     }
                 }
             });
-        }
+        })
     })
-})
 </script>
 </html>

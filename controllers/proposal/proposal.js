@@ -85,6 +85,7 @@ module.exports = {
     },
     detail3:function (req, res) {
         var tian_id = req.query.id;
+        var type=req.query.type;
         var data = {tian_kind:3,tian_id:tian_id};
         createRequest(res, data, "/ZxApi/m2_13.ashx", function () {
             body = JSON.parse(body);
@@ -93,6 +94,7 @@ module.exports = {
             res.render('proposals/proposal-detail3',
                 {
                     title: '提案详情',
+                    type:type,
                     tian:tian_detail_info
                 }
             );
@@ -100,6 +102,7 @@ module.exports = {
     },
     detail4:function (req, res) {
         var tian_id = req.query.id;
+        var type=req.query.type;
         var data = {tian_kind:4,tian_id:tian_id};
         createRequest(res, data, "/ZxApi/m2_13.ashx", function () {
             body = JSON.parse(body);
@@ -108,6 +111,7 @@ module.exports = {
             res.render('proposals/proposal-detail4',
                 {
                     title: '提案详情',
+                    type:type,
                     tian:tian_detail_info
                 }
             );
@@ -116,6 +120,7 @@ module.exports = {
     detail5:function (req, res) {
         var tian_id = req.query.id;
         var data = {tian_kind:5,tian_id:tian_id};
+        var type=req.query.type;
         createRequest(res, data, "/ZxApi/m2_13.ashx", function () {
             body = JSON.parse(body);
             var tian_detail_info=body.tian_detail_info
@@ -123,6 +128,7 @@ module.exports = {
             res.render('proposals/proposal-detail5',
                 {
                     title: '提案详情',
+                    type:type,
                     tian:tian_detail_info
                 }
             );

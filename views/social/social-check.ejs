@@ -4,28 +4,27 @@
 <body>
 <div class="container">
     <%-include ../base/header.ejs%>
-    <a class="header-right" href="/proposalManage">提案管理</a>
+    <a class="header-right" href="/socialSubmit">信息提交</a>
     <div class="wrap">
-        <div class="proposals-search">
-            <%-include ../base/search-box.ejs%>
-        </div>
         <div class="states-content">
             <div class="list-tab">
                 <span class="tab-item active" id="item1">申请审核</span>
-                <span class="tab-item" id="item2">修改重提</span>
-                <span class="tab-item" id="item3">成功立案</span>
-                <span class="tab-item" id="item4">退回</span>
+                <span class="tab-item" id="item2">通过</span>
             </div>
         </div>
         <div class="list-content" id="list-content">
         </div>
-
+        <div class="bottom">
+            <div class="content" id="submit" onclick="location.href='/submitDetail'">
+                提交信息
+            </div>
+        </div>
     </div>
 </div>
 </body>
 <style>
     .container{
-        padding: 136px 0 0 0;
+        padding: 82px 0 0 0;
     }
     .header-right{
         position: absolute;
@@ -38,13 +37,6 @@
         padding: 0 15px 0 10px;
         color: #fff;
         font-size: 14px;
-    }
-    .proposals-search{
-        padding:10px 15px;
-        position: fixed;
-        top: 42px;
-        width: 100%;
-        z-index: 100000;
     }
     .item{
         padding: 10px;
@@ -65,7 +57,6 @@
         color: #3b3b3b;
         text-indent: 20px;
         font-size: 13px;
-        min-height: 22px;
     }
     .item .bottom{
         font-size: 12px;
@@ -83,14 +74,13 @@
     }
     .states-content{
         position: fixed;
-        top:96px;
+        top:42px;
         width: 100%;
         height: 40px;
-        z-index: 100000;
     }
     .list-tab{
         display: flex;
-        background: #0071bd;
+        border:1px solid #0071bd;
         height: 40px;
         padding: 5px 0;
     }
@@ -100,50 +90,55 @@
         float: left;
         line-height: 30px;
         text-align: center;
-        color: #9a9898;
+        color: #585757;
         font-size: 14px;
-        border-right: 1px solid #fff;
+        border-right: 1px solid #0071bd;
         cursor: pointer;
     }
     .list-tab .tab-item:last-child{
         border-right: 0;
     }
     .list-tab .tab-item.active{
-        color: #fff;
+        color: #0071bd;
+    }
+    .bottom{
+        position: fixed;
+        height: 50px;
+        width: 100%;
+        bottom: 0;
+        right: 0;
+        background: #e1edfd;
+        border: 1px solid #00a0e9;
+    }
+    .bottom .content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
     }
 </style>
 <script>
-    var tian_list_kind;
-    var state_text;
-    var detail_id;
+    var sqmy_list_kind,sqmy_kind,check;
     $(".tab-item").each(function () {
         $(this).click(function () {
             $(this).addClass("active");
             $(this).siblings().attr("class","tab-item");
             var itemId=$(this).attr("id");
             if(itemId=='item1'){
-                tian_list_kind=2
-                state_text="立即审核"
-                detail_id=2
+                sqmy_list_kind=2
+                sqmy_kind=2
+                check=1
             }else if(itemId=='item2'){
-                tian_list_kind=4
-                state_text="立即审核"
-                detail_id=3
-            }else if(itemId=='item3'){
-                tian_list_kind=3
-                state_text="发布提案"
-                detail_id=4
-            }else if(itemId=='item4'){
-                tian_list_kind=5
-                state_text=""
-                detail_id=5
+                sqmy_list_kind=3
+                sqmy_kind=3
+                check=''
             }else{
                 return ;
             }
-            var params = {tian_list_kind:tian_list_kind}
+            var params = {sqmy_list_kind:sqmy_list_kind}
             var data = JSON.stringify(params)
             $.ajax({
-                url: 'http://114.215.98.96:8011/ZxApi/m2_12.ashx',
+                url: 'http://114.215.98.96:8011/ZxApi/m2_23.ashx',
                 type: "POST",
                 dataType: 'json',
                 data: data,
@@ -153,15 +148,14 @@
                 success: function (data) {
                     if(data.ecode==1000){
                         $("#list-content").html("");
-                        console.log(data.num);
-                        var list=data.tian_list
+                        var list=data.sqmy_list
                         $.each(list, function (i) {
-                            var item='<a class="item" href="/proposalDetail'+detail_id+'?id='+list[i].tian_id +'&type=2">' +
+                            var item='<a class="item" href="/submitDetail2?id='+list[i].sqmy_id +'&sqmy_kind='+sqmy_kind+'&check='+check+'">' +
                                 '<span class="circle"></span>' +
-                                '<p class="anyou">'+list[i].anyou+'</p>' +
+                                '<p class="anyou">'+list[i].ideatitle+'</p>' +
                                 '<p class="bottom">' +
-                                '<span class="left">'+ list[i].creattime.split(" ")[0] +'</span>' +
-                                '<span class="right">'+state_text+'</span>' +
+                                '<span class="left">'+list[i].statecode+'</span>' +
+                                '<span class="left">'+ list[i].createtime.split(" ")[0] +'</span>' +
                                 '</p>' +
                                 '</a>'
                             $("#list-content").append(item);

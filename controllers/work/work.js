@@ -18,7 +18,7 @@ module.exports = {
             body = JSON.parse(body);
             res.render('work/work-info',
                 {
-                    title: '政协简介',
+                    title: '政协领导',
                     type: 1,
                     result: body
                 }
@@ -77,5 +77,12 @@ module.exports = {
                 }
             );
         });
+    },
+    addWork: function (req, res) {
+        res.render('work/add-work',
+            {
+                title: '添加',
+            }
+        );
     },
 }

@@ -65,6 +65,8 @@
                                 sessionStorage.setItem('user_name', data.user_info.user_name);
                                 sessionStorage.setItem('user_id', data.user_info.user_id);
                                 sessionStorage.setItem('user_mobile', data.user_info.mobile);
+                                sessionStorage.setItem('fax', data.user_info.fax);
+                                sessionStorage.setItem('groupName', data.user_info.groupName);
                                 try {
                                     window.native.saveData("user_name", data.user_info.user_name);
                                     window.native.saveData("user_id", data.user_info.user_id);

@@ -41,17 +41,7 @@
                 <span class="right"><%=tian.advice%></span>
             </div>
         </div>
-        <%if(type==2){%>
-        <div class="reject-content">
-            <textarea id="tuihui" rows="4" placeholder="请填写退回理由"></textarea>
-        </div>
-        <div class="bottom">
-            <div class="content" id="submit">
-                <div class="left">取消</div>
-                <div class="right">确定</div>
-            </div>
-        </div>
-        <%}%>
+
     </div>
 </div>
 </body>
@@ -91,6 +81,7 @@
         flex: 1;
         border-left: 1px solid #adaaaa;
         padding: 5px;
+        min-height: 30px;
     }
     .bottom .content{
         display: flex;

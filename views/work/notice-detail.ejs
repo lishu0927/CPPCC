@@ -5,12 +5,7 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <div class="wrap">
-        <div class="wrap">
-            <p class="title"><%=result.title%></p>
-            <img src="<%=result.link_url%>" />
-            <p><%-result.content%>
-            </p>
-        </div>
+        <p><%-result.content%></p>
     </div>
 </div>
 </body>
@@ -19,27 +14,9 @@
         padding: 42px 0 0 0;
     }
     .wrap{
-        text-align: center;
+        padding: 20px 10px;
     }
-    .wrap .title{
-        background: #b8cae2;
-        height: 35px;
-        line-height: 35px;
-        color: #0d0d0d;
-        text-align: center;
-    }
-    .wrap img{
-        width: 50%;
-        margin: 20px 0 10px 0;
-    }
-    .wrap p{
-        color: #3b3b3b;
-        line-height: 24px;
-        text-align: left;
-        text-indent: 20px;
-        font-size: 13px;
-        padding: 0 20px;
-    }
+
 
 </style>
 </html>

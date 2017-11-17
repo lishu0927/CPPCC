@@ -32,20 +32,11 @@ router.get('/knowDetail', function (req, res) {
 router.get('/submitProposal', function (req, res) {
     res.render('proposals/submit-proposal', {title: '提案提交'});
 });
-router.get('/socialSelected', function (req, res) {
-    res.render('social/social-selected', {title: '信息选登'});
-});
-router.get('/selectedDetail', function (req, res) {
-    res.render('social/selected-detail', {title: '信息选登'});
-});
-router.get('/socialFine', function (req, res) {
-    res.render('social/social-fine', {title: '优秀信息'});
-});
-router.get('/fineDetail', function (req, res) {
-    res.render('social/fine-detail', {title: '优秀信息'});
-});
 router.get('/workFlow', function (req, res) {
     res.render('work/work-flow', {title: '文件流传'});
+});
+router.get('/startWork', function (req, res) {
+    res.render('work/start-work', {title: '发起流传',keyword: '',search_type:'work'});
 });
 router.get('/minePwd', function (req, res) {
     res.render('mine/mine-pwd', {title: '修改密码'});

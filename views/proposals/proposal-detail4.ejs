@@ -4,7 +4,9 @@
 <body>
 <div class="container">
     <%-include ../base/header.ejs%>
+    <%if(type==1){%>
     <a class="header-right" href="/proposalSubmit2?id=<%=tian.tian_id%>">修改重提</a>
+    <%}%>
     <div class="wrap">
         <p class="text-left">审查意见：立案</p>
         <p class="text-right">第123456号</p>
@@ -42,6 +44,26 @@
                 <span class="right"><%=tian.advice%></span>
             </div>
         </div>
+        <%if(type==2){%>
+        <div class="publish-content">
+            <div>发布到：</div>
+            <div class="input-group">
+                <div class="mui-input-row mui-checkbox mui-left">
+                    <label>提案公示</label>
+                    <input name="publish" value="0" type="checkbox" id="publish" >
+                </div>
+                <div class="mui-input-row mui-checkbox mui-left">
+                    <label>提案表彰</label>
+                    <input name="publish" value="0" type="checkbox" id="honor">
+                </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="content" id="submit">
+                再次提交
+            </div>
+        </div>
+        <%}%>
     </div>
 </div>
 </body>
@@ -93,13 +115,65 @@
         flex: 1;
         border-left: 1px solid #adaaaa;
         padding: 5px;
+        min-height: 30px;
+    }
+    .publish-content{
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 15px;
+    }
+    .publish-content div{
+        display: inline-block;
+    }
+    .bottom{
+        position: fixed;
+        height: 50px;
+        width: 100%;
+        bottom: 0;
+        right: 0;
+        background: #e1edfd;
+        border: 1px solid #00a0e9;
+    }
+    .bottom .content{
+        text-align: center;
+        height: 50px;
+        line-height: 50px;
     }
 </style>
 <script>
-
+    mui('.input-group').on('change', 'input', function() {
+        var value = this.checked?"1":"0";
+        this.value=value;
+    });
+    $(function() {
+        var ispublish,isyouxiu;
+        var tian_id="<%=tian.tian_id%>";
+        $("#submit").click(function () {
+            ispublish=$("#publish").val();
+            isyouxiu=$("#honor").val();
+            var params = {
+                tian_id: tian_id,
+                ispublish: ispublish,
+                isyouxiu: isyouxiu
+            }
+            var data = JSON.stringify(params)
+            $.ajax({
+                url: 'http://114.215.98.96:8011/ZxApi/m2_20.ashx',
+                type: "POST",
+                dataType: 'json',
+                data: data,
+                error: function (request) {      // 设置表单提交出错
+                    mui.toast("系统错误，返回状态码为：" + request.status);
+                },
+                success: function (data) {
+                    if(data.ecode==1000){
+                        mui.toast('操作成功');
+                    }
+                }
+            });
+        })
+    })
 </script>
-<style>
-
-
-</style>
 </html>

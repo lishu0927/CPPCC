@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<%-include ../base/checkHead.ejs%>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <a class="header-right" href="/proposalCheck">添加</a>
+    <div class="wrap">
+        <div class="proposals-search">
+            <%-include ../base/search-box.ejs%>
+        </div>
+        <div class="states-content">
+            <div class="list-tab">
+                <span class="tab-item active" id="item1">起始日期</span>
+                <span class="tab-item" id="item2">结束日期</span>
+            </div>
+        </div>
+        <div class="list-content">
+            <a class="item" href="/knowDetail">
+                <span class="circle"></span>
+                <p class="anyou">顺义区政协顺义区政协顺义区政协
+                    顺义区政协顺义区政协顺义区政协顺义区政协顺义区政协</p>
+                <p class="time">2017/04/17</p>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+<style>
+    .container{
+        padding: 136px 0 0 0;
+    }
+    .header-right{
+        position: absolute;
+        z-index: 10000000;
+        height: 42px;
+        text-align: center;
+        line-height: 42px;
+        top:0;
+        right: 0;
+        padding: 0 15px 0 10px;
+        color: #fff;
+        font-size: 14px;
+    }
+    .proposals-search{
+        padding:10px 15px;
+        position: fixed;
+        top: 42px;
+        width: 100%;
+        z-index: 100000;
+    }
+    .states-content{
+        position: fixed;
+        top:96px;
+        width: 100%;
+        height: 40px;
+        z-index: 100000;
+    }
+    .item{
+        padding: 10px;
+        border-bottom: 1px solid #bcbcbc;
+        position: relative;
+        display: block;
+    }
+    .item .circle{
+        position: absolute;
+        top:17px;
+        left: 13px;
+        background: #0071bd;
+        width: 10px;
+        height: 10px;
+    }
+    .item .anyou{
+        line-height: 22px;
+        color: #3b3b3b;
+        text-indent: 20px;
+        font-size: 13px;
+    }
+    .item .time{
+        font-size: 12px;
+        color: #0071bd;
+    }
+
+
+</style>
+</html>

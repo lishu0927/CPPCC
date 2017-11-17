@@ -7,55 +7,40 @@
     <div class="wrap">
         <div class="proposal-content">
             <div class="row">
-                <span class="left">案由</span>
-                <span class="right"><%=tian.anyou%></span>
-            </div>
-            <div class="row">
-                <span class="left">提案人姓名</span>
-                <span class="right"><%=tian.tianername%></span>
+                <span class="left">姓名</span>
+                <span class="right" id="name"></span>
             </div>
             <div class="row">
                 <span class="left">单位</span>
-                <span class="right"><%=tian.company%></span>
+                <span class="right" id="fax"></span>
             </div>
             <div class="row">
-                <span class="left">委员证件号</span>
-                <span class="right"><%=tian.weinum%></span>
-            </div>
-            <div class="row">
-                <span class="left">电话号码</span>
-                <span class="right"><%=tian.mobile%></span>
-            </div>
-            <div class="row">
-                <span class="left">问题</span>
-                <span class="right"><%=tian.problem%></span>
-            </div>
-            <div class="row">
-                <span class="left">分析</span>
-                <span class="right"><%=tian.analyse%></span>
-            </div>
-            <div class="row">
-                <span class="left">建议</span>
-                <span class="right"><%=tian.advice%></span>
+                <span class="left">组别</span>
+                <span class="right" id="group"></span>
             </div>
         </div>
-        <%if(type==2){%>
-        <div class="reject-content">
-            <textarea id="tuihui" rows="4" placeholder="请填写退回理由"></textarea>
-        </div>
-        <div class="bottom">
-            <div class="content" id="submit">
-                <div class="left">退回</div>
-                <div class="right">通过立案</div>
+        <div class="submit-content">
+            <div class="row">
+                <p class="desc">事由</p>
+                <textarea placeholder="" rows="1" id="title"></textarea>
+            </div>
+            <div class="row">
+                <p class="desc">内容简介</p>
+                <textarea placeholder="" rows="3" id="content"></textarea>
             </div>
         </div>
-        <%}%>
+    </div>
+    <div class="bottom">
+        <div class="content" id="submit">
+            <div class="left">保存</div>
+            <div class="right">提交</div>
+        </div>
     </div>
 </div>
 </body>
 <style>
     .container{
-        padding: 42px 0 0 0;
+        padding: 42px 0 50px 0;
     }
     .wrap{
         color: #3b3b3b;
@@ -91,11 +76,14 @@
         padding: 5px;
         min-height: 30px;
     }
-    .reject-content{
-        margin-top: 20px;
-        padding-bottom: 50px;
+    .submit-content{
+        margin-top: 10px;
     }
-    .reject-content textarea{
+    .submit-content .row .desc{
+        color: #0071bd;
+        letter-spacing: 2px;
+    }
+    .submit-content .row textarea{
         border: 1px solid #00a0e9;
         padding: 5px 10px;
         font-size: 14px;
@@ -124,31 +112,40 @@
     }
 </style>
 <script>
-    $(function() {
-        var audit_jieguo;
-        var tian_id="<%=tian.tian_id%>";
-        var tuihui;
-        $("#submit div").each(function () {
-            $(this).click(function () {
-                if($(this).text()=='退回'){
-                    tuihui=$("#tuihui").val();
-                    if(tuihui == null||tuihui==""){
-                        mui.toast("请填写退回理由")
-                        return;
-                    }
-                    audit_jieguo=0;
-                }else if($(this).text()=='通过立案'){
-                    tuihui="";
-                    audit_jieguo=1;
-                }
+    var userid,username,fax,groupName,tijiao_kind,sqmy_id,ideatitle,ideacontent;
+    userid=sessionStorage.getItem('user_id');
+    username=sessionStorage.getItem('user_name');
+    fax=sessionStorage.getItem('fax');
+    groupName=sessionStorage.getItem('groupName');
+    $("#name").html(username)
+    $("#fax").html(fax)
+    $("#groupName").html(groupName)
+    $("#submit div").each(function () {
+        $(this).click(function () {
+            ideatitle=$("#title").val();
+            ideacontent=$("#content").val();
+            if($(this).text()=='提交'){
+                tijiao_kind=2;
+                sqmy_id=0;
+            }else if($(this).text()=='保存'){
+                tijiao_kind=1;
+                sqmy_id=0;
+            }
+            if(ideatitle == null||ideacontent==null){
+                mui.toast("请填写完整")
+                return;
+            }else {
                 var params = {
-                    audit_jieguo: audit_jieguo,
-                    tian_id: tian_id,
-                    tuihui: tuihui
+                    tijiao_kind: tijiao_kind,
+                    sqmy_id: sqmy_id,
+                    userid: userid,
+                    username: username,
+                    ideatitle: ideatitle,
+                    ideacontent: ideacontent
                 }
                 var data = JSON.stringify(params)
                 $.ajax({
-                    url: 'http://114.215.98.96:8011/ZxApi/m2_18.ashx',
+                    url: 'http://114.215.98.96:8011/ZxApi/m2_24.ashx',
                     type: "POST",
                     dataType: 'json',
                     data: data,
@@ -161,12 +158,8 @@
                         }
                     }
                 });
-            })
+            }
         })
     })
 </script>
-<style>
-
-
-</style>
 </html>

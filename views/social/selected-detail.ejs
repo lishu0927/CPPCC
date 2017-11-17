@@ -5,14 +5,8 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <div class="wrap">
-        <p class="title">关于建设某某论坛的建议</p>
-        <img src="/images/default.png" />
-        <p>政协简介政协简介政协简介政协简介政协简介政协简
-            介政协简介政协简介政协简介政协简介政协简介政协简介
-            政协简介政协简介政协简介政协简介政协简介政协简介政
-            协简介政协简介政协简介政协简介政协简介政协简介政协简介
-            政协简介政协简介政协简介政协简介政协简介政协简介政协简介
-        </p>
+        <p class="title"><%=sqmy_info.ideatitle%></p>
+        <p><%-sqmy_info.ideacontent%></p>
     </div>
 </div>
 </body>
@@ -25,10 +19,12 @@
     }
     .wrap .title{
         background: #b8cae2;
-        height: 40px;
-        line-height: 40px;
+        min-height: 40px;
+        line-height: 26px;
+        padding: 12px 0;
         color: #0d0d0d;
         text-align: center;
+        font-size: 16px;
     }
     .wrap img{
         width: 50%;

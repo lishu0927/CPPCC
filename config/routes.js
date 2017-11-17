@@ -31,6 +31,15 @@ module.exports = function (app) {
     app.get("/proposalKnow", controlles.proposal.know);
     app.get("/knowDetail", controlles.proposal.knowDetail);
     app.get("/social", controlles.social.init);
+    app.get("/socialSubmit", controlles.social.submit);
+    app.get("/submitDetail", controlles.social.detail);
+    app.get("/submitDetail1", controlles.social.detail1);
+    app.get("/submitDetail2", controlles.social.detail2);
+    app.get("/socialCheck", controlles.social.check);
+    app.get("/socialSelected", controlles.social.selected);
+    app.get("/selectedDetail", controlles.social.selectedDetail);
+    app.get("/socialFine", controlles.social.fine);
+    app.get("/fineDetail", controlles.social.fineDetail);
     app.get("/mien", controlles.mien.init);
     app.get("/mienDetail", controlles.mien.detail);
     app.get("/study", controlles.study.init);
@@ -43,6 +52,7 @@ module.exports = function (app) {
     app.get("/fileDetail", controlles.work.fileDetail);
     app.get("/workNotices", controlles.work.notices);
     app.get("/noticeDetail", controlles.work.noticeDetail);
+    app.get("/addWork", controlles.work.addWork);
 }
 
 
