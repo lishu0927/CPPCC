@@ -53,6 +53,9 @@ module.exports = function (app) {
     app.get("/workNotices", controlles.work.notices);
     app.get("/noticeDetail", controlles.work.noticeDetail);
     app.get("/addWork", controlles.work.addWork);
+    app.get("/workDetail", controlles.work.detail);
+    app.get("/todoWork", controlles.work.todoWork);
+    app.get("/doneWork", controlles.work.doneWork);
 }
 
 

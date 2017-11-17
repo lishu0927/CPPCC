@@ -20,13 +20,13 @@
             </div>
             <div class="row">
                 <span class="left">文件标题</span>
-                <span class="right" id="title">
-                    <textarea placeholder="" rows="1"></textarea>
+                <span class="right" >
+                    <textarea id="title" placeholder="" rows="1"></textarea>
                 </span>
             </div>
             <div class="row">
                 <span class="left">内容</span>
-                <span class="right" id="content"><textarea placeholder="" rows="5"></textarea></span>
+                <span class="right"><textarea  id="content" placeholder="" rows="5"></textarea></span>
             </div>
             <div class="row">
                 <span class="left">附件</span>
@@ -35,9 +35,8 @@
             <div class="row">
                 <span class="left">选择处理人</span>
                 <span class="right">
-                    <select id="leaders" multiple="multiple">
-                        <option>lishu</option>
-                    </select>
+                    <div id="leaders" >
+                    </div>
                 </span>
             </div>
         </div>
@@ -130,8 +129,11 @@ $(function() {
             if (data.ecode == 1000) {
                 var list = data.leader_list;
                 $.each(list, function (i) {
-                    var option = '<option value="' + list[i].user_name + '" id='+list[i].user_id+'>' + list[i].user_name + '</option>'
-                    $("#leaders").append(option);
+                    var item=' <div class="mui-input-row mui-checkbox">' +
+                        '<label>'+list[i].user_name+'</label>' +
+                        '<input name="leader" value="' + list[i].user_name +'" id='+list[i].user_id+' type="checkbox"  >' +
+                        '</div>'
+                    $("#leaders").append(item);
                 })
             }
         }
@@ -145,13 +147,23 @@ $(function() {
     $("#date").html(currentDate);
     $("#submit div").each(function () {
         $(this).click(function () {
-            var tijiao_kind,dailywork_id,worktitle,workcontent,createuserid,username,createdate,dailyworkattach_list,dailyworkuser_list;
+            var tijiao_kind,dailywork_id,worktitle,workcontent,createuserid,username,createdate;
+            var dailyworkattach_list=[],dailyworkuser_list=[];
             createuserid=user_id;
             username=user_name;
             createdate=currentDate;
-            dailyworkattach_list="";
             worktitle=$("#title").val();
             workcontent=$("#content").val();
+            $('input[name="leader"]:checked').each(function(){
+                var leader =
+                    {
+                        tousername:$(this).val(),
+                        touserid:$(this).attr("id"),
+                        dailywork_id:0,
+                        workuserid:0
+                    };
+                dailyworkuser_list.push(leader);
+            });
             if($(this).text()=='完成提交'){
                 tijiao_kind=2;
                 dailywork_id=0;
@@ -159,8 +171,11 @@ $(function() {
                 tijiao_kind=1;
                 dailywork_id=0;
             }
-            if(worktitle == null||workcontent==null){
+            if(worktitle == ""||workcontent==""){
                 mui.toast("请填写完整")
+                return;
+            }else if(dailyworkuser_list.length==0){
+                mui.toast("请选择审批人员")
                 return;
             }else {
                 var params = {
@@ -176,7 +191,7 @@ $(function() {
                 }
                 var data = JSON.stringify(params)
                 $.ajax({
-                    url: 'http://114.215.98.96:8011/ZxApi/m2_16.ashx',
+                    url: 'http://114.215.98.96:8011/ZxApi/m3_08.ashx',
                     type: "POST",
                     dataType: 'json',
                     data: data,

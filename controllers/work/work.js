@@ -85,4 +85,54 @@ module.exports = {
             }
         );
     },
+    detail: function (req, res) {
+        var type = req.query.type;
+        var data = {dailywork_id: req.query.id};
+        createRequest(res, data, "/ZxApi/m3_06.ashx", function () {
+            body = JSON.parse(body);
+            var work=body.dailywork_detail_info
+            var attach_list=work.dailyworkattach_list
+            var user_list=work.dailyworkuser_list
+            console.log(work)
+            console.log(attach_list)
+            console.log(user_list)
+            res.render('work/work-detail',
+                {
+                    title: '详情',
+                    type: type,
+                    work: work,
+                    attach_list: attach_list,
+                    user_list: user_list
+                }
+            );
+        });
+    },
+    todoWork: function (req, res) {
+        var data = {dailywork_list_kind: 3};
+        createRequest(res, data, "/ZxApi/m3_05.ashx", function () {
+            body = JSON.parse(body);
+            var dailywork_list=body.dailywork_list
+            console.log(dailywork_list)
+            res.render('work/todo-work',
+                {
+                    title: '待办流传',
+                    dailywork_list: dailywork_list
+                }
+            );
+        });
+    },
+    doneWork: function (req, res) {
+        var data = {dailywork_list_kind: 4};
+        createRequest(res, data, "/ZxApi/m3_05.ashx", function () {
+            body = JSON.parse(body);
+            var dailywork_list=body.dailywork_list
+            console.log(dailywork_list)
+            res.render('work/done-work',
+                {
+                    title: '已办流传',
+                    dailywork_list: dailywork_list
+                }
+            );
+        });
+    },
 }

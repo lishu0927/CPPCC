@@ -83,6 +83,7 @@
         color: #3b3b3b;
         text-indent: 20px;
         font-size: 13px;
+        min-height: 22px;
     }
     .item .bottom{
         font-size: 12px;
@@ -129,7 +130,7 @@
                         var list=data.dailywork_list
                         console.log(list)
                         $.each(list, function (i) {
-                            var item='<a class="item" href="/workDetail">' +
+                            var item='<a class="item" href="/workDetail?type=submit&id='+list[i].dailywork_id+'">' +
                                 '<span class="circle"></span>' +
                                 '<p class="anyou">'+list[i].worktitle+'</p>' +
                                 '<p class="bottom">' +
