@@ -3,7 +3,11 @@
 <%-include ../base/checkHead.ejs%>
 <body>
 <script>
-    var sSId=sessionStorage.getItem('user_id')
+    try{
+        var sSId=sessionStorage.getItem('user_id')
+    }catch(err){
+        var sSId=null
+    }
     try{
         var nId=window.native.getData('user_id')
     }catch(err){

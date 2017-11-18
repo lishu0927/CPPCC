@@ -6,6 +6,12 @@
     <%-include ../base/header.ejs%>
     <div class="wrap">
         <div class="proposal-content">
+            <%if(type==2){%>
+            <div class="row">
+                <span class="left">立案编号</span>
+                <span class="right"><input type="text" id="num" /></span>
+            </div>
+            <%}%>
             <div class="row">
                 <span class="left">案由</span>
                 <span class="right"><%=tian.anyou%></span>
@@ -61,13 +67,6 @@
         color: #3b3b3b;
         padding: 5px 10px;
     }
-    .wrap p{
-        color: #585757;
-        line-height: 24px;
-    }
-    .wrap p.text-right{
-        text-align: right;
-    }
     .proposal-content{
         border-bottom: 1px solid #adaaaa;
         margin-top: 10px;
@@ -90,6 +89,10 @@
         border-left: 1px solid #adaaaa;
         padding: 5px;
         min-height: 30px;
+    }
+    .proposal-content .row .right input{
+        margin: 0 !important;
+        text-indent: 10px;
     }
     .reject-content{
         margin-top: 20px;
@@ -127,7 +130,7 @@
     $(function() {
         var audit_jieguo;
         var tian_id="<%=tian.tian_id%>";
-        var tuihui;
+        var tuihui,tian_num;
         $("#submit div").each(function () {
             $(this).click(function () {
                 if($(this).text()=='退回'){
@@ -136,14 +139,17 @@
                         mui.toast("请填写退回理由")
                         return;
                     }
+                    tian_num="";
                     audit_jieguo=0;
                 }else if($(this).text()=='通过立案'){
                     tuihui="";
                     audit_jieguo=1;
+                    tian_num=$("#num").val();
                 }
                 var params = {
                     audit_jieguo: audit_jieguo,
                     tian_id: tian_id,
+                    tian_num:tian_num,
                     tuihui: tuihui
                 }
                 var data = JSON.stringify(params)
@@ -158,6 +164,8 @@
                     success: function (data) {
                         if(data.ecode==1000){
                             mui.toast('操作成功');
+                        }else{
+                            mui.toast('操作失败');
                         }
                     }
                 });

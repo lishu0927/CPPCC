@@ -153,10 +153,10 @@
                 success: function (data) {
                     if(data.ecode==1000){
                         $("#list-content").html("");
-                        console.log(data.num);
                         var list=data.tian_list
+                        console.log(list);
                         $.each(list, function (i) {
-                            var item='<a class="item" href="/proposalDetail'+detail_id+'?id='+list[i].tian_id +'&type=2">' +
+                            var item='<a class="item" href="/proposalDetail'+detail_id+'?id='+list[i].tian_id +'&type=2&zhuangtai='+list[i].zhuangtai+'">' +
                                 '<span class="circle"></span>' +
                                 '<p class="anyou">'+list[i].anyou+'</p>' +
                                 '<p class="bottom">' +
