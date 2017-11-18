@@ -85,24 +85,40 @@ module.exports = {
             }
         );
     },
-    detail: function (req, res) {
-        var type = req.query.type;
+    detail1: function (req, res) {
         var data = {dailywork_id: req.query.id};
         createRequest(res, data, "/ZxApi/m3_06.ashx", function () {
             body = JSON.parse(body);
             var work=body.dailywork_detail_info
             var attach_list=work.dailyworkattach_list
             var user_list=work.dailyworkuser_list
-            console.log(work)
-            console.log(attach_list)
-            console.log(user_list)
-            res.render('work/work-detail',
+            var leaders=JSON.stringify(user_list)
+            res.render('work/work-detail1',
                 {
                     title: '详情',
-                    type: type,
                     work: work,
                     attach_list: attach_list,
-                    user_list: user_list
+                    user_list: user_list,
+                    leaders:leaders
+                }
+            );
+        });
+    },
+    detail2: function (req, res) {
+        var data = {dailywork_id: req.query.id};
+        createRequest(res, data, "/ZxApi/m3_06.ashx", function () {
+            body = JSON.parse(body);
+            var work=body.dailywork_detail_info
+            var attach_list=work.dailyworkattach_list
+            var user_list=work.dailyworkuser_list
+            var leaders=JSON.stringify(user_list)
+            res.render('work/work-detail2',
+                {
+                    title: '详情',
+                    work: work,
+                    attach_list: attach_list,
+                    user_list: user_list,
+                    leaders:leaders
                 }
             );
         });
@@ -117,6 +133,25 @@ module.exports = {
                 {
                     title: '待办流传',
                     dailywork_list: dailywork_list
+                }
+            );
+        });
+    },
+    todoDetail:function (req, res) {
+        var data = {dailywork_id: req.query.id};
+        createRequest(res, data, "/ZxApi/m3_06.ashx", function () {
+            body = JSON.parse(body);
+            var work=body.dailywork_detail_info
+            var attach_list=work.dailyworkattach_list
+            var user_list=work.dailyworkuser_list
+            console.log(work)
+            console.log(attach_list)
+            res.render('work/todo-detail',
+                {
+                    title: '详情',
+                    work: work,
+                    attach_list: attach_list,
+                    user_list: user_list
                 }
             );
         });

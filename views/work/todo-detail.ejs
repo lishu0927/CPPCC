@@ -30,18 +30,7 @@
                 <span class="left">附件</span>
                 <span class="right"></span>
             </div>
-            <%if(type!="todo"){%>
-            <div class="row">
-                <span class="left">选择处理人</span>
-                <span class="right">
-                    <%for(var i=0;i<user_list.length;i++){%>
-                    <span><%=user_list[i].tousername%></span>
-                    <%}%>
-                </span>
-            </div>
-            <%}%>
         </div>
-        <%if(type=="todo"){%>
         <div class="submit-content">
             <div class="row">
                 <p class="desc">处理意见</p>
@@ -53,7 +42,6 @@
                 我要审批
             </div>
         </div>
-        <%}%>
     </div>
 </div>
 </body>
@@ -120,8 +108,9 @@
 </style>
 <script>
     $(function() {
+        var sSId=sessionStorage.getItem('user_id')
         var dailywork_id="<%=work.dailywork_id%>";
-        var touserid="<%=work.touserid%>";
+        var touserid=sSId;
         var suggestion;
         $("#submit").click(function () {
             suggestion=$("#suggestion").val();
@@ -146,6 +135,8 @@
                     success: function (data) {
                         if(data.ecode==1000){
                             mui.toast('审批成功');
+                        }else{
+                            mui.toast('审批失败');
                         }
                     }
                 });

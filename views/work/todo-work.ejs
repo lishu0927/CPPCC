@@ -6,7 +6,7 @@
     <%- include ../base/header.ejs %>
     <div class="wrap">
         <%for(var i = 0;i<dailywork_list.length;i++){ %>
-        <a class="item" href="/workDetail?type=todo&id=<%=dailywork_list[i].dailywork_id%>">
+        <a class="item" href="/todoDetail?id=<%=dailywork_list[i].dailywork_id%>">
             <span class="circle"></span>
             <p class="anyou"><%= dailywork_list[i].worktitle%></p>
             <p class="bottom">

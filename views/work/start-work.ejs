@@ -102,6 +102,7 @@
 </style>
 <script>
     var dailywork_list_kind;
+    var detail_type;
     $(".tab-item").each(function () {
         $(this).click(function () {
             $(this).addClass("active");
@@ -109,8 +110,10 @@
             var itemId=$(this).attr("id");
             if(itemId=='item1'){
                 dailywork_list_kind=1
+                detail_type=1
             }else if(itemId=='item2'){
                 dailywork_list_kind=2
+                detail_type=2
             }else{
                 return ;
             }
@@ -130,7 +133,7 @@
                         var list=data.dailywork_list
                         console.log(list)
                         $.each(list, function (i) {
-                            var item='<a class="item" href="/workDetail?type=submit&id='+list[i].dailywork_id+'">' +
+                            var item='<a class="item" href="/workDetail'+detail_type+'?id='+list[i].dailywork_id+'">' +
                                 '<span class="circle"></span>' +
                                 '<p class="anyou">'+list[i].worktitle+'</p>' +
                                 '<p class="bottom">' +

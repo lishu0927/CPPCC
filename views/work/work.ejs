@@ -2,6 +2,24 @@
 <html>
 <%-include ../base/checkHead.ejs%>
 <body>
+<script>
+    try{
+        var sSId=sessionStorage.getItem('user_id')
+    }catch(err){
+        var sSId=null
+    }
+    try{
+        var nId=window.native.getData('user_id')
+    }catch(err){
+        var nId=null
+        //找不到原生发方法，可能是环境不是在android应用上打开的，或者调用方法不对
+    }
+    if(sSId != null || nId != null){
+
+    }else{
+        location.href="/login"
+    }
+</script>
 <div class="container">
     <%-include ../base/header-search.ejs%>
     <%-include ../base/footer-nav.ejs%>
