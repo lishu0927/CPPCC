@@ -6,13 +6,13 @@
     <%-include ../base/header.ejs%>
     <div class="wrap">
         <div class="row">
-            <input type="text" placeholder="请输入原始密码"/>
+            <input type="text" placeholder="请输入原始密码" id="pwd"/>
         </div>
         <div class="row">
-            <input type="text" placeholder="请输入新密码"/>
+            <input type="text" placeholder="请输入新密码" id="newpwd"/>
         </div>
         <div class="row">
-            <input type="text" placeholder="请再次输入新密码"/>
+            <input type="text" placeholder="请再次输入新密码" id="reppwd"/>
         </div>
         <div class="confirm">
             <span>确认修改</span>
@@ -48,3 +48,37 @@
     }
 </style>
 </html>
+<script>
+    $('.confirm').click(function () {
+        var psw = $('#pwd').val();
+        var newpsw = $('#newpwd').val();
+        var reppwd = $('#reppwd').val();
+        if(newpsw!=reppwd){
+            alert('新密码两次输入不相同');
+            return;
+        }
+        var params = {
+            manager_id: sessionStorage.getItem('manager_id'),
+            old_password: psw,
+            new_password: newpsw
+        }
+        var data = JSON.stringify(params)
+        $.ajax({
+            url: 'http://114.215.98.96:8011/ZxApi/m4_01.ashx',
+            type: "POST",
+            dataType: 'json',
+            data: data,
+            error: function (request) {      // 设置表单提交出错
+                mui.toast("系统错误，返回状态码为：" + request.status);
+            },
+            success: function (data) {
+                if(data.ecode=1000){
+                    alert('修改成功');
+                    window.history.back();
+                }else{
+                    alert('修改失败');
+                }
+            }
+        });
+    });
+</script>

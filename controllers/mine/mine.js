@@ -8,6 +8,20 @@ module.exports = {
                 type: 4
             }
         );
+    },
+    msg: function (req, res) {
+        var data = {startid: -1};
+        createRequest(res, data, "/ZxApi/m4_03.ashx", function () {
+            body = JSON.parse(body);
+            var list = body.message_list;
+            res.render('mine/mine-msg',
+                {
+                    title: '留言反馈',
+                    type: 1,
+                    result: list
+                }
+            );
+        });
     }
 }
 

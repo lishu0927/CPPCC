@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-<%-include ../base/checkHead.ejs%>
+<%- include ../base/checkHead.ejs %>
 <body>
 <div class="container">
-    <%-include ../base/header.ejs%>
+    <%- include ../base/header.ejs %>
     <div class="wrap">
         <div class="request-content">
             <div class="row">
@@ -21,40 +21,47 @@
         <div class="msg-content">
             <p class="title">【留言内容选登】</p>
             <div class="item">
+                <% for(var i = 0;i < result.length;i++){ %>
                 <p class="req">
                     <span class="left">问：</span>
-                    <span>北京市科学技术奖什么时候申报?(2017/09/19)</span>
+                    <span><%=result[i].messagecontent%>（<%=result[i].createtime%>）</span>
                 </p>
                 <p class="res">
                     <span class="left">答：</span>
-                    <span>北京市科学技术奖什么时候申报?(2017/09/19)</span>
+                    <span><%=result[i].messageanswer%>（<%=result[i].createtime%>）</span>
                 </p>
+                <% } %>
             </div>
         </div>
     </div>
 </div>
 </body>
 <style>
-    .container{
+    .container {
         padding: 42px 0 0 0;
     }
-    .request-content{
+
+    .request-content {
         padding: 15px;
     }
-    .request-content .row .title{
+
+    .request-content .row .title {
         color: #585757;
         font-size: 15px;
         padding: 10px;
     }
-    .request-content .row textarea{
+
+    .request-content .row textarea {
         width: 100%;
         border: 1px solid #adaaaa;
         font-size: 14px;
     }
-    .confirm{
+
+    .confirm {
         text-align: center;
     }
-    .confirm span{
+
+    .confirm span {
         background: #e1edfd;
         border-radius: 3px;
         padding: 5px 30px;
@@ -64,19 +71,23 @@
         font-size: 14px;
         border: 1px solid #0071bd;
     }
-    .msg-content{
+
+    .msg-content {
         background: #e1edfd;
         padding: 10px;
     }
-    .msg-content .title{
+
+    .msg-content .title {
         color: #fa1414;
         text-align: center;
         margin-bottom: 10px !important;
     }
-    .msg-content .item .req .left{
+
+    .msg-content .item .req .left {
         color: #fa1414;
     }
-    .msg-content .item .res .left{
+
+    .msg-content .item .res .left {
         color: #0071bd;
     }
 

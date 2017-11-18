@@ -6,10 +6,10 @@ router.get('/', function (req, res) {
     res.render('index', {title: '政协要闻'});
 });
 router.get('/members', function (req, res) {
-    res.render('members/members', {title: '政协委员',keyword:'', type: 2});
+    res.render('members/members', {title: '政协委员', keyword: '', type: 2});
 });
 router.get('/work', function (req, res) {
-    res.render('work/work', {title: '政协工作',keyword:'', type: 3});
+    res.render('work/work', {title: '政协工作', keyword: '', type: 3});
 });
 router.get('/login', function (req, res) {
     res.render('login/login', {title: '登录'});
@@ -36,13 +36,10 @@ router.get('/workFlow', function (req, res) {
     res.render('work/work-flow', {title: '文件流传'});
 });
 router.get('/startWork', function (req, res) {
-    res.render('work/start-work', {title: '发起流传',keyword: '',search_type:'work'});
+    res.render('work/start-work', {title: '发起流传', keyword: '', search_type: 'work'});
 });
 router.get('/minePwd', function (req, res) {
     res.render('mine/mine-pwd', {title: '修改密码'});
-});
-router.get('/mineMsg', function (req, res) {
-    res.render('mine/mine-msg', {title: '留言反馈'});
 });
 
 module.exports = router;
