@@ -5,6 +5,55 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <div class="wrap">
+        <div class="proposal-content">
+            <div class="row">
+                <span class="left">编号</span>
+                <span class="right" id="num"><%=work.worknumber%></span>
+            </div>
+            <div class="row">
+                <span class="left">发起人</span>
+                <span class="right" id="name"><%=work.username%></span>
+            </div>
+            <div class="row">
+                <span class="left">发起日期</span>
+                <span class="right" id="date"><%=work.createdate%></span>
+            </div>
+            <div class="row">
+                <span class="left">文件标题</span>
+                <span class="right" ><%=work.worktitle%></span>
+            </div>
+            <div class="row">
+                <span class="left">内容</span>
+                <span class="right"><%=work.workcontent%></span>
+            </div>
+            <div class="row">
+                <span class="left">附件</span>
+                <span class="right"></span>
+            </div>
+            <%if(type!="todo"){%>
+            <div class="row">
+                <span class="left">选择处理人</span>
+                <span class="right">
+                    <%for(var i=0;i<user_list.length;i++){%>
+                    <span><%=user_list[i].tousername%></span>
+                    <%}%>
+                </span>
+            </div>
+            <%}%>
+        </div>
+        <%if(type=="todo"){%>
+        <div class="submit-content">
+            <div class="row">
+                <p class="desc">处理意见</p>
+                <textarea placeholder="" rows="5" id="suggestion"></textarea>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="content" id="submit">
+                我要审批
+            </div>
+        </div>
+        <%}%>
     </div>
 </div>
 </body>
@@ -13,28 +62,95 @@
         padding: 42px 0 0 0;
     }
     .wrap{
-        text-align: center;
-    }
-    .wrap .title{
-        background: #b8cae2;
-        padding: 10px;
-        min-height: 35px;
-        line-height: 26px;
-        color: #0d0d0d;
-        text-align: center;
-    }
-    .wrap img{
-        width: 50%;
-        margin: 20px 0 10px 0;
-    }
-    .wrap p{
         color: #3b3b3b;
-        line-height: 24px;
-        text-align: left;
-        text-indent: 20px;
-        font-size: 13px;
-        padding: 0 20px;
+        padding: 5px 10px 60px 10px;
     }
-
+    .proposal-content{
+        border-bottom: 1px solid #adaaaa;
+        margin-top: 10px;
+    }
+    .proposal-content .row{
+        display: flex;
+        font-size: 14px;
+        color: #585757;
+        line-height: 30px;
+        align-items: center;
+        border: 1px solid #adaaaa;
+        border-bottom: 0;
+    }
+    .proposal-content .row .left{
+        width: 110px;
+        text-align: center;
+    }
+    .proposal-content .row .right{
+        flex: 1;
+        border-left: 1px solid #adaaaa;
+        padding: 5px;
+        min-height: 30px;
+    }
+    .proposal-content .row .right textarea{
+        margin: 0 ;
+    }
+    .submit-content{
+        margin-top: 20px;
+    }
+    .submit-content .row .desc{
+        color: #0071bd;
+        letter-spacing: 2px;
+    }
+    .submit-content .row textarea{
+        border: 1px solid #00a0e9;
+        padding: 5px 10px;
+    }
+    .bottom{
+        position: fixed;
+        height: 50px;
+        width: 100%;
+        bottom: 0;
+        right: 0;
+        background: #e1edfd;
+        border: 1px solid #00a0e9;
+    }
+    .bottom .content{
+        display: flex;
+        justify-content: center;
+        height: 50px;
+        line-height: 50px;
+    }
 </style>
+<script>
+    $(function() {
+        var dailywork_id="<%=work.dailywork_id%>";
+        var touserid="<%=work.touserid%>";
+        var suggestion;
+        $("#submit").click(function () {
+            suggestion=$("#suggestion").val();
+            if(suggestion == null||suggestion==""){
+                mui.toast("请填写处理意见")
+                return;
+            }else {
+                var params = {
+                    dailywork_id: dailywork_id,
+                    touserid: touserid,
+                    suggestion: suggestion
+                }
+                var data = JSON.stringify(params)
+                $.ajax({
+                    url: 'http://114.215.98.96:8011/ZxApi/m3_09.ashx',
+                    type: "POST",
+                    dataType: 'json',
+                    data: data,
+                    error: function (request) {      // 设置表单提交出错
+                        mui.toast("系统错误，返回状态码为：" + request.status);
+                    },
+                    success: function (data) {
+                        if(data.ecode==1000){
+                            mui.toast('审批成功');
+                        }
+                    }
+                });
+            }
+        })
+    })
+</script>
 </html>
