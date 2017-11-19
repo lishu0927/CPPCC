@@ -12,3 +12,9 @@
     <script type='text/javascript' src='/js/mui.min.js'></script>
     <script type='text/javascript' src='/js/jquery.form.js'></script>
 </head>
+<script>
+    var sSId=sessionStorage.getItem('user_id')
+    if(sSId == null || nId == " "){
+        location.href="/login"
+    }
+</script>

@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html>
 <script>
-    try{
-        var sSId=sessionStorage.getItem('user_id')
-    }catch(err){
-        var sSId=null
-    }
+    var sSId=sessionStorage.getItem('user_id')
     try{
         var nId=window.native.getData('user_id')
-    }catch(err){
+    }catch(e) {
         var nId=null
         //找不到原生发方法，可能是环境不是在android应用上打开的，或者调用方法不对
     }
-    if(sSId != null || nId != null){
-        location.href="/news"
-    }else{
+    if((sSId == null || sSId == "") && (nId == null || nId == "")){
         location.href="/login"
+    }else{
+        location.href="/news"
     }
 
 </script>
