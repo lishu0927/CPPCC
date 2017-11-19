@@ -78,6 +78,13 @@ module.exports = {
             );
         });
     },
+    startWork: function (req, res) {
+        res.render('work/start-work',
+            {
+                title: '发起流传',
+            }
+        );
+    },
     addWork: function (req, res) {
         res.render('work/add-work',
             {
@@ -112,6 +119,7 @@ module.exports = {
             var attach_list=work.dailyworkattach_list
             var user_list=work.dailyworkuser_list
             var leaders=JSON.stringify(user_list)
+            console.log(work)
             res.render('work/work-detail2',
                 {
                     title: '详情',
@@ -124,7 +132,8 @@ module.exports = {
         });
     },
     todoWork: function (req, res) {
-        var data = {dailywork_list_kind: 3};
+        var user_id=req.query.id;
+        var data = {dailywork_list_kind: 3,user_id:user_id};
         createRequest(res, data, "/ZxApi/m3_05.ashx", function () {
             body = JSON.parse(body);
             var dailywork_list=body.dailywork_list
@@ -157,7 +166,8 @@ module.exports = {
         });
     },
     doneWork: function (req, res) {
-        var data = {dailywork_list_kind: 4};
+        var user_id=req.query.id;
+        var data = {dailywork_list_kind: 4,user_id:user_id};
         createRequest(res, data, "/ZxApi/m3_05.ashx", function () {
             body = JSON.parse(body);
             var dailywork_list=body.dailywork_list
@@ -170,4 +180,22 @@ module.exports = {
             );
         });
     },
+    searchWork: function (req, res) {
+        var data = {dailywork_list_kind: 4};
+        var keyword=""
+        var search_type="work"
+        createRequest(res, data, "/ZxApi/m3_05.ashx", function () {
+            body = JSON.parse(body);
+            var dailywork_list=body.dailywork_list
+            console.log(dailywork_list)
+            res.render('work/search-work',
+                {
+                    title: '查询流传',
+                    keyword:keyword,
+                    search_type:search_type,
+                    dailywork_list: dailywork_list
+                }
+            );
+        });
+    }
 }

@@ -6,10 +6,13 @@
     <%-include ../base/header.ejs%>
     <div class="wrap">
         <%for(var i=0 ;i<tian_list.length;i++){%>
-        <a class="item" href="/proposalDetail3?id=<%=tian_list[i].tian_id%>">
+        <a class="item" href="/proposalDetail3?type=1&id=<%=tian_list[i].tian_id%>">
             <span class="circle"></span>
             <p class="anyou"><%=tian_list[i].anyou%></p>
-            <p class="down"><span>下载</span></p>
+            <p class="bottom">
+                <span class="left"><%=tian_list[i].creattime.split(" ")[0]%></span>
+                <span class="right download" data-tian-id="<%=tian_list[i].tian_id%>">下载</span>
+            </p>
         </a>
         <%}%>
     </div>
@@ -39,11 +42,48 @@
         text-indent: 20px;
         font-size: 13px;
     }
-    .item .down{
+    .item .bottom{
         font-size: 12px;
         color: #0071bd;
         text-align: right;
+        overflow-y: auto;
+        padding-top: 3px;
     }
-
+    .item .bottom .left{
+        float: left;
+        padding: 0 10px 0 0;
+    }
+    .item .bottom .right{
+        float: right;
+        padding: 0 5px;
+    }
 </style>
+<script>
+    $(".download").each(function () {
+        $(this).click(function (e) {
+            e.preventDefault()
+            var params = {
+                tian_kind:4,
+                tian_id:$(this).attr("data-tian-id")
+            }
+            var data = JSON.stringify(params)
+            $.ajax({  //取分组
+                url: 'http://114.215.98.96:8011/ZxApi/m2_15.ashx',
+                type: "POST",
+                dataType: 'json',
+                data: data,
+                error: function (request) {      // 设置表单提交出错
+                    mui.toast("系统错误");
+                },
+                success: function (data) {
+                    if (data.ecode == 1000) {
+                        window.open(data.download_url)
+                        mui.toast("正在下载")
+                    }
+                }
+            });
+        })
+
+    })
+</script>
 </html>

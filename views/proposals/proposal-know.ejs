@@ -5,18 +5,13 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <div class="wrap">
-        <a class="item" href="/knowDetail">
+        <%for(var i=0 ;i<article_list.length;i++){%>
+        <a class="item" href="/knowDetail?id=<%=article_list[i].article_id%>">
             <span class="circle"></span>
-            <p class="anyou">顺义区政协顺义区政协顺义区政协
-                顺义区政协顺义区政协顺义区政协顺义区政协顺义区政协</p>
-            <p class="time">2017/04/17</p>
+            <p class="anyou"><%=article_list[i].title%></p>
+            <p class="time"><%=article_list[i].add_time.split(' ')[0]%></p>
         </a>
-        <a class="item" href="/knowDetail">
-            <span class="circle"></span>
-            <p class="anyou">顺义区政协顺义区政协顺义区政协
-                顺义区政协顺义区政协顺义区政协顺义区政协顺义区政协顺义区政协</p>
-            <p class="time">2017/04/17</p>
-        </a>
+        <%}%>
     </div>
 </div>
 </body>

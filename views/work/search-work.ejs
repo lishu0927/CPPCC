@@ -1,27 +1,42 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
+<link rel="stylesheet" type="text/css" href="/css/mui.picker.min.css">
+<script type='text/javascript' src='/js/mui.picker.min.js'></script>
 <body>
 <div class="container">
     <%-include ../base/header.ejs%>
-    <a class="header-right" href="/proposalCheck">添加</a>
+    <a class="header-right" href="/addWork">添加</a>
     <div class="wrap">
         <div class="proposals-search">
-            <%-include ../base/search-box.ejs%>
+            <div class="search-box">
+                <input type="text" placeholder="请输入您需要的内容" id="info"/>
+                <span class="header-icon-right" id="search">
+                    <img src="/images/icons/search.png">
+                </span>
+            </div>
         </div>
         <div class="states-content">
             <div class="list-tab">
-                <span class="tab-item active" id="item1">起始日期</span>
-                <span class="tab-item" id="item2">结束日期</span>
+                <button id='date1' class="btn mui-btn"
+                        data-options='{
+                        "type":"date",
+                        "beginYear":1900,
+                        "endYear":2020}'
+                ></button>
+                <button id='date2' class="btn mui-btn"
+                        data-options='{
+                        "type":"date",
+                        "beginYear":1900,
+                        "endYear":2020}'
+                ></button>
             </div>
         </div>
-        <div class="list-content">
-            <a class="item" href="/knowDetail">
-                <span class="circle"></span>
-                <p class="anyou">顺义区政协顺义区政协顺义区政协
-                    顺义区政协顺义区政协顺义区政协顺义区政协顺义区政协</p>
-                <p class="time">2017/04/17</p>
-            </a>
+        <div class="list-content" id="list-content">
+        </div>
+        <div class="empty" id="empty-content">
+            <img src="/images/search-empty.png">
+            <p>没有找到您搜索的内容</p>
         </div>
     </div>
 </div>
@@ -47,14 +62,61 @@
         position: fixed;
         top: 42px;
         width: 100%;
-        z-index: 100000;
+        z-index: 100;
+    }
+    .search-box {
+        position: relative;
+        box-sizing: border-box;
+        width: 100%;
+        height: 34px;
+        padding: 0 50px 0 0;
+        border: 1px solid #00a0e9;
+        background: #fff;
+    }
+    .search-box input {
+        height: 100%;
+        text-indent: 10px;
+        display: inline-block;
+        width: 100%;
+        border: 0;
+        outline: none;
+        padding: 0;
+        background: none;
+        margin: 0;
+        font-size: 14px;
+    }
+    .search-box span {
+        position: absolute;
+        right: 0;
+        top: 4px;
+        width: 50px;
+        height: 24px;
+        border-left: 1px solid #00a0e9;
+        text-align: center;
+    }
+    .search-box span img {
+        height: 18px;
+        margin-top: 3px;
     }
     .states-content{
         position: fixed;
         top:96px;
         width: 100%;
+        z-index: 100;
+        padding-bottom: 5px;
+        background: #fff;
+    }
+    .states-content .list-tab{
+        display: flex;
+        border: 1px solid #0071bd;
         height: 40px;
-        z-index: 100000;
+    }
+    .list-tab button {
+        flex: 1;
+        border: 0;
+    }
+    .list-tab button:first-child{
+        border-right: 1px solid #0071bd;
     }
     .item{
         padding: 10px;
@@ -75,12 +137,109 @@
         color: #3b3b3b;
         text-indent: 20px;
         font-size: 13px;
+        min-height: 22px;
     }
-    .item .time{
+    .item .bottom{
         font-size: 12px;
         color: #0071bd;
+        text-align: right;
+        overflow-y: auto;
+        padding-top: 3px;
     }
-
-
+    .item .bottom .left{
+        float: left;
+        padding: 0 10px 0 0;
+    }
+    .item .bottom .right{
+        float: right;
+    }
+    .empty{
+        position: absolute;
+        top: 50%;
+        transform: translate(0,-50%);
+        text-align: center;
+        display: none;
+    }
+    .empty img{
+        width: 40%;
+        margin-bottom: 3%;
+    }
+    .empty p{
+        font-size: 17px;
+        color: #9a9898;
+    }
 </style>
+<script>
+    (function ($) {
+        $.init();
+        var btns = $('.btn');
+        btns.each(function(i, btn) {
+            var today=new Date()
+            btn.innerText=today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            btn.addEventListener('tap', function() {
+                var self=this
+                var optionsJson = this.getAttribute('data-options') || '{}';
+                var options = JSON.parse(optionsJson);
+                var id = this.getAttribute('id');
+                var picker = new $.DtPicker(options);
+                picker.show(function(rs) {
+                    self.innerText = rs.text;
+                    picker.dispose();
+                });
+            }, false);
+        });
+    })(mui);
+    var keyword,start_date,end_date;
+    $("#search").click(function () {
+        keyword=$("#info").val();
+        start_date=$("#date1").text();
+        end_date=$("#date2").text();
+        if(start_date>end_date){
+            mui.toast("结束日期不能小于起始日期")
+            return ;
+        }
+        var params = {
+            keyword: keyword,
+            start_date: start_date,
+            end_date: end_date
+        }
+        var data = JSON.stringify(params)
+        $.ajax({
+            url: 'http://114.215.98.96:8011/ZxApi/m3_10.ashx',
+            type: "POST",
+            dataType: 'json',
+            data: data,
+            error: function (request) {      // 设置表单提交出错
+                mui.toast("系统错误，返回状态码为：" + request.status);
+            },
+            success: function (data) {
+                if(data.ecode==3007){
+                    $("#list-content").html("");
+                    $("#empty-content").css("display","block");
+                }else if(data.ecode==1000){
+                    $("#empty-content").css("display","none");
+                    $("#list-content").html("");
+                    var list=data.dailywork_list
+                    console.log(list)
+                    $.each(list, function (i) {
+                        var item='<a class="item" href="/workDetail?id='+list[i].dailywork_id+'">' +
+                            '<span class="circle"></span>' +
+                            '<p class="anyou">'+list[i].worktitle+'</p>' +
+                            '<p class="bottom">' +
+                            '<span class="left">'+list[i].worknumber+'</span>' +
+                            '<span class="left">'+list[i].username+'</span>' +
+                            '<span class="left">'+ list[i].createdate.split(" ")[0] +'</span>' +
+                            '<span class="right">'+list[i].state+'</span>' +
+                            '</p>' +
+                            '</a>'
+                        $("#list-content").append(item);
+                    })
+                }else {
+                    mui.toast("查询失败")
+                }
+            }
+        });
+    })
+
+</script>
 </html>

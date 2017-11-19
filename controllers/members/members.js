@@ -24,7 +24,6 @@ module.exports = {
         var data = {keyword: keyword};
         createRequest(res, data, "/ZxApi/m2_02.ashx", function () {
             body = JSON.parse(body);
-            console.log(keyword);
             var group_list = body.group_list
             res.render('members/members-search',
                 {
@@ -56,7 +55,6 @@ module.exports = {
         createRequest(res, data, "/ZxApi/m2_01.ashx", function () {
             body = JSON.parse(body);
             var group_list = body.group_list
-            console.log(group_list)
             res.render('members/members-edit',
                 {
                     title: '编辑信息',
@@ -80,9 +78,6 @@ module.exports = {
         createRequest(res, data, "/ZxApi/m2_03.ashx", function () {
             body = JSON.parse(body);
             var member = body.user_info
-            var name = body.user_info.user_name
-            console.log(member);
-            console.log(name);
             res.render('members/edit-member',
                 {
                     title: "编辑成员信息",

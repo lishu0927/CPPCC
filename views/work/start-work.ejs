@@ -103,6 +103,7 @@
 <script>
     var dailywork_list_kind;
     var detail_type;
+    var user_id=sessionStorage.getItem("user_id")
     $(".tab-item").each(function () {
         $(this).click(function () {
             $(this).addClass("active");
@@ -117,7 +118,10 @@
             }else{
                 return ;
             }
-            var params = {dailywork_list_kind:dailywork_list_kind}
+            var params = {
+                dailywork_list_kind:dailywork_list_kind,
+                user_id:user_id
+            }
             var data = JSON.stringify(params)
             $.ajax({
                 url: 'http://114.215.98.96:8011/ZxApi/m3_05.ashx',

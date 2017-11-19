@@ -13,19 +13,19 @@
                 </a>
             </li>
             <li>
-                <a href="/todoWork">
+                <a href="/todoWork" id="todo">
                     <img src="images/icons/flow2.png">
                     <span>待办流传</span>
                 </a>
             </li>
             <li>
-                <a href="/doneWork">
+                <a href="/doneWork" id="done">
                     <img src="images/icons/flow3.png">
                     <span>已办流传</span>
                 </a>
             </li>
             <li>
-                <a href="javascript:;">
+                <a href="/searchWork">
                     <img src="images/icons/flow4.png">
                     <span>查询流传</span>
                 </a>
@@ -64,4 +64,11 @@
     }
 
 </style>
+<script>
+    $(function () {
+        var user_id=sessionStorage.getItem("user_id");
+        $("#todo").attr("href","/todoWork?id="+user_id);
+        $("#done").attr("href","/doneWork?id="+user_id);
+    })
+</script>
 </html>

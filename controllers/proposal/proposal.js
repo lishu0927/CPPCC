@@ -22,7 +22,6 @@ module.exports = {
         createRequest(res, data, "/ZxApi/m2_12.ashx", function () {
             body = JSON.parse(body);
             var tian_list=body.tian_list
-            console.log(tian_list)
             res.render('proposals/proposal-manage',
                 {
                     title: '提案管理',
@@ -39,7 +38,6 @@ module.exports = {
         var data = {keyword: keyword};
         createRequest(res, data, "/ZxApi/m2_17.ashx", function () {
             body = JSON.parse(body);
-            console.log(body);
             var tian_list = body.tian_list
             res.render('proposals/proposal-search',
                 {
@@ -57,7 +55,6 @@ module.exports = {
         createRequest(res, data, "/ZxApi/m2_13.ashx", function () {
             body = JSON.parse(body);
             var tian_detail_info=body.tian_detail_info
-            console.log(tian_detail_info)
             res.render('proposals/proposal-detail1',
                 {
                     title: '提案提交',
@@ -73,7 +70,6 @@ module.exports = {
         createRequest(res, data, "/ZxApi/m2_13.ashx", function () {
             body = JSON.parse(body);
             var tian_detail_info=body.tian_detail_info
-            console.log(tian_detail_info)
             res.render('proposals/proposal-detail2',
                 {
                     title: '提案详情',
@@ -93,8 +89,6 @@ module.exports = {
                 body = JSON.parse(body);
                 var confirm=body.tian_confirm_info
                 var repeat=body.tian_repeat_info
-                console.log(confirm)
-                console.log(repeat)
                 res.render('proposals/proposal-detail3',
                     {
                         title: '提案详情',
@@ -109,7 +103,6 @@ module.exports = {
             createRequest(res, data, "/ZxApi/m2_13.ashx", function () {
                 body = JSON.parse(body);
                 var tian_detail_info=body.tian_detail_info
-                console.log(tian_detail_info)
                 res.render('proposals/proposal-detail3',
                     {
                         title: '提案详情',
@@ -127,7 +120,6 @@ module.exports = {
         createRequest(res, data, "/ZxApi/m2_13.ashx", function () {
             body = JSON.parse(body);
             var tian_detail_info=body.tian_detail_info
-            console.log(tian_detail_info)
             res.render('proposals/proposal-detail4',
                 {
                     title: '提案详情',
@@ -147,7 +139,6 @@ module.exports = {
             createRequest(res, data, "/ZxApi/m2_13.ashx", function () {
                 body = JSON.parse(body);
                 var tian_detail_info=body.tian_detail_info
-                console.log(tian_detail_info)
                 res.render('proposals/proposal-detail5',
                     {
                         title: '提案详情',
@@ -162,8 +153,6 @@ module.exports = {
                 body = JSON.parse(body);
                 var confirm=body.tian_confirm_info
                 var repeat=body.tian_repeat_info
-                console.log(confirm)
-                console.log(repeat)
                 res.render('proposals/proposal-detail5-2',
                     {
                         title: '提案详情',
@@ -174,7 +163,6 @@ module.exports = {
                 );
             });
         }
-
     },
     checkDetail:function (req, res) {
         var tian_id = req.query.id;
@@ -184,8 +172,6 @@ module.exports = {
             body = JSON.parse(body);
             var confirm=body.tian_confirm_info
             var repeat=body.tian_repeat_info
-            console.log(confirm)
-            console.log(repeat)
             res.render('proposals/proposal-detail5',
                 {
                     title: '提案详情',
@@ -202,7 +188,6 @@ module.exports = {
         createRequest(res, data, "/ZxApi/m2_13.ashx", function () {
             body = JSON.parse(body);
             var tian_detail_info=body.tian_detail_info
-            console.log(tian_detail_info)
             res.render('proposals/submit2-proposal',
                 {
                     title: '提案提交',
@@ -227,7 +212,6 @@ module.exports = {
         createRequest(res, data, "/ZxApi/m2_12.ashx", function () {
             body = JSON.parse(body);
             var tian_list=body.tian_list
-            console.log(tian_list)
             res.render('proposals/proposal-publicity',
                 {
                     title: '提案公示',
@@ -241,7 +225,6 @@ module.exports = {
         createRequest(res, data, "/ZxApi/m2_12.ashx", function () {
             body = JSON.parse(body);
             var tian_list=body.tian_list
-            console.log(tian_list)
             res.render('proposals/proposal-honor',
                 {
                     title: '提案表彰',
@@ -256,10 +239,9 @@ module.exports = {
         createRequest(res, data, "/ZxApi/m2_13.ashx", function () {
             body = JSON.parse(body);
             var tian_detail_info=body.tian_detail_info
-            console.log(tian_detail_info)
             res.render('proposals/honor-detail',
                 {
-                    title: '提案详情',
+                    title: '详情',
                     tian:tian_detail_info
                 }
             );
@@ -270,7 +252,6 @@ module.exports = {
         createRequest(res, data, "/ZxApi/m2_21.ashx", function () {
             body = JSON.parse(body);
             var article_list=body.article_list
-            console.log(body)
             res.render('proposals/proposal-know',
                 {
                     title: '提案知识',
@@ -280,16 +261,14 @@ module.exports = {
         });
     },
     knowDetail:function (req, res) {
-        var tian_id = req.query.id;
-        var data = {tian_kind:5,tian_id:tian_id};
-        createRequest(res, data, "/ZxApi/m2_13.ashx", function () {
+        var article_id = req.query.id;
+        var data = {article_id:article_id};
+        createRequest(res, data, "/ZxApi/m2_22.ashx", function () {
             body = JSON.parse(body);
-            var tian_detail_info=body.tian_detail_info
-            console.log(tian_detail_info)
-            res.render('proposals/proposal-detail5',
+            res.render('proposals/know-detail',
                 {
-                    title: '提案详情',
-                    tian:tian_detail_info
+                    title: '详情',
+                    article:body
                 }
             );
         });

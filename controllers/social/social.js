@@ -83,7 +83,6 @@ module.exports = {
         createRequest(res, data, "/ZxApi/m2_26.ashx", function () {
             body = JSON.parse(body);
             var sqmy_info=body.sqmy_info
-            console.log(sqmy_info)
             res.render('social/selected-detail',
                 {
                     title: '信息选登',
@@ -97,7 +96,6 @@ module.exports = {
         createRequest(res, data, "/ZxApi/m2_23.ashx", function () {
             body = JSON.parse(body);
             var sqmy_list=body.sqmy_list
-            console.log(sqmy_list)
             res.render('social/social-fine',
                 {
                     title: '优秀信息',
@@ -113,7 +111,6 @@ module.exports = {
         createRequest(res, data, "/ZxApi/m2_26.ashx", function () {
             body = JSON.parse(body);
             var sqmy_info=body.sqmy_info
-            console.log(sqmy_info)
             res.render('social/fine-detail',
                 {
                     title: '优秀信息',

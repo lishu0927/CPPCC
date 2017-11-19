@@ -5,7 +5,6 @@ module.exports = {
         var keyword = req.query.keyword||'';
         var data = {keyword: keyword};
         createRequest(res,data,"/ZxApi/m1_04.ashx",function () {
-            console.log(body);
             body = JSON.parse(body);
             var group_list=body.group_list
             var tian_list=body.tian_list

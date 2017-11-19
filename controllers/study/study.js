@@ -6,7 +6,6 @@ module.exports = {
         createRequest(res, data, "/ZxApi/m2_21.ashx", function () {
             body = JSON.parse(body);
             var article_list=body.article_list
-            console.log(body)
             res.render('study/study',
                 {
                     title: '学习园地',
@@ -20,7 +19,6 @@ module.exports = {
         var data = {article_id:article_id};
         createRequest(res, data, "/ZxApi/m2_22.ashx", function () {
             body = JSON.parse(body);
-            console.log(body)
             res.render('study/study-detail',
                 {
                     title: '学习园地',
