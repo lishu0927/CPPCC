@@ -5,13 +5,14 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <div class="wrap">
+        <a href="" download id="download" style="display: none">下载</a>
         <%for(var i=0 ;i<tian_list.length;i++){%>
         <a class="item" href="/proposalDetail3?type=1&id=<%=tian_list[i].tian_id%>">
             <span class="circle"></span>
             <p class="anyou"><%=tian_list[i].anyou%></p>
             <p class="bottom">
                 <span class="left"><%=tian_list[i].creattime.split(" ")[0]%></span>
-                <span class="right download" data-tian-id="<%=tian_list[i].tian_id%>">下载</span>
+                <span class="right download"  data-tian-id="<%=tian_list[i].tian_id%>">下载</span>
             </p>
         </a>
         <%}%>
@@ -59,6 +60,10 @@
     }
 </style>
 <script>
+    function down(e) {
+        e.preventDefault();
+        alert(12)
+    }
     $(".download").each(function () {
         $(this).click(function (e) {
             e.preventDefault()
@@ -77,7 +82,8 @@
                 },
                 success: function (data) {
                     if (data.ecode == 1000) {
-                        window.open(data.download_url)
+                        $("#download").attr("href",data.download_url)
+                        $("#download")[0].click()
                         mui.toast("正在下载")
                     }
                 }

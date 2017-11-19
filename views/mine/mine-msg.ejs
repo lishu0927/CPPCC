@@ -8,11 +8,11 @@
         <div class="request-content">
             <div class="row">
                 <p class="title">咨询标题</p>
-                <textarea placeholder="咨询标题" rows="1"></textarea>
+                <textarea id="title" placeholder="咨询标题" rows="1"></textarea>
             </div>
             <div class="row">
                 <p class="title">咨询内容</p>
-                <textarea placeholder="咨询内容..." rows="3"></textarea>
+                <textarea id="content" placeholder="咨询内容..." rows="3"></textarea>
             </div>
             <div class="confirm">
                 <span>提交</span>
@@ -40,27 +40,22 @@
     .container {
         padding: 42px 0 0 0;
     }
-
     .request-content {
         padding: 15px;
     }
-
     .request-content .row .title {
         color: #585757;
         font-size: 15px;
         padding: 10px;
     }
-
     .request-content .row textarea {
         width: 100%;
         border: 1px solid #adaaaa;
         font-size: 14px;
     }
-
     .confirm {
         text-align: center;
     }
-
     .confirm span {
         background: #e1edfd;
         border-radius: 3px;
@@ -71,25 +66,61 @@
         font-size: 14px;
         border: 1px solid #0071bd;
     }
-
     .msg-content {
         background: #e1edfd;
         padding: 10px;
     }
-
     .msg-content .title {
         color: #fa1414;
         text-align: center;
         margin-bottom: 10px !important;
     }
-
     .msg-content .item .req .left {
         color: #fa1414;
     }
-
     .msg-content .item .res .left {
         color: #0071bd;
     }
-
 </style>
+<script>
+    mui.init({
+        swipeBack:true //启用右滑关闭功能
+    });
+    $('.confirm').click(function () {
+        var title = $('#title').val();
+        var content = $('#content').val();
+        if(title==""||title==null){
+            mui.toast('请填写标题');
+            return;
+        }else if(content=="" || content==null){
+            mui.toast('请填写内容');
+            return;
+        }
+        var params = {
+            user_id: sessionStorage.getItem('manager_id'),
+            messagetitle: title,
+            messagecontent: content
+        }
+        var data = JSON.stringify(params)
+        $.ajax({
+            url: 'http://114.215.98.96:8011/ZxApi/m4_02.ashx',
+            type: "POST",
+            dataType: 'json',
+            data: data,
+            error: function (request) {      // 设置表单提交出错
+                mui.toast("系统错误，返回状态码为：" + request.status);
+            },
+            success: function (data) {
+                if(data.ecode==1000){
+                    mui.toast('提交成功');
+                    setTimeout(function () {
+                        window.history.back();
+                    },1000)
+                }else{
+                    mui.toast('提交失败');
+                }
+            }
+        });
+    });
+</script>
 </html>

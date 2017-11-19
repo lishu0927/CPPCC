@@ -6,7 +6,6 @@
     <%-include ../base/header.ejs%>
     <div class="wrap">
         <p class="title"><%=article.title%></p>
-        <img src="<%=article.img_url%>" />
         <p><%-article.content%></p>
     </div>
 </div>
@@ -40,4 +39,9 @@
         padding: 0 20px;
     }
 </style>
+<script>
+    mui.init({
+        swipeBack:true //启用右滑关闭功能
+    });
+</script>
 </html>

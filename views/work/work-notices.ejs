@@ -5,17 +5,13 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <div class="wrap">
-        <%
-        for(var i = 0;i < result.length;i++){
-        %>
+        <%for(var i = 0;i < result.length;i++){ %>
         <a class="item" href="/noticeDetail?article_id=<%=result[i].article_id%>">
             <span class="circle"></span>
             <p class="anyou"><%= result[i].title%></p>
             <p class="time"><%= result[i].add_time%></p>
         </a>
-        <%
-        }
-        %>
+        <%}%>
     </div>
 </div>
 </body>
@@ -47,6 +43,5 @@
         font-size: 12px;
         color: #0071bd;
     }
-
 </style>
 </html>

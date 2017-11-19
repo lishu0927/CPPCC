@@ -17,7 +17,6 @@ module.exports = {
             res.render('mine/mine-msg',
                 {
                     title: '留言反馈',
-                    type: 1,
                     result: list
                 }
             );

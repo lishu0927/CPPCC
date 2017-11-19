@@ -6,7 +6,7 @@
     <%-include ../base/header.ejs%>
     <div class="wrap">
         <p class="title"><%=tian.anyou%></p>
-        <p class="desc">审查意见：立案<span>第123456号</span></p>
+        <p class="desc">审查意见：立案<span>第<%=tian.tiannum%>号</span></p>
         <div class="proposal-content">
             <div class="row">
                 <span class="left">案由</span>
@@ -85,7 +85,6 @@
     .proposal-content .row .left{
         width: 110px;
         text-align: center;
-
     }
     .proposal-content .row .right{
         flex: 1;
@@ -94,11 +93,5 @@
         min-height: 30px;
     }
 </style>
-<script>
 
-</script>
-<style>
-
-
-</style>
 </html>

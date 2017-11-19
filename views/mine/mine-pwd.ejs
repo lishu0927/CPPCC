@@ -75,10 +75,12 @@
                 mui.toast("系统错误，返回状态码为：" + request.status);
             },
             success: function (data) {
-                if(data.ecode=1000){
+                if(data.ecode==1000){
                     mui.toast('修改成功');
-                    window.history.back();
-                }else if(data.ecode=3103){
+                    setTimeout(function () {
+                        window.history.back();
+                    },1000)
+                }else if(data.ecode==3103){
                     mui.toast('旧密码错误');
                 }else{
                     mui.toast('修改失败');
