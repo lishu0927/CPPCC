@@ -2,18 +2,30 @@
 <html>
 <script>
     var sSId=sessionStorage.getItem('user_id')
-    try{
-        var nId=window.native.getData('user_id')
-    }catch(e) {
-        var nId=null
-        //找不到原生发方法，可能是环境不是在android应用上打开的，或者调用方法不对
-    }
-    if((sSId == null || sSId == "") && (nId == null || nId == "")){
-        location.href="/login"
-    }else{
+    if(sSId != null && sSId != ""){
         location.href="/news"
+    }else{
+        try{
+            var nId=window.native.getData('user_id')
+            var user=window.native.getData('user')
+            if(nId != null && nId != ""){
+                sessionStorage.setItem('user_id', nId);
+                sessionStorage.setItem('user', user);
+                location.href="/news"
+            }else{
+                location.href="/login"
+            }
+        }catch (err){
+            location.href="/login"
+        }
     }
 
+    /*sessionStorage.setItem('user_name', data.user_info.user_name);
+    sessionStorage.setItem('user_id', data.user_info.user_id);
+    sessionStorage.setItem('manager_id', data.user_info.manager_id);
+    sessionStorage.setItem('user_mobile', data.user_info.mobile);
+    sessionStorage.setItem('fax', data.user_info.fax);
+    sessionStorage.setItem('groupName', data.user_info.groupName);*/
 </script>
 <body>
 </body>

@@ -13,7 +13,9 @@
 </head>
 <script>
     var sSId=sessionStorage.getItem('user_id')
-    if(sSId == null || sSId == " "){
+    if(sSId != null && sSId != ""){
+
+    }else{
         location.href="/login"
     }
 </script>

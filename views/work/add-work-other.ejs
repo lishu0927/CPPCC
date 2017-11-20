@@ -26,7 +26,11 @@
             </div>
             <div class="row">
                 <span class="left">内容</span>
-                <span class="right"><textarea  id="content" placeholder="" rows="2"></textarea></span>
+                <span class="right"><textarea  id="content" placeholder="" rows="5"></textarea></span>
+            </div>
+            <div class="row">
+                <span class="left">附件</span>
+                <span class="right"></span>
             </div>
             <div class="row">
                 <span class="left">选择处理人</span>
@@ -34,42 +38,6 @@
                     <div id="leaders" >
                     </div>
                 </span>
-            </div>
-        </div>
-        <div class="other-files">
-            <div class="upload">
-                添加附件
-                <input type="file" name="file" id="upload"/>
-            </div>
-            <div class="file-list">
-                <div class="item">
-                    <div class="left">word</div>
-                    <div class="right">
-                        <p>flie name</p>
-                        <p>flie size</p>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="left">image</div>
-                    <div class="right">
-                        <p>flie name</p>
-                        <p>flie size</p>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="left">mp3</div>
-                    <div class="right">
-                        <p>flie name</p>
-                        <p>flie size</p>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="left">zip</div>
-                    <div class="right">
-                        <p>flie name</p>
-                        <p>flie size</p>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -96,36 +64,6 @@
     .wrap p.text-right{
         text-align: right;
     }
-    .upload {
-        position: relative;
-        display: inline-block;
-        background: #0071bd;
-        border-radius: 3px;
-        padding: 5px 8px;
-        color: #fff;
-        font-size: 14px;
-    }
-    .upload input {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-    }
-    .file-list .item{
-        display: flex;
-        border: 1px solid #0071bd;
-        border-radius: 4px;
-        margin-top: 10px;
-        align-items: center;
-    }
-    .file-list .item .left{
-        width: 90px;
-        text-align: center;
-    }
-    .file-list .item .right{
-        border-left: 1px solid #adaaaa;
-        padding-left: 10px;
-    }
     .proposal-content{
         border-bottom: 1px solid #adaaaa;
         margin-top: 10px;
@@ -148,8 +86,6 @@
         border-left: 1px solid #adaaaa;
         padding: 5px;
         min-height: 30px;
-        max-height: 100px;
-        overflow-y: auto;
     }
     .proposal-content .row .right textarea{
         margin: 0 ;

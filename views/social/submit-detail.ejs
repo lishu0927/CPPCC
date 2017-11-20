@@ -112,11 +112,12 @@
     }
 </style>
 <script>
+    var user=JSON.parse(sessionStorage.getItem('user'))
     var userid,username,fax,groupName,tijiao_kind,sqmy_id,ideatitle,ideacontent;
-    userid=sessionStorage.getItem('user_id');
-    username=sessionStorage.getItem('user_name');
-    fax=sessionStorage.getItem('fax');
-    groupName=sessionStorage.getItem('groupName');
+    userid=user.user_id;
+    username=user.user_name;
+    fax=user.fax;
+    groupName=user.groupName;
     $("#name").html(username)
     $("#fax").html(fax)
     $("#groupName").html(groupName)

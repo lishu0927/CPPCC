@@ -86,6 +86,7 @@
     mui.init({
         swipeBack:true //启用右滑关闭功能
     });
+    var user=JSON.parse(sessionStorage.getItem('user'))
     $('.confirm').click(function () {
         var title = $('#title').val();
         var content = $('#content').val();
@@ -97,7 +98,7 @@
             return;
         }
         var params = {
-            user_id: sessionStorage.getItem('manager_id'),
+            user_id: user.user_id,
             messagetitle: title,
             messagecontent: content
         }

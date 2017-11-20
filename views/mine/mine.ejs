@@ -124,15 +124,17 @@
         color: #000;
         flex: 1;
     }
-
 </style>
 <script>
-    var name=sessionStorage.getItem('user_name');
-    var mobile=sessionStorage.getItem('user_mobile');
+    var user=JSON.parse(sessionStorage.getItem('user'))
     var id=sessionStorage.getItem('user_id');
-    $('#name').html(name);
-    $('#phone').html(mobile);
+    $('#name').html(user.user_name);
+    $('#phone').html(user.mobile);
     $('#detail').attr("href","/membersDetail?id="+id);
+    $(".exit").click(function () {
+        sessionStorage.setItem("user_id","");
+        location.href="/login"
+    })
 </script>
 
 </html>

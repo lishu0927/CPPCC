@@ -23,11 +23,9 @@
         color: #fff;
         font-size: 14px;
     }
-
     .wrap {
         padding: 5px 10px;
     }
-
     input {
         height: 32px !important;
         text-indent: 10px;
@@ -43,7 +41,6 @@
 </style>
 <script>
     var groupid="<%= groupid %>";
-
     $("#changeName").click(function () {
         var groupname = $("#groupname").val();
         if (groupname == '') {
@@ -72,8 +69,6 @@
                     }
                 }
             });
-
-
         }else {
             //编辑组
             params = {
@@ -95,10 +90,5 @@
             });
         }
     })
-
 </script>
-<style>
-
-
-</style>
 </html>
