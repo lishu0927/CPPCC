@@ -1,43 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <a class="header-right" href="/membersEdit">编辑</a>
-    <div class="wrap">
-        <div class="members-search">
-            <%-include ../base/search-box.ejs%>
-        </div>
-        <div class="members-groups">
-            <%for(var i=0;i<group_list.length;i++){
-                var item=group_list[i]
-            if(item.groupname!='常务委员会组成人员'){
-            %>
-            <div class="item">
-                <span class="groupname"><%=item.groupname%>:</span>
-                <%for(var j=0;j<item.weiyuan_list.length;j++){ var index=item.weiyuan_list[j]%>
-                <span onclick="window.location.href='/membersDetail?id=<%=index.user_id %>'"><%=index.user_name%></span>
-                <%}%>
-            </div>
-            <%}else {%>
-            <div class="item-ex">
-                <p class="title">一、常务委员会组成名单（按照姓氏比划排序）</p>
-                <div class="members-list">
-                <%for(var j=0;j<item.weiyuan_list.length;j++){ var index=item.weiyuan_list[j]%>
-                <a class="member"  href='/membersDetail?id=<%=index.user_id %>'><%=index.user_name%></a>
-                <%}%>
-                </div>
-            </div>
-            <%}%>
-            <%}%>
-        </div>
-    </div>
-</div>
-</body>
-<script>
-
-</script>
+<%-include ../base/checkHead.ejs%>
 <style>
     .container{
         padding: 42px 0 0 0;
@@ -112,4 +75,38 @@
         color: #3b3b3b;
     }
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <a class="header-right" href="/membersEdit">编辑</a>
+    <div class="wrap">
+        <div class="members-search">
+            <%-include ../base/search-box.ejs%>
+        </div>
+        <div class="members-groups">
+            <%for(var i=0;i<group_list.length;i++){
+                var item=group_list[i]
+            if(item.groupname!='常务委员会组成人员'){
+            %>
+            <div class="item">
+                <span class="groupname"><%=item.groupname%>:</span>
+                <%for(var j=0;j<item.weiyuan_list.length;j++){ var index=item.weiyuan_list[j]%>
+                <span onclick="window.location.href='/membersDetail?id=<%=index.user_id %>'"><%=index.user_name%></span>
+                <%}%>
+            </div>
+            <%}else {%>
+            <div class="item-ex">
+                <p class="title">一、常务委员会组成名单（按照姓氏比划排序）</p>
+                <div class="members-list">
+                <%for(var j=0;j<item.weiyuan_list.length;j++){ var index=item.weiyuan_list[j]%>
+                <a class="member"  href='/membersDetail?id=<%=index.user_id %>'><%=index.user_name%></a>
+                <%}%>
+                </div>
+            </div>
+            <%}%>
+            <%}%>
+        </div>
+    </div>
+</div>
+</body>
 </html>

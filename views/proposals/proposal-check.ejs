@@ -4,7 +4,7 @@
 <body>
 <div class="container">
     <%-include ../base/header.ejs%>
-    <a class="header-right" href="/proposalManage">提案管理</a>
+    <a class="header-right" href="/proposalManage?tabIndex=0">提案管理</a>
     <div class="wrap">
         <div class="proposals-search">
             <%-include ../base/search-box.ejs%>
@@ -115,8 +115,9 @@
     var tian_list_kind;
     var state_text;
     var detail_id;
-    $(".tab-item").each(function () {
+    $(".tab-item").each(function (i) {
         $(this).click(function () {
+            window.history.replaceState({},0,window.location.href.split("?")[0]+"?tabIndex="+i)
             $(this).addClass("active");
             $(this).siblings().attr("class","tab-item");
             var itemId=$(this).attr("id");
@@ -171,7 +172,8 @@
         })
     })
     $(function () {
-        $(".tab-item").eq(0).click();
+        var tabIndex="<%=tabIndex%>"
+        $(".tab-item").eq(tabIndex).click();
     })
 </script>
 </html>

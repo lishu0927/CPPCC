@@ -15,21 +15,17 @@ module.exports = {
         });
     },
     manage: function (req, res) {
-        var data = {tian_list_kind:1};
         var keyword = req.query.keyword||'';
+        var tabIndex = req.query.tabIndex;
         var search_type = "proposal";
-        createRequest(res, data, "/ZxApi/m2_12.ashx", function () {
-            body = JSON.parse(body);
-            var tian_list=body.tian_list
-            res.render('proposals/proposal-manage',
-                {
-                    title: '提案管理',
-                    keyword:keyword,
-                    search_type:search_type,
-                    tian_list:tian_list
-                }
-            );
-        });
+        res.render('proposals/proposal-manage',
+            {
+                title: '提案管理',
+                keyword: keyword,
+                search_type: search_type,
+                tabIndex: tabIndex,
+            }
+        );
     },
     search: function (req, res) {
         var keyword = req.query.keyword || '';
@@ -197,10 +193,12 @@ module.exports = {
     },
     check:function (req, res) {
         var keyword = req.query.keyword||'';
+        var tabIndex = req.query.tabIndex;
         var search_type="proposal";
         res.render('proposals/proposal-check',
             {
                 title: '审核提案',
+                tabIndex:tabIndex,
                 keyword:keyword,
                 search_type:search_type
             }

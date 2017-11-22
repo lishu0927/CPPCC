@@ -9,9 +9,11 @@ module.exports = {
         );
     },
     submit: function (req, res) {
+        var tabIndex = req.query.tabIndex
         res.render('social/social-submit',
             {
                 title: '信息提交',
+                tabIndex: tabIndex
             }
         );
     },
@@ -57,9 +59,11 @@ module.exports = {
         });
     },
     check: function (req, res) {
+        var tabIndex = req.query.tabIndex
         res.render('social/social-check',
             {
                 title: '信息审核',
+                tabIndex: tabIndex
             }
         );
     },

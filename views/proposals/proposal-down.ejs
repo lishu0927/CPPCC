@@ -5,7 +5,6 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <div class="wrap">
-        <a href="" download id="download" style="display: none">下载</a>
         <%for(var i=0 ;i<tian_list.length;i++){%>
         <a class="item" href="/proposalDetail3?type=1&id=<%=tian_list[i].tian_id%>">
             <span class="circle"></span>
@@ -63,6 +62,8 @@
     $(".download").each(function () {
         $(this).click(function (e) {
             e.preventDefault()
+            var filename=$(this).parent().prev(".anyou").html()
+            console.log(filename)
             var params = {
                 tian_kind:4,
                 tian_id:$(this).attr("data-tian-id")
@@ -78,8 +79,11 @@
                 },
                 success: function (data) {
                     if (data.ecode == 1000) {
-                        $("#download").attr("href",data.download_url)
-                        $("#download")[0].click()
+                        try {
+                            window.native.setDownload(filename,data.download_url)
+                        }catch (err){
+
+                        }
                         mui.toast("正在下载")
                     }
                 }

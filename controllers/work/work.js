@@ -79,16 +79,19 @@ module.exports = {
         });
     },
     startWork: function (req, res) {
+        var tabIndex=req.query.tabIndex
+        console.log(tabIndex)
         res.render('work/start-work',
             {
                 title: '发起流传',
+                tabIndex: tabIndex
             }
         );
     },
     addWork: function (req, res) {
         res.render('work/add-work',
             {
-                title: '添加',
+                title: '添加'
             }
         );
     },

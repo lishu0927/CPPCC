@@ -133,6 +133,11 @@
     $('#detail').attr("href","/membersDetail?id="+id);
     $(".exit").click(function () {
         sessionStorage.setItem("user_id","");
+        try{
+            window.native.saveData("user_id", "");
+        }catch (err){
+
+        }
         location.href="/login"
     })
 </script>

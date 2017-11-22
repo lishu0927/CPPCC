@@ -214,10 +214,13 @@
 </style>
 <script>
     $(function() {
-        compare_str($("#anyou-confirm").text(),$("#anyou-repeat").text(),$("#anyou-confirm")[0],$("#anyou-repeat")[0]);
-        compare_str($("#problem-confirm").text(),$("#problem-repeat").text(),$("#problem-confirm")[0],$("#problem-repeat")[0]);
-        compare_str($("#analyse-confirm").text(),$("#analyse-repeat").text(),$("#analyse-confirm")[0],$("#analyse-repeat")[0]);
-        compare_str($("#advice-confirm").text(),$("#advice-repeat").text(),$("#advice-confirm")[0],$("#advice-repeat")[0]);
+        var type="<%=type%>";
+        if(type==2){
+            compare_str($("#anyou-confirm").text(),$("#anyou-repeat").text(),$("#anyou-confirm")[0],$("#anyou-repeat")[0]);
+            compare_str($("#problem-confirm").text(),$("#problem-repeat").text(),$("#problem-confirm")[0],$("#problem-repeat")[0]);
+            compare_str($("#analyse-confirm").text(),$("#analyse-repeat").text(),$("#analyse-confirm")[0],$("#analyse-repeat")[0]);
+            compare_str($("#advice-confirm").text(),$("#advice-repeat").text(),$("#advice-confirm")[0],$("#advice-repeat")[0]);
+        }
         var audit_jieguo;
         var tian_id=$("#tian-id").attr("data-tian-id");
         var tuihui;

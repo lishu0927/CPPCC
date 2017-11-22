@@ -1,18 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="product" content="SandGlass">
-<meta name="description" content="">
-<meta name="author" content="lishu">
-<title><%= title %></title>
-<link rel="stylesheet" type="text/css" href="/css/reset.css">
-<link rel="stylesheet" type="text/css" href="/css/style.css">
-<link rel="stylesheet" type="text/css" href="/css/mui.min.css">
-<script type='text/javascript' src='/js/jquery-1.10.2.js'></script>
-<script type='text/javascript' src='/js/mui.min.js'></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="product" content="SandGlass">
+    <meta name="description" content="">
+    <meta name="author" content="lishu">
+    <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/mui.min.css">
+    <script type='text/javascript' src='/js/jquery-1.10.2.js'></script>
+    <script type='text/javascript' src='/js/mui.min.js'></script>
 </head>
+<style>
+    .container{
+        padding: 0;
+        background-image: url("/images/login-bg.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .login-content{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+    .login-content .logo{
+        padding-bottom: 4%;
+        padding-top: 15%;
+    }
+    .login-content .logo img{
+        width: 100px;
+    }
+    .login-content .title{
+        font-size: 22px;
+        color: #fff;
+        padding: 2% 0 15% 0;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 5px #888;
+    }
+    .login-content .form{
+        width: 60%;
+        display: inline-block;
+        text-align: left;
+        margin-left: 20%;
+    }
+    .login-content .form .form-item{
+        padding: 3% 0;
+    }
+    .login-content .form .form-item input{
+        display: block;
+        width: 100%;
+        height: 30px;
+        text-indent: 10px;
+        border-radius: 2px;
+        border: 0;
+        padding: 0;
+    }
+    .login-content .form .form-item .but{
+        display: inline-block;
+        width: 100%;
+        height: 35px;
+        border-radius: 5px;
+        margin-top: 8%;
+        border: 0;
+        font-size: 15px;
+        background: #b8cae2;
+        color: #343232;
+    }
+    .desc{
+        width: 100%;
+        font-size: 12px;
+        text-align: center;
+        color: #ddd;
+        margin-top: 15% !important;
+    }
+</style>
 <body>
 <div class="container">
     <div class="login-content">
@@ -105,71 +170,5 @@
             });
         });
     })
-
 </script>
-<style>
-    .container{
-        padding: 0;
-    }
-    .login-content{
-        height: 100%;
-        background-image: url("/images/login-bg.png");
-        background-size: cover;
-        background-repeat: no-repeat;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-    }
-    .login-content .logo{
-        padding-bottom: 4%;
-    }
-    .login-content .logo img{
-        width: 100px;
-    }
-    .login-content .title{
-        font-size: 22px;
-        color: #fff;
-        padding: 2% 0 15% 0;
-        letter-spacing: 1px;
-        text-shadow: 2px 2px 5px #888;
-    }
-    .login-content .form{
-        width: 60%;
-        display: inline-block;
-        text-align: left;
-        margin-left: 20%;
-    }
-    .login-content .form .form-item{
-        padding: 3% 0;
-    }
-    .login-content .form .form-item input{
-        display: block;
-        width: 100%;
-        height: 30px;
-        text-indent: 10px;
-        border-radius: 2px;
-        border: 0;
-        padding: 0;
-    }
-    .login-content .form .form-item .but{
-        display: inline-block;
-        width: 100%;
-        height: 35px;
-        border-radius: 5px;
-        margin-top: 8%;
-        border: 0;
-        font-size: 15px;
-        background: #b8cae2;
-        color: #343232;
-    }
-    .login-content .desc{
-        position: fixed;
-        bottom: 15px;
-        width: 100%;
-        font-size: 12px;
-        text-align: center;
-        color: #ddd;
-    }
-</style>
 </html>

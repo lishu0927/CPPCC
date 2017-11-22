@@ -4,7 +4,7 @@
 <body>
 <div class="container">
     <%-include ../base/header.ejs%>
-    <a class="header-right" href="/socialSubmit">信息提交</a>
+    <a class="header-right" href="/socialSubmit?tabIndex=0">信息提交</a>
     <div class="wrap">
         <div class="states-content">
             <div class="list-tab">
@@ -119,8 +119,9 @@
 </style>
 <script>
     var sqmy_list_kind,sqmy_kind,check;
-    $(".tab-item").each(function () {
+    $(".tab-item").each(function (i) {
         $(this).click(function () {
+            window.history.replaceState({},0,window.location.href.split("?")[0]+"?tabIndex="+i)
             $(this).addClass("active");
             $(this).siblings().attr("class","tab-item");
             var itemId=$(this).attr("id");
@@ -166,7 +167,8 @@
         })
     })
     $(function () {
-        $(".tab-item").eq(0).click();
+        var tabIndex="<%=tabIndex%>"
+        $(".tab-item").eq(tabIndex).click();
     })
 </script>
 </html>
