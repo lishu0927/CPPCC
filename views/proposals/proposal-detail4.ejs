@@ -50,11 +50,11 @@
             <div class="input-group">
                 <div class="mui-input-row mui-checkbox mui-left">
                     <label>提案公示</label>
-                    <input name="publish" value="0" type="checkbox" id="publish" >
+                    <input value="<%=tian.ispublish%>" type="checkbox" id="publish" >
                 </div>
                 <div class="mui-input-row mui-checkbox mui-left">
                     <label>提案表彰</label>
-                    <input name="publish" value="0" type="checkbox" id="honor">
+                    <input value="<%=tian.youxiu%>" type="checkbox" id="honor">
                 </div>
             </div>
         </div>
@@ -143,11 +143,21 @@
     }
 </style>
 <script>
-    mui('.input-group').on('change', 'input', function() {
+    $('#publish').on('change', function() {
         var value = this.checked?"1":"0";
         this.value=value;
     });
+    $('#honor').on('change', function() {
+        var value = this.checked?"是":"否";
+        this.value=value;
+    });
     $(function() {
+        if($('#publish').val()== 1){
+            $('#publish').attr("checked",true)
+        }
+        if($('#honor').val()== "是"){
+            $('#honor').attr("checked",true)
+        }
         var ispublish,isyouxiu;
         var tian_id="<%=tian.tian_id%>";
         $("#submit").click(function () {
@@ -170,6 +180,8 @@
                 success: function (data) {
                     if(data.ecode==1000){
                         mui.toast('操作成功');
+                    }else{
+                        console.log(data.ecode)
                     }
                 }
             });

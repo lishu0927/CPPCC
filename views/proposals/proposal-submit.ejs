@@ -8,20 +8,26 @@
         <ul class="list">
             <li>
                 <a href="/proposalDown">
-                    <img src="images/ta_bxz.png">
-                    <span>提案表下载</span>
+                    <span class="left">
+                        <img src="images/ta_bxz.png">
+                    </span>
+                    <span class="right">提案表下载</span>
                 </a>
             </li>
             <li>
                 <a href="/submitProposal">
-                    <img src="images/ta_tj.png">
-                    <span>提案提交</span>
+                    <span class="left">
+                        <img src="images/ta_tj.png">
+                    </span>
+                    <span class="right">提案提交</span>
                 </a>
             </li>
             <li>
                 <a href="/proposalManage">
-                    <img src="images/ta_gl.png">
-                    <span>提案管理</span>
+                    <span class="left">
+                        <img src="images/ta_gl.png">
+                    </span>
+                    <span class="right">提案管理</span>
                 </a>
             </li>
         </ul>
@@ -36,9 +42,9 @@
         padding: 0 10%;
         display: flex;
         align-items: center;
+        overflow: hidden;
     }
     .list{
-        text-align: center;
         padding: 0 0 10% 0;
         width: 100%;
     }
@@ -46,15 +52,27 @@
         border-bottom: 1px solid #adaaaa;
         padding: 7% 10px;
     }
-    .list li a img{
+    .list li a{
+        display: inline-block;
+        white-space: nowrap;
+        margin-left: 50%;
+        transform: translate(-50%,0);
+    }
+    .list li a .left{
+        width: 90px;
+        text-align: center;
+        display: inline-block;
+    }
+    .list li a .left img{
         width: 60px;
         vertical-align: middle;
-        margin-right: 20px;
     }
-    .list li a span{
+    .list li a .right{
         color: #000;
         font-size: 18px;
         font-weight: bold;
+        display: inline-block;
+        width: 100px;
     }
 
 </style>

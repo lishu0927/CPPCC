@@ -6,7 +6,7 @@
     <%-include ../base/header.ejs%>
     <div class="wrap">
         <p class="title"><%=sqmy_info.ideatitle%></p>
-        <p><%-sqmy_info.ideacontent%></p>
+        <div class="content"><%-sqmy_info.ideacontent%></div>
     </div>
 </div>
 </body>
@@ -14,30 +14,28 @@
     .container{
         padding: 42px 0 0 0;
     }
-    .wrap{
-        text-align: center;
-    }
     .wrap .title{
         background: #b8cae2;
-        min-height: 40px;
         line-height: 26px;
-        padding: 12px 0;
+        padding: 10px;
         color: #0d0d0d;
         text-align: center;
         font-size: 16px;
     }
-    .wrap img{
-        width: 50%;
-        margin: 20px 0 10px 0;
+    .content{
+        padding: 10px;
+        word-break: break-word;
+        width: 100%;
+        overflow-x: hidden;
     }
-    .wrap p{
+    .content p{
         color: #3b3b3b;
-        line-height: 24px;
-        text-align: left;
-        text-indent: 20px;
-        font-size: 13px;
-        padding: 0 20px;
+        font-size: 15px;
+        letter-spacing: 1px;
+        word-break: break-word;
     }
-
+    .content table,.content img{
+        width: 100%!important;
+    }
 </style>
 </html>

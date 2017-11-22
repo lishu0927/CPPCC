@@ -6,7 +6,7 @@
     <%-include ../base/header.ejs%>
     <div class="wrap">
         <div class="new-datail">
-            <p class="title mui-ellipsis"><%= result.title%></p>
+            <p class="title"><%= result.title%></p>
             <p class="time"><%= result.add_time.split(' ')[0]%></p>
             <div class="content">
                 <%- result.content%>
@@ -22,9 +22,10 @@
         padding:42px 0 0 0;
     }
     .new-datail .title{
-        font-size: 22px;
-        color: #3b3b3b;
-        padding: 15px 15px 10px;
+        font-size: 18px;
+        line-height: 26px;
+        padding: 10px;
+        color: #000;
     }
     .new-datail .time{
         color: #fa1414;
@@ -32,6 +33,18 @@
     }
     .content{
         padding: 10px;
+        word-break: break-word;
+        width: 100%;
+        overflow-x: hidden;
+    }
+    .content p{
+        color: #3b3b3b;
+        font-size: 15px;
+        letter-spacing: 1px;
+        word-break: break-word;
+    }
+    .content table,.content img{
+        width: 100%!important;
     }
 </style>
 <script>

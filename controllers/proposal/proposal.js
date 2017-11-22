@@ -6,7 +6,6 @@ module.exports = {
         createRequest(res, data, "/ZxApi/m2_12.ashx", function () {
             body = JSON.parse(body);
             var tian_list=body.tian_list
-            console.log(tian_list)
             res.render('proposals/proposal-down',
                 {
                     title: '提案表下载',

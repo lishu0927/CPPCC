@@ -23,11 +23,11 @@
             <%}else {%>
             <div class="item-ex">
                 <p class="title">一、常务委员会组成名单（按照姓氏比划排序）</p>
-                <table width="100%">
+                <div class="members-list">
                 <%for(var j=0;j<item.weiyuan_list.length;j++){ var index=item.weiyuan_list[j]%>
-                <td class="td"  onclick="window.location.href='/membersDetail?id=<%=index.user_id %>'"><%=index.user_name%></td>
+                <a class="member"  href='/membersDetail?id=<%=index.user_id %>'><%=index.user_name%></a>
                 <%}%>
-                </table>
+                </div>
             </div>
             <%}%>
             <%}%>
@@ -71,9 +71,10 @@
     }
     .members-groups .item span{
         color: #3b3b3b;
-        font-size: 12px;
+        font-size: 15px;
         letter-spacing: 1px;
         line-height: 24px;
+        padding-right: 10px;
     }
     .members-groups .item span.groupname{
         position: absolute;
@@ -89,21 +90,26 @@
     }
     .item-ex .title{
         color: #0071bd;
+        font-size: 15px;
     }
-    .item-ex table{
-        border-collapse:collapse;
-        border: none;
+    .item-ex .members-list{
+        border-top: 1px solid #adaaaa;
+        border-left: 1px solid #adaaaa;
         width: 90%;
         margin-left: 5%;
         margin-top: 10px;
+        overflow-y: auto;
     }
-    .item-ex .td{
+    .item-ex .members-list a{
         display: inline-block;
+        float: left;
         width: 33.333%;
         text-align: center;
-        border: 1px solid #adaaaa;
+        border-bottom: 1px solid #adaaaa;
+        border-right: 1px solid #adaaaa;
         padding: 7px 0;
-        font-size: 12px;
+        font-size: 14px;
+        color: #3b3b3b;
     }
 </style>
 </html>

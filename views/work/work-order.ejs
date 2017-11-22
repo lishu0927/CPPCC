@@ -47,7 +47,7 @@
         </div>
     </div>-->
     <div class="wrap">
-        <p><%-result.content%></p>
+        <div class="content"><%-result.content%></div>
     </div>
 </div>
 </body>
@@ -55,7 +55,20 @@
     .container{
         padding: 42px 0 0 0;
     }
-    .wrap{
+    .content{
+        padding: 10px;
+        word-break: break-word;
+        width: 100%;
+        overflow-x: hidden;
+    }
+    .content p{
+        color: #3b3b3b;
+        font-size: 15px;
+        letter-spacing: 1px;
+        word-break: break-word;
+    }
+    .content table,.content img{
+        width: 100%!important;
     }
     .group{
         padding: 20px 0 0 0;

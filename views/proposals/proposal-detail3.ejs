@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
+<script type='text/javascript' src='/js/compareText.js'></script>
 <body>
 <div class="container">
     <%-include ../base/header.ejs%>
@@ -55,41 +56,41 @@
             <div class="row">
                 <div class="left">
                     <p class="desc">案由</p>
-                    <p class="content"><%=confirm.anyou%></p>
+                    <p class="content" id="anyou-confirm"><%=confirm.anyou%></p>
                 </div>
                 <div class="right">
                     <p class="desc">案由</p>
-                    <p class="content"><%=repeat.anyou%></p>
+                    <p class="content" id="anyou-repeat"><%=repeat.anyou%></p>
                 </div>
             </div>
             <div class="row">
                 <div class="left">
                     <p class="desc">问题</p>
-                    <p class="content"><%=confirm.problem%></p>
+                    <p class="content" id="problem-confirm"><%=confirm.problem%></p>
                 </div>
                 <div class="right">
                     <p class="desc">问题</p>
-                    <p class="content"><%=repeat.problem%></p>
+                    <p class="content" id="problem-repeat"><%=repeat.problem%></p>
                 </div>
             </div>
             <div class="row">
                 <div class="left">
                     <p class="desc">分析</p>
-                    <p class="content"><%=confirm.analyse%></p>
+                    <p class="content" id="analyse-confirm"><%=confirm.analyse%></p>
                 </div>
                 <div class="right">
                     <p class="desc">分析</p>
-                    <p class="content"><%=repeat.analyse%></p>
+                    <p class="content" id="analyse-repeat"><%=repeat.analyse%></p>
                 </div>
             </div>
             <div class="row">
                 <div class="left">
                     <p class="desc">建议</p>
-                    <p class="content"><%=confirm.advice%></p>
+                    <p class="content" id="advice-confirm"><%=confirm.advice%></p>
                 </div>
                 <div class="right">
                     <p class="desc">建议</p>
-                    <p class="content"><%=repeat.advice%></p>
+                    <p class="content" id="advice-repeat"><%=repeat.advice%></p>
                 </div>
             </div>
         </div>
@@ -213,6 +214,10 @@
 </style>
 <script>
     $(function() {
+        compare_str($("#anyou-confirm").text(),$("#anyou-repeat").text(),$("#anyou-confirm")[0],$("#anyou-repeat")[0]);
+        compare_str($("#problem-confirm").text(),$("#problem-repeat").text(),$("#problem-confirm")[0],$("#problem-repeat")[0]);
+        compare_str($("#analyse-confirm").text(),$("#analyse-repeat").text(),$("#analyse-confirm")[0],$("#analyse-repeat")[0]);
+        compare_str($("#advice-confirm").text(),$("#advice-repeat").text(),$("#advice-confirm")[0],$("#advice-repeat")[0]);
         var audit_jieguo;
         var tian_id=$("#tian-id").attr("data-tian-id");
         var tuihui;
@@ -253,8 +258,4 @@
         })
     })
 </script>
-<style>
-
-
-</style>
 </html>

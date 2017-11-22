@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
+<script type='text/javascript' src='/js/compareText.js'></script>
 <body>
 <div class="container">
     <%-include ../base/header.ejs%>
@@ -16,41 +17,41 @@
             <div class="row">
                 <div class="left">
                     <p class="desc">案由</p>
-                    <p class="content"><%=confirm.anyou%></p>
+                    <p class="content" id="anyou-confirm"></p>
                 </div>
                 <div class="right">
                     <p class="desc">案由</p>
-                    <p class="content"><%=repeat.anyou%></p>
+                    <p class="content" id="anyou-repeat"></p>
                 </div>
             </div>
             <div class="row">
                 <div class="left">
                     <p class="desc">问题</p>
-                    <p class="content"><%=confirm.problem%></p>
+                    <p class="content" id="problem-confirm"></p>
                 </div>
                 <div class="right">
                     <p class="desc">问题</p>
-                    <p class="content"><%=repeat.problem%></p>
+                    <p class="content" id="problem-repeat"></p>
                 </div>
             </div>
             <div class="row">
                 <div class="left">
                     <p class="desc">分析</p>
-                    <p class="content"><%=confirm.analyse%></p>
+                    <p class="content" id="analyse-confirm"></p>
                 </div>
                 <div class="right">
                     <p class="desc">分析</p>
-                    <p class="content"><%=repeat.analyse%></p>
+                    <p class="content" id="analyse-repeat"></p>
                 </div>
             </div>
             <div class="row">
                 <div class="left">
                     <p class="desc">建议</p>
-                    <p class="content"><%=confirm.advice%></p>
+                    <p class="content" id="advice-confirm"></p>
                 </div>
                 <div class="right">
                     <p class="desc">建议</p>
-                    <p class="content"><%=repeat.advice%></p>
+                    <p class="content" id="advice-repeat"></p>
                 </div>
             </div>
         </div>
@@ -115,4 +116,11 @@
         color: #0071bd;
     }
 </style>
+<script>
+    compare_str("<%=confirm.anyou%>","<%=repeat.anyou%>",$("#anyou-confirm")[0],$("#anyou-repeat")[0]);
+    compare_str("<%=confirm.problem%>","<%=repeat.problem%>",$("#problem-confirm")[0],$("#problem-repeat")[0]);
+    compare_str("<%=confirm.analyse%>","<%=repeat.analyse%>",$("#analyse-confirm")[0],$("#analyse-repeat")[0]);
+    compare_str("<%=confirm.advice%>","<%=repeat.advice%>",$("#advice-confirm")[0],$("#advice-repeat")[0]);
+
+</script>
 </html>
