@@ -53,7 +53,8 @@ module.exports = {
         });
     },
     notices: function (req, res) {
-        createRequest(res, '', "/ZxApi/m3_11.ashx", function () {
+        var data = {startid: -1, num: 20, start: 0};
+        createRequest(res, data, "/ZxApi/m3_11.ashx", function () {
             body = JSON.parse(body);
             var list = body.article_list;
             res.render('work/work-notices',

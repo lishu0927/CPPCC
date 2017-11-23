@@ -1,6 +1,82 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
+<style>
+    .container{
+        padding: 42px 0 0 0;
+    }
+    .header-right{
+        position: absolute;
+        z-index: 10000000;
+        height: 42px;
+        text-align: center;
+        line-height: 42px;
+        top:0;
+        right: 0;
+        padding: 0 15px 0 10px;
+        color: #fff;
+        font-size: 14px;
+    }
+    .wrap{
+        color: #3b3b3b;
+        padding: 5px 10px;
+    }
+    .wrap p{
+        color: #585757;
+        line-height: 24px;
+    }
+    .wrap p.text-right{
+        text-align: right;
+    }
+    .proposal-content{
+        border-bottom: 1px solid #adaaaa;
+        margin-top: 10px;
+    }
+    .proposal-content .row{
+        display: flex;
+        font-size: 14px;
+        color: #585757;
+        line-height: 30px;
+        align-items: center;
+        border: 1px solid #adaaaa;
+        border-bottom: 0;
+    }
+    .proposal-content .row .left{
+        width: 110px;
+        text-align: center;
+    }
+    .proposal-content .row .right{
+        flex: 1;
+        border-left: 1px solid #adaaaa;
+        padding: 5px;
+        min-height: 30px;
+    }
+    .publish-content{
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 15px;
+        padding-bottom: 60px;
+    }
+    .publish-content div{
+        display: inline-block;
+    }
+    .bottom{
+        position: fixed;
+        height: 50px;
+        width: 100%;
+        bottom: 0;
+        right: 0;
+        background: #e1edfd;
+        border: 1px solid #00a0e9;
+    }
+    .bottom .content{
+        text-align: center;
+        height: 50px;
+        line-height: 50px;
+    }
+</style>
 <body>
 <div class="container">
     <%-include ../base/header.ejs%>
@@ -60,88 +136,13 @@
         </div>
         <div class="bottom">
             <div class="content" id="submit">
-                再次提交
+                确定
             </div>
         </div>
         <%}%>
     </div>
 </div>
 </body>
-<style>
-    .container{
-        padding: 42px 0 0 0;
-    }
-    .header-right{
-        position: absolute;
-        z-index: 10000000;
-        height: 42px;
-        text-align: center;
-        line-height: 42px;
-        top:0;
-        right: 0;
-        padding: 0 15px 0 10px;
-        color: #fff;
-        font-size: 14px;
-    }
-    .wrap{
-        color: #3b3b3b;
-        padding: 5px 10px;
-    }
-    .wrap p{
-        color: #585757;
-        line-height: 24px;
-    }
-    .wrap p.text-right{
-        text-align: right;
-    }
-    .proposal-content{
-        border-bottom: 1px solid #adaaaa;
-        margin-top: 10px;
-    }
-    .proposal-content .row{
-        display: flex;
-        font-size: 14px;
-        color: #585757;
-        line-height: 30px;
-        align-items: center;
-        border: 1px solid #adaaaa;
-        border-bottom: 0;
-    }
-    .proposal-content .row .left{
-        width: 110px;
-        text-align: center;
-    }
-    .proposal-content .row .right{
-        flex: 1;
-        border-left: 1px solid #adaaaa;
-        padding: 5px;
-        min-height: 30px;
-    }
-    .publish-content{
-        font-size: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: 15px;
-    }
-    .publish-content div{
-        display: inline-block;
-    }
-    .bottom{
-        position: fixed;
-        height: 50px;
-        width: 100%;
-        bottom: 0;
-        right: 0;
-        background: #e1edfd;
-        border: 1px solid #00a0e9;
-    }
-    .bottom .content{
-        text-align: center;
-        height: 50px;
-        line-height: 50px;
-    }
-</style>
 <script>
     $('#publish').on('change', function() {
         var value = this.checked?"1":"0";

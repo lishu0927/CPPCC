@@ -1,6 +1,47 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
+<style>
+    .container{
+        padding: 42px 0 0 0;
+    }
+    .wrap{
+        padding: 0 10%;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+    }
+    .list{
+        padding: 0 0 10% 0;
+        width: 100%;
+    }
+    .list li{
+        border-bottom: 1px solid #adaaaa;
+        padding: 7% 10px;
+        text-align: center;
+    }
+    .list li a{
+        display: inline-block;
+        white-space: nowrap;
+    }
+    .list li a .left{
+        width: 70px;
+        text-align: left;
+        display: inline-block;
+    }
+    .list li a .left img{
+        width: 60px;
+        vertical-align: middle;
+    }
+    .list li a .right{
+        color: #000;
+        font-size: 18px;
+        font-weight: bold;
+        display: inline-block;
+        width: 100px;
+        text-align: left;
+    }
+</style>
 <body>
 <div class="container">
     <%-include ../base/header.ejs%>
@@ -34,46 +75,4 @@
     </div>
 </div>
 </body>
-<style>
-    .container{
-        padding: 42px 0 0 0;
-    }
-    .wrap{
-        padding: 0 10%;
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-    }
-    .list{
-        padding: 0 0 10% 0;
-        width: 100%;
-    }
-    .list li{
-        border-bottom: 1px solid #adaaaa;
-        padding: 7% 10px;
-    }
-    .list li a{
-        display: inline-block;
-        white-space: nowrap;
-        margin-left: 50%;
-        transform: translate(-50%,0);
-    }
-    .list li a .left{
-        width: 90px;
-        text-align: center;
-        display: inline-block;
-    }
-    .list li a .left img{
-        width: 60px;
-        vertical-align: middle;
-    }
-    .list li a .right{
-        color: #000;
-        font-size: 18px;
-        font-weight: bold;
-        display: inline-block;
-        width: 100px;
-    }
-
-</style>
 </html>

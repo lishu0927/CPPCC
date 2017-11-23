@@ -1,60 +1,6 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <a class="header-right" href="#picture">添加</a>
-    <div class="wrap">
-        <%if(group_list!=null&&group_list.length>0){%>
-        <div class="weiyuan_list">
-            <%for(var i=0;i<group_list.length;i++){var item = group_list[i];%>
-                <div class="list-title">
-                    <span class="left"><%=item.groupname%></span>
-                    <span class="center"></span>
-                    <a class="right" href="/editGroup?id=<%=item.grouporder%>">编辑</a>
-                    <span class="delete delete-group" id="<%=item.grouporder%>">×</span>
-                </div>
-                <%if(item.weiyuan_list.length==1){%>
-                    <%for(var j=0;j<item.weiyuan_list.length;j++){
-                        var weiyuan = item.weiyuan_list[j];%>
-                        <div>
-                            <span class="name" onclick="window.location.href='/editMember?id=<%=weiyuan.user_id%>'"><%=weiyuan.user_name%></span>
-                            <span class="delete delete-member" id="<%=weiyuan.user_id%>">×</span>
-                        </div>
-                    <%}%>
-                <%}else if(item.weiyuan_list.length>1){%>
-                    <table width="100%">
-                    <%for(var j=0;j<item.weiyuan_list.length;j++){
-                        var weiyuan = item.weiyuan_list[j];%>
-                        <td class="td">
-                            <span onclick="window.location.href='/editMember?id=<%=weiyuan.user_id%>'"><%=weiyuan.user_name%></span>
-                            <span class="delete delete-member" id="<%=weiyuan.user_id%>">×</span>
-                        </td>
-                    <%}%>
-                    </table>
-                <%}%>
-            <%}%>
-        </div>
-        <%}%>
-    </div>
-    <div id="picture" class="mui-popover mui-popover-action mui-popover-bottom">
-        <ul class="mui-table-view">
-            <li class="mui-table-view-cell">
-                <a href="/editGroup?id=00">添加组</a>
-            </li>
-            <li class="mui-table-view-cell">
-                <a href="/addMember">添加成员</a>
-            </li>
-        </ul>
-        <ul class="mui-table-view">
-            <li class="mui-table-view-cell">
-                <a href="#picture">取消</a>
-            </li>
-        </ul>
-    </div>
-</div>
-</body>
 <style>
     .container{
         padding: 42px 0 0 0;
@@ -143,6 +89,60 @@
         font-family: "Microsoft YaHei";
     }
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <a class="header-right" href="#picture">添加</a>
+    <div class="wrap">
+        <%if(group_list!=null&&group_list.length>0){%>
+        <div class="weiyuan_list">
+            <%for(var i=0;i<group_list.length;i++){var item = group_list[i];%>
+                <div class="list-title">
+                    <span class="left"><%=item.groupname%></span>
+                    <span class="center"></span>
+                    <a class="right" href="/editGroup?id=<%=item.groupid%>">编辑</a>
+                    <span class="delete delete-group" id="<%=item.groupid%>">×</span>
+                </div>
+                <%if(item.weiyuan_list.length==1){%>
+                    <%for(var j=0;j<item.weiyuan_list.length;j++){
+                        var weiyuan = item.weiyuan_list[j];%>
+                        <div>
+                            <span class="name" onclick="window.location.href='/editMember?id=<%=weiyuan.user_id%>'"><%=weiyuan.user_name%></span>
+                            <span class="delete delete-member" id="<%=weiyuan.user_id%>">×</span>
+                        </div>
+                    <%}%>
+                <%}else if(item.weiyuan_list.length>1){%>
+                    <table width="100%">
+                    <%for(var j=0;j<item.weiyuan_list.length;j++){
+                        var weiyuan = item.weiyuan_list[j];%>
+                        <td class="td">
+                            <span onclick="window.location.href='/editMember?id=<%=weiyuan.user_id%>'"><%=weiyuan.user_name%></span>
+                            <span class="delete delete-member" id="<%=weiyuan.user_id%>">×</span>
+                        </td>
+                    <%}%>
+                    </table>
+                <%}%>
+            <%}%>
+        </div>
+        <%}%>
+    </div>
+    <div id="picture" class="mui-popover mui-popover-action mui-popover-bottom">
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell">
+                <a href="/editGroup?id=00">添加组</a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a href="/addMember">添加成员</a>
+            </li>
+        </ul>
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell">
+                <a href="#picture">取消</a>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
 <script>
     $(".delete-member").click(function(){
         var id=this.id;
@@ -203,8 +203,5 @@
         })
     });
 </script>
-<style>
 
-
-</style>
 </html>

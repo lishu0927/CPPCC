@@ -1,80 +1,9 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header-search-back.ejs%>
-    <div class="wrap search-content">
-        <%if(group_list==null&&tian_list==null&&article_list==null){%>
-        <div class="empty">
-            <img src="/images/search-empty.png">
-            <p>没有找到您搜索的内容</p>
-        </div>
-        <%}%>
-
-
-        <%if(group_list!=null&&group_list.length>0){%>
-        <div class="weiyuan_list">
-            <div class="weiyuan_content">
-            <%for(var i=0;i<group_list.length;i++){var item = group_list[i];%>
-                <div class="list-title">
-                    <span class="left"><%=item.groupname%></span>
-                    <span class="center"></span>
-                    <span class="right">找到<%=item.weiyuan_list.length%>条</span>
-                </div>
-                <%for(var j=0;j<item.weiyuan_list.length;j++){var weiyuan = item.weiyuan_list[j];%>
-                <p class="name"><%=weiyuan.user_name%></p>
-                <%}%>
-            <%}%>
-            </div>
-        </div>
-        <%}%>
-
-        <%if(tian_list!=null&&tian_list.length>0){%>
-        <div class="tian_list">
-            <div class="list-title">
-                <span class="left">政协提案</span>
-                <span class="center"></span>
-                <span class="right">找到<%= tian_list.length%>条</span>
-            </div>
-            <%for(var i=0;i<tian_list.length;i++){%>
-            <div class="item">
-                <span class="circle"></span>
-                <p class="anyou"><%= tian_list[i].anyou%></p>
-            </div>
-            <%}%>
-        </div>
-        <%}%>
-
-        <%if(article_list!=null&&article_list.length>0){%>
-        <div class="article_list">
-            <div class="list-title">
-                <span class="left">政协要闻</span>
-                <span class="center"></span>
-                <span class="right">找到<%= article_list.length%>条</span>
-            </div>
-            <ul class="list">
-                <% for(var i = 0;i < article_list.length;i++){ %>
-                <li class="item">
-                    <a href="/newsDetail?id=<%= article_list[i].article_id %>">
-                        <img class="image" src="<%= article_list[i].img_url %>">
-                        <div class="info">
-                            <p class="title mui-ellipsis"><%= article_list[i].title %></p>
-                            <p class="desc mui-ellipsis-2"><%= article_list[i].zhaiyao %></p>
-                            <p class="time"><%= article_list[i].add_time.split(' ')[0] %></p>
-                        </div>
-                    </a>
-                </li>
-                <%}%>
-            </ul>
-        </div>
-        <%}%>
-    </div>
-</div>
-</body>
 <style>
     .container{
-       padding: 48px 0 0 0;
+        padding: 48px 0 0 0;
     }
     .empty{
         position: absolute;
@@ -186,11 +115,75 @@
         line-height: 24px;
     }
 </style>
-<script>
+<body>
+<div class="container">
+    <%-include ../base/header-search-back.ejs%>
+    <div class="wrap search-content">
+        <%if(group_list==null&&tian_list==null&&article_list==null){%>
+        <div class="empty">
+            <img src="/images/search-empty.png">
+            <p>没有找到您搜索的内容</p>
+        </div>
+        <%}%>
 
-</script>
-<style>
 
+        <%if(group_list!=null&&group_list.length>0){%>
+        <div class="weiyuan_list">
+            <div class="weiyuan_content">
+            <%for(var i=0;i<group_list.length;i++){var item = group_list[i];%>
+                <div class="list-title">
+                    <span class="left"><%=item.groupname%></span>
+                    <span class="center"></span>
+                    <span class="right">找到<%=item.weiyuan_list.length%>条</span>
+                </div>
+                <%for(var j=0;j<item.weiyuan_list.length;j++){var weiyuan = item.weiyuan_list[j];%>
+                <p class="name" onclick="window.location.href='/membersDetail?id=<%=weiyuan.user_id %>'"><%=weiyuan.user_name%></p>
+                <%}%>
+            <%}%>
+            </div>
+        </div>
+        <%}%>
 
-</style>
+        <%if(tian_list!=null&&tian_list.length>0){%>
+        <div class="tian_list">
+            <div class="list-title">
+                <span class="left">政协提案</span>
+                <span class="center"></span>
+                <span class="right">找到<%= tian_list.length%>条</span>
+            </div>
+            <%for(var i=0;i<tian_list.length;i++){%>
+            <div class="item">
+                <span class="circle"></span>
+                <p class="anyou" onclick="location.href='/proposalDetail4?id=<%=tian_list[i].tian_id%>&type=1&zhuangtai=立案'"><%= tian_list[i].anyou%></p>
+            </div>
+            <%}%>
+        </div>
+        <%}%>
+
+        <%if(article_list!=null&&article_list.length>0){%>
+        <div class="article_list">
+            <div class="list-title">
+                <span class="left">政协要闻</span>
+                <span class="center"></span>
+                <span class="right">找到<%= article_list.length%>条</span>
+            </div>
+            <ul class="list">
+                <% for(var i = 0;i < article_list.length;i++){ %>
+                <li class="item">
+                    <a href="/newsDetail?id=<%= article_list[i].article_id %>">
+                        <img class="image" src="<%= article_list[i].img_url %>">
+                        <div class="info">
+                            <p class="title mui-ellipsis"><%= article_list[i].title %></p>
+                            <p class="desc mui-ellipsis-2"><%= article_list[i].zhaiyao %></p>
+                            <p class="time"><%= article_list[i].add_time.split(' ')[0] %></p>
+                        </div>
+                    </a>
+                </li>
+                <%}%>
+            </ul>
+        </div>
+        <%}%>
+    </div>
+</div>
+</body>
 </html>

@@ -3,7 +3,7 @@ var createRequest = require("../../config/settings");
 module.exports = {
     init: function (req, res) {
         var keyword = req.query.keyword||'';
-        var data = {startid: -1};
+        var data = {startid: -1,num:20, start:0};
         createRequest(res,data,"/ZxApi/m1_02.ashx",function () {
             body = JSON.parse(body);
             var sliderList = body.bannerArticle_list;

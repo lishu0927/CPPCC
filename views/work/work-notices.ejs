@@ -1,23 +1,17 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <div class="wrap">
-        <%for(var i = 0;i < result.length;i++){ %>
-        <a class="item" href="/noticeDetail?article_id=<%=result[i].article_id%>">
-            <span class="circle"></span>
-            <p class="anyou"><%= result[i].title%></p>
-            <p class="time"><%= result[i].add_time%></p>
-        </a>
-        <%}%>
-    </div>
-</div>
-</body>
+<link rel="stylesheet" type="text/css" href="/css/mescroll.css">
+<script type='text/javascript' src='/js/mescroll.js'></script>
 <style>
     .container{
         padding: 42px 0 0 0;
+    }
+    .mescroll{
+        position: fixed;
+        top: 42px;
+        bottom: 0;
+        height: auto;
     }
     .item{
         padding: 10px;
@@ -43,5 +37,159 @@
         font-size: 12px;
         color: #0071bd;
     }
+    .page{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #ffffff;
+        display: none;
+        z-index: 100000000000000;
+        padding-top: 42px;
+    }
+    .page-content{
+        height: 100%;
+        overflow-y: auto;
+    }
+    .page-content .title{
+        background: #b8cae2;
+        padding: 10px;
+        line-height: 26px;
+        color: #0d0d0d;
+        text-align: center;
+        font-size: 16px;
+    }
+    .page-content .content{
+        padding: 10px;
+        word-break: break-word;
+        width: 100%;
+        overflow-x: hidden;
+    }
+    .page-content .content table,.content img{
+        width: 100%!important;
+    }
+    .page-content .content p{
+        color: #3b3b3b;
+        font-size: 15px;
+        letter-spacing: 1px;
+        word-break: break-word;
+    }
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div id="mescroll" class="mescroll wrap">
+        <div class=" content " id="list-content">
+            <%for(var i = 0;i < result.length;i++){ %>
+            <div class="item" onclick="dis(<%=result[i].article_id%>)" id="<%=result[i].article_id%>" >
+                <span class="circle"></span>
+                <p class="anyou"><%= result[i].title%></p>
+                <p class="time"><%= result[i].add_time%></p>
+            </div>
+            <%}%>
+        </div>
+    </div>
+
+</div>
+<div class="page">
+    <header>
+        <span class="header-icon-left" onclick="back()">
+            <img src="/images/icons/back.png">
+        </span>
+        <p class="header-title">
+            通知详情
+        </p>
+    </header>
+    <div class="page-content">
+
+    </div>
+</div>
+</body>
+<script>
+    function dis(id) {
+        $(".page-content").html("");
+        $(".page").css("display","block")
+        var params = {
+            article_id: id
+        }
+        var data = JSON.stringify(params)
+        $.ajax({
+            url: 'http://114.215.98.96:8011/ZxApi/m3_12.ashx',
+            type: "POST",
+            dataType: 'json',
+            data: data,
+            error: function (request) {      // 设置表单提交出错
+                mui.toast("系统错误，返回状态码为：" + request.status);
+            },
+            success: function (data) {
+                if (data.ecode == 1000) {
+                    var detail= '<p class="title">'+data.title+'</p>'+
+                        '<div class="content">'+data.content+'</div>'
+                    $(".page-content").append(detail)
+                }
+            }
+        })
+    }
+    function back() {
+        $(".page").css("display","none")
+    }
+    $(function () {
+        //创建MeScroll对象
+        var mescroll = new MeScroll("mescroll", {
+            down: {
+                auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+                callback: downCallback //下拉刷新的回调
+            },
+            up: {
+                auto: false, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+                callback: upCallback //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+            }
+        });
+
+        /*下拉刷新的回调 */
+        function downCallback(){
+            window.location.reload()
+        }
+        function upCallback(){
+            var params = {
+                startid: $(".item:last").attr("id"),
+                num: 10,
+                start: 0
+            }
+            var data = JSON.stringify(params)
+            $.ajax({
+                url: 'http://114.215.98.96:8011/ZxApi/m3_11.ashx',
+                type: "POST",
+                dataType: 'json',
+                data: data,
+                error: function (request) {      // 设置表单提交出错
+                    mui.toast("系统错误，返回状态码为：" + request.status);
+                },
+                success: function (data) {
+                    if(data.ecode==1000){
+                        mescroll.endSuccess(data.length);
+                        var list=data.article_list
+                        if(list.length>0){
+                            $.each(list, function (i) {
+                                var item='<div class="item" onclick="dis('+list[i].article_id+')" id="'+list[i].article_id+'" >'+
+                                    '<span class="circle"></span>'+
+                                    '<p class="anyou">'+list[i].title+'</p>'+
+                                    '<p class="time">'+list[i].add_time+'</p>'+
+                                    '</div>'
+                                $("#list-content").append(item);
+                            })
+                        }else{
+                            mescroll.endSuccess(0)
+                        }
+
+                    }else{
+                        mui.toast("系统错误")
+                        mescroll.endErr()
+                    }
+                }
+            });
+        }
+    })
+</script>
 </html>
