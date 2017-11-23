@@ -32,7 +32,7 @@ function compare_str(str1,str2,dom1,dom2){
 
             if (arr!=undefined && arr.length)
             {
-                res1 +=("<font color='red'>" + str1.substr(0,arr[0]) + "</font>");
+                res1 +=str1.substr(0,arr[0]);
                 res2 +=("<font color='red'>" + str2.substr(0,arr[1]) + "</font>");
                 res1 +=(str1.substr(arr[0],arr[2]));
                 res2 +=(str2.substr(arr[1],arr[2]));
@@ -40,7 +40,7 @@ function compare_str(str1,str2,dom1,dom2){
                 str1 = str1.substr(arr[0]+arr[2]);
                 str2 = str2.substr(arr[1]+arr[2]);
             }else{
-                res1 +=("<font color='red'>" + str1 + "</font>");
+                res1 +=str1;
                 res2 +=("<font color='red'>" + str2 + "</font>");
                 str1 = '';
                 str2 = '';
@@ -50,7 +50,7 @@ function compare_str(str1,str2,dom1,dom2){
     }
     if (str1.length)
     {
-        res1 +=("<font color='red'>" + str1 + "</font>");
+        res1 +=str1;
     }
     if (str2.length)
     {

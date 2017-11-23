@@ -1,55 +1,6 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <div class="wrap">
-        <div class="proposal-content">
-            <div class="row">
-                <span class="left">提案人姓名</span>
-                <span class="right" id="name"></span>
-            </div>
-            <div class="row">
-                <span class="left">电话号码</span>
-                <span class="right" id="mobile"></span>
-            </div>
-        </div>
-        <div class="submit-content">
-            <div class="row">
-                <p class="desc">委员证号码</p>
-                <textarea placeholder="" rows="1" id="weinum"></textarea>
-            </div>
-            <div class="row">
-                <p class="desc">单位</p>
-                <textarea placeholder="" rows="1" id="company"></textarea>
-            </div>
-            <div class="row">
-                <p class="desc">案由</p>
-                <textarea placeholder="" rows="1" id="anyou"></textarea>
-            </div>
-            <div class="row">
-                <p class="desc">问题</p>
-                <textarea placeholder="" rows="2" id="problem"></textarea>
-            </div>
-            <div class="row">
-                <p class="desc">分析</p>
-                <textarea placeholder="" rows="1" id="analyse"></textarea>
-            </div>
-            <div class="row">
-                <p class="desc">建议</p>
-                <textarea placeholder="" rows="2" id="advice"></textarea>
-            </div>
-        </div>
-    </div>
-    <div class="bottom">
-        <div class="content" id="submit">
-            <div class="left">保存</div>
-            <div class="right">提交</div>
-        </div>
-    </div>
-</div>
-</body>
 <style>
     .container{
         padding: 42px 0 50px 0;
@@ -123,11 +74,60 @@
     }
 
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap">
+        <div class="proposal-content">
+            <div class="row">
+                <span class="left">提案人姓名</span>
+                <span class="right" id="name"></span>
+            </div>
+            <div class="row">
+                <span class="left">电话号码</span>
+                <span class="right" id="mobile"></span>
+            </div>
+        </div>
+        <div class="submit-content">
+            <div class="row">
+                <p class="desc">委员证号码</p>
+                <textarea placeholder="" rows="1" id="weinum"></textarea>
+            </div>
+            <div class="row">
+                <p class="desc">单位</p>
+                <textarea placeholder="" rows="1" id="company"></textarea>
+            </div>
+            <div class="row">
+                <p class="desc">案由</p>
+                <textarea placeholder="" rows="1" id="anyou"></textarea>
+            </div>
+            <div class="row">
+                <p class="desc">问题</p>
+                <textarea placeholder="" rows="2" id="problem"></textarea>
+            </div>
+            <div class="row">
+                <p class="desc">分析</p>
+                <textarea placeholder="" rows="1" id="analyse"></textarea>
+            </div>
+            <div class="row">
+                <p class="desc">建议</p>
+                <textarea placeholder="" rows="2" id="advice"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="content" id="submit">
+            <div class="left">保存</div>
+            <div class="right">提交</div>
+        </div>
+    </div>
+</div>
+</body>
 <script>
 $(function() {
     var user=JSON.parse(sessionStorage.getItem('user'))
     var user_name=user.user_name;
-    var mobile=user.user_mobile;
+    var mobile=user.mobile;
     var user_id=user.user_id;
     var tijiao_kind;
     var tian_id=0;

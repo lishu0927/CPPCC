@@ -6,99 +6,6 @@
 <script type='text/javascript' src='/js/mui.picker.min.js'></script>
 <script type='text/javascript' src='/js/mui.previewimage.js'></script>
 <script type='text/javascript' src='/js/mui.zoom.js'></script>
-<body>
-<div class="container">
-    <%- include ../base/header.ejs %>
-    <span class="header-right" id="submit">确定</span>
-    <div class="wrap">
-        <div class="upload-content">
-            <div class="upload">
-                <form action="http://114.215.98.96:8011/ZxApi/uploadfile.aspx" enctype="multipart/form-data"
-                      method="post" id="uploadForm">
-                    <input type="file" name="file" id="upload"/>
-                    上传/替换
-                </form>
-            </div>
-        </div>
-        <div class="input-row">
-            <label>照片:</label>
-            <img src="" class="member-pic" id="img" data-preview-src="" />
-        </div>
-        <div class="input-row">
-            <label>选择分组:</label>
-            <select id="groups">
-            </select>
-        </div>
-        <div class="input-row">
-            <label>姓名:</label>
-            <input type="text" id="name"/>
-        </div>
-        <div class="input-row">
-            <label>姓别：</label>
-            <div class="mui-input-row mui-radio mui-left">
-                <label class="radio-lable">男</label>
-                <input name="sex" type="radio" value="男">
-            </div>
-            <div class="mui-input-row mui-radio mui-left">
-                <label class="radio-lable">女</label>
-                <input name="sex" type="radio" value="女">
-            </div>
-        </div>
-        <div class="input-row">
-            <label>出生日期:</label>
-            <button id='date' class="date" data-options='{"type":"date","beginYear":1900,"endYear":2020}'></button>
-        </div>
-        <div class="input-row">
-            <label>联系电话:</label>
-            <input type="text" id="telephone"/>
-        </div>
-        <div class="input-row">
-            <label>民族:</label>
-            <input type="text" id="minzu"/>
-        </div>
-        <div class="input-row">
-            <label>籍贯:</label>
-            <input type="text" id="jiguan"/>
-        </div>
-        <div class="input-row">
-            <label>党派:</label>
-            <input type="text" id="mianmao"/>
-        </div>
-        <div class="input-row">
-            <label>手机:</label>
-            <input type="text" id="mobile"/>
-        </div>
-        <div class="input-row">
-            <label>地址:</label>
-            <input type="text" id="address"/>
-        </div>
-        <div class="input-row">
-            <label>邮箱:</label>
-            <input type="text" id="email"/>
-        </div>
-        <div class="input-row">
-            <label>学历:</label>
-            <input type="text" id="xueli"/>
-        </div>
-        <div class="input-row">
-            <label>毕业院校:</label>
-            <input type="text" id="yuanxiao"/>
-        </div>
-        <div class="input-row">
-            <label>职称:</label>
-            <input type="text" id="zhicheng"/>
-        </div>
-        <div class="input-row">
-            <label>界别:</label>
-            <input type="text" id="jiebie"/>
-        </div>
-        <div class="input-row">
-            <label>设置初始密码:</label>
-            <input type="text" id="password"/>
-        </div>
-    </div>
-</div>
-</body>
 <style>
     .container{
         padding: 42px 0 0 0;
@@ -342,6 +249,100 @@
         height: auto;
     }
 </style>
+<body>
+<div class="container">
+    <%- include ../base/header.ejs %>
+    <span class="header-right" id="submit">确定</span>
+    <div class="wrap">
+        <div class="upload-content">
+            <div class="upload">
+                <form action="http://114.215.98.96:8011/ZxApi/uploadfile.aspx" enctype="multipart/form-data"
+                      method="post" id="uploadForm">
+                    <input type="file" name="file" id="upload"/>
+                    上传/替换
+                </form>
+            </div>
+        </div>
+        <div class="input-row">
+            <label>照片:</label>
+            <img src="" class="member-pic" id="img" data-preview-src="" />
+        </div>
+        <div class="input-row">
+            <label>选择分组:</label>
+            <select id="groups">
+            </select>
+        </div>
+        <div class="input-row">
+            <label>姓名:</label>
+            <input type="text" id="name"/>
+        </div>
+        <div class="input-row">
+            <label>姓别：</label>
+            <div class="mui-input-row mui-radio mui-left">
+                <label class="radio-lable">男</label>
+                <input name="sex" type="radio" value="男">
+            </div>
+            <div class="mui-input-row mui-radio mui-left">
+                <label class="radio-lable">女</label>
+                <input name="sex" type="radio" value="女">
+            </div>
+        </div>
+        <div class="input-row">
+            <label>出生日期:</label>
+            <button id='date' class="date" data-options='{"type":"date","beginYear":1900,"endYear":2020}'></button>
+        </div>
+        <div class="input-row">
+            <label>联系电话:</label>
+            <input type="text" id="telephone"/>
+        </div>
+        <div class="input-row">
+            <label>民族:</label>
+            <input type="text" id="minzu"/>
+        </div>
+        <div class="input-row">
+            <label>籍贯:</label>
+            <input type="text" id="jiguan"/>
+        </div>
+        <div class="input-row">
+            <label>党派:</label>
+            <input type="text" id="mianmao"/>
+        </div>
+        <div class="input-row">
+            <label>手机:</label>
+            <input type="text" id="mobile"/>
+        </div>
+        <div class="input-row">
+            <label>地址:</label>
+            <input type="text" id="address"/>
+        </div>
+        <div class="input-row">
+            <label>邮箱:</label>
+            <input type="text" id="email"/>
+        </div>
+        <div class="input-row">
+            <label>学历:</label>
+            <input type="text" id="xueli"/>
+        </div>
+        <div class="input-row">
+            <label>毕业院校:</label>
+            <input type="text" id="yuanxiao"/>
+        </div>
+        <div class="input-row">
+            <label>职称:</label>
+            <input type="text" id="zhicheng"/>
+        </div>
+        <div class="input-row">
+            <label>界别:</label>
+            <input type="text" id="jiebie"/>
+        </div>
+        <div class="input-row">
+            <label>设置初始密码:</label>
+            <input type="text" id="password"/>
+        </div>
+    </div>
+</div>
+</body>
+
 <script>
     mui.previewImage();
     (function($) {
@@ -453,7 +454,7 @@
                         mui.toast("增加成功！");
                         setTimeout(function () {
                             self.location = document.referrer;
-                        },1000);
+                        },500);
                     } else {
                         mui.toast("增加失败！");
                     }

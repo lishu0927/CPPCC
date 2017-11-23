@@ -11,7 +11,7 @@
                 <div class="mui-slider-group mui-slider-loop">
                     <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
                     <div class="mui-slider-item mui-slider-item-duplicate">
-                        <a href="#">
+                        <a href="/newsDetail?id=<%= sliderList[sliderList.length - 1].article_id %>">
                             <img src="<%= sliderList[sliderList.length - 1].img_url %>">
                             <div class="slide-layer">
                                 <p class="mui-ellipsis"><%= sliderList[sliderList.length - 1].title %></p>
@@ -21,7 +21,7 @@
                     <% for(var i = 0;i < sliderList.length;i++){ %>
                     <!-- 第一张 -->
                     <div class="mui-slider-item">
-                        <a href="javascript:;">
+                        <a href="/newsDetail?id=<%= sliderList[i].article_id %>">
                             <img src="<%= sliderList[i].img_url %>">
                             <div class="slide-layer">
                                 <p class="mui-ellipsis"><%= sliderList[i].title %></p>
@@ -31,7 +31,7 @@
                     <% } %>
                     <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
                     <div class="mui-slider-item mui-slider-item-duplicate">
-                        <a href="javascript:;">
+                        <a href="/newsDetail?id=<%= sliderList[0].article_id %>">
                             <img src="<%= sliderList[0].img_url %>">
                             <div class="slide-layer">
                                 <p class="mui-ellipsis"><%= sliderList[0].title %></p>

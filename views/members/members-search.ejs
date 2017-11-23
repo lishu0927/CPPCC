@@ -1,41 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <a class="header-right" href="/membersEdit">编辑</a>
-    <div class="wrap">
-        <div class="members-search">
-            <%-include ../base/search-box.ejs%>
-        </div>
-        <div class="members-search-content">
-            <%if(group_list==null||group_list==''){%>
-            <div class="empty">
-                <img src="/images/search-empty.png">
-                <p>没有找到您搜索的内容</p>
-            </div>
-            <%}%>
-
-            <%for(var i=0;i<group_list.length;i++){var item = group_list[i];%>
-            <div class="groups">
-                <div class="list-title">
-                    <span class="left"><%=item.groupname%></span>
-                    <span class="center"></span>
-                    <span class="right">找到<%=item.weiyuan_list.length%>条</span>
-                </div>
-                <%for(var j=0;j<item.weiyuan_list.length;j++){var weiyuan = item.weiyuan_list[j];%>
-                <p class="name"><%=weiyuan.user_name%></p>
-                <%}%>
-            </div>
-            <%}%>
-        </div>
-
-    </div>
-</div>
-</body>
-<script>
-</script>
+<%-include ../base/checkHead.ejs%>
 <style>
     .container{
         padding: 42px 0 0 0;
@@ -96,7 +61,38 @@
         font-size: 14px;
         color: #3b3b3b;
     }
-
-
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <a class="header-right" href="/membersEdit">编辑</a>
+    <div class="wrap">
+        <div class="members-search">
+            <%-include ../base/search-box.ejs%>
+        </div>
+        <div class="members-search-content">
+            <%if(group_list==null||group_list==''){%>
+            <div class="empty">
+                <img src="/images/search-empty.png">
+                <p>没有找到您搜索的内容</p>
+            </div>
+            <%}%>
+
+            <%for(var i=0;i<group_list.length;i++){var item = group_list[i];%>
+            <div class="groups">
+                <div class="list-title">
+                    <span class="left"><%=item.groupname%></span>
+                    <span class="center"></span>
+                    <span class="right">找到<%=item.weiyuan_list.length%>条</span>
+                </div>
+                <%for(var j=0;j<item.weiyuan_list.length;j++){var weiyuan = item.weiyuan_list[j];%>
+                <p class="name" onclick="window.location.href='/membersDetail?id=<%=weiyuan.user_id %>'"><%=weiyuan.user_name%></p>
+                <%}%>
+            </div>
+            <%}%>
+        </div>
+
+    </div>
+</div>
+</body>
 </html>
