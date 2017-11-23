@@ -1,74 +1,15 @@
 <!DOCTYPE html>
 <html>
 <%- include ../base/checkHead.ejs %>
-<body>
-<div class="container">
-    <%- include ../base/header-search.ejs %>
-    <%- include ../base/footer-nav.ejs %>
-    <div class="wrap">
-        <div class="slide-content">
-            <div id="slider" class="mui-slider">
-                <div class="mui-slider-group mui-slider-loop">
-                    <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-                    <div class="mui-slider-item mui-slider-item-duplicate">
-                        <a href="/newsDetail?id=<%= sliderList[sliderList.length - 1].article_id %>">
-                            <img src="<%= sliderList[sliderList.length - 1].img_url %>">
-                            <div class="slide-layer">
-                                <p class="mui-ellipsis"><%= sliderList[sliderList.length - 1].title %></p>
-                            </div>
-                        </a>
-                    </div>
-                    <% for(var i = 0;i < sliderList.length;i++){ %>
-                    <!-- 第一张 -->
-                    <div class="mui-slider-item">
-                        <a href="/newsDetail?id=<%= sliderList[i].article_id %>">
-                            <img src="<%= sliderList[i].img_url %>">
-                            <div class="slide-layer">
-                                <p class="mui-ellipsis"><%= sliderList[i].title %></p>
-                            </div>
-                        </a>
-                    </div>
-                    <% } %>
-                    <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-                    <div class="mui-slider-item mui-slider-item-duplicate">
-                        <a href="/newsDetail?id=<%= sliderList[0].article_id %>">
-                            <img src="<%= sliderList[0].img_url %>">
-                            <div class="slide-layer">
-                                <p class="mui-ellipsis"><%= sliderList[0].title %></p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="mui-slider-indicator">
-                    <% for(var i = 0;i < sliderList.length;i++){
-                    if(i == 0){ %>
-                    <div class="mui-indicator mui-active"></div>
-                    <% }else { %>
-                    <div class="mui-indicator"></div>
-                    <% }} %>
-                </div>
-            </div>
-        </div>
-        <div class="news-content">
-            <ul class="news-list">
-                <% for(var i = 0;i < articleList.length;i++){ %>
-                <li class="item">
-                    <a href="/newsDetail?id=<%= articleList[i].article_id %>">
-                        <img class="image" src="<%= articleList[i].img_url %>">
-                        <div class="info">
-                            <p class="title mui-ellipsis"><%= articleList[i].title %></p>
-                            <p class="desc mui-ellipsis-2"><%= articleList[i].zhaiyao %></p>
-                            <p class="time"><%= articleList[i].add_time.split(' ')[0] %></p>
-                        </div>
-                    </a>
-                </li>
-                <% } %>
-            </ul>
-        </div>
-    </div>
-</div>
-</body>
+<link rel="stylesheet" type="text/css" href="/css/mescroll.css">
+<script type='text/javascript' src='/js/mescroll.js'></script>
 <style>
+    .mescroll{
+        position: fixed;
+        top: 48px;
+        bottom: 54px;
+        height: auto;
+    }
     .slide-content {
         position: relative;
     }
@@ -112,7 +53,7 @@
     .news-list .item {
         border-bottom: 1px solid #bcbcbc;
     }
-    .news-list .item a {
+    .news-list .item .item-wrap {
         position: relative;
         width: 100%;
         display: block;
@@ -144,11 +85,254 @@
         font-size: 12px;
         line-height: 24px;
     }
+    .page{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #ffffff;
+        display: none;
+        z-index: 100000000000000;
+        padding-top: 42px;
+    }
+    .detail-header{
+        position: fixed;
+        height: 42px;
+        top: 0;
+        width: 100%;
+        background: #006fb8;
+        z-index: 10000;
+    }
+    .detail-header .header-title{
+        line-height: 42px;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        color: #fff;
+        font-size: 17px;
+        letter-spacing: 1px;
+    }
+    .detail-header .header-icon-left{
+        position: absolute;
+        left: 0;
+        top:0;
+        width: 42px;
+        height: 42px;
+        text-align: center;
+    }
+    .detail-header .header-icon-left img{
+        height: 22px;
+        margin-top: 10px;
+    }
+    .page-content{
+        height: 100%;
+        overflow-y: auto;
+    }
+    .new-datail .title{
+        font-size: 18px;
+        line-height: 26px;
+        padding: 10px;
+        color: #000;
+    }
+    .new-datail .time{
+        color: #fa1414;
+        padding: 0 15px 10px;
+    }
+    .new-datail .content{
+        padding: 10px;
+        word-break: break-word;
+        width: 100%;
+        overflow-x: hidden;
+    }
+    .new-datail .content p{
+        color: #3b3b3b;
+        font-size: 15px;
+        letter-spacing: 1px;
+        word-break: break-word;
+    }
+    .new-datail .content table,.content img{
+        width: 100%!important;
+    }
 </style>
+<body>
+<div class="container">
+    <%- include ../base/header-search.ejs %>
+    <%- include ../base/footer-nav.ejs %>
+    <div class="wrap mescroll" id="mescroll">
+        <div class="slide-content">
+            <div id="slider" class="mui-slider">
+                <div class="mui-slider-group mui-slider-loop">
+                    <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+                    <div class="mui-slider-item mui-slider-item-duplicate">
+                        <a href="/newsDetail?id=<%= sliderList[sliderList.length - 1].article_id %>">
+                            <img src="<%= sliderList[sliderList.length - 1].img_url %>">
+                            <div class="slide-layer">
+                                <p class="mui-ellipsis"><%= sliderList[sliderList.length - 1].title %></p>
+                            </div>
+                        </a>
+                    </div>
+                    <% for(var i = 0;i < sliderList.length;i++){ %>
+                    <!-- 第一张 -->
+                    <div class="mui-slider-item">
+                        <a href="/newsDetail?id=<%= sliderList[i].article_id %>">
+                            <img src="<%= sliderList[i].img_url %>">
+                            <div class="slide-layer">
+                                <p class="mui-ellipsis"><%= sliderList[i].title %></p>
+                            </div>
+                        </a>
+                    </div>
+                    <% } %>
+                    <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+                    <div class="mui-slider-item mui-slider-item-duplicate">
+                        <a href="/newsDetail?id=<%= sliderList[0].article_id %>">
+                            <img src="<%= sliderList[0].img_url %>">
+                            <div class="slide-layer">
+                                <p class="mui-ellipsis"><%= sliderList[0].title %></p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="mui-slider-indicator">
+                    <% for(var i = 0;i < sliderList.length;i++){
+                    if(i == 0){ %>
+                    <div class="mui-indicator mui-active"></div>
+                    <% }else { %>
+                    <div class="mui-indicator"></div>
+                    <% }} %>
+                </div>
+            </div>
+        </div>
+        <div class="news-content ">
+            <ul class="news-list" id="list-content">
+                <% for(var i = 0;i < articleList.length;i++){ %>
+                <li class="item" id="<%= articleList[i].article_id %>">
+                    <div class="item-wrap" onclick="dis(<%= articleList[i].article_id %>)">
+                        <img class="image" src="<%= articleList[i].img_url %>">
+                        <div class="info">
+                            <p class="title mui-ellipsis"><%= articleList[i].title %></p>
+                            <p class="desc mui-ellipsis-2"><%= articleList[i].zhaiyao %></p>
+                            <p class="time"><%= articleList[i].add_time.split(' ')[0] %></p>
+                        </div>
+                    </div>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="page">
+    <div class="detail-header">
+        <span class="header-icon-left" onclick="back()">
+            <img src="/images/icons/back.png">
+        </span>
+        <p class="header-title">
+            通知详情
+        </p>
+    </div>
+    <div class="page-content">
+
+    </div>
+</div>
+</body>
+
 <script>
     var slider = mui("#slider");
     slider.slider({
         interval: 3000
     });
+    function dis(id) {
+        $(".page-content").html("");
+        $(".page").css("display","block")
+        var params = {
+            article_id: id
+        }
+        var data = JSON.stringify(params)
+        $.ajax({
+            url: 'http://114.215.98.96:8011/ZxApi/m1_03.ashx',
+            type: "POST",
+            dataType: 'json',
+            data: data,
+            error: function (request) {      // 设置表单提交出错
+                mui.toast("系统错误，返回状态码为：" + request.status);
+            },
+            success: function (data) {
+                if (data.ecode == 1000) {
+                    var detail= '<div class="new-datail">'+
+                        '<p class="title">'+data.title+'</p>'+
+                        '<p class="time">'+data.add_time.split(' ')[0]+'</p>'+
+                        '<div class="content">'+ data.content+'</div>'+
+                        '</div>'
+                    $(".page-content").append(detail)
+                }
+            }
+        })
+    }
+    function back() {
+        $(".page").css("display","none")
+    }
+    $(function () {
+        //创建MeScroll对象
+        var mescroll = new MeScroll("mescroll", {
+            down: {
+                auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+                callback: downCallback //下拉刷新的回调
+            },
+            up: {
+                auto: false, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+                callback: upCallback //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+            }
+        });
+
+        /*下拉刷新的回调 */
+        function downCallback(){
+            window.location.reload()
+        }
+
+        /*上拉加载的回调 page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
+        function upCallback(){
+            var params = {
+                startid: $(".news-list .item:last").attr("id"),
+                num: 10,
+                start: 0
+            }
+            var data = JSON.stringify(params)
+            $.ajax({
+                url: 'http://114.215.98.96:8011/ZxApi/m1_02.ashx',
+                type: "POST",
+                dataType: 'json',
+                data: data,
+                error: function (request) {      // 设置表单提交出错
+                    mui.toast("系统错误，返回状态码为：" + request.status);
+                },
+                success: function (data) {
+                    if(data.ecode==1000){
+                        mescroll.endSuccess(data.length);
+                        var list=data.article_list
+                        if(list.length>0){
+                            $.each(list, function (i) {
+                                var item='<li class="item" id='+list[i].article_id+'>'+
+                                    '<div class="item-wrap" onclick="dis('+list[i].article_id+')">'+
+                                    '<img class="image" src="'+list[i].img_url+'">'+
+                                    '<div class="info">'+
+                                    '<p class="title mui-ellipsis">'+list[i].title +'</p>'+
+                                    '<p class="desc mui-ellipsis-2">'+list[i].zhaiyao +'</p>'+
+                                    '<p class="time">'+list[i].add_time.split(' ')[0] +'</p>'+
+                                    '</div>'+
+                                    '</div>'+
+                                    '</li>'
+                                $("#list-content").append(item);
+                            })
+                        }else{
+                            mescroll.endSuccess(0)
+                        }
+
+                    }else{
+                        mui.toast("系统错误")
+                    }
+                }
+            });
+        }
+    })
 </script>
 </html>
