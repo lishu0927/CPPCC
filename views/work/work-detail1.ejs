@@ -1,55 +1,6 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <div class="wrap">
-        <div class="proposal-content">
-            <div class="row">
-                <span class="left">编号</span>
-                <span class="right" id="num"><%=work.worknumber%></span>
-            </div>
-            <div class="row">
-                <span class="left">发起人</span>
-                <span class="right" id="name"><%=work.username%></span>
-            </div>
-            <div class="row">
-                <span class="left">发起日期</span>
-                <span class="right" id="date"><%=work.createdate%></span>
-            </div>
-            <div class="row">
-                <span class="left">文件标题</span>
-                <span class="right" >
-                    <textarea id="title" placeholder="" rows="1"><%=work.worktitle%></textarea>
-                </span>
-            </div>
-            <div class="row">
-                <span class="left">内容</span>
-                <span class="right">
-                    <textarea  id="content" placeholder="" rows="5"><%=work.workcontent%></textarea></span>
-            </div>
-            <div class="row">
-                <span class="left">附件</span>
-                <span class="right"></span>
-            </div>
-            <div class="row">
-                <span class="left">选择处理人</span>
-                <span class="right">
-                    <div id="leaders" >
-                    </div>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="bottom">
-        <div class="content" id="submit">
-            <div class="left">保存草稿</div>
-            <div class="right">完成提交</div>
-        </div>
-    </div>
-</div>
-</body>
 <style>
     .container{
         padding: 42px 0 50px 0;
@@ -114,8 +65,56 @@
     .bottom .content .right{
         flex: 1;
     }
-
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap">
+        <div class="proposal-content">
+            <div class="row">
+                <span class="left">编号</span>
+                <span class="right" id="num"><%=work.worknumber%></span>
+            </div>
+            <div class="row">
+                <span class="left">发起人</span>
+                <span class="right" id="name"><%=work.username%></span>
+            </div>
+            <div class="row">
+                <span class="left">发起日期</span>
+                <span class="right" id="date"><%=work.createdate%></span>
+            </div>
+            <div class="row">
+                <span class="left">文件标题</span>
+                <span class="right" >
+                    <textarea id="title" placeholder="" rows="1"><%=work.worktitle%></textarea>
+                </span>
+            </div>
+            <div class="row">
+                <span class="left">内容</span>
+                <span class="right">
+                    <textarea  id="content" placeholder="" rows="5"><%=work.workcontent%></textarea></span>
+            </div>
+            <div class="row">
+                <span class="left">附件</span>
+                <span class="right"></span>
+            </div>
+            <div class="row">
+                <span class="left">选择处理人</span>
+                <span class="right">
+                    <div id="leaders" >
+                    </div>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="content" id="submit">
+            <div class="left">保存草稿</div>
+            <div class="right">完成提交</div>
+        </div>
+    </div>
+</div>
+</body>
 <script>
     $(function() {
         $("#leaders").html("");
@@ -207,9 +206,12 @@
                         },
                         success: function (data) {
                             if(data.ecode==1000){
-                                mui.toast('操作成功');
+                                mui.toast("操作成功！");
+                                setTimeout(function () {
+                                    history.go(-1)
+                                },1000);
                             }else{
-                                mui.toast('操作失败');
+                                mui.toast("操作失败！");
                             }
                         }
                     });

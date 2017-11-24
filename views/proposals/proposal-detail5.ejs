@@ -1,50 +1,6 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <div class="wrap">
-        <p class="text-left">审查意见：立案 <span>第123456号</span></p>
-        <div class="desc-content">
-            <p><span class="desc">提案人姓名：</span><span class="content"><%=tian.tianername%></span></p>
-            <p><span class="desc">单位：</span><span class="content"><%=tian.company%></span></p>
-            <p><span class="desc">委员证件号：</span><span class="content"><%=tian.weinum%></span></p>
-            <p><span class="desc">电话号码：</span><span class="content"><%=tian.mobile%></span></p>
-        </div>
-        <div class="proposal-content">
-            <div class="row">
-                <div class="left">
-                    <p class="desc">案由</p>
-                    <p class="content"><%=tian.anyou%></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="left">
-                    <p class="desc">问题</p>
-                    <p class="content"><%=tian.problem%></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="left">
-                    <p class="desc">分析</p>
-                    <p class="content"><%=tian.analyse%></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="left">
-                    <p class="desc">建议</p>
-                    <p class="content"><%=tian.advice%></p>
-                </div>
-            </div>
-        </div>
-        <div class="back-content">
-            <p class="desc">退回理由：</p>
-            <p class="content"><%=tian.tuihui%></p>
-        </div>
-    </div>
-</div>
-</body>
 <style>
     .container{
         padding: 42px 0 0 0;
@@ -99,5 +55,48 @@
         color: #0071bd;
     }
 </style>
-
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap">
+        <p class="text-left">审查意见：立案 <span>第123456号</span></p>
+        <div class="desc-content">
+            <p><span class="desc">提案人姓名：</span><span class="content"><%=tian.tianername%></span></p>
+            <p><span class="desc">单位：</span><span class="content"><%=tian.company%></span></p>
+            <p><span class="desc">委员证件号：</span><span class="content"><%=tian.weinum%></span></p>
+            <p><span class="desc">电话号码：</span><span class="content"><%=tian.mobile%></span></p>
+        </div>
+        <div class="proposal-content">
+            <div class="row">
+                <div class="left">
+                    <p class="desc">案由</p>
+                    <p class="content"><%=tian.anyou%></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="left">
+                    <p class="desc">问题</p>
+                    <p class="content"><%=tian.problem%></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="left">
+                    <p class="desc">分析</p>
+                    <p class="content"><%=tian.analyse%></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="left">
+                    <p class="desc">建议</p>
+                    <p class="content"><%=tian.advice%></p>
+                </div>
+            </div>
+        </div>
+        <div class="back-content">
+            <p class="desc">退回理由：</p>
+            <p class="content"><%=tian.tuihui%></p>
+        </div>
+    </div>
+</div>
+</body>
 </html>

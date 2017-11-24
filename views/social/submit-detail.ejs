@@ -132,7 +132,7 @@
                 tijiao_kind=1;
                 sqmy_id=0;
             }
-            if(ideatitle == null||ideacontent==null){
+            if(ideatitle == ''||ideacontent== ''){
                 mui.toast("请填写完整")
                 return;
             }else {
@@ -155,7 +155,12 @@
                     },
                     success: function (data) {
                         if(data.ecode==1000){
-                            mui.toast('操作成功');
+                            mui.toast("操作成功！");
+                            setTimeout(function () {
+                                history.go(-1)
+                            },1000);
+                        }else{
+                            mui.toast("操作失败！");
                         }
                     }
                 });

@@ -1,27 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <a class="header-right" href="/proposalManage?tabIndex=0">提案管理</a>
-    <div class="wrap">
-        <div class="proposals-search">
-            <%-include ../base/search-box.ejs%>
-        </div>
-        <div class="states-content">
-            <div class="list-tab">
-                <span class="tab-item active" id="item1">申请审核</span>
-                <span class="tab-item" id="item2">修改重提</span>
-                <span class="tab-item" id="item3">成功立案</span>
-                <span class="tab-item" id="item4">退回</span>
-            </div>
-        </div>
-        <div class="list-content" id="list-content">
-        </div>
-    </div>
-</div>
-</body>
+<%-include ../base/checkHead.ejs%>
 <style>
     .container{
         padding: 136px 0 0 0;
@@ -50,6 +29,7 @@
         border-bottom: 1px solid #bcbcbc;
         position: relative;
         display: block;
+        min-height: 44px;
     }
     .item .circle{
         position: absolute;
@@ -111,6 +91,27 @@
         color: #fff;
     }
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <a class="header-right" href="/proposalManage?tabIndex=0">提案管理</a>
+    <div class="wrap">
+        <div class="proposals-search">
+            <%-include ../base/search-box.ejs%>
+        </div>
+        <div class="states-content">
+            <div class="list-tab">
+                <span class="tab-item active" id="item1">申请审核</span>
+                <span class="tab-item" id="item2">修改重提</span>
+                <span class="tab-item" id="item3">成功立案</span>
+                <span class="tab-item" id="item4">退回</span>
+            </div>
+        </div>
+        <div class="list-content" id="list-content">
+        </div>
+    </div>
+</div>
+</body>
 <script>
     var tian_list_kind;
     var state_text;

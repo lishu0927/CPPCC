@@ -1,20 +1,6 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <div class="wrap">
-        <%for(var i=0 ;i<article_list.length;i++){%>
-        <a class="item" href="/knowDetail?id=<%=article_list[i].article_id%>">
-            <span class="circle"></span>
-            <p class="anyou"><%=article_list[i].title%></p>
-            <p class="time"><%=article_list[i].add_time.split(' ')[0]%></p>
-        </a>
-        <%}%>
-    </div>
-</div>
-</body>
 <style>
     .container{
         padding: 42px 0 0 0;
@@ -44,4 +30,19 @@
         color: #0071bd;
     }
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap">
+        <%for(var i=0 ;i<article_list.length;i++){%>
+        <a class="item" href="/knowDetail?id=<%=article_list[i].article_id%>">
+            <span class="circle"></span>
+            <p class="anyou"><%=article_list[i].title%></p>
+            <p class="time"><%=article_list[i].add_time.split(' ')[0]%></p>
+        </a>
+        <%}%>
+    </div>
+</div>
+</body>
+
 </html>

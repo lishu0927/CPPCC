@@ -3,44 +3,6 @@
 <%-include ../base/checkHead.ejs%>
 <link rel="stylesheet" type="text/css" href="/css/mui.picker.min.css">
 <script type='text/javascript' src='/js/mui.picker.min.js'></script>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <a class="header-right" href="/addWork">添加</a>
-    <div class="wrap">
-        <div class="proposals-search">
-            <div class="search-box">
-                <input type="text" placeholder="请输入您需要的内容" id="info"/>
-                <span class="header-icon-right" id="search">
-                    <img src="/images/icons/search.png">
-                </span>
-            </div>
-        </div>
-        <div class="states-content">
-            <div class="list-tab">
-                <button id='date1' class="btn mui-btn"
-                        data-options='{
-                        "type":"date",
-                        "beginYear":1900,
-                        "endYear":2020}'
-                ></button>
-                <button id='date2' class="btn mui-btn"
-                        data-options='{
-                        "type":"date",
-                        "beginYear":1900,
-                        "endYear":2020}'
-                ></button>
-            </div>
-        </div>
-        <div class="list-content" id="list-content">
-        </div>
-        <div class="empty" id="empty-content">
-            <img src="/images/search-empty.png">
-            <p>没有找到您搜索的内容</p>
-        </div>
-    </div>
-</div>
-</body>
 <style>
     .container{
         padding: 136px 0 0 0;
@@ -169,6 +131,45 @@
         color: #9a9898;
     }
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <a class="header-right" href="/addWork">添加</a>
+    <div class="wrap">
+        <div class="proposals-search">
+            <div class="search-box">
+                <input type="text" placeholder="请输入您需要的内容" id="info"/>
+                <span class="header-icon-right" id="search">
+                    <img src="/images/icons/search.png">
+                </span>
+            </div>
+        </div>
+        <div class="states-content">
+            <div class="list-tab">
+                <button id='date1' class="btn mui-btn"
+                        data-options='{
+                        "type":"date",
+                        "beginYear":1900,
+                        "endYear":2020}'
+                ></button>
+                <button id='date2' class="btn mui-btn"
+                        data-options='{
+                        "type":"date",
+                        "beginYear":1900,
+                        "endYear":2020}'
+                ></button>
+            </div>
+        </div>
+        <div class="list-content" id="list-content">
+        </div>
+        <div class="empty" id="empty-content">
+            <img src="/images/search-empty.png">
+            <p>没有找到您搜索的内容</p>
+        </div>
+    </div>
+</div>
+</body>
+
 <script>
     (function ($) {
         $.init();

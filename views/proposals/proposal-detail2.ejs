@@ -1,64 +1,6 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <div class="wrap">
-        <div class="proposal-content">
-            <%if(type==2){%>
-            <div class="row">
-                <span class="left">立案编号</span>
-                <span class="right"><input type="text" id="num" /></span>
-            </div>
-            <%}%>
-            <div class="row">
-                <span class="left">案由</span>
-                <span class="right"><%=tian.anyou%></span>
-            </div>
-            <div class="row">
-                <span class="left">提案人姓名</span>
-                <span class="right"><%=tian.tianername%></span>
-            </div>
-            <div class="row">
-                <span class="left">单位</span>
-                <span class="right"><%=tian.company%></span>
-            </div>
-            <div class="row">
-                <span class="left">委员证件号</span>
-                <span class="right"><%=tian.weinum%></span>
-            </div>
-            <div class="row">
-                <span class="left">电话号码</span>
-                <span class="right"><%=tian.mobile%></span>
-            </div>
-            <div class="row">
-                <span class="left">问题</span>
-                <span class="right"><%=tian.problem%></span>
-            </div>
-            <div class="row">
-                <span class="left">分析</span>
-                <span class="right"><%=tian.analyse%></span>
-            </div>
-            <div class="row">
-                <span class="left">建议</span>
-                <span class="right"><%=tian.advice%></span>
-            </div>
-        </div>
-        <%if(type==2){%>
-        <div class="reject-content">
-            <textarea id="tuihui" rows="4" placeholder="请填写退回理由"></textarea>
-        </div>
-        <div class="bottom">
-            <div class="content" id="submit">
-                <div class="left">退回</div>
-                <div class="right">通过立案</div>
-            </div>
-        </div>
-        <%}%>
-    </div>
-</div>
-</body>
 <style>
     .container{
         padding: 42px 0 0 0;
@@ -126,6 +68,64 @@
         flex: 1;
     }
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap">
+        <div class="proposal-content">
+            <%if(type==2){%>
+            <div class="row">
+                <span class="left">立案编号</span>
+                <span class="right"><input type="text" id="num" /></span>
+            </div>
+            <%}%>
+            <div class="row">
+                <span class="left">案由</span>
+                <span class="right"><%=tian.anyou%></span>
+            </div>
+            <div class="row">
+                <span class="left">提案人姓名</span>
+                <span class="right"><%=tian.tianername%></span>
+            </div>
+            <div class="row">
+                <span class="left">单位</span>
+                <span class="right"><%=tian.company%></span>
+            </div>
+            <div class="row">
+                <span class="left">委员证件号</span>
+                <span class="right"><%=tian.weinum%></span>
+            </div>
+            <div class="row">
+                <span class="left">电话号码</span>
+                <span class="right"><%=tian.mobile%></span>
+            </div>
+            <div class="row">
+                <span class="left">问题</span>
+                <span class="right"><%=tian.problem%></span>
+            </div>
+            <div class="row">
+                <span class="left">分析</span>
+                <span class="right"><%=tian.analyse%></span>
+            </div>
+            <div class="row">
+                <span class="left">建议</span>
+                <span class="right"><%=tian.advice%></span>
+            </div>
+        </div>
+        <%if(type==2){%>
+        <div class="reject-content">
+            <textarea id="tuihui" rows="4" placeholder="请填写退回理由"></textarea>
+        </div>
+        <div class="bottom">
+            <div class="content" id="submit">
+                <div class="left">退回</div>
+                <div class="right">通过立案</div>
+            </div>
+        </div>
+        <%}%>
+    </div>
+</div>
+</body>
 <script>
     $(function() {
         var audit_jieguo;
@@ -163,9 +163,12 @@
                     },
                     success: function (data) {
                         if(data.ecode==1000){
-                            mui.toast('操作成功');
+                            mui.toast("操作成功！");
+                            setTimeout(function () {
+                                history.go(-1)
+                            },1000);
                         }else{
-                            mui.toast('操作失败');
+                            mui.toast("操作失败！");
                         }
                     }
                 });

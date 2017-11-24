@@ -1,20 +1,6 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <div class="wrap">
-        <%for(var i=0 ;i<tian_list.length;i++){%>
-        <a class="item" href="/honorDetail?id=<%=tian_list[i].tian_id%>">
-            <span class="circle"></span>
-            <p class="anyou"><%=tian_list[i].anyou%></p>
-            <p class="time"><%=tian_list[i].creattime.split(' ')[0]%></p>
-        </a>
-        <%}%>
-    </div>
-</div>
-</body>
 <style>
     .container{
         padding: 42px 0 0 0;
@@ -44,4 +30,19 @@
         color: #0071bd;
     }
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap">
+        <%for(var i=0 ;i<tian_list.length;i++){%>
+        <a class="item" href="/honorDetail?id=<%=tian_list[i].tian_id%>">
+            <span class="circle"></span>
+            <p class="anyou"><%=tian_list[i].anyou%></p>
+            <p class="time"><%=tian_list[i].creattime.split(' ')[0]%></p>
+        </a>
+        <%}%>
+    </div>
+</div>
+</body>
+
 </html>

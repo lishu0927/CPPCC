@@ -145,8 +145,8 @@ $(function() {
             }else if($(this).text()=='保存'){
                 tijiao_kind=3;
             }
-            if(user_name == null||mobile==null||company==null||weinum==null+
-                anyou==null||problem==null||analyse==null||advice==null){
+            if(user_name == ''||mobile==''||company==''||weinum=='' ||
+                anyou==''||problem==''||analyse==''||advice==''){
                 mui.toast("请填写完整")
                 return;
             }else {
@@ -174,7 +174,12 @@ $(function() {
                     },
                     success: function (data) {
                         if(data.ecode==1000){
-                            mui.toast('操作成功');
+                            mui.toast("操作成功！");
+                            setTimeout(function () {
+                                history.go(-1)
+                            },1000);
+                        }else{
+                            mui.toast("操作失败！");
                         }
                     }
                 });

@@ -1,6 +1,60 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
+<style>
+    .container{
+        padding: 42px 0 0 0;
+    }
+    .wrap{
+        color: #3b3b3b;
+        padding: 5px 10px;
+    }
+    .wrap p{
+        color: #585757;
+        line-height: 24px;
+    }
+    .desc-content{
+        padding: 5px 0;
+    }
+    .desc-content p{
+        padding: 5px 0;
+    }
+    .desc-content p .desc{
+        color: #0071bd;
+        padding-right: 5px;
+    }
+    .wrap p.text-left span{
+        float: right;
+    }
+    .proposal-content{
+        border-bottom: 1px solid #adaaaa;
+        margin-top: 10px;
+    }
+    .proposal-content .row{
+        display: flex;
+        font-size: 14px;
+        color: #585757;
+        line-height: 30px;
+        border: 1px solid #adaaaa;
+        border-bottom: 0;
+    }
+    .proposal-content .row > div{
+        flex: 1;
+        padding: 5px;
+    }
+    .proposal-content .row .right{
+        border-left: 1px solid #adaaaa;
+    }
+    .proposal-content .row > div .desc{
+        color: #0071bd;
+    }
+    .back-content{
+        padding: 10px 0;
+    }
+    .back-content .desc{
+        color: #0071bd;
+    }
+</style>
 <script type='text/javascript' src='/js/compareText.js'></script>
 <body>
 <div class="container">
@@ -62,60 +116,7 @@
     </div>
 </div>
 </body>
-<style>
-    .container{
-        padding: 42px 0 0 0;
-    }
-    .wrap{
-        color: #3b3b3b;
-        padding: 5px 10px;
-    }
-    .wrap p{
-        color: #585757;
-        line-height: 24px;
-    }
-    .desc-content{
-        padding: 5px 0;
-    }
-    .desc-content p{
-        padding: 5px 0;
-    }
-    .desc-content p .desc{
-        color: #0071bd;
-        padding-right: 5px;
-    }
-    .wrap p.text-left span{
-        float: right;
-    }
-    .proposal-content{
-        border-bottom: 1px solid #adaaaa;
-        margin-top: 10px;
-    }
-    .proposal-content .row{
-        display: flex;
-        font-size: 14px;
-        color: #585757;
-        line-height: 30px;
-        border: 1px solid #adaaaa;
-        border-bottom: 0;
-    }
-    .proposal-content .row > div{
-        flex: 1;
-        padding: 5px;
-    }
-    .proposal-content .row .right{
-        border-left: 1px solid #adaaaa;
-    }
-    .proposal-content .row > div .desc{
-        color: #0071bd;
-    }
-    .back-content{
-        padding: 10px 0;
-    }
-    .back-content .desc{
-        color: #0071bd;
-    }
-</style>
+
 <script>
     compare_str("<%=confirm.anyou%>","<%=repeat.anyou%>",$("#anyou-confirm")[0],$("#anyou-repeat")[0]);
     compare_str("<%=confirm.problem%>","<%=repeat.problem%>",$("#problem-confirm")[0],$("#problem-repeat")[0]);

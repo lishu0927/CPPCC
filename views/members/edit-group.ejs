@@ -62,7 +62,7 @@
                     if (data.ecode == 1000) {
                         mui.toast("增加成功！");
                         setTimeout(function () {
-                            self.location = document.referrer;
+                            history.go(-1)
                         },1000);
                     } else {
                         mui.toast("增加失败！");
@@ -82,7 +82,10 @@
                 data: params,
                 success: function (data) {
                     if (data.ecode == 1000) {
-                        self.location = document.referrer;
+                        mui.toast("修改成功！");
+                        setTimeout(function () {
+                            history.go(-1)
+                        },1000);
                     } else {
                         mui.toast("修改失败！");
                     }

@@ -328,6 +328,10 @@
             <input type="text" id="yuanxiao"/>
         </div>
         <div class="input-row">
+            <label>单位职务:</label>
+            <input type="text" id="fax"/>
+        </div>
+        <div class="input-row">
             <label>职称:</label>
             <input type="text" id="zhicheng"/>
         </div>
@@ -399,7 +403,7 @@
         var minzu= $('#minzu').val();
         var mianmao= $('#mianmao').val();
         var telephone= $('#telephone').val();
-        var fax='无';
+        var fax=$('#fax').val();
         var mobile= $('#mobile').val();
         var address= $('#address').val();
         var email= $('#email').val();
@@ -410,11 +414,10 @@
         var zhicheng= $('#zhicheng').val();
         var groupName= $('#groups').val();
         var headImage= $('#img').attr("src");
-        if(user_name==null||password==null||sex==null||brithdatetime==null||minzu==null+
-            mianmao==null||telephone==null||fax==null||mobile==null||address==null||email==null+
-                xueli==null||jiguan==null||jiebie==null||yuanxiao==null||zhicheng==null+
-                groupName==null||headImage==null
-            ){
+        if(user_name==''||password==''||sex==''||brithdatetime==''||minzu==''||
+            mianmao==''||telephone==''||fax==''||mobile==''||address==''||email==''||
+                xueli==''||jiguan==''||jiebie==''||yuanxiao==''||zhicheng==''||
+                groupName==''||headImage==''){
             mui.toast("请将信息填写完整")
             setTimeout(function () {
                 return ;
@@ -428,7 +431,7 @@
                 minzu: minzu,
                 mianmao: mianmao,
                 telephone: telephone,
-                fax: '无',
+                fax: fax,
                 mobile: mobile,
                 address: address,
                 email: email,
@@ -451,10 +454,10 @@
                 },
                 success: function (data) {
                     if (data.ecode == 1000) {
-                        mui.toast("增加成功！");
+                        mui.toast("添加成功！");
                         setTimeout(function () {
-                            self.location = document.referrer;
-                        },500);
+                            history.go(-1)
+                        },1000);
                     } else {
                         mui.toast("增加失败！");
                     }

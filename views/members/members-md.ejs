@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
+<link rel="stylesheet" type="text/css" href="/css/mescroll.css">
+<script type='text/javascript' src='/js/mescroll.js'></script>
 <style>
     .container{
         padding: 42px 0 0 0;
@@ -16,6 +18,12 @@
         padding: 0 15px 0 10px;
         color: #fff;
         font-size: 14px;
+    }
+    .mescroll{
+        position: fixed;
+        top: 42px;
+        bottom: 0;
+        height: auto;
     }
     .members-search{
         padding: 15px;
@@ -74,7 +82,8 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <a class="header-right" href="/membersEdit">编辑</a>
-    <div class="wrap">
+    <div class="wrap mescroll">
+        <div>
         <div class="members-search">
             <%-include ../base/search-box.ejs%>
         </div>
@@ -101,7 +110,27 @@
             <%}%>
             <%}%>
         </div>
+        </div>
     </div>
 </div>
 </body>
+<script>
+    $(function () {
+        //创建MeScroll对象
+        var mescroll = new MeScroll("mescroll", {
+            down: {
+                auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+                callback: downCallback //下拉刷新的回调
+            },
+            up: {
+                use: false
+            }
+        });
+
+        /*下拉刷新的回调 */
+        function downCallback() {
+            window.location.reload()
+        }
+    })
+</script>
 </html>

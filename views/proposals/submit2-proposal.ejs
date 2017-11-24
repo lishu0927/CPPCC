@@ -129,8 +129,8 @@ $(function() {
         problem=$("#problem").val();
         analyse=$("#analyse").val();
         advice=$("#advice").val();
-        if(user_name == null||mobile==null||company==null||weinum==null+
-            anyou==null||problem==null||analyse==null||advice==null){
+        if(user_name == ''||mobile==''||company==''||weinum=='' ||
+            anyou==''||problem==''||analyse==''||advice==''){
             mui.toast("请填写完整")
             return;
         }else {
@@ -158,7 +158,12 @@ $(function() {
                 },
                 success: function (data) {
                     if(data.ecode==1000){
-                        mui.toast('操作成功');
+                        mui.toast("操作成功！");
+                        setTimeout(function () {
+                            history.go(-1)
+                        },1000);
+                    }else{
+                        mui.toast("操作失败！");
                     }
                 }
             });

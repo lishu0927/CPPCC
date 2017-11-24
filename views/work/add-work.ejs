@@ -282,10 +282,13 @@
                             mui.toast("系统错误，返回状态码为：" + request.status);
                         },
                         success: function (data) {
-                            if (data.ecode == 1000) {
-                                mui.toast('操作成功');
+                            if(data.ecode==1000){
+                                mui.toast("操作成功！");
+                                setTimeout(function () {
+                                    history.go(-1)
+                                },1000);
                             }else{
-                                mui.toast('操作失败');
+                                mui.toast("操作失败！");
                             }
                         }
                     });

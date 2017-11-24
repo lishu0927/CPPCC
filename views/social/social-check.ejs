@@ -1,27 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <a class="header-right" href="/socialSubmit?tabIndex=0">信息提交</a>
-    <div class="wrap">
-        <div class="states-content">
-            <div class="list-tab">
-                <span class="tab-item active" id="item1">申请审核</span>
-                <span class="tab-item" id="item2">通过</span>
-            </div>
-        </div>
-        <div class="list-content" id="list-content">
-        </div>
-        <div class="bottom">
-            <div class="content" id="submit" onclick="location.href='/submitDetail'">
-                提交信息
-            </div>
-        </div>
-    </div>
-</div>
-</body>
+<%-include ../base/checkHead.ejs%>
 <style>
     .container{
         padding: 82px 0 0 0;
@@ -43,6 +22,7 @@
         border-bottom: 1px solid #bcbcbc;
         position: relative;
         display: block;
+        min-height: 44px;
     }
     .item .circle{
         position: absolute;
@@ -117,6 +97,27 @@
         height: 50px;
     }
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <a class="header-right" href="/socialSubmit?tabIndex=0">信息提交</a>
+    <div class="wrap">
+        <div class="states-content">
+            <div class="list-tab">
+                <span class="tab-item active" id="item1">申请审核</span>
+                <span class="tab-item" id="item2">通过</span>
+            </div>
+        </div>
+        <div class="list-content" id="list-content">
+        </div>
+        <div class="bottom">
+            <div class="content" id="submit" onclick="location.href='/submitDetail'">
+                提交信息
+            </div>
+        </div>
+    </div>
+</div>
+</body>
 <script>
     var sqmy_list_kind,sqmy_kind,check;
     $(".tab-item").each(function (i) {

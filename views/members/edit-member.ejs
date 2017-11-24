@@ -457,7 +457,7 @@
                     if (data.ecode == 1000) {
                         mui.toast("编辑成功！");
                         setTimeout(function () {
-                            self.location = document.referrer;
+                            history.go(-1)
                         },1000);
                     } else {
                         mui.toast("编辑失败！");
