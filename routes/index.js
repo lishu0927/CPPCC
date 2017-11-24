@@ -12,7 +12,7 @@ router.get('/work', function (req, res) {
     res.render('work/work', {title: '政协工作', keyword: '', type: 3});
 });
 router.get('/login', function (req, res) {
-    res.render('login/login', {title: '登录'});
+    res.render('login/login', {title: '登录', host: global.reqHost, port: global.reqPort});
 });
 router.get('/addMember', function (req, res) {
     res.render('members/add-member', {title: '添加成员'});

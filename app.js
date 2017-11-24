@@ -50,5 +50,6 @@ app.locals["navList"] = [{item_rul:'/news',item_text:'政协要闻',item_pic:'ne
     {item_rul:'/mine',item_text:'我',item_pic:'mine'}
 ];
 app.locals['body']='';
-
+global.reqHost='114.215.98.96';
+global.reqPort='8011';
 module.exports = app;

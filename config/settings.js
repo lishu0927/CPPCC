@@ -2,8 +2,8 @@ var http = require("http");
 var createRequest=function  (res,data,path,callback){
     var content = JSON.stringify(data);
     var options = {
-        host: "114.215.98.96",
-        port: "8011",
+        host: global.reqHost,
+        port: global.reqPort,
         path: path,
         method: "POST",
         headers: {
