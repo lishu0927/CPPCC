@@ -55,7 +55,7 @@
                     <span class="right">提案表下载</span>
                 </a>
             </li>
-            <li>
+            <li id="subProposal">
                 <a href="/submitProposal">
                     <span class="left">
                         <img src="images/ta_tj.png">
@@ -75,4 +75,11 @@
     </div>
 </div>
 </body>
+<script>
+    $(function () {
+        if (role == 4 || role == 5) {
+            $("#subProposal").css("display", "none")
+        }
+    })
+</script>
 </html>

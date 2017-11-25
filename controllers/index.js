@@ -5,7 +5,6 @@
  */
 module.exports = {
     news: require('./news/news'),
-    login: require('./login/login'),
     search: require('./search/search'),
     members: require('./members/members'),
     mine: require('./mine/mine'),

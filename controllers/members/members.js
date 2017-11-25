@@ -55,7 +55,6 @@ module.exports = {
         createRequest(res, data, "/ZxApi/m2_01.ashx", function () {
             body = JSON.parse(body);
             var group_list = body.group_list
-            console.log(group_list)
             res.render('members/members-edit',
                 {
                     title: '编辑信息',

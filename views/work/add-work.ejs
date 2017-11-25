@@ -2,61 +2,6 @@
 <html>
 <%- include ../base/checkHead.ejs %>
 <script type='text/javascript' src='/js/jquery.form.js'></script>
-<body>
-<div class="container">
-    <%- include ../base/header.ejs %>
-    <div class="wrap">
-        <div class="proposal-content">
-            <div class="row">
-                <span class="left">编号</span>
-                <span class="right" id="num"></span>
-            </div>
-            <div class="row">
-                <span class="left">发起人</span>
-                <span class="right" id="name"></span>
-            </div>
-            <div class="row">
-                <span class="left">发起日期</span>
-                <span class="right" id="date"></span>
-            </div>
-            <div class="row">
-                <span class="left">文件标题</span>
-                <span class="right">
-                    <textarea id="title" placeholder="" rows="1"></textarea>
-                </span>
-            </div>
-            <div class="row">
-                <span class="left">内容</span>
-                <span class="right"><textarea id="content" placeholder="" rows="2"></textarea></span>
-            </div>
-            <div class="row">
-                <span class="left">选择处理人</span>
-                <span class="right">
-                    <div id="leaders">
-                    </div>
-                </span>
-            </div>
-        </div>
-        <div class="other-files">
-            <div class="upload">
-                添加附件
-                <form action="http://114.215.98.96:8011/ZxApi/uploadfile.aspx" enctype="multipart/form-data"
-                      method="post" id="uploadForm">
-                <input type="file" name="file" id="upload"/>
-                </form>
-            </div>
-            <div class="file-list" id="files">
-            </div>
-        </div>
-    </div>
-    <div class="bottom">
-        <div class="content" id="submit">
-            <div class="left">保存草稿</div>
-            <div class="right">完成提交</div>
-        </div>
-    </div>
-</div>
-</body>
 <style>
     .container {
         padding: 42px 0 50px 0;
@@ -65,15 +10,15 @@
         color: #3b3b3b;
         padding: 5px 10px;
     }
-    .wrap p {
-        color: #585757;
-        line-height: 24px;
+    .other-files-content{
+        border-bottom: 1px solid #adaaaa;
+        padding: 10px;
     }
-    .wrap p.text-right {
-        text-align: right;
-    }
-    .other-files{
-        margin-top: 20px;
+    .other-files-content .left{
+        display: inline-block;
+        width: 75px;
+        color: #0071bd;
+        font-size: 14px;
     }
     .upload {
         position: relative;
@@ -92,45 +37,85 @@
     }
     .file-list .item {
         display: flex;
-        border: 1px solid #0071bd;
+        border: 1px solid #adaaaa;
         border-radius: 4px;
-        margin-top: 10px;
+        margin: 10px 0;
+        padding: 10px;
         align-items: center;
     }
     .file-list .item .left {
-        width: 90px;
-        text-align: center;
+        width: 42px;
+        margin-right: 10px;
     }
-    .file-list .item .right {
-        border-left: 1px solid #adaaaa;
-        padding-left: 10px;
+    .file-list .item .right{
+        flex: 1;
+    }
+    .file-list .item .right .filename{
+        color: #3b3b3b;
+    }
+    .file-list .item .delete{
+        display: inline-block;
+        width: 50px;
+        background-image: url(images/delete.png);
+        height: 40px;
+        background-size: 20px 20px;
+        background-position: center;
+        background-repeat: no-repeat;
     }
     .proposal-content {
-        border-bottom: 1px solid #adaaaa;
-        margin-top: 10px;
     }
     .proposal-content .row {
         display: flex;
         font-size: 14px;
-        color: #585757;
-        line-height: 30px;
-        align-items: center;
-        border: 1px solid #adaaaa;
-        border-bottom: 0;
+        line-height: 40px;
+        border-bottom: 1px solid #adaaaa;
     }
     .proposal-content .row .left {
-        width: 110px;
-        text-align: center;
+        width: 75px;
+        padding-left: 10px;
+        color: #0071bd;
     }
     .proposal-content .row .right {
         flex: 1;
-        border-left: 1px solid #adaaaa;
-        padding: 5px;
-        min-height: 30px;
-        max-height: 100px;
-        overflow-y: auto;
+        padding-left: 15px;
     }
-    .proposal-content .row .right textarea {
+    .lead-content{
+        border-bottom: 1px solid #adaaaa;
+    }
+    .mui-table-view-cell{
+        padding:0;
+    }
+    .mui-table-view-cell:after{
+        display: none;
+    }
+    .mui-table-view-cell>a:not(.mui-btn){
+        font-size: 14px;
+        color: #0071bd;
+        margin: 0;
+        padding: 10px;
+    }
+    .mui-table-view-cell>a .left{
+        width: 75px;
+        display: inline-block;
+    }
+    .mui-table-view-cell>a .right{
+        display: inline-block;
+        color: #585757;
+    }
+    .mui-navigate-right:after, .mui-push-left:after, .mui-push-right:after{
+        font-size: 22px;
+    }
+    .mui-checkbox label, .mui-radio label{
+        font-size: 14px;
+    }
+    .write-content .row .desc {
+        margin: 0;
+        font-size: 14px;
+        color: #0071bd;
+        line-height: 40px;
+        padding-left: 10px;
+    }
+    .write-content .row textarea {
         margin: 0;
         font-size: 14px;
     }
@@ -157,11 +142,75 @@
         flex: 1;
     }
 </style>
+<body>
+<div class="container">
+    <%- include ../base/header.ejs %>
+    <div class="wrap">
+        <div class="proposal-content">
+            <div class="row">
+                <span class="left">编号</span>
+                <span class="right" id="num"></span>
+            </div>
+            <div class="row">
+                <span class="left">发起人</span>
+                <span class="right" id="name"></span>
+            </div>
+            <div class="row">
+                <span class="left">发起日期</span>
+                <span class="right" id="date"></span>
+            </div>
+        </div>
+        <div class="lead-content">
+            <div class="mui-table-view-cell mui-collapse">
+                <a class="mui-navigate-right" href="#">
+                    <span class="left">选择处理人</span>
+                    <span class="right" id="select-leader"></span>
+                </a>
+                <div id="leaders" class="mui-collapse-content">
+                </div>
+            </div>
+        </div>
+        <div class="other-files-content">
+            <span class="left">添加附件</span>
+            <div class="upload">
+                点击上传
+                <form action="http://<%=reqHost%>:<%=reqPort%>/ZxApi/uploadfile.aspx" enctype="multipart/form-data"
+                      method="post" id="uploadForm">
+                    <input type="file" name="file" id="upload"/>
+                </form>
+            </div>
+            <div class="file-list" id="files">
+            </div>
+        </div>
+        <div class="write-content">
+            <div class="row">
+                <p class="desc">文件标题</p>
+                <textarea id="title" placeholder="" rows="1"></textarea>
+            </div>
+            <div class="row">
+                <p class="desc">内容</p>
+                <textarea id="content" placeholder="" rows="5"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="content" id="submit">
+            <div class="left">保存草稿</div>
+            <div class="right">完成提交</div>
+        </div>
+    </div>
+</div>
+</body>
+
 <script>
     $(function () {
+        $(".file-list").on('click','.delete',function () {
+            $(this).parent().remove();
+        })
+
         $("#leaders").html("");
-        $.ajax({  //取分组
-            url: 'http://114.215.98.96:8011/ZxApi/m3_07.ashx',
+        $.ajax({  //取审批人
+            url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m3_07.ashx',
             type: "POST",
             dataType: 'json',
             data: {},
@@ -181,7 +230,6 @@
                 }
             }
         });
-
         $('#uploadForm').ajaxForm(function(data) {
             data= JSON.parse(data);
             if(data.ecode==1000){
@@ -191,14 +239,16 @@
                 var size = bytes / 1024 / 1024;
                 size = size.toFixed(2);
                 var $div1 = $("<div class='item'></div>");
-                var $div2 = $("<div class='left' data-type='" + temp[1] + "'>" + temp[1] + "</div>");
+                var $div2 = $("<img class='left' data-type='" + temp[1] + "' src='images/file.png' />");
                 var $div3 = $("<div class='right filepath' data-url='"+data.imgurl_list[0].imgurl+"'></div>");
                 var $p1 = $("<p class='filename' >" + rootEle.files[0].name + "</p>");
                 var $p2 = $("<p class='filesize' data-bytes='"+bytes+"'>" + size + "M</p>");
+                var $de = $("<span class='delete'></span>");
                 $div3.append($p1);
                 $div3.append($p2);
                 $div1.append($div2);
                 $div1.append($div3);
+                $div1.append($de);
                 $('#files').append($div1);
             }else{
                 alert("上传失败！");
@@ -208,31 +258,60 @@
             $('#uploadForm').submit();
         });
 
-
+        var selectLeaders=[];
+        var selectStr=''
+        function removeByValue(arr, val) {
+            for(var i=0; i<arr.length; i++) {
+                if(arr[i] == val) {
+                    arr.splice(i, 1);
+                    break;
+                }
+            }
+        }
+        mui('.mui-collapse-content').on('change', 'input', function() {
+            var check = this.checked?"true":"false";
+            if(check=="true"){
+                selectLeaders.push(this.value)
+                console.log(selectLeaders)
+            }else{
+                removeByValue(selectLeaders,this.value)
+                console.log(selectLeaders)
+            }
+            if(selectLeaders.length<3){
+                selectStr=selectLeaders.join(",")
+            }else{
+                selectStr=selectLeaders.slice(0,2).join(",")+'等等'
+            }
+        });
+        $(".mui-navigate-right").on('tap',function () {
+            if($(this).parent().attr("class")=='mui-table-view-cell mui-collapse mui-active'){
+                $("#select-leader").html(selectStr)
+            }
+        })
 
         var user = JSON.parse(sessionStorage.getItem('user'))
         var user_name = user.user_name;
-        var user_id = user.user_id;
         var date = new Date();
         var currentDate = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate()
         $("#name").html(user_name);
         $("#date").html(currentDate);
         $("#submit div").each(function () {
             $(this).click(function () {
-                var tijiao_kind, dailywork_id, worktitle, workcontent, createuserid, username, createdate;
+                var tijiao_kind, dailywork_id, worktitle, workcontent, createuserid,manager_id, username, createdate;
                 var dailyworkattach_list = [], dailyworkuser_list = [];
-                createuserid = user_id;
+                createuserid = user.user_id;
                 username = user_name;
+                manager_id = user.manager_id;
                 createdate = currentDate;
                 worktitle = $("#title").val();
                 workcontent = $("#content").val();
                 $('input[name="leader"]:checked').each(function () {
                     var leader =
                         {
-                            tousername: $(this).val(),
-                            touserid: $(this).attr("id"),
                             dailywork_id: 0,
-                            workuserid: 0
+                            workuserid: 0,
+                            tousername: $(this).val(),
+                            touserid: $(this).attr("id")
                         };
                     dailyworkuser_list.push(leader);
                 });
@@ -267,6 +346,7 @@
                         worktitle: worktitle,
                         workcontent: workcontent,
                         createuserid: createuserid,
+                        manager_id:manager_id,
                         username: username,
                         createdate: createdate,
                         dailyworkattach_list: dailyworkattach_list,
@@ -274,7 +354,7 @@
                     }
                     var data = JSON.stringify(params)
                     $.ajax({
-                        url: 'http://114.215.98.96:8011/ZxApi/m3_08.ashx',
+                        url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m3_08.ashx',
                         type: "POST",
                         dataType: 'json',
                         data: data,

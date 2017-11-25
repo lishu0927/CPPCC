@@ -79,13 +79,17 @@ module.exports = {
             );
         });
     },
-    startWork: function (req, res) {
-        var tabIndex=req.query.tabIndex
-        console.log(tabIndex)
-        res.render('work/start-work',
+    startWorkDraft: function (req, res) {
+        res.render('work/start-work-draft',
             {
                 title: '发起流传',
-                tabIndex: tabIndex
+            }
+        );
+    },
+    startWorkPass: function (req, res) {
+        res.render('work/start-work-pass',
+            {
+                title: '发起流传',
             }
         );
     },
@@ -123,7 +127,6 @@ module.exports = {
             var attach_list=work.dailyworkattach_list
             var user_list=work.dailyworkuser_list
             var leaders=JSON.stringify(user_list)
-            console.log(work)
             res.render('work/work-detail2',
                 {
                     title: '详情',
@@ -137,11 +140,17 @@ module.exports = {
     },
     todoWork: function (req, res) {
         var user_id=req.query.id;
-        var data = {dailywork_list_kind: 3,user_id:user_id};
+        var manager_id=req.query.manager_id;
+        var role_type=req.query.role_type;
+        var data = {
+            dailywork_list_kind: 3,
+            manager_id: manager_id,
+            role_type: role_type,
+            user_id:user_id
+        };
         createRequest(res, data, "/ZxApi/m3_05.ashx", function () {
             body = JSON.parse(body);
             var dailywork_list=body.dailywork_list
-            console.log(dailywork_list)
             res.render('work/todo-work',
                 {
                     title: '待办流传',
@@ -157,29 +166,54 @@ module.exports = {
             var work=body.dailywork_detail_info
             var attach_list=work.dailyworkattach_list
             var user_list=work.dailyworkuser_list
-            console.log(work)
-            console.log(attach_list)
+            var leaders=JSON.stringify(user_list)
             res.render('work/todo-detail',
                 {
                     title: '详情',
                     work: work,
                     attach_list: attach_list,
-                    user_list: user_list
+                    user_list: user_list,
+                    leaders: leaders
                 }
             );
         });
     },
     doneWork: function (req, res) {
         var user_id=req.query.id;
-        var data = {dailywork_list_kind: 4,user_id:user_id};
+        var manager_id=req.query.manager_id;
+        var role_type=req.query.role_type;
+        var data = {
+            dailywork_list_kind: 4,
+            manager_id: manager_id,
+            role_type: role_type,
+            user_id:user_id
+        };
         createRequest(res, data, "/ZxApi/m3_05.ashx", function () {
             body = JSON.parse(body);
             var dailywork_list=body.dailywork_list
-            console.log(dailywork_list)
             res.render('work/done-work',
                 {
                     title: '已办流传',
                     dailywork_list: dailywork_list
+                }
+            );
+        });
+    },
+    doneDetail:function (req, res) {
+        var data = {dailywork_id: req.query.id};
+        createRequest(res, data, "/ZxApi/m3_06.ashx", function () {
+            body = JSON.parse(body);
+            var work=body.dailywork_detail_info
+            var attach_list=work.dailyworkattach_list
+            var user_list=work.dailyworkuser_list
+            var leaders=JSON.stringify(user_list)
+            res.render('work/done-detail',
+                {
+                    title: '详情',
+                    work: work,
+                    attach_list: attach_list,
+                    user_list: user_list,
+                    leaders: leaders
                 }
             );
         });
@@ -191,7 +225,6 @@ module.exports = {
         createRequest(res, data, "/ZxApi/m3_05.ashx", function () {
             body = JSON.parse(body);
             var dailywork_list=body.dailywork_list
-            console.log(dailywork_list)
             res.render('work/search-work',
                 {
                     title: '查询流传',

@@ -2,7 +2,12 @@ var createRequest = require("../../config/settings");
 
 module.exports = {
     init: function (req, res) {
-        var data = {tian_list_kind:3};
+        var data = {
+            tian_list_kind:3,
+            num:20,
+            start:0,
+            startid:-1
+        };
         createRequest(res, data, "/ZxApi/m2_12.ashx", function () {
             body = JSON.parse(body);
             var tian_list=body.tian_list

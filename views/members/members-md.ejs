@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<link rel="stylesheet" type="text/css" href="/css/mescroll.css">
-<script type='text/javascript' src='/js/mescroll.js'></script>
 <style>
     .container{
         padding: 42px 0 0 0;
@@ -18,6 +16,9 @@
         padding: 0 15px 0 10px;
         color: #fff;
         font-size: 14px;
+    }
+    .wrap{
+        padding-bottom: 20px;
     }
     .mescroll{
         position: fixed;
@@ -82,8 +83,7 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <a class="header-right" href="/membersEdit">编辑</a>
-    <div class="wrap mescroll">
-        <div>
+    <div class="wrap mescroll" id="mescroll">
         <div class="members-search">
             <%-include ../base/search-box.ejs%>
         </div>
@@ -110,12 +110,14 @@
             <%}%>
             <%}%>
         </div>
-        </div>
     </div>
 </div>
 </body>
 <script>
     $(function () {
+        if(role==3 || role==4 || role==5){
+            $(".header-right").css("display","none")
+        }
         //创建MeScroll对象
         var mescroll = new MeScroll("mescroll", {
             down: {

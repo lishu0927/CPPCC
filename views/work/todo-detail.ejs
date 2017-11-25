@@ -9,32 +9,67 @@
         color: #3b3b3b;
         padding: 5px 10px 60px 10px;
     }
-    .proposal-content{
-        border-bottom: 1px solid #adaaaa;
-        margin-top: 10px;
+    .desc-content{
+        padding:10px;
     }
-    .proposal-content .row{
+    .desc-content .title{
+        font-size: 18px;
+        color: #000;
+    }
+    .desc-content .time{
+        color: #0071bd;
+    }
+    .proposal-content {
+    }
+    .proposal-content .row {
         display: flex;
         font-size: 14px;
-        color: #585757;
-        line-height: 30px;
-        align-items: center;
-        border: 1px solid #adaaaa;
-        border-bottom: 0;
+        line-height: 40px;
+        border-bottom: 1px solid #adaaaa;
     }
-    .proposal-content .row .left{
-        width: 110px;
-        text-align: center;
+    .proposal-content .row .left {
+        width: 75px;
+        padding-left: 10px;
+        color: #0071bd;
     }
-    .proposal-content .row .right{
+    .proposal-content .row .right {
         flex: 1;
-        border-left: 1px solid #adaaaa;
-        padding: 5px;
-        min-height: 30px;
+        padding-left: 15px;
     }
-    .proposal-content .row .right textarea{
-        margin: 0 ;
+    .proposal-content .content-row{
+        padding: 10px;
+    }
+    .proposal-content .content-row .desc{
+        line-height: 24px;
+        color: #0071bd;
+    }
+    .proposal-content .content-row .con{
+        border: 1px solid #adaaaa;
+        padding: 10px;
         font-size: 14px;
+        border-radius: 4px;
+    }
+    .files-content {
+        padding: 10px;
+        border-bottom: 1px solid #adaaaa;
+    }
+    .files-content .title{
+        color: #0071bd;
+    }
+    .file-list .item {
+        display: flex;
+        border: 1px solid #adaaaa;
+        border-radius: 4px;
+        margin: 10px 0;
+        padding: 10px;
+        align-items: center;
+    }
+    .file-list .item .left {
+        width: 42px;
+        margin-right: 10px;
+    }
+    .file-list .item .right .filename{
+        color: #3b3b3b;
     }
     .submit-content{
         margin-top: 20px;
@@ -68,41 +103,95 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <div class="wrap">
-        <div class="proposal-content">
-            <div class="row">
-                <span class="left">编号</span>
-                <span class="right" id="num"><%=work.worknumber%></span>
+        <div class="type1" style="display: none">
+            <div class="desc-content">
+                <p class="title"><%=work.worktitle%></p>
+                <p class="time"><%=work.createdate%></p>
             </div>
-            <div class="row">
-                <span class="left">发起人</span>
-                <span class="right" id="name"><%=work.username%></span>
-            </div>
-            <div class="row">
-                <span class="left">发起日期</span>
-                <span class="right" id="date"><%=work.createdate%></span>
-            </div>
-            <div class="row">
-                <span class="left">文件标题</span>
-                <span class="right" ><%=work.worktitle%></span>
-            </div>
-            <div class="row">
-                <span class="left">内容</span>
-                <span class="right"><%=work.workcontent%></span>
-            </div>
-            <div class="row">
-                <span class="left">附件</span>
-                <span class="right"></span>
+            <div class="proposal-content">
+                <div class="row">
+                    <span class="left">编号</span>
+                    <span class="right"><%=work.worknumber%></span>
+                </div>
+                <div class="row">
+                    <span class="left">发起人</span>
+                    <span class="right"><%=work.username%></span>
+                </div>
+                <div class="row">
+                    <span class="left">处理人</span>
+                    <span class="right" id="leaders"></span>
+                </div>
+                <div class="row">
+                    <span class="left">审核状态</span>
+                    <span class="right"><%=work.state%></span>
+                </div>
+                <%if(attach_list.length>0){%>
+                <div class="files-content">
+                    <p class="title">附件</p>
+                    <div class="file-list" id="files">
+                        <%for(var i=0;i<attach_list.length;i++){%>
+                        <div class='item'>
+                            <img class='left' src='images/file.png' />
+                            <div class='right filepath' id="<%=attach_list[i].fileid%>" data-url="<%=attach_list[i].filepath%>">
+                                <p class='filename'><%=attach_list[i].filename%></p>
+                                <p class='filesize' data-bytes="<%=attach_list[i].filesize%>"><%=(attach_list[i].filesize/1000/1000).toFixed(2)%>M</p>
+                            </div>
+                        </div>
+                        <%}%>
+                    </div>
+                </div>
+                <%}%>
+                <div class="content-row">
+                    <p class="desc">内容</p>
+                    <div class="con"><%=work.workcontent%></div>
+                </div>
             </div>
         </div>
-        <div class="submit-content">
-            <div class="row">
-                <p class="desc">处理意见</p>
-                <textarea placeholder="" rows="5" id="suggestion"></textarea>
+        <div class="type2" style="display: none">
+            <div class="desc-content">
+                <p class="title"><%=work.worktitle%></p>
+                <p class="time"><%=work.createdate%></p>
             </div>
-        </div>
-        <div class="bottom">
-            <div class="content" id="submit">
-                我要审批
+            <div class="proposal-content">
+                <div class="row">
+                    <span class="left">编号</span>
+                    <span class="right"><%=work.worknumber%></span>
+                </div>
+                <div class="row">
+                    <span class="left">发起人</span>
+                    <span class="right"><%=work.username%></span>
+                </div>
+                <%if(attach_list.length>0){%>
+                <div class="files-content">
+                    <p class="title">附件</p>
+                    <div class="file-list" id="files">
+                        <%for(var i=0;i<attach_list.length;i++){%>
+                        <div class='item'>
+                            <img class='left' src='images/file.png' />
+                            <div class='right filepath' id="<%=attach_list[i].fileid%>" data-url="<%=attach_list[i].filepath%>">
+                                <p class='filename'><%=attach_list[i].filename%></p>
+                                <p class='filesize' data-bytes="<%=attach_list[i].filesize%>"><%=(attach_list[i].filesize/1000/1000).toFixed(2)%>M</p>
+                            </div>
+                        </div>
+                        <%}%>
+                    </div>
+                </div>
+                <%}%>
+                <div class="content-row">
+                    <p class="desc">内容</p>
+                    <div class="con"><%=work.workcontent%></div>
+                </div>
+            </div>
+            <div class="submit-content">
+                <div class="row">
+                    <p class="desc">处理意见</p>
+                    <textarea placeholder="" rows="5" id="suggestion"></textarea>
+                </div>
+            </div>
+            <div class="bottom">
+                <div class="content" id="submit">
+                    我要审批
+                </div>
             </div>
         </div>
     </div>
@@ -110,7 +199,29 @@
 </body>
 <script>
     $(function() {
-        var sSId=sessionStorage.getItem('user_id')
+        var sSId=sessionStorage.getItem('user_id') //当前用户
+
+        //取出处理人
+        var leaderStr='';
+        var str="<%=leaders%>";
+        str=str.replace(/&#34;/g, '"');
+        var leaders=JSON.parse(str);
+        var flag=0;
+        for(var i=0;i<leaders.length;i++){
+            if(leaders[i].touserid==sSId){ //取出的处理人中是否有自己
+                flag=1;
+            }
+            leaderStr+=leaders[i].tousername+" , "
+        }
+        $("#leaders").html(leaderStr.slice(0,-2));
+
+        if(flag==0){
+            $(".type1").css("display","block")
+        }else{
+            $(".type2").css("display","block")
+        }
+
+
         var dailywork_id="<%=work.dailywork_id%>";
         var touserid=sSId;
         var suggestion;
@@ -127,7 +238,7 @@
                 }
                 var data = JSON.stringify(params)
                 $.ajax({
-                    url: 'http://114.215.98.96:8011/ZxApi/m3_09.ashx',
+                    url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m3_09.ashx',
                     type: "POST",
                     dataType: 'json',
                     data: data,

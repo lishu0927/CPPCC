@@ -167,7 +167,7 @@ $(function() {
                 }
                 var data = JSON.stringify(params)
                 $.ajax({
-                    url: 'http://114.215.98.96:8011/ZxApi/m2_16.ashx',
+                    url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_16.ashx',
                     type: "POST",
                     dataType: 'json',
                     data: data,

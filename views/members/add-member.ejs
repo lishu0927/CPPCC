@@ -256,7 +256,7 @@
     <div class="wrap">
         <div class="upload-content">
             <div class="upload">
-                <form action="http://114.215.98.96:8011/ZxApi/uploadfile.aspx" enctype="multipart/form-data"
+                <form action="http://<%=reqHost%>:<%=reqPort%>/ZxApi/uploadfile.aspx" enctype="multipart/form-data"
                       method="post" id="uploadForm">
                     <input type="file" name="file" id="upload"/>
                     上传/替换
@@ -265,7 +265,7 @@
         </div>
         <div class="input-row">
             <label>照片:</label>
-            <img src="" class="member-pic" id="img" data-preview-src="" />
+            <img src="images/default3.png" class="member-pic" id="img" data-preview-src="" />
         </div>
         <div class="input-row">
             <label>选择分组:</label>
@@ -365,7 +365,7 @@
     $(function() {
         $("#groups").html("");
         $.ajax({  //取分组
-            url: 'http://114.215.98.96:8011/ZxApi/m2_10.ashx',
+            url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_10.ashx',
             type: "POST",
             dataType: 'json',
             data: {},
@@ -445,7 +445,7 @@
             }
             var data = JSON.stringify(params)
             $.ajax({
-                url: 'http://114.215.98.96:8011/ZxApi/m2_05.ashx',
+                url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_05.ashx',
                 type: "POST",
                 dataType: 'json',
                 data: data,
@@ -466,6 +466,4 @@
         }
     });
 </script>
-<style>
-</style>
 </html>

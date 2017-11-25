@@ -1,21 +1,10 @@
-<header class="header-search">
-    <span class="header-icon-back" onclick="javascript:history.go(-1)">
-        <img src="/images/icons/back.png">
-    </span>
-    <div class="search-box">
-        <input type="text" id="info" data-keyword="<%=keyword%>" placeholder="请输入您需要的内容"/>
-        <span class="header-icon-right" id="search">
-            <img src="/images/icons/search.png">
-        </span>
-    </div>
-</header>
 <style>
     .header-search{
         position: fixed;
         top: 0;
         width: 100%;
         height: 48px;
-        background-image: url(/images/search-bg.png);
+        background-image: url("/images/search-bg.png");
         background-repeat: no-repeat;
         background-size: cover;
         padding: 9px 15px 9px 44px;
@@ -69,6 +58,18 @@
         margin-top: 3px;
     }
 </style>
+<header class="header-search">
+    <span class="header-icon-back" onclick="javascript:history.go(-1)">
+        <img src="/images/icons/back.png">
+    </span>
+    <div class="search-box">
+        <input type="text" id="info" data-keyword="<%=keyword%>" placeholder="请输入您需要的内容"/>
+        <span class="header-icon-right" id="search">
+            <img src="/images/icons/search.png">
+        </span>
+    </div>
+</header>
+
 <script>
     var keyword=$("#info").attr("data-keyword");
     $("#info").val(keyword);

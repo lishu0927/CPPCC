@@ -206,7 +206,7 @@
         }
         var data = JSON.stringify(params)
         $.ajax({
-            url: 'http://114.215.98.96:8011/ZxApi/m3_10.ashx',
+            url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m3_10.ashx',
             type: "POST",
             dataType: 'json',
             data: data,
@@ -221,9 +221,9 @@
                     $("#empty-content").css("display","none");
                     $("#list-content").html("");
                     var list=data.dailywork_list
-                    console.log(list)
+                    var detailPage='workDetail2';
                     $.each(list, function (i) {
-                        var item='<a class="item" href="/workDetail?id='+list[i].dailywork_id+'">' +
+                        var item='<a class="item" href="/'+detailPage+'?id='+list[i].dailywork_id+'">' +
                             '<span class="circle"></span>' +
                             '<p class="anyou">'+list[i].worktitle+'</p>' +
                             '<p class="bottom">' +

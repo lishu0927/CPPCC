@@ -6,8 +6,8 @@
     <%-include ../base/header.ejs%>
     <div class="wrap">
         <ul class="list">
-            <li>
-                <a href="/startWork?tabIndex=0">
+            <li id="start">
+                <a href="/startWorkDraft" >
                     <img src="images/icons/flow1.png">
                     <span>发起流传</span>
                 </a>
@@ -65,9 +65,15 @@
 </style>
 <script>
     $(function () {
+        if(role==3 || role==5){
+            $("#start").css("display","none")
+        }
         var user_id=sessionStorage.getItem("user_id");
-        $("#todo").attr("href","/todoWork?id="+user_id);
-        $("#done").attr("href","/doneWork?id="+user_id);
+        var user=JSON.parse(sessionStorage.getItem('user'))
+        $("#todo").attr("href","/todoWork?id="+user_id+"&manager_id="+user.manager_id+"&role_type="+user.role_type);
+        $("#done").attr("href","/doneWork?id="+user_id+"&manager_id="+user.manager_id+"&role_type="+user.role_type);
+
+
     })
 </script>
 </html>

@@ -8,11 +8,15 @@
     <link rel="stylesheet" type="text/css" href="/css/reset.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" type="text/css" href="/css/mui.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/mescroll.css">
+    <script type='text/javascript' src='/js/mescroll.js'></script>
     <script type='text/javascript' src='/js/jquery-1.10.2.js'></script>
     <script type='text/javascript' src='/js/mui.min.js'></script>
 </head>
 <script>
     var sSId=sessionStorage.getItem('user_id')
+    var role=sessionStorage.getItem('role_type')
+    console.log(role)
     if(sSId != null && sSId != ""){
 
     }else{

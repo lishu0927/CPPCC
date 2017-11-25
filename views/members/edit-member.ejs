@@ -6,96 +6,6 @@
 <script type='text/javascript' src='/js/mui.picker.min.js'></script>
 <script type='text/javascript' src='/js/mui.previewimage.js'></script>
 <script type='text/javascript' src='/js/mui.zoom.js'></script>
-<body>
-<div class="container">
-    <%- include ../base/header.ejs %>
-    <span class="header-right" id="submit">确定</span>
-    <div class="wrap">
-        <div class="upload-content">
-            <div class="upload">
-                <form action="http://114.215.98.96:8011/ZxApi/uploadfile.aspx" enctype="multipart/form-data"
-                      method="post" id="uploadForm">
-                    <input type="file" name="file" id="upload"/>
-                    上传/替换
-                </form>
-            </div>
-        </div>
-        <div class="input-row">
-            <label>照片：</label>
-            <img src="<%= member.headImage %>" class="member-pic" id="img" data-preview-src=""/>
-        </div>
-        <div class="input-row">
-            <label>选择分组：</label>
-            <select id="groups">
-            </select>
-        </div>
-        <div class="input-row">
-            <label>姓名：</label>
-            <input type="text" value="<%= member.user_name %>" id="name"/>
-        </div>
-        <div class="input-row">
-            <label>姓别：</label>
-            <div class="mui-input-row mui-radio mui-left">
-                <label class="radio-lable">男</label>
-                <input name="sex" type="radio" value="男">
-            </div>
-            <div class="mui-input-row mui-radio mui-left">
-                <label class="radio-lable">女</label>
-                <input name="sex" type="radio" value="女">
-            </div>
-        </div>
-        <div class="input-row">
-            <label>出生日期:</label>
-            <button id='date' class="date"
-                    data-options='{"type":"date","beginYear":1900,"endYear":2020}'><%= member.brithdatetime.split(" ")[0] %></button>
-        </div>
-        <div class="input-row">
-            <label>联系电话：</label>
-            <input type="text" value="<%= member.telephone %>" id="telephone"/>
-        </div>
-        <div class="input-row">
-            <label>民族：</label>
-            <input type="text" value="<%= member.minzu %>" id="minzu"/>
-        </div>
-        <div class="input-row">
-            <label>籍贯：</label>
-            <input type="text" value="<%= member.jiguan %>" id="jiguan"/>
-        </div>
-        <div class="input-row">
-            <label>党派：</label>
-            <input type="text" value="<%= member.mianmao %>" id="mianmao"/>
-        </div>
-        <div class="input-row">
-            <label>手机：</label>
-            <input type="text" value="<%= member.mobile %>" id="mobile"/>
-        </div>
-        <div class="input-row">
-            <label>地址：</label>
-            <input type="text" value="<%= member.address %>" id="address"/>
-        </div>
-        <div class="input-row">
-            <label>邮箱：</label>
-            <input type="text" value="<%= member.email %>" id="email"/>
-        </div>
-        <div class="input-row">
-            <label>学历：</label>
-            <input type="text" value="<%= member.xueli %>" id="xueli"/>
-        </div>
-        <div class="input-row">
-            <label>毕业院校：</label>
-            <input type="text" value="<%= member.yuanxiao %>" id="yuanxiao"/>
-        </div>
-        <div class="input-row">
-            <label>职称：</label>
-            <input type="text" value="<%= member.zhicheng %>" id="zhicheng"/>
-        </div>
-        <div class="input-row">
-            <label>界别：</label>
-            <input type="text" value="<%= member.jiebie %>" id="jiebie"/>
-        </div>
-    </div>
-</div>
-</body>
 <style>
     .container {
         padding: 42px 0 0 0;
@@ -340,6 +250,101 @@
         height: auto;
     }
 </style>
+<body>
+<div class="container">
+    <%- include ../base/header.ejs %>
+    <span class="header-right" id="submit">确定</span>
+    <div class="wrap">
+        <div class="upload-content">
+            <div class="upload">
+                <form action="http://<%=reqHost%>:<%=reqPort%>/ZxApi/uploadfile.aspx" enctype="multipart/form-data"
+                      method="post" id="uploadForm">
+                    <input type="file" name="file" id="upload"/>
+                    上传/替换
+                </form>
+            </div>
+        </div>
+        <div class="input-row">
+            <label>照片：</label>
+            <img src="<%= member.headImage %>" class="member-pic" id="img" data-preview-src=""/>
+        </div>
+        <div class="input-row">
+            <label>选择分组：</label>
+            <select id="groups">
+            </select>
+        </div>
+        <div class="input-row">
+            <label>姓名：</label>
+            <input type="text" value="<%= member.user_name %>" id="name"/>
+        </div>
+        <div class="input-row">
+            <label>姓别：</label>
+            <div class="mui-input-row mui-radio mui-left">
+                <label class="radio-lable">男</label>
+                <input name="sex" type="radio" value="男">
+            </div>
+            <div class="mui-input-row mui-radio mui-left">
+                <label class="radio-lable">女</label>
+                <input name="sex" type="radio" value="女">
+            </div>
+        </div>
+        <div class="input-row">
+            <label>出生日期:</label>
+            <button id='date' class="date"
+                    data-options='{"type":"date","beginYear":1900,"endYear":2020}'><%= member.brithdatetime.split(" ")[0] %></button>
+        </div>
+        <div class="input-row">
+            <label>联系电话：</label>
+            <input type="text" value="<%= member.telephone %>" id="telephone"/>
+        </div>
+        <div class="input-row">
+            <label>民族：</label>
+            <input type="text" value="<%= member.minzu %>" id="minzu"/>
+        </div>
+        <div class="input-row">
+            <label>籍贯：</label>
+            <input type="text" value="<%= member.jiguan %>" id="jiguan"/>
+        </div>
+        <div class="input-row">
+            <label>党派：</label>
+            <input type="text" value="<%= member.mianmao %>" id="mianmao"/>
+        </div>
+        <div class="input-row">
+            <label>手机：</label>
+            <input type="text" value="<%= member.mobile %>" id="mobile"/>
+        </div>
+        <div class="input-row">
+            <label>地址：</label>
+            <input type="text" value="<%= member.address %>" id="address"/>
+        </div>
+        <div class="input-row">
+            <label>邮箱：</label>
+            <input type="text" value="<%= member.email %>" id="email"/>
+        </div>
+        <div class="input-row">
+            <label>学历：</label>
+            <input type="text" value="<%= member.xueli %>" id="xueli"/>
+        </div>
+        <div class="input-row">
+            <label>毕业院校：</label>
+            <input type="text" value="<%= member.yuanxiao %>" id="yuanxiao"/>
+        </div>
+        <div class="input-row">
+            <label>单位职务：</label>
+            <input type="text" value="<%= member.fax %>" id="fax"/>
+        </div>
+        <div class="input-row">
+            <label>职称：</label>
+            <input type="text" value="<%= member.zhicheng %>" id="zhicheng"/>
+        </div>
+        <div class="input-row">
+            <label>界别：</label>
+            <input type="text" value="<%= member.jiebie %>" id="jiebie"/>
+        </div>
+    </div>
+</div>
+</body>
+
 <script>
     mui.previewImage();
     (function ($) {
@@ -359,7 +364,7 @@
         $("input[name='sex'][value='<%= member.sex %>']").attr("checked", true);
         $("#groups").html("");
         $.ajax({  //取分组
-            url: 'http://114.215.98.96:8011/ZxApi/m2_10.ashx',
+            url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_10.ashx',
             type: "POST",
             dataType: 'json',
             data: {},
@@ -402,7 +407,7 @@
         var minzu= $('#minzu').val();
         var mianmao= $('#mianmao').val();
         var telephone= $('#telephone').val();
-        var fax='无';
+        var fax=$("#fax").val();
         var mobile= $('#mobile').val();
         var address= $('#address').val();
         var email= $('#email').val();
@@ -413,11 +418,10 @@
         var zhicheng= $('#zhicheng').val();
         var groupName= $('#groups').val();
         var headImage= $('#img').attr("src");
-        if(user_id==null||user_name==null||password==null||sex==null||brithdatetime==null||minzu==null+
-            mianmao==null||telephone==null||fax==null||mobile==null||address==null||email==null+
-            xueli==null||jiguan==null||jiebie==null||yuanxiao==null||zhicheng==null+
-            groupName==null||headImage==null
-        ){
+        if(user_id==''||user_name==''||sex==''||brithdatetime==''||minzu=='' ||
+            mianmao==''||telephone==''||fax==''||mobile==''||address==''||email=='' ||
+            xueli==''||jiguan==''||jiebie==''||yuanxiao==''||zhicheng=='' ||
+            groupName==''||headImage==''){
             mui.toast("请将信息填写完整")
             setTimeout(function () {
                 return ;
@@ -432,7 +436,7 @@
                 minzu: minzu,
                 mianmao: mianmao,
                 telephone: telephone,
-                fax: '无',
+                fax: fax,
                 mobile: mobile,
                 address: address,
                 email: email,
@@ -446,7 +450,7 @@
             }
             var data = JSON.stringify(params)
             $.ajax({
-                url: 'http://114.215.98.96:8011/ZxApi/m2_06.ashx',
+                url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_06.ashx',
                 type: "POST",
                 dataType: 'json',
                 data: data,
@@ -467,8 +471,4 @@
         }
     });
 </script>
-<style>
-
-
-</style>
 </html>

@@ -17,6 +17,12 @@
         color: #fff;
         font-size: 14px;
     }
+    .mescroll{
+        position: fixed;
+        top: 42px;
+        bottom: 0;
+        height: auto;
+    }
     .weiyuan_list{
         padding: 5px;
     }
@@ -93,7 +99,7 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <a class="header-right" href="#picture">添加</a>
-    <div class="wrap">
+    <div class="wrap mescroll" id="mescroll">
         <%if(group_list!=null&&group_list.length>0){%>
         <div class="weiyuan_list">
             <%for(var i=0;i<group_list.length;i++){var item = group_list[i];%>
@@ -144,6 +150,23 @@
 </div>
 </body>
 <script>
+    $(function () {
+        //创建MeScroll对象
+        var mescroll = new MeScroll("mescroll", {
+            down: {
+                auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+                callback: downCallback //下拉刷新的回调
+            },
+            up: {
+                use: false
+            }
+        });
+
+        /*下拉刷新的回调 */
+        function downCallback() {
+            window.location.reload()
+        }
+    })
     $(".delete-member").click(function(){
         var id=this.id;
         mui.confirm('确认删除？', function(e) {
@@ -153,7 +176,7 @@
                 }
                 params = JSON.stringify(params);
                 $.ajax({
-                    url: 'http://114.215.98.96:8011/ZxApi/m2_04.ashx',
+                    url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_04.ashx',
                     type: "POST",
                     dataType: 'json',
                     data: params,
@@ -182,7 +205,7 @@
                 }
                 params = JSON.stringify(params);
                 $.ajax({
-                    url: 'http://114.215.98.96:8011/ZxApi/m2_11.ashx',
+                    url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_11.ashx',
                     type: "POST",
                     dataType: 'json',
                     data: params,

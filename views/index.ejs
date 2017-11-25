@@ -7,9 +7,11 @@
     }else{
         try{
             var nId=window.native.getData('user_id')
+            var role=window.native.getData('role_type')
             var user=window.native.getData('user')
             if(nId != null && nId != ""){
                 sessionStorage.setItem('user_id', nId);
+                sessionStorage.setItem('role_type', role);
                 sessionStorage.setItem('user', user);
                 location.href="/news"
             }else{

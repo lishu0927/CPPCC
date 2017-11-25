@@ -54,7 +54,7 @@
             }
             params = JSON.stringify(params);
             $.ajax({
-                url: 'http://114.215.98.96:8011/ZxApi/m2_08.ashx',
+                url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_08.ashx',
                 type: "POST",
                 dataType: 'json',
                 data: params,
@@ -76,7 +76,7 @@
             }
             params = JSON.stringify(params);
             $.ajax({
-                url: 'http://114.215.98.96:8011/ZxApi/m2_09.ashx',
+                url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_09.ashx',
                 type: "POST",
                 dataType: 'json',
                 data: params,

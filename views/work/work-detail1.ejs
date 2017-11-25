@@ -1,49 +1,125 @@
 <!DOCTYPE html>
 <html>
-<%-include ../base/checkHead.ejs%>
+<%- include ../base/checkHead.ejs %>
+<script type='text/javascript' src='/js/jquery.form.js'></script>
 <style>
-    .container{
+    .container {
         padding: 42px 0 50px 0;
     }
-    .wrap{
+    .wrap {
         color: #3b3b3b;
         padding: 5px 10px;
     }
-    .wrap p{
-        color: #585757;
-        line-height: 24px;
-    }
-    .wrap p.text-right{
-        text-align: right;
-    }
-    .proposal-content{
+    .other-files-content{
         border-bottom: 1px solid #adaaaa;
-        margin-top: 10px;
+        padding: 10px;
     }
-    .proposal-content .row{
+    .other-files-content .left{
+        display: inline-block;
+        width: 75px;
+        color: #0071bd;
+        font-size: 14px;
+    }
+    .upload {
+        position: relative;
+        display: inline-block;
+        background: #0071bd;
+        border-radius: 3px;
+        padding: 5px 8px;
+        color: #fff;
+        font-size: 14px;
+    }
+    .upload input {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+    }
+    .file-list .item {
+        display: flex;
+        border: 1px solid #adaaaa;
+        border-radius: 4px;
+        margin: 10px 0;
+        padding: 10px;
+        align-items: center;
+    }
+    .file-list .item .left {
+        width: 42px;
+        margin-right: 10px;
+    }
+    .file-list .item .right{
+        flex: 1;
+    }
+    .file-list .item .right .filename{
+        color: #3b3b3b;
+    }
+    .file-list .item .delete{
+        display: inline-block;
+        width: 50px;
+        background-image: url(images/delete.png);
+        height: 40px;
+        background-size: 20px 20px;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    .proposal-content {
+    }
+    .proposal-content .row {
         display: flex;
         font-size: 14px;
-        color: #585757;
-        line-height: 30px;
-        align-items: center;
-        border: 1px solid #adaaaa;
-        border-bottom: 0;
+        line-height: 40px;
+        border-bottom: 1px solid #adaaaa;
     }
-    .proposal-content .row .left{
-        width: 110px;
-        text-align: center;
+    .proposal-content .row .left {
+        width: 75px;
+        padding-left: 10px;
+        color: #0071bd;
     }
-    .proposal-content .row .right{
+    .proposal-content .row .right {
         flex: 1;
-        border-left: 1px solid #adaaaa;
-        padding: 5px;
-        min-height: 30px;
+        padding-left: 15px;
     }
-    .proposal-content .row .right textarea{
-        margin: 0 ;
+    .lead-content{
+        border-bottom: 1px solid #adaaaa;
+    }
+    .mui-table-view-cell{
+        padding:0;
+    }
+    .mui-table-view-cell:after{
+        display: none;
+    }
+    .mui-table-view-cell>a:not(.mui-btn){
+        font-size: 14px;
+        color: #0071bd;
+        margin: 0;
+        padding: 10px;
+    }
+    .mui-table-view-cell>a .left{
+        width: 75px;
+        display: inline-block;
+    }
+    .mui-table-view-cell>a .right{
+        display: inline-block;
+        color: #585757;
+    }
+    .mui-navigate-right:after, .mui-push-left:after, .mui-push-right:after{
+        font-size: 22px;
+    }
+    .mui-checkbox label, .mui-radio label{
         font-size: 14px;
     }
-    .bottom{
+    .write-content .row .desc {
+        margin: 0;
+        font-size: 14px;
+        color: #0071bd;
+        line-height: 40px;
+        padding-left: 10px;
+    }
+    .write-content .row textarea {
+        margin: 0;
+        font-size: 14px;
+    }
+    .bottom {
         position: fixed;
         height: 50px;
         width: 100%;
@@ -52,23 +128,23 @@
         background: #e1edfd;
         border: 1px solid #00a0e9;
     }
-    .bottom .content{
+    .bottom .content {
         display: flex;
         text-align: center;
         height: 50px;
         line-height: 50px;
     }
-    .bottom .content .left{
+    .bottom .content .left {
         width: 40%;
         border-right: 1px solid #00a0e9;
     }
-    .bottom .content .right{
+    .bottom .content .right {
         flex: 1;
     }
 </style>
 <body>
 <div class="container">
-    <%-include ../base/header.ejs%>
+    <%- include ../base/header.ejs %>
     <div class="wrap">
         <div class="proposal-content">
             <div class="row">
@@ -83,27 +159,47 @@
                 <span class="left">发起日期</span>
                 <span class="right" id="date"><%=work.createdate%></span>
             </div>
-            <div class="row">
-                <span class="left">文件标题</span>
-                <span class="right" >
-                    <textarea id="title" placeholder="" rows="1"><%=work.worktitle%></textarea>
-                </span>
+        </div>
+        <div class="lead-content">
+            <div class="mui-table-view-cell mui-collapse">
+                <a class="mui-navigate-right" href="#">
+                    <span class="left">选择处理人</span>
+                    <span class="right" id="select-leader"></span>
+                </a>
+                <div id="leaders" class="mui-collapse-content">
+                </div>
             </div>
-            <div class="row">
-                <span class="left">内容</span>
-                <span class="right">
-                    <textarea  id="content" placeholder="" rows="5"><%=work.workcontent%></textarea></span>
+        </div>
+        <div class="other-files-content">
+            <span class="left">添加附件</span>
+            <div class="upload">
+                点击上传
+                <form action="http://<%=reqHost%>:<%=reqPort%>/ZxApi/uploadfile.aspx" enctype="multipart/form-data"
+                      method="post" id="uploadForm">
+                    <input type="file" name="file" id="upload"/>
+                </form>
             </div>
-            <div class="row">
-                <span class="left">附件</span>
-                <span class="right"></span>
-            </div>
-            <div class="row">
-                <span class="left">选择处理人</span>
-                <span class="right">
-                    <div id="leaders" >
+            <div class="file-list" id="files">
+                <%for(var i=0;i<attach_list.length;i++){%>
+                <div class='item'>
+                    <img class='left' src='images/file.png' />
+                    <div class='right filepath' id="<%=attach_list[i].fileid%>" data-url="<%=attach_list[i].filepath%>">
+                        <p class='filename'><%=attach_list[i].filename%></p>
+                        <p class='filesize' data-bytes="<%=attach_list[i].filesize%>"><%=(attach_list[i].filesize/1000/1000).toFixed(2)%>M</p>
                     </div>
-                </span>
+                    <span class="delete"></span>
+                </div>
+                <%}%>
+            </div>
+        </div>
+        <div class="write-content">
+            <div class="row">
+                <p class="desc">文件标题</p>
+                <textarea id="title" placeholder="" rows="1"><%=work.worktitle%></textarea>
+            </div>
+            <div class="row">
+                <p class="desc">内容</p>
+                <textarea id="content" placeholder="" rows="5"><%=work.workcontent%></textarea>
             </div>
         </div>
     </div>
@@ -115,11 +211,44 @@
     </div>
 </div>
 </body>
+
 <script>
-    $(function() {
+    $(function () {
+        $(".file-list").on('click','.delete',function () {
+            $(this).parent().remove();
+        })
+
+        var selectLeaders=[];
+        var selectStr=''
+        function removeByValue(arr, val) {
+            for(var i=0; i<arr.length; i++) {
+                if(arr[i] == val) {
+                    arr.splice(i, 1);
+                    break;
+                }
+            }
+        }
+        mui('.mui-collapse-content').on('change', 'input', function() {
+            var check = this.checked?"true":"false";
+            if(check=="true"){
+                selectLeaders.push(this.value)
+            }else{
+                removeByValue(selectLeaders,this.value)
+            }
+            if(selectLeaders.length<3){
+                selectStr=selectLeaders.join(",")
+            }else{
+                selectStr=selectLeaders.slice(0,2).join(",")+'等等'
+            }
+        });
+        $(".mui-navigate-right").on('tap',function () {
+            if($(this).parent().attr("class")=='mui-table-view-cell mui-collapse mui-active'){
+                $("#select-leader").html(selectStr)
+            }
+        })
         $("#leaders").html("");
-        $.ajax({  //取分组
-            url: 'http://114.215.98.96:8011/ZxApi/m3_07.ashx',
+        $.ajax({  //取审批人
+            url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m3_07.ashx',
             type: "POST",
             dataType: 'json',
             data: {},
@@ -130,9 +259,9 @@
                 if (data.ecode == 1000) {
                     var list = data.leader_list;
                     $.each(list, function (i) {
-                        var item=' <div class="mui-input-row mui-checkbox">' +
-                            '<label>'+list[i].user_name+'</label>' +
-                            '<input name="leader" data-workuserid=0 value="' + list[i].user_name +'" id='+list[i].user_id+' type="checkbox"  >' +
+                        var item = ' <div class="mui-input-row mui-checkbox">' +
+                            '<label>' + list[i].user_name + '</label>' +
+                            '<input name="leader" value="' + list[i].user_name + '" id=' + list[i].user_id + ' data-workuserid="0" type="checkbox"  >' +
                             '</div>'
                         $("#leaders").append(item);
                     })
@@ -143,15 +272,52 @@
                         var tag=$(this).attr("id");
                         for(var i=0;i<leaders.length;i++){
                             if(tag==leaders[i].touserid){
+                                selectLeaders.push($(this).val())
                                 $(this).attr("checked",true)
                                 $(this).attr("data-workuserid",leaders[i].workuserid)
                             }
                         }
+                        if(selectLeaders.length<3){
+                            selectStr=selectLeaders.join(",")
+                        }else{
+                            selectStr=selectLeaders.slice(0,2).join(",")+'等等'
+                        }
+                        $("#select-leader").html(selectStr)
                     })
-
                 }
             }
         });
+        $('#uploadForm').ajaxForm(function(data) {
+            data= JSON.parse(data);
+            if(data.ecode==1000){
+                var rootEle = document.getElementById("upload");
+                var temp = rootEle.files[0].name.split(".");
+                var bytes = rootEle.files[0].size
+                var size = bytes / 1024 / 1024;
+                size = size.toFixed(2);
+                var $div1 = $("<div class='item'></div>");
+                var $div2 = $("<img class='left' data-type='" + temp[1] + "' src='images/file.png' />");
+                var $div3 = $("<div class='right filepath' id='0' data-url='"+data.imgurl_list[0].imgurl+"'></div>");
+                var $p1 = $("<p class='filename' >" + rootEle.files[0].name + "</p>");
+                var $p2 = $("<p class='filesize' data-bytes='"+bytes+"'>" + size + "M</p>");
+                var $de = $("<span class='delete'></span>");
+                $div3.append($p1);
+                $div3.append($p2);
+                $div1.append($div2);
+                $div1.append($div3);
+                $div1.append($de);
+                $('#files').append($div1);
+            }else{
+                alert("上传失败！");
+            }
+        });
+        $('#upload').change(function () {
+            $('#uploadForm').submit();
+        });
+
+
+
+
         var username="<%=work.username%>";
         var createuserid="<%=work.createuserid%>";
         var dailywork_id="<%=work.dailywork_id%>";
@@ -172,6 +338,17 @@
                         };
                     dailyworkuser_list.push(leader);
                 });
+                $('#files .item .right').each(function () {
+                    var files=
+                        {
+                            dailywork_id: dailywork_id,
+                            fileid: $(this).attr("id"),
+                            filename: $(this).find(".filename").html(),
+                            filepath: $(this).attr("data-url"),
+                            filesize: $(this).find(".filesize").attr("data-bytes")
+                        }
+                    dailyworkattach_list.push(files);
+                })
                 if($(this).text()=='完成提交'){
                     tijiao_kind=4;
                 }else if($(this).text()=='保存草稿'){
@@ -197,7 +374,7 @@
                     }
                     var data = JSON.stringify(params)
                     $.ajax({
-                        url: 'http://114.215.98.96:8011/ZxApi/m3_08.ashx',
+                        url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m3_08.ashx',
                         type: "POST",
                         dataType: 'json',
                         data: data,

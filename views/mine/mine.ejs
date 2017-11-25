@@ -10,7 +10,7 @@
         <div class="mine">
             <div class="mine-content">
                 <div class="left">
-                    <img src="images/wyfc.png" />
+                    <img src="images/default2.png" id="headImage"/>
                 </div>
                 <div class="right">
                     <p class="name" id="name"></p>
@@ -127,9 +127,11 @@
 </style>
 <script>
     var user=JSON.parse(sessionStorage.getItem('user'))
+    console.log(user)
     var id=sessionStorage.getItem('user_id');
     $('#name').html(user.user_name);
     $('#phone').html(user.mobile);
+    $('#headImage').attr("src",user.headImage);
     $('#detail').attr("href","/membersDetail?id="+id);
     $(".exit").click(function () {
         sessionStorage.setItem("user_id","");

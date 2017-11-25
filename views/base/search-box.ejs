@@ -1,9 +1,3 @@
-<div class="search-box">
-    <input type="text" placeholder="请输入您需要的内容" data-keyword="<%=keyword%>" id="info"/>
-    <span class="header-icon-right" id="search">
-        <img src="/images/icons/search.png">
-    </span>
-</div>
 <style>
     .search-box {
         position: relative;
@@ -40,6 +34,12 @@
         margin-top: 3px;
     }
 </style>
+<div class="search-box">
+    <input type="text" placeholder="请输入您需要的内容" data-keyword="<%=keyword%>" id="info"/>
+    <span class="header-icon-right" id="search">
+        <img src="/images/icons/search.png">
+    </span>
+</div>
 <script>
     var search_type="<%=search_type%>";
     var keyword="<%=keyword%>";

@@ -68,7 +68,7 @@
         }
         var data = JSON.stringify(params)
         $.ajax({
-            url: 'http://114.215.98.96:8011/ZxApi/m4_01.ashx',
+            url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m4_01.ashx',
             type: "POST",
             dataType: 'json',
             data: data,
@@ -79,7 +79,7 @@
                 if(data.ecode==1000){
                     mui.toast('修改成功');
                     setTimeout(function () {
-                        window.history.back();
+                        history.go(-1);
                     },1000)
                 }else if(data.ecode==3103){
                     mui.toast('旧密码错误');

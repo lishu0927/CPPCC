@@ -53,13 +53,15 @@ module.exports = function (app) {
     app.get("/fileDetail", controlles.work.fileDetail);
     app.get("/workNotices", controlles.work.notices);
     app.get("/noticeDetail", controlles.work.noticeDetail);
-    app.get("/startWork", controlles.work.startWork);
+    app.get("/startWorkDraft", controlles.work.startWorkDraft);
+    app.get("/startWorkPass", controlles.work.startWorkPass);
     app.get("/addWork", controlles.work.addWork);
     app.get("/workDetail1", controlles.work.detail1);
     app.get("/workDetail2", controlles.work.detail2);
     app.get("/todoWork", controlles.work.todoWork);
     app.get("/todoDetail", controlles.work.todoDetail);
     app.get("/doneWork", controlles.work.doneWork);
+    app.get("/doneDetail", controlles.work.doneDetail);
     app.get("/searchWork", controlles.work.searchWork);
     app.get("/mineMsg", controlles.mine.msg);
 }

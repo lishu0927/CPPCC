@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<%-include ../base/checkHead.ejs%>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap">
+        <div class="proposal-content">
+            <div class="row">
+                <span class="left">编号</span>
+                <span class="right" id="num"><%=work.worknumber%></span>
+            </div>
+            <div class="row">
+                <span class="left">发起人</span>
+                <span class="right" id="name"><%=work.username%></span>
+            </div>
+            <div class="row">
+                <span class="left">发起日期</span>
+                <span class="right" id="date"><%=work.createdate%></span>
+            </div>
+            <div class="row">
+                <span class="left">文件标题</span>
+                <span class="right" ><%=work.worktitle%></span>
+            </div>
+            <div class="row">
+                <span class="left">内容</span>
+                <span class="right"><%=work.workcontent%></span>
+            </div>
+            <div class="row">
+                <span class="left">附件</span>
+                <span class="right"></span>
+            </div>
+            <div class="row">
+                <span class="left">处理人</span>
+                <span class="right" id="leaders"></span>
+            </div>
+            <div class="row">
+                <span class="left">审核状态</span>
+                <span class="right"><%=work.state%></span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<style>
+    .container{
+        padding: 42px 0 50px 0;
+    }
+    .wrap{
+        color: #3b3b3b;
+        padding: 5px 10px;
+    }
+    .wrap p{
+        color: #585757;
+        line-height: 24px;
+    }
+    .wrap p.text-right{
+        text-align: right;
+    }
+    .proposal-content{
+        border-bottom: 1px solid #adaaaa;
+        margin-top: 10px;
+    }
+    .proposal-content .row{
+        display: flex;
+        font-size: 14px;
+        color: #585757;
+        line-height: 30px;
+        align-items: center;
+        border: 1px solid #adaaaa;
+        border-bottom: 0;
+    }
+    .proposal-content .row .left{
+        width: 110px;
+        text-align: center;
+    }
+    .proposal-content .row .right{
+        flex: 1;
+        border-left: 1px solid #adaaaa;
+        padding: 5px;
+        min-height: 30px;
+    }
+    .proposal-content .row .right textarea{
+        margin: 0 ;
+    }
+</style>
+<script>
+$(function() {
+    var leaderStr='';
+    var str="<%=leaders%>";
+    str=str.replace(/&#34;/g, '"');
+    var leaders=JSON.parse(str);
+    for(var i=0;i<leaders.length;i++){
+        leaderStr+=leaders[i].tousername+" , "
+    }
+    $("#leaders").html(leaderStr.slice(0,-2));
+
+})
+</script>
+</html>

@@ -114,6 +114,7 @@
 </div>
 </body>
 <script>
+    var user_id=sessionStorage.getItem("user_id")
     var tian_list_kind;
     var detail_id;
     $(".tab-item").each(function (i) {
@@ -140,10 +141,13 @@
             }else{
                 return ;
             }
-            var params = {tian_list_kind:tian_list_kind}
+            var params = {
+                tian_list_kind:tian_list_kind,
+                user_id:user_id
+            }
             var data = JSON.stringify(params)
             $.ajax({
-                url: 'http://114.215.98.96:8011/ZxApi/m2_12.ashx',
+                url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_12.ashx',
                 type: "POST",
                 dataType: 'json',
                 data: data,
@@ -172,8 +176,12 @@
         })
     })
     $(function () {
+        if(role==3 || role==4 || role==5){
+            $(".header-right").css("display","none")
+        }
         var tabIndex="<%=tabIndex%>"
         $(".tab-item").eq(tabIndex).click();
+
     })
 </script>
 </html>
