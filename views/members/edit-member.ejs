@@ -63,6 +63,7 @@
     .input-row {
         display: flex;
         margin-bottom: 10px;
+        align-items: center;
     }
     .input-row input[type=text], select {
         height: 32px !important;
@@ -275,7 +276,7 @@
         </div>
         <div class="input-row">
             <label>姓名：</label>
-            <input type="text" value="<%= member.user_name %>" id="name"/>
+            <input type="text" value="<%= member.user_name %>" id="name" maxlength="25"/>
         </div>
         <div class="input-row">
             <label>姓别：</label>
@@ -295,51 +296,51 @@
         </div>
         <div class="input-row">
             <label>联系电话：</label>
-            <input type="text" value="<%= member.telephone %>" id="telephone"/>
+            <input type="text" value="<%= member.telephone %>" id="telephone" maxlength="25"/>
         </div>
         <div class="input-row">
             <label>民族：</label>
-            <input type="text" value="<%= member.minzu %>" id="minzu"/>
+            <input type="text" value="<%= member.minzu %>" id="minzu" maxlength="25"/>
         </div>
         <div class="input-row">
             <label>籍贯：</label>
-            <input type="text" value="<%= member.jiguan %>" id="jiguan"/>
+            <input type="text" value="<%= member.jiguan %>" id="jiguan" maxlength="25"/>
         </div>
         <div class="input-row">
             <label>党派：</label>
-            <input type="text" value="<%= member.mianmao %>" id="mianmao"/>
+            <input type="text" value="<%= member.mianmao %>" id="mianmao" maxlength="25"/>
         </div>
         <div class="input-row">
             <label>手机：</label>
-            <input type="text" value="<%= member.mobile %>" id="mobile"/>
+            <input type="text" value="<%= member.mobile %>" id="mobile" maxlength="25"/>
         </div>
         <div class="input-row">
             <label>地址：</label>
-            <input type="text" value="<%= member.address %>" id="address"/>
+            <input type="text" value="<%= member.address %>" id="address" maxlength="50"/>
         </div>
         <div class="input-row">
             <label>邮箱：</label>
-            <input type="text" value="<%= member.email %>" id="email"/>
+            <input type="text" value="<%= member.email %>" id="email" maxlength="25"/>
         </div>
         <div class="input-row">
             <label>学历：</label>
-            <input type="text" value="<%= member.xueli %>" id="xueli"/>
+            <input type="text" value="<%= member.xueli %>" id="xueli" maxlength="25"/>
         </div>
         <div class="input-row">
             <label>毕业院校：</label>
-            <input type="text" value="<%= member.yuanxiao %>" id="yuanxiao"/>
+            <input type="text" value="<%= member.yuanxiao %>" id="yuanxiao" maxlength="25"/>
         </div>
         <div class="input-row">
             <label>单位职务：</label>
-            <input type="text" value="<%= member.fax %>" id="fax"/>
+            <input type="text" value="<%= member.fax %>" id="fax" maxlength="250"/>
         </div>
         <div class="input-row">
             <label>职称：</label>
-            <input type="text" value="<%= member.zhicheng %>" id="zhicheng"/>
+            <input type="text" value="<%= member.zhicheng %>" id="zhicheng" maxlength="25"/>
         </div>
         <div class="input-row">
             <label>界别：</label>
-            <input type="text" value="<%= member.jiebie %>" id="jiebie"/>
+            <input type="text" value="<%= member.jiebie %>" id="jiebie" maxlength="25"/>
         </div>
     </div>
 </div>

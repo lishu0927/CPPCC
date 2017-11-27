@@ -42,7 +42,7 @@
     }
     .tian_list .item .circle{
         position: absolute;
-        top:17px;
+        top:16px;
         left: 20px;
         background: #0071bd;
         width: 10px;
@@ -126,7 +126,6 @@
         </div>
         <%}%>
 
-
         <%if(group_list!=null&&group_list.length>0){%>
         <div class="weiyuan_list">
             <div class="weiyuan_content">
@@ -186,4 +185,14 @@
     </div>
 </div>
 </body>
+<script>
+    $(function () {
+        var _offset = sessionStorage.getItem("offsetTopSearch");
+        console.log(_offset)
+        $(".wrap").scrollTop(_offset);  //进页面时跳到记录的位置
+        $(".wrap").scroll(function() {
+            sessionStorage.setItem("offsetTopSearch", $(this).scrollTop());
+        });
+    })
+</script>
 </html>

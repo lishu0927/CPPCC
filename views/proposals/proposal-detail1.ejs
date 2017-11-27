@@ -1,55 +1,6 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <div class="wrap">
-        <div class="proposal-content">
-            <div class="row">
-                <span class="left">提案人姓名</span>
-                <span class="right" id="name"><%=tian.tianername%></span>
-            </div>
-            <div class="row">
-                <span class="left">电话号码</span>
-                <span class="right" id="mobile"><%=tian.mobile%></span>
-            </div>
-        </div>
-        <div class="submit-content">
-            <div class="row">
-                <p class="desc">委员证号码</p>
-                <textarea placeholder="" rows="1" id="weinum"><%=tian.weinum%></textarea>
-            </div>
-            <div class="row">
-                <p class="desc">单位</p>
-                <textarea placeholder="" rows="1" id="company"><%=tian.company%></textarea>
-            </div>
-            <div class="row">
-                <p class="desc">案由</p>
-                <textarea placeholder="" rows="1" id="anyou"><%=tian.anyou%></textarea>
-            </div>
-            <div class="row">
-                <p class="desc">问题</p>
-                <textarea placeholder="" rows="2" id="problem"><%=tian.problem%></textarea>
-            </div>
-            <div class="row">
-                <p class="desc">分析</p>
-                <textarea placeholder="" rows="1" id="analyse"><%=tian.analyse%></textarea>
-            </div>
-            <div class="row">
-                <p class="desc">建议</p>
-                <textarea placeholder="" rows="2" id="advice"><%=tian.advice%></textarea>
-            </div>
-        </div>
-    </div>
-    <div class="bottom">
-        <div class="content" id="submit">
-            <div class="left">保存</div>
-            <div class="right">提交</div>
-        </div>
-    </div>
-</div>
-</body>
 <style>
     .container{
         padding: 42px 0 50px 0;
@@ -87,6 +38,8 @@
         padding: 5px;
         border-left: 1px solid #adaaaa;
         min-height: 30px;
+        overflow: hidden;
+        word-break: break-all;
     }
     .submit-content{
         margin-top: 10px;
@@ -124,6 +77,56 @@
     }
 
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap">
+        <div class="proposal-content">
+            <div class="row">
+                <span class="left">提案人姓名</span>
+                <span class="right" id="name"><%=tian.tianername%></span>
+            </div>
+            <div class="row">
+                <span class="left">电话号码</span>
+                <span class="right" id="mobile"><%=tian.mobile%></span>
+            </div>
+        </div>
+        <div class="submit-content">
+            <div class="row">
+                <p class="desc">委员证号码</p>
+                <textarea placeholder="" rows="1" id="weinum" maxlength="25"><%=tian.weinum%></textarea>
+            </div>
+            <div class="row">
+                <p class="desc">单位</p>
+                <textarea placeholder="" rows="1" id="company" maxlength="25"><%=tian.company%></textarea>
+            </div>
+            <div class="row">
+                <p class="desc">案由</p>
+                <textarea placeholder="" rows="3" id="anyou" maxlength="250"><%=tian.anyou%></textarea>
+            </div>
+            <div class="row">
+                <p class="desc">问题</p>
+                <textarea placeholder="" rows="5" id="problem"><%=tian.problem%></textarea>
+            </div>
+            <div class="row">
+                <p class="desc">分析</p>
+                <textarea placeholder="" rows="5" id="analyse"><%=tian.analyse%></textarea>
+            </div>
+            <div class="row">
+                <p class="desc">建议</p>
+                <textarea placeholder="" rows="5" id="advice"><%=tian.advice%></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="content" id="submit">
+            <div class="left">保存</div>
+            <div class="right">提交</div>
+        </div>
+    </div>
+</div>
+</body>
+
 <script>
 $(function() {
     var tijiao_kind;

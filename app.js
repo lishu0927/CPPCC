@@ -53,7 +53,6 @@ app.locals["navList"] = [{item_rul:'/news',item_text:'政协要闻',item_pic:'ne
     {item_rul:'/work',item_text:'政协工作',item_pic:'work'},
     {item_rul:'/mine',item_text:'我',item_pic:'mine'}
 ];
-app.locals['body']='';
 
 
 module.exports = app;

@@ -74,6 +74,7 @@
     var keyword=$("#info").attr("data-keyword");
     $("#info").val(keyword);
     $("#search").click(function () {
+        sessionStorage.setItem("offsetTopSearch", 0)
         var info = $("#info").val();
         location.href = "/search?keyword=" + info;
     });

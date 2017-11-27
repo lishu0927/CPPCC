@@ -68,6 +68,10 @@
         width: 42px;
         margin-right: 10px;
     }
+    .file-list .item .right{
+        flex: 1;
+        overflow: hidden;
+    }
     .file-list .item .right .filename{
         color: #3b3b3b;
     }
@@ -133,7 +137,7 @@
                         <div class='item'>
                             <img class='left' src='images/file.png' />
                             <div class='right filepath' id="<%=attach_list[i].fileid%>" data-url="<%=attach_list[i].filepath%>">
-                                <p class='filename'><%=attach_list[i].filename%></p>
+                                <p class='filename mui-ellipsis'><%=attach_list[i].filename%></p>
                                 <p class='filesize' data-bytes="<%=attach_list[i].filesize%>"><%=(attach_list[i].filesize/1000/1000).toFixed(2)%>M</p>
                             </div>
                         </div>
@@ -185,7 +189,7 @@
             <div class="submit-content">
                 <div class="row">
                     <p class="desc">处理意见</p>
-                    <textarea placeholder="" rows="5" id="suggestion"></textarea>
+                    <textarea placeholder="" rows="5" id="suggestion" maxlength="250"></textarea>
                 </div>
             </div>
             <div class="bottom">

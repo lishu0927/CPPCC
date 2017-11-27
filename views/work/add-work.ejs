@@ -49,6 +49,7 @@
     }
     .file-list .item .right{
         flex: 1;
+        overflow: hidden;
     }
     .file-list .item .right .filename{
         color: #3b3b3b;
@@ -185,11 +186,11 @@
         <div class="write-content">
             <div class="row">
                 <p class="desc">文件标题</p>
-                <textarea id="title" placeholder="" rows="1"></textarea>
+                <textarea id="title" placeholder="" rows="1" maxlength="25"></textarea>
             </div>
             <div class="row">
                 <p class="desc">内容</p>
-                <textarea id="content" placeholder="" rows="5"></textarea>
+                <textarea id="content" placeholder="" rows="5" maxlength="250"></textarea>
             </div>
         </div>
     </div>
@@ -201,7 +202,6 @@
     </div>
 </div>
 </body>
-
 <script>
     $(function () {
         $(".file-list").on('click','.delete',function () {
@@ -241,7 +241,7 @@
                 var $div1 = $("<div class='item'></div>");
                 var $div2 = $("<img class='left' data-type='" + temp[1] + "' src='images/file.png' />");
                 var $div3 = $("<div class='right filepath' data-url='"+data.imgurl_list[0].imgurl+"'></div>");
-                var $p1 = $("<p class='filename' >" + rootEle.files[0].name + "</p>");
+                var $p1 = $("<p class='filename mui-ellipsis' >" + rootEle.files[0].name + "</p>");
                 var $p2 = $("<p class='filesize' data-bytes='"+bytes+"'>" + size + "M</p>");
                 var $de = $("<span class='delete'></span>");
                 $div3.append($p1);

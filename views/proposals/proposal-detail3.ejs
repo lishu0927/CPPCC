@@ -38,6 +38,8 @@
         border-left: 1px solid #adaaaa;
         padding: 5px;
         min-height: 30px;
+        overflow: hidden;
+        word-break: break-all;
     }
     .desc-content{
         padding: 5px 0;
@@ -67,6 +69,8 @@
     .repeat-content .row > div{
         flex: 1;
         padding: 5px;
+        overflow: hidden;
+        word-break: break-all;
     }
     .repeat-content .row .right{
         border-left: 1px solid #adaaaa;
@@ -200,7 +204,7 @@
             </div>
         </div>
         <div class="reject-content">
-            <textarea id="tuihui" rows="4" placeholder="请填写退回理由"></textarea>
+            <textarea id="tuihui" rows="5" placeholder="请填写退回理由" maxlength="250"></textarea>
         </div>
         <div class="bottom">
             <div class="content" id="submit">
