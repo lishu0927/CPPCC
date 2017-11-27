@@ -1,52 +1,6 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/footer-nav.ejs%>
-    <div class="wrap">
-        <div class="top"></div>
-        <div class="exit">退出登录</div>
-        <div class="mine">
-            <div class="mine-content">
-                <div class="left">
-                    <img src="images/default2.png" id="headImage"/>
-                </div>
-                <div class="right">
-                    <p class="name" id="name"></p>
-                    <p class="phone" id="phone"></p>
-                </div>
-            </div>
-        </div>
-        <ul class="list">
-            <li>
-                <a href="javascript:;" id="detail">
-                    <div class="left">
-                        <img src="images/icons/mine-xx.png" />
-                    </div>
-                    <p>我的信息</p>
-                </a>
-            </li>
-            <li>
-                <a href="/minePwd">
-                    <div class="left">
-                        <img src="images/icons/mine-mm.png" />
-                    </div>
-                    <p>修改密码</p>
-                </a>
-            </li>
-            <li>
-                <a href="/mineMsg">
-                    <div class="left">
-                        <img src="images/icons/mine-ly.png" />
-                    </div>
-                    <p>留言反馈</p>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
-</body>
 <style>
     .container{
         padding: 0 0 50px 0;
@@ -70,7 +24,7 @@
         width: 90%;
         left: 5%;
         border: 1px solid #adaaaa;
-        padding:10px 20px;
+        padding:10px;
         background: #fff;
     }
     .mine .mine-content{
@@ -125,18 +79,81 @@
         flex: 1;
     }
 </style>
+<body>
+<div class="container">
+    <%-include ../base/footer-nav.ejs%>
+    <div class="wrap">
+        <div class="top"></div>
+        <div class="exit">退出登录</div>
+        <div class="mine">
+            <div class="mine-content">
+                <div class="left">
+                    <img src="images/default2.png" id="headImage"/>
+                </div>
+                <div class="right">
+                    <p class="name" id="name"></p>
+                    <p class="phone" id="phone"></p>
+                </div>
+            </div>
+        </div>
+        <ul class="list">
+            <li>
+                <a href="javascript:;" id="detail">
+                    <div class="left">
+                        <img src="images/icons/mine-xx.png" />
+                    </div>
+                    <p>我的信息</p>
+                </a>
+            </li>
+            <li>
+                <a href="/minePwd">
+                    <div class="left">
+                        <img src="images/icons/mine-mm.png" />
+                    </div>
+                    <p>修改密码</p>
+                </a>
+            </li>
+            <li>
+                <a href="/mineMsg">
+                    <div class="left">
+                        <img src="images/icons/mine-ly.png" />
+                    </div>
+                    <p>留言反馈</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+
 <script>
     var user=JSON.parse(sessionStorage.getItem('user'))
     console.log(user)
     var id=sessionStorage.getItem('user_id');
+
     $('#name').html(user.user_name);
-    $('#phone').html(user.mobile);
     $('#headImage').attr("src",user.headImage);
-    $('#detail').attr("href","/membersDetail?id="+id);
+
+    var mobile=user.mobile
+    var telephone=user.telephone
+    if(mobile != ''){
+        $('#phone').html(mobile);
+    }else {
+        $('#phone').html(telephone);
+    }
+
+    $("#detail").click(function () {
+        if(id==null || id<=0 || id==''){
+            mui.toast("当前用户不支持此功能")
+        }else{
+            location.href='/membersDetail?id='+id
+        }
+    })
+
     $(".exit").click(function () {
-        sessionStorage.setItem("user_id","");
+        sessionStorage.setItem("manager_id","");
         try{
-            window.native.saveData("user_id", "");
+            window.native.saveData("manager_id", "");
         }catch (err){
 
         }

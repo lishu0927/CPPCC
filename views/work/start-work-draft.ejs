@@ -81,6 +81,7 @@
     }
     .item .bottom .right{
         float: right;
+        padding:0 5px;
     }
 </style>
 <body>
@@ -129,7 +130,7 @@
                     $("#list-content").html("");
                     var list=data.dailywork_list
                     $.each(list, function (i) {
-                        var item='<a class="item" href="/workDetail1?id='+list[i].dailywork_id+'">' +
+                        var item='<a class="item" href="/workDetail2?id='+list[i].dailywork_id+'">' +
                             '<span class="circle"></span>' +
                             '<p class="anyou">'+list[i].worktitle+'</p>' +
                             '<p class="bottom">' +
@@ -137,12 +138,17 @@
                             '<span class="left">'+list[i].username+'</span>' +
                             '<span class="left">'+ list[i].createdate.split(" ")[0] +'</span>' +
                             '<span class="right delete" id="'+list[i].dailywork_id+'">删除</span>' +
+                            '<span class="right edit" data-id="'+list[i].dailywork_id+'">编辑</span>' +
                             '</p>' +
                             '</a>'
                         $("#list-content").append(item);
                     })
                 }
             }
+        })
+        $(document).on('click','.edit',function (e) {
+            e.preventDefault()
+            location.href='/workDetail1?id='+$(this).attr("data-id")
         })
 
         $(document).on('click','.delete',function(e){

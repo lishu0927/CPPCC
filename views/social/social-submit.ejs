@@ -17,6 +17,9 @@
         color: #fff;
         font-size: 14px;
     }
+    .list-content{
+        padding-bottom: 60px;
+    }
     .item{
         padding: 10px;
         border-bottom: 1px solid #bcbcbc;
@@ -37,6 +40,7 @@
         color: #3b3b3b;
         text-indent: 20px;
         font-size: 13px;
+        min-height: 22px;
     }
     .item .bottom{
         font-size: 12px;
@@ -82,7 +86,7 @@
     .list-tab .tab-item.active{
         color: #0071bd;
     }
-    .bottom{
+    .bottom-content{
         position: fixed;
         height: 50px;
         width: 100%;
@@ -91,7 +95,7 @@
         background: #e1edfd;
         border: 1px solid #00a0e9;
     }
-    .bottom .content{
+    .bottom-content .content{
         display: flex;
         justify-content: center;
         align-items: center;
@@ -113,7 +117,7 @@
         </div>
         <div class="list-content" id="list-content">
         </div>
-        <div class="bottom">
+        <div class="bottom-content" id="bottom-content">
             <div class="content" id="submit" onclick="location.href='/submitDetail'">
                 提交信息
             </div>
@@ -180,6 +184,13 @@
         })
     })
     $(function () {
+        var user_id=sessionStorage.getItem("user_id")
+        if (role == 4 || role == 5 || user_id=='' || user_id<=0 || user_id==null) {
+            $("#bottom-content").css("display", "none")
+        }
+        if (role == 4 || role == 5) {
+            $(".header-right").css("display", "none")
+        }
         var tabIndex="<%=tabIndex%>"
         $(".tab-item").eq(tabIndex).click();
     })

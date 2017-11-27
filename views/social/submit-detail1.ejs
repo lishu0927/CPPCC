@@ -1,43 +1,6 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <div class="wrap">
-        <div class="proposal-content">
-            <div class="row">
-                <span class="left">姓名</span>
-                <span class="right" id="name"><%=sqmy_info.username%></span>
-            </div>
-            <div class="row">
-                <span class="left">单位</span>
-                <span class="right" id="fax"><%=sqmy_info.userfax%></span>
-            </div>
-            <div class="row">
-                <span class="left">组别</span>
-                <span class="right" id="group"><%=sqmy_info.usergroupname%></span>
-            </div>
-        </div>
-        <div class="submit-content">
-            <div class="row">
-                <p class="desc">事由</p>
-                <textarea placeholder="" rows="1" id="title" maxlength="25"><%-sqmy_info.ideatitle%></textarea>
-            </div>
-            <div class="row">
-                <p class="desc">内容简介</p>
-                <textarea placeholder="" rows="5" id="content"><%-sqmy_info.ideacontent%></textarea>
-            </div>
-        </div>
-    </div>
-    <div class="bottom">
-        <div class="content" id="submit">
-            <div class="left">保存</div>
-            <div class="right">提交</div>
-        </div>
-    </div>
-</div>
-</body>
 <style>
     .container{
         padding: 42px 0 50px 0;
@@ -79,6 +42,14 @@
     .submit-content{
         margin-top: 10px;
     }
+    .submit-content .row{
+        margin-bottom: 10px;
+        border-bottom: 1px solid #adaaaa;
+        padding: 10px 0;
+    }
+    .submit-content .row:last-child{
+        border-bottom: 0;
+    }
     .submit-content .row .desc{
         color: #0071bd;
         letter-spacing: 2px;
@@ -110,55 +81,129 @@
     .bottom .content .right{
         flex: 1;
     }
-
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap">
+        <div style="display: none" id="type1">
+            <div class="proposal-content">
+                <div class="row">
+                    <span class="left">姓名</span>
+                    <span class="right" id="name"><%=sqmy_info.username%></span>
+                </div>
+                <div class="row">
+                    <span class="left">单位</span>
+                    <span class="right" id="fax"><%=sqmy_info.userfax%></span>
+                </div>
+                <div class="row">
+                    <span class="left">组别</span>
+                    <span class="right" id="group"><%=sqmy_info.usergroupname%></span>
+                </div>
+            </div>
+            <div class="submit-content">
+                <div class="row">
+                    <p class="desc">事由</p>
+                    <textarea placeholder="" rows="1" id="title" maxlength="25"><%-sqmy_info.ideatitle%></textarea>
+                </div>
+                <div class="row">
+                    <p class="desc">内容简介</p>
+                    <textarea placeholder="" rows="5" id="content"><%-sqmy_info.ideacontent%></textarea>
+                </div>
+            </div>
+            <div class="bottom">
+                <div class="content" id="submit">
+                    <div class="left">保存</div>
+                    <div class="right">提交</div>
+                </div>
+            </div>
+        </div>
+        <div style="display: none" id="type2">
+            <div class="proposal-content">
+                <div class="row">
+                    <span class="left">姓名</span>
+                    <span class="right" id="name"><%=sqmy_info.username%></span>
+                </div>
+                <div class="row">
+                    <span class="left">单位</span>
+                    <span class="right" id="fax"><%=sqmy_info.userfax%></span>
+                </div>
+                <div class="row">
+                    <span class="left">组别</span>
+                    <span class="right" id="group"><%=sqmy_info.usergroupname%></span>
+                </div>
+            </div>
+            <div class="submit-content">
+                <div class="row">
+                    <p class="desc">事由</p>
+                    <p><%-sqmy_info.ideatitle%></p>
+                </div>
+                <div class="row">
+                    <p class="desc">内容简介</p>
+                    <p><%-sqmy_info.ideacontent%></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
 <script>
-    var userid,username,tijiao_kind,sqmy_id,ideatitle,ideacontent;
-    userid="<%=sqmy_info.userid%>"
-    username="<%=sqmy_info.username%>"
-    sqmy_id="<%=sqmy_info.sqmy_id%>"
-    $("#submit div").each(function () {
-        $(this).click(function () {
-            ideatitle=$("#title").val();
-            ideacontent=$("#content").val();
-            if($(this).text()=='提交'){
-                tijiao_kind=4;
-            }else if($(this).text()=='保存'){
-                tijiao_kind=3;
-            }
-            if(ideatitle == null||ideatitle == ""||ideacontent==null||ideacontent == ""){
-                mui.toast("请填写完整")
-                return;
-            }else {
-                var params = {
-                    tijiao_kind: tijiao_kind,
-                    sqmy_id: sqmy_id,
-                    userid: userid,
-                    username: username,
-                    ideatitle: ideatitle,
-                    ideacontent: ideacontent
+    $(function () {
+        var userid="<%=sqmy_info.userid%>"
+        var user_id=sessionStorage.getItem("user_id")
+        if (userid==user_id) {
+            $("#type1").css("display", "block")
+        }else{
+            $("#type2").css("display", "block")
+        }
+
+        var username,tijiao_kind,sqmy_id,ideatitle,ideacontent;
+        username="<%=sqmy_info.username%>"
+        sqmy_id="<%=sqmy_info.sqmy_id%>"
+        $("#submit div").each(function () {
+            $(this).click(function () {
+                ideatitle=$("#title").val();
+                ideacontent=$("#content").val();
+                if($(this).text()=='提交'){
+                    tijiao_kind=4;
+                }else if($(this).text()=='保存'){
+                    tijiao_kind=3;
                 }
-                var data = JSON.stringify(params)
-                $.ajax({
-                    url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_24.ashx',
-                    type: "POST",
-                    dataType: 'json',
-                    data: data,
-                    error: function (request) {      // 设置表单提交出错
-                        mui.toast("系统错误，返回状态码为：" + request.status);
-                    },
-                    success: function (data) {
-                        if(data.ecode==1000){
-                            mui.toast("操作成功！");
-                            setTimeout(function () {
-                                history.go(-1)
-                            },1000);
-                        }else{
-                            mui.toast("操作失败！");
-                        }
+                if(ideatitle == null||ideatitle == ""||ideacontent==null||ideacontent == ""){
+                    mui.toast("请填写完整")
+                    return;
+                }else {
+                    var params = {
+                        tijiao_kind: tijiao_kind,
+                        sqmy_id: sqmy_id,
+                        userid: userid,
+                        username: username,
+                        ideatitle: ideatitle,
+                        ideacontent: ideacontent
                     }
-                });
-            }
+                    var data = JSON.stringify(params)
+                    $.ajax({
+                        url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_24.ashx',
+                        type: "POST",
+                        dataType: 'json',
+                        data: data,
+                        error: function (request) {      // 设置表单提交出错
+                            mui.toast("系统错误，返回状态码为：" + request.status);
+                        },
+                        success: function (data) {
+                            if(data.ecode==1000){
+                                mui.toast("操作成功！");
+                                setTimeout(function () {
+                                    history.go(-1)
+                                },1000);
+                            }else{
+                                mui.toast("操作失败！");
+                            }
+                        }
+                    });
+                }
+            })
         })
     })
 </script>

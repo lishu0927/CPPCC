@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
 <script>
-    var sSId=sessionStorage.getItem('user_id')
-    if(sSId != null && sSId != ""){
+    var mId=sessionStorage.getItem('manager_id')
+    if(mId != null && mId != ""){
         location.href="/news"
     }else{
         try{
+            var mNId=window.native.getData('manager_id')
             var nId=window.native.getData('user_id')
             var role=window.native.getData('role_type')
             var user=window.native.getData('user')
-            if(nId != null && nId != ""){
+            if(mNId != null && mNId != ""){
+                sessionStorage.setItem('manager_id', mNId);
                 sessionStorage.setItem('user_id', nId);
                 sessionStorage.setItem('role_type', role);
                 sessionStorage.setItem('user', user);

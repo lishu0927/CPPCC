@@ -75,6 +75,12 @@
     .file-list .item .right .filename{
         color: #3b3b3b;
     }
+    .file-list .item .download{
+        font-size: 12px;
+        border: 1px solid #adaaaa;
+        border-radius: 3px;
+        padding: 1px 4px;
+    }
     .submit-content{
         margin-top: 20px;
     }
@@ -140,6 +146,7 @@
                                 <p class='filename mui-ellipsis'><%=attach_list[i].filename%></p>
                                 <p class='filesize' data-bytes="<%=attach_list[i].filesize%>"><%=(attach_list[i].filesize/1000/1000).toFixed(2)%>M</p>
                             </div>
+                            <span class="download" data-name="<%=attach_list[i].filename%>" data-url="<%=attach_list[i].filepath%>">保存</span>
                         </div>
                         <%}%>
                     </div>
@@ -176,6 +183,7 @@
                                 <p class='filename'><%=attach_list[i].filename%></p>
                                 <p class='filesize' data-bytes="<%=attach_list[i].filesize%>"><%=(attach_list[i].filesize/1000/1000).toFixed(2)%>M</p>
                             </div>
+                            <span class="download" data-name="<%=attach_list[i].filename%>" data-url="<%=attach_list[i].filepath%>">保存</span>
                         </div>
                         <%}%>
                     </div>
@@ -202,6 +210,18 @@
 </div>
 </body>
 <script>
+
+    $(document).on('click','.download',function (e) {
+        e.preventDefault()
+        var download_url=$(this).attr("data-url")
+        var filename=$(this).attr("data-name")
+        try {
+            window.native.setDownload(filename,download_url)
+        }catch (err){
+            mui.toast("下载失败")
+        }
+        mui.toast("正在下载")
+    })
     $(function() {
         var sSId=sessionStorage.getItem('user_id') //当前用户
 

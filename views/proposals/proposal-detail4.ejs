@@ -16,6 +16,7 @@
         padding: 0 15px 0 10px;
         color: #fff;
         font-size: 14px;
+        display: none;
     }
     .wrap{
         color: #3b3b3b;
@@ -147,6 +148,11 @@
 </div>
 </body>
 <script>
+    var tian_user_id="<%=tian.user_id%>"
+    var user_id=sessionStorage.getItem("user_id")
+    if(user_id==tian_user_id){
+        $(".header-right").css("display","block")
+    }
     $('#publish').on('change', function() {
         var value = this.checked?"1":"0";
         this.value=value;

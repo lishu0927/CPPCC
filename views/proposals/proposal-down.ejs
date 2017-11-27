@@ -65,36 +65,34 @@
 </div>
 </body>
 <script>
-    $(".download").each(function () {
-        $(this).click(function (e) {
-            e.preventDefault()
-            var filename=$(this).parent().prev(".anyou").html()
-            console.log(filename)
-            var params = {
-                tian_kind:4,
-                tian_id:$(this).attr("data-tian-id")
-            }
-            var data = JSON.stringify(params)
-            $.ajax({  //取分组
-                url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_15.ashx',
-                type: "POST",
-                dataType: 'json',
-                data: data,
-                error: function (request) {      // 设置表单提交出错
-                    mui.toast("系统错误");
-                },
-                success: function (data) {
-                    if (data.ecode == 1000) {
-                        try {
-                            window.native.setDownload(filename,data.download_url)
-                        }catch (err){
-
-                        }
-                        mui.toast("正在下载")
+    $(document).on('click','.download',function (e) {
+        e.preventDefault()
+        var filename=$(this).parent().prev(".anyou").html()
+        console.log(filename)
+        var params = {
+            tian_kind:4,
+            tian_id:$(this).attr("data-tian-id")
+        }
+        var data = JSON.stringify(params)
+        $.ajax({
+            url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_15.ashx',
+            type: "POST",
+            dataType: 'json',
+            data: data,
+            error: function (request) {      // 设置表单提交出错
+                mui.toast("系统错误");
+            },
+            success: function (data) {
+                if (data.ecode == 1000) {
+                    try {
+                        window.native.setDownload(filename,data.download_url)
+                    }catch (err){
+                        mui.toast("下载失败")
                     }
+                    mui.toast("正在下载")
                 }
-            });
-        })
+            }
+        });
     })
     $(function () {
         var _offset = sessionStorage.getItem("offsetTop");

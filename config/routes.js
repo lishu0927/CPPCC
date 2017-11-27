@@ -30,6 +30,7 @@ module.exports = function (app) {
     app.get("/honorDetail", controlles.proposal.honorDetail);
     app.get("/proposalKnow", controlles.proposal.know);
     app.get("/knowDetail", controlles.proposal.knowDetail);
+    app.get("/proposalLecture", controlles.proposal.lecture);
     app.get("/checkDetail", controlles.proposal.checkDetail);
     app.get("/social", controlles.social.init);
     app.get("/socialSubmit", controlles.social.submit);

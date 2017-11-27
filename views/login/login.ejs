@@ -100,8 +100,8 @@
             <div class="form-item">
                 <input type="text" id="telephone" placeholder="手机号"/>
             </div>
-            <div class="form-item">
-                <input type="text" id="password" placeholder="密码"/>
+            <div class="form-item mui-input-row mui-password">
+                <input type="password" id="password" class="mui-input-password" placeholder="密码"/>
             </div>
             <div class="form-item">
                 <button class="but" id="submit">登录</button>
@@ -146,10 +146,12 @@
                     switch (code) {
                         case 1000:
                             mui.toast('登录成功');
+                            sessionStorage.setItem('manager_id', data.user_info.manager_id);
                             sessionStorage.setItem('user_id', data.user_info.user_id);
                             sessionStorage.setItem('role_type', data.user_info.role_type);
                             sessionStorage.setItem('user', JSON.stringify(data.user_info));
                             try {
+                                window.native.saveData("manager_id", data.user_info.manager_id);
                                 window.native.saveData("user_id", data.user_info.user_id);
                                 window.native.saveData("role_type", data.user_info.role_type);
                                 window.native.saveData("user", JSON.stringify(data.user_info));

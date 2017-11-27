@@ -35,22 +35,20 @@
     .members-groups .item{
         background: #e1edfd;
         border-radius: 5px;
-        padding: 10px 10px 10px 100px;
+        padding: 10px;
         position: relative;
     }
-    .members-groups .item span{
+    .members-groups .item .groupname{
+        color: #0071bd;
+        letter-spacing: 1px;
+    }
+    .members-groups .item div span{
         color: #3b3b3b;
         font-size: 15px;
         letter-spacing: 1px;
         line-height: 24px;
-        padding-right: 10px;
+        padding:5px 10px;
         display: inline-block;
-    }
-    .members-groups .item span.groupname{
-        position: absolute;
-        color: #0071bd;
-        top:10px;
-        left: 20px;
     }
     .item-ex{
         padding: 20px 10px;
@@ -93,10 +91,12 @@
             if(item.groupname!='常务委员会组成人员'){
             %>
             <div class="item">
-                <span class="groupname"><%=item.groupname%>:</span>
-                <%for(var j=0;j<item.weiyuan_list.length;j++){ var index=item.weiyuan_list[j]%>
-                <span onclick="window.location.href='/membersDetail?id=<%=index.user_id %>'"><%=index.user_name%></span>
-                <%}%>
+                <p class="groupname"><%=item.groupname%>:</p>
+                <div style="padding-left: 20px">
+                    <%for(var j=0;j<item.weiyuan_list.length;j++){ var index=item.weiyuan_list[j]%>
+                    <span onclick="window.location.href='/membersDetail?id=<%=index.user_id %>'"><%=index.user_name%></span>
+                    <%}%>
+                </div>
             </div>
             <%}else {%>
             <div class="item-ex">

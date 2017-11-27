@@ -81,57 +81,101 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <div class="wrap">
-        <div class="proposal-content">
-            <div class="row">
-                <span class="left">提案人姓名</span>
-                <span class="right" id="name"><%=tian.tianername%></span>
+        <div style="display:none;" id="type1">
+            <div class="proposal-content">
+                <div class="row">
+                    <span class="left">提案人姓名</span>
+                    <span class="right" id="name"><%=tian.tianername%></span>
+                </div>
+                <div class="row">
+                    <span class="left">电话号码</span>
+                    <span class="right" id="mobile"><%=tian.mobile%></span>
+                </div>
             </div>
-            <div class="row">
-                <span class="left">电话号码</span>
-                <span class="right" id="mobile"><%=tian.mobile%></span>
+            <div class="submit-content">
+                <div class="row">
+                    <p class="desc">委员证号码</p>
+                    <textarea placeholder="" rows="1" id="weinum" maxlength="25"><%=tian.weinum%></textarea>
+                </div>
+                <div class="row">
+                    <p class="desc">单位</p>
+                    <textarea placeholder="" rows="1" id="company" maxlength="25"><%=tian.company%></textarea>
+                </div>
+                <div class="row">
+                    <p class="desc">案由</p>
+                    <textarea placeholder="" rows="3" id="anyou" maxlength="250"><%=tian.anyou%></textarea>
+                </div>
+                <div class="row">
+                    <p class="desc">问题</p>
+                    <textarea placeholder="" rows="5" id="problem"><%=tian.problem%></textarea>
+                </div>
+                <div class="row">
+                    <p class="desc">分析</p>
+                    <textarea placeholder="" rows="5" id="analyse"><%=tian.analyse%></textarea>
+                </div>
+                <div class="row">
+                    <p class="desc">建议</p>
+                    <textarea placeholder="" rows="5" id="advice"><%=tian.advice%></textarea>
+                </div>
+            </div>
+            <div class="bottom">
+                <div class="content" id="submit">
+                    <div class="left">保存</div>
+                    <div class="right">提交</div>
+                </div>
             </div>
         </div>
-        <div class="submit-content">
-            <div class="row">
-                <p class="desc">委员证号码</p>
-                <textarea placeholder="" rows="1" id="weinum" maxlength="25"><%=tian.weinum%></textarea>
+        <div style="display: none" id="type2">
+            <div class="proposal-content">
+                <div class="row">
+                    <span class="left">案由</span>
+                    <span class="right"><%=tian.anyou%></span>
+                </div>
+                <div class="row">
+                    <span class="left">提案人姓名</span>
+                    <span class="right"><%=tian.tianername%></span>
+                </div>
+                <div class="row">
+                    <span class="left">单位</span>
+                    <span class="right"><%=tian.company%></span>
+                </div>
+                <div class="row">
+                    <span class="left">委员证件号</span>
+                    <span class="right"><%=tian.weinum%></span>
+                </div>
+                <div class="row">
+                    <span class="left">电话号码</span>
+                    <span class="right"><%=tian.mobile%></span>
+                </div>
+                <div class="row">
+                    <span class="left">问题</span>
+                    <span class="right"><%=tian.problem%></span>
+                </div>
+                <div class="row">
+                    <span class="left">分析</span>
+                    <span class="right"><%=tian.analyse%></span>
+                </div>
+                <div class="row">
+                    <span class="left">建议</span>
+                    <span class="right"><%=tian.advice%></span>
+                </div>
             </div>
-            <div class="row">
-                <p class="desc">单位</p>
-                <textarea placeholder="" rows="1" id="company" maxlength="25"><%=tian.company%></textarea>
-            </div>
-            <div class="row">
-                <p class="desc">案由</p>
-                <textarea placeholder="" rows="3" id="anyou" maxlength="250"><%=tian.anyou%></textarea>
-            </div>
-            <div class="row">
-                <p class="desc">问题</p>
-                <textarea placeholder="" rows="5" id="problem"><%=tian.problem%></textarea>
-            </div>
-            <div class="row">
-                <p class="desc">分析</p>
-                <textarea placeholder="" rows="5" id="analyse"><%=tian.analyse%></textarea>
-            </div>
-            <div class="row">
-                <p class="desc">建议</p>
-                <textarea placeholder="" rows="5" id="advice"><%=tian.advice%></textarea>
-            </div>
-        </div>
-    </div>
-    <div class="bottom">
-        <div class="content" id="submit">
-            <div class="left">保存</div>
-            <div class="right">提交</div>
         </div>
     </div>
 </div>
 </body>
-
 <script>
 $(function() {
+    var user_id="<%=tian.user_id%>";
+    var user_id_self=sessionStorage.getItem("user_id")
+    if (user_id_self==user_id) {
+        $("#type1").css("display", "block")
+    }else{
+        $("#type2").css("display", "block")
+    }
+
     var tijiao_kind;
     var tian_id="<%=tian.tian_id%>";
-    var user_id="<%=tian.user_id%>";
     var user_name="<%=tian.tianername%>";
     var mobile="<%=tian.mobile%>";
     var company,weinum,anyou,problem,analyse,advice;

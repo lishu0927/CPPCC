@@ -292,6 +292,7 @@ module.exports = {
                 }).on('end', function () {
                     body = JSON.parse(body);
                     var tian_detail_info=body.tian_detail_info
+                    console.log(tian_detail_info)
                     res.render('proposals/proposal-detail4',
                         {
                             title: '提案详情',
@@ -678,6 +679,45 @@ module.exports = {
                         {
                             title: '详情',
                             article:body
+                        }
+                    );
+                })
+            } else {
+                res.send(500, "error");
+            }
+        });
+        req.on('error', function (e) {
+            console.log('problem with request: ' + e.message);
+        });
+        // write data to request body
+        req.write(content);
+        req.end();
+    },
+    lecture: function (req1, res, next) {
+        var data = {startid:-1,article_kind:5};
+        var content = JSON.stringify(data);
+        var options = {
+            host: global.reqHost,
+            port: global.reqPort,
+            path: "/ZxApi/m2_21.ashx",
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
+            }
+        };
+        var req = http.request(options, function (serverFeedback) {
+            if (serverFeedback.statusCode == 200) {
+                var body = "";
+                serverFeedback.setEncoding('utf8');
+                serverFeedback.on('data', function (data) {
+                    body += data;
+                }).on('end', function () {
+                    body = JSON.parse(body);
+                    var article_list=body.article_list
+                    res.render('proposals/proposal-lecture',
+                        {
+                            title: '提案讲座',
+                            article_list:article_list
                         }
                     );
                 })
