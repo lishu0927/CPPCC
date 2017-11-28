@@ -99,6 +99,7 @@
         $(".wrap").scrollTop(_offset);
         $(".wrap").scroll(function() {
             sessionStorage.setItem("offsetTop", $(this).scrollTop());
+            console.log($(this).scrollTop())
         });
         //创建MeScroll对象
         var mescroll = new MeScroll("mescroll", {

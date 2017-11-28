@@ -239,14 +239,14 @@ module.exports = {
     startWorkDraft: function (req, res, next) {
         res.render('work/start-work-draft',
             {
-                title: '发起流传',
+                title: '发起流转',
             }
         );
     },
     startWorkPass: function (req, res, next) {
         res.render('work/start-work-pass',
             {
-                title: '发起流传',
+                title: '发起流转',
             }
         );
     },
@@ -378,7 +378,7 @@ module.exports = {
                     var dailywork_list=body.dailywork_list
                     res.render('work/todo-work',
                         {
-                            title: '待办流传',
+                            title: '待办流转',
                             dailywork_list: dailywork_list
                         }
                     );
@@ -470,7 +470,7 @@ module.exports = {
                     var dailywork_list=body.dailywork_list
                     res.render('work/done-work',
                         {
-                            title: '已办流传',
+                            title: '已办流转',
                             dailywork_list: dailywork_list
                         }
                     );
@@ -557,7 +557,7 @@ module.exports = {
                     var dailywork_list=body.dailywork_list
                     res.render('work/search-work',
                         {
-                            title: '查询流传',
+                            title: '查询流转',
                             keyword:keyword,
                             search_type:search_type,
                             dailywork_list: dailywork_list

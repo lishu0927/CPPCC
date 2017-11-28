@@ -27,10 +27,13 @@ router.get('/submitProposal', function (req, res) {
     res.render('proposals/submit-proposal', {title: '提案提交'});
 });
 router.get('/workFlow', function (req, res) {
-    res.render('work/work-flow', {title: '文件流传'});
+    res.render('work/work-flow', {title: '文件流转'});
 });
 router.get('/minePwd', function (req, res) {
     res.render('mine/mine-pwd', {title: '修改密码'});
+});
+router.get('/timeout', function (req, res) {
+    res.render('error/timeout', {title: 'error'});
 });
 
 module.exports = router;

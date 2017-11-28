@@ -83,75 +83,6 @@
         font-size: 12px;
         line-height: 24px;
     }
-    .page{
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #ffffff;
-        display: none;
-        z-index: 100000000000000;
-        padding-top: 42px;
-    }
-    .detail-header{
-        position: fixed;
-        height: 42px;
-        top: 0;
-        width: 100%;
-        background: #006fb8;
-        z-index: 10000;
-    }
-    .detail-header .header-title{
-        line-height: 42px;
-        margin: 0;
-        padding: 0;
-        text-align: center;
-        color: #fff;
-        font-size: 17px;
-        letter-spacing: 1px;
-    }
-    .detail-header .header-icon-left{
-        position: absolute;
-        left: 0;
-        top:0;
-        width: 42px;
-        height: 42px;
-        text-align: center;
-    }
-    .detail-header .header-icon-left img{
-        height: 22px;
-        margin-top: 10px;
-    }
-    .page-content{
-        height: 100%;
-        overflow-y: auto;
-    }
-    .new-datail .title{
-        font-size: 18px;
-        line-height: 26px;
-        padding: 10px;
-        color: #000;
-    }
-    .new-datail .time{
-        color: #fa1414;
-        padding: 0 15px 10px;
-    }
-    .new-datail .content{
-        padding: 10px;
-        word-break: break-word;
-        width: 100%;
-        overflow-x: hidden;
-    }
-    .new-datail .content p{
-        color: #3b3b3b;
-        font-size: 15px;
-        letter-spacing: 1px;
-        word-break: break-word;
-    }
-    .new-datail .content table,.content img{
-        width: 100%!important;
-    }
 </style>
 <body>
 <div class="container">
@@ -219,56 +150,27 @@
         </div>
     </div>
 </div>
-<div class="page">
-    <div class="detail-header">
-        <span class="header-icon-left" onclick="back()">
-            <img src="/images/icons/back.png">
-        </span>
-        <p class="header-title">
-            政协要闻
-        </p>
-    </div>
-    <div class="page-content">
-
-    </div>
-</div>
 </body>
 <script>
     var slider = mui("#slider");
+    var loadContent='';
     slider.slider({
         interval: 3000
     });
+
     function dis(id) {
-        $(".page-content").html("");
-        $(".page").css("display","block")
-        var params = {
-            article_id: id
-        }
-        var data = JSON.stringify(params)
-        $.ajax({
-            url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m1_03.ashx',
-            type: "POST",
-            dataType: 'json',
-            data: data,
-            error: function (request) {      // 设置表单提交出错
-                mui.toast("系统错误，返回状态码为：" + request.status);
-            },
-            success: function (data) {
-                if (data.ecode == 1000) {
-                    var detail= '<div class="new-datail">'+
-                        '<p class="title">'+data.title+'</p>'+
-                        '<p class="time">'+data.add_time.split(' ')[0]+'</p>'+
-                        '<div class="content">'+ data.content+'</div>'+
-                        '</div>'
-                    $(".page-content").append(detail)
-                }
-            }
-        })
+        sessionStorage.setItem("newsList", loadContent);
+        location.href="/newsDetail?id="+id
     }
-    function back() {
-        $(".page").css("display","none")
-    }
+
     $(function () {
+        var newsList=sessionStorage.getItem("newsList")
+        $(".news-list").append(newsList)
+        var _offset = sessionStorage.getItem("newsTop");
+        $(".wrap").scrollTop(_offset);
+        $(".wrap").scroll(function() {
+            sessionStorage.setItem("newsTop", $(this).scrollTop());
+        });
         //创建MeScroll对象
         var mescroll = new MeScroll("mescroll", {
             down: {
@@ -283,6 +185,8 @@
 
         /*下拉刷新的回调 */
         function downCallback(){
+            sessionStorage.setItem("newsList", "");
+            sessionStorage.setItem("newsTop", 0);
             window.location.reload()
         }
 
@@ -319,6 +223,7 @@
                                     '</div>'+
                                     '</li>'
                                 $("#list-content").append(item);
+                                loadContent+=item;
                             })
                         }else{
                             mescroll.endSuccess(0)
