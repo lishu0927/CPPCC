@@ -64,7 +64,7 @@
                 </div>
             </li>
             <li>
-                <div class="item" data-url="/proposalManage?tabIndex=0">
+                <div class="item" data-url="/proposalManage" id="manage">
                     <span class="left">
                         <img src="images/ta_gl.png">
                     </span>
@@ -79,6 +79,8 @@
     $(document).on('click','.item',function () {
         sessionStorage.setItem("downList","")
         sessionStorage.setItem("downTop",0)
+        sessionStorage.setItem("managerList","")
+        sessionStorage.setItem("managerTop",0)
         var url=$(this).attr("data-url")
         location.href=url
     })
@@ -87,6 +89,7 @@
         if (role == 4 || role == 5 || user_id<=0 || user_id=='' || user_id==null) {
             $("#subProposal").css("display", "none")
         }
+        $("#manage").attr("data-url","/proposalManage1?pageType=0&id="+user_id)
     })
 </script>
 </html>

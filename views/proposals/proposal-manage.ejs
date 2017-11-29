@@ -16,6 +16,7 @@
         padding: 0 15px 0 10px;
         color: #fff;
         font-size: 14px;
+        display: none;
     }
     .proposals-search{
         padding:10px 15px;
@@ -23,43 +24,6 @@
         top: 42px;
         width: 100%;
         z-index: 100000;
-    }
-    .item{
-        padding: 10px;
-        border-bottom: 1px solid #bcbcbc;
-        position: relative;
-        display: block;
-        min-height: 44px;
-    }
-    .item .circle{
-        position: absolute;
-        top:17px;
-        left: 13px;
-        background: #0071bd;
-        width: 10px;
-        height: 10px;
-    }
-    .item .anyou{
-        line-height: 22px;
-        color: #3b3b3b;
-        text-indent: 20px;
-        font-size: 13px;
-        min-height: 22px;
-        word-break: break-all;
-    }
-    .item .bottom{
-        font-size: 12px;
-        color: #0071bd;
-        text-align: right;
-        overflow-y: auto;
-        padding-top: 3px;
-    }
-    .item .bottom .left{
-        float: left;
-        padding: 0 10px 0 0;
-    }
-    .item .bottom .right{
-        float: right;
     }
     .states-content{
         position: fixed;
@@ -91,102 +55,92 @@
     .list-tab .tab-item.active{
         color: #fff;
     }
+    .mescroll{
+        position: fixed;
+        top: 136px;
+        bottom: 0;
+        height: auto;
+    }
+    .item{
+        padding: 10px;
+        border-bottom: 1px solid #bcbcbc;
+        position: relative;
+        display: block;
+    }
+    .item .circle{
+        position: absolute;
+        top:15px;
+        left: 13px;
+        background: #0071bd;
+        width: 10px;
+        height: 10px;
+    }
+    .item .anyou{
+        line-height: 22px;
+        color: #3b3b3b;
+        text-indent: 20px;
+        font-size: 13px;
+        min-height: 22px;
+    }
+    .item .bottom{
+        font-size: 12px;
+        color: #0071bd;
+        text-align: right;
+        overflow-y: auto;
+        padding-top: 3px;
+    }
+    .item .bottom .left{
+        float: left;
+        padding: 0 10px 0 0;
+    }
+    .item .bottom .right{
+        float: right;
+        padding: 0 5px;
+    }
 </style>
 <body>
 <div class="container">
     <%-include ../base/header.ejs%>
-    <a class="header-right" href="/proposalCheck?tabIndex=0">审核提案</a>
+    <span class="header-right">审核提案</span>
     <div class="wrap">
         <div class="proposals-search">
             <%-include ../base/search-box.ejs%>
         </div>
         <div class="states-content">
             <div class="list-tab">
-                <span class="tab-item active" id="item1">草稿</span>
-                <span class="tab-item" id="item2">申请审核</span>
-                <span class="tab-item" id="item3">修改重提</span>
-                <span class="tab-item" id="item4">恭喜立案</span>
-                <span class="tab-item" id="item5">退回</span>
+                <span class="tab-item" data-url="/proposalManage1">草稿</span>
+                <span class="tab-item" data-url="/proposalManage2">申请审核</span>
+                <span class="tab-item" data-url="/proposalManage3">修改重提</span>
+                <span class="tab-item" data-url="/proposalManage4">恭喜立案</span>
+                <span class="tab-item" data-url="/proposalManage5">退回</span>
             </div>
         </div>
-        <div class="list-content" id="list-content">
+        <div class="mescroll listWrap" id="mescroll">
+            <div class="list-content" id="list-content">
+                <%for(var i=0 ;i<tian_list.length;i++){%>
+                <div class="item" id="<%=tian_list[i].tian_id%>" data-zhuangtai="<%=tian_list[i].zhuangtai%>">
+                    <span class="circle"></span>
+                    <p class="anyou"><%=tian_list[i].anyou%></p>
+                    <p class="bottom">
+                        <span class="left"><%=tian_list[i].zhuangtai%></span>
+                        <span class="left"><%=tian_list[i].creattime.split(" ")[0]%></span>
+                        <span class="right download" data-kind="<%=pageType%>" data-tian-id="<%=tian_list[i].tian_id%>">下载</span>
+                    </p>
+                </div>
+                <%}%>
+            </div>
         </div>
     </div>
 </div>
 </body>
 <script>
-    var user_id=sessionStorage.getItem("user_id")
-    var tian_list_kind;
-    var detail_id;
-    var down_kind;
-    $(".tab-item").each(function (i) {
-        $(this).click(function () {
-            window.history.replaceState({},0,window.location.href.split("?")[0]+"?tabIndex="+i)
-            $(this).addClass("active");
-            $(this).siblings().attr("class","tab-item");
-            var itemId=$(this).attr("id");
-            if(itemId=='item1'){
-                tian_list_kind=1
-                detail_id=1
-                down_kind=1
-            }else if(itemId=='item2'){
-                tian_list_kind=2
-                detail_id=2
-                down_kind=2
-            }else if(itemId=='item3'){
-                tian_list_kind=4
-                detail_id=3
-                down_kind=3
-            }else if(itemId=='item4'){
-                tian_list_kind=3
-                detail_id=4
-                down_kind=4
-            }else if(itemId=='item5'){
-                tian_list_kind=5
-                detail_id=5
-                down_kind=5
-            }else{
-                return ;
-            }
-            var params = {
-                tian_list_kind:tian_list_kind,
-                user_id:user_id
-            }
-            var data = JSON.stringify(params)
-            $.ajax({
-                url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_12.ashx',
-                type: "POST",
-                dataType: 'json',
-                data: data,
-                error: function (request) {      // 设置表单提交出错
-                    mui.toast("系统错误，返回状态码为：" + request.status);
-                },
-                success: function (data) {
-                    if(data.ecode==1000){
-                        $("#list-content").html("");
-                        var list=data.tian_list
-                        $.each(list, function (i) {
-                            var item='<a class="item" href="/proposalDetail'+detail_id+'?id='+list[i].tian_id +'&type=1&zhuangtai='+list[i].zhuangtai+'">' +
-                                '<span class="circle"></span>' +
-                                '<p class="anyou">'+list[i].anyou+'</p>' +
-                                '<p class="bottom">' +
-                                '<span class="left">'+list[i].zhuangtai+'</span>' +
-                                '<span class="left">'+ list[i].creattime.split(" ")[0] +'</span>' +
-                                '<span class="right download" data-kind="'+down_kind+'" data-tian-id="'+list[i].tian_id+'">下载</span>' +
-                                '</p>' +
-                                '</a>'
-                            $("#list-content").append(item);
-                        })
-                    }
-                }
-            });
-        })
-    })
     $(document).on('click','.download',function (e) {
         e.preventDefault()
+        e.stopPropagation()
+        var tian_kind=parseInt($(this).attr("data-kind"))+1
         var filename=$(this).parent().prev(".anyou").html()
         var params = {
-            tian_kind:$(this).attr("data-kind"),
+            tian_kind:tian_kind,
             tian_id:$(this).attr("data-tian-id")
         }
         var data = JSON.stringify(params)
@@ -210,14 +164,114 @@
             }
         })
     })
-
     $(function () {
-        if(role==3 || role==4 || role==5){
+        if(role==1 || role==2){
+            $(".header-right").css("display","block")
+        }else{
             $(".header-right").css("display","none")
         }
-        var tabIndex="<%=tabIndex%>"
-        $(".tab-item").eq(tabIndex).click();
+        var user_id=sessionStorage.getItem("user_id")
+        var pageType="<%=pageType%>"
+        var down_kind=parseInt(pageType)+1
+        $(".tab-item").eq(pageType).addClass("active")
+        $(document).on('click','.tab-item',function () {
+            var index=$(this).index()
+            sessionStorage.setItem("managerList", "");
+            sessionStorage.setItem("managerTop", 0);
+            var url=$(this).attr("data-url");
+            location.replace(url+"?id="+user_id+"&pageType="+index)
+        })
+        $(document).on('click','.item',function () {
+            var id=$(this).attr("id")
+            var zhuangtai=$(this).attr("data-zhuangtai")
+            location.href='/proposalDetail'+down_kind+'?id='+id+'&type=1&zhuangtai='+zhuangtai
+        })
+        $(document).on('click','.header-right',function () {
+            sessionStorage.setItem("checkList", "");
+            sessionStorage.setItem("checkTop", 0);
+            location.href="/proposalCheck1?pageType=0&id="+user_id
+        })
+        var loadContent=sessionStorage.getItem("managerList");
+        var managerList=sessionStorage.getItem("managerList")
+        $(".list-content").append(managerList)
+        var managerTop = sessionStorage.getItem("managerTop");
+        $(".listWrap").scrollTop(managerTop);
+        $(".listWrap").scroll(function() {
+            sessionStorage.setItem("managerTop", $(this).scrollTop());
+        });
+        //创建MeScroll对象
+        var mescroll = new MeScroll("mescroll", {
+            down: {
+                auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+                callback: downCallback //下拉刷新的回调
+            },
+            up: {
+                auto: false, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+                callback: upCallback //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+            }
+        });
 
+        /*下拉刷新的回调 */
+        function downCallback(){
+            sessionStorage.setItem("managerList", "");
+            sessionStorage.setItem("managerTop", 0);
+            window.location.reload()
+        }
+        function upCallback(){
+            var kind;
+            if(pageType==3){
+                kind=3
+            }else if(pageType==2){
+                kind=4
+            }else{
+                kind=parseInt(pageType)+1
+            }
+            var params = {
+                user_id: user_id,
+                tian_list_kind: kind,
+                startid: $(".item:last").attr("id"),
+                num: 10,
+                start: 0
+            }
+            var data = JSON.stringify(params)
+            $.ajax({
+                url: 'http://<%= reqHost %>:<%= reqPort %>/ZxApi/m2_12.ashx',
+                type: "POST",
+                dataType: 'json',
+                data: data,
+                error: function (request) {      // 设置表单提交出错
+                    mui.toast("系统错误，返回状态码为：" + request.status);
+                },
+                success: function (data) {
+                    if (data.ecode == 1000) {
+                        var list = data.tian_list
+                        console.log(data.num)
+                        if (data.num > 0) {
+                            mescroll.endSuccess(data.length);
+                            $.each(list, function (i) {
+                                var item = '<div class="item" id="' + list[i].tian_id + '" data-zhuangtai="'+list[i].zhuangtai+'">' +
+                                    '<span class="circle"></span>' +
+                                    '<p class="anyou">' + list[i].anyou + '</p>' +
+                                    '<p class="bottom">' +
+                                    '<span class="left">'+list[i].zhuangtai+'</span>' +
+                                    '<span class="left">' + list[i].creattime.split(" ")[0] + '</span>' +
+                                    '<span class="right download" data-kind="'+down_kind+'" data-tian-id="'+list[i].tian_id+'">下载</span>' +
+                                    '</p>' +
+                                    '</div>'
+                                $(".list-content").append(item);
+                                loadContent += item;
+                            })
+                            sessionStorage.setItem("managerList", loadContent);
+                        } else {
+                            mescroll.endUpScroll(true)
+                        }
+                    } else {
+                        mui.toast("系统错误")
+                        mescroll.endErr()
+                    }
+                }
+            });
+        }
     })
 </script>
 </html>

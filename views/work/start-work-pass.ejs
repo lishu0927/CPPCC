@@ -47,6 +47,12 @@
     .list-tab .tab-item.active{
         color: #0071bd;
     }
+    .mescroll{
+        position: fixed;
+        top: 82px;
+        bottom: 0;
+        height: auto;
+    }
     .item{
         padding: 10px;
         border-bottom: 1px solid #bcbcbc;
@@ -55,7 +61,7 @@
     }
     .item .circle{
         position: absolute;
-        top:17px;
+        top:15px;
         left: 13px;
         background: #0071bd;
         width: 10px;
@@ -81,6 +87,7 @@
     }
     .item .bottom .right{
         float: right;
+        padding: 0 5px;
     }
 </style>
 <body>
@@ -90,58 +97,119 @@
     <div class="wrap">
         <div class="states-content">
             <div class="list-tab">
-                <a class="tab-item" href="/startWorkDraft" id="item1">草稿</a>
-                <a class="tab-item active" href="/startWorkPass" id="item2">提交文件</a>
+                <div class="tab-item" data-url="/startWorkDraft">草稿</div>
+                <div class="tab-item active" data-url="/startWorkPass">提交文件</div>
             </div>
         </div>
-        <div class="list-content" id="list-content">
+        <div class="mescroll" id="mescroll">
+            <div class="list-content" id="list-content">
+                <%for(var i=0 ;i<dailywork_list.length;i++){%>
+                <div class="item" id="<%=dailywork_list[i].dailywork_id%>">
+                    <span class="circle"></span>
+                    <p class="anyou"><%=dailywork_list[i].worktitle%></p>
+                    <p class="bottom">
+                        <span class="left"><%= dailywork_list[i].worknumber%></span>
+                        <span class="left"><%= dailywork_list[i].username%></span>
+                        <span class="left"><%= dailywork_list[i].createdate%></span>
+                    </p>
+                </div>
+                <%}%>
+            </div>
         </div>
     </div>
 </div>
 </body>
 <script>
+    $(document).on('click','.item',function () {
+        var id=$(this).attr("id")
+        location.href='/workDetail2?id='+id
+    });
     $(function () {
-        var dailywork_list_kind=2;
         var user_id=sessionStorage.getItem("user_id")
         var user=JSON.parse(sessionStorage.getItem('user'))
         var manager_id=user.manager_id
         var role_type=user.role_type
-        var params = {
-            dailywork_list_kind:dailywork_list_kind,
-            user_id:user_id,
-            manager_id:manager_id,
-            role_type:role_type,
-            num:20,
-            start:0,
-            stratid:-1
-        }
-        var data = JSON.stringify(params)
-        $.ajax({
-            url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m3_05.ashx',
-            type: "POST",
-            dataType: 'json',
-            data: data,
-            error: function (request) {      // 设置表单提交出错
-                mui.toast("系统错误，返回状态码为：" + request.status);
+        var loadContent=sessionStorage.getItem("passList");
+        var passList=sessionStorage.getItem("passList")
+        $(".list-content").append(passList)
+        var passTop = sessionStorage.getItem("passTop");
+        $(".wrap").scrollTop(passTop);
+        $(".wrap").scroll(function() {
+            sessionStorage.setItem("passTop", $(this).scrollTop());
+        });
+        //创建MeScroll对象
+        var mescroll = new MeScroll("mescroll", {
+            down: {
+                auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+                callback: downCallback //下拉刷新的回调
             },
-            success: function (data) {
-                if(data.ecode==1000){
-                    $("#list-content").html("");
-                    var list=data.dailywork_list
-                    $.each(list, function (i) {
-                        var item='<a class="item" href="/workDetail2?id='+list[i].dailywork_id+'">' +
-                            '<span class="circle"></span>' +
-                            '<p class="anyou">'+list[i].worktitle+'</p>' +
-                            '<p class="bottom">' +
-                            '<span class="left">'+list[i].worknumber+'</span>' +
-                            '<span class="left">'+list[i].username+'</span>' +
-                            '<span class="left">'+ list[i].createdate.split(" ")[0] +'</span>' +
-                            '</p>' +
-                            '</a>'
-                        $("#list-content").append(item);
-                    })
-                }
+            up: {
+                auto: false, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+                callback: upCallback //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
             }
+        });
+
+        /*下拉刷新的回调 */
+        function downCallback(){
+            sessionStorage.setItem("passList", "");
+            sessionStorage.setItem("passTop", 0);
+            window.location.reload()
+        }
+        function upCallback(){
+            var params = {
+                dailywork_list_kind: 2,
+                manager_id: manager_id,
+                role_type: role_type,
+                user_id:user_id,
+                startid: $(".item:last").attr("id"),
+                num: 10,
+                start: 0
+            }
+            var data = JSON.stringify(params)
+            $.ajax({
+                url: 'http://<%= reqHost %>:<%= reqPort %>/ZxApi/m3_05.ashx',
+                type: "POST",
+                dataType: 'json',
+                data: data,
+                error: function (request) {      // 设置表单提交出错
+                    mui.toast("系统错误，返回状态码为：" + request.status);
+                },
+                success: function (data) {
+                    if (data.ecode == 1000) {
+                        var list = data.article_list
+                        if (data.num > 0) {
+                            mescroll.endSuccess(data.length);
+                            $.each(list, function (i) {
+                                var item = '<div class="item" id="' + list[i].dailywork_id + '">' +
+                                    '<span class="circle"></span>' +
+                                    '<p class="anyou">' + list[i].worktitle + '</p>' +
+                                    '<p class="bottom">' +
+                                    '<span class="left">' + list[i].worknumber + '</span>' +
+                                    '<span class="left">' + list[i].username + '</span>' +
+                                    '<span class="left">' + list[i].createdate + '</span>' +
+                                    '</p>' +
+                                    '</div>'
+                                $(".list-content").append(item);
+                                loadContent += item;
+                            })
+                            sessionStorage.setItem("passList", loadContent);
+                        } else {
+                            mescroll.endUpScroll(true)
+                        }
+                    } else {
+                        mui.toast("系统错误")
+                        mescroll.endErr()
+                    }
+                }
+            });
+        }
+        $(document).on('click','.tab-item',function () {
+            sessionStorage.setItem("draftList", "");
+            sessionStorage.setItem("draftTop", 0);
+            sessionStorage.setItem("passList", "");
+            sessionStorage.setItem("passTop", 0);
+            var url=$(this).attr("data-url");
+            location.replace(url+"?id="+user_id+"&manager_id="+manager_id+"&role_type="+role_type)
         })
     })
 </script>

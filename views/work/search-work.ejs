@@ -190,56 +190,66 @@
             }, false);
         });
     })(mui);
-    var keyword,start_date,end_date;
-    $("#search").click(function () {
-        keyword=$("#info").val();
-        start_date=$("#date1").text();
-        end_date=$("#date2").text();
-        if(start_date>end_date){
-            mui.toast("结束日期不能小于起始日期")
-            return ;
-        }
-        var params = {
-            keyword: keyword,
-            start_date: start_date,
-            end_date: end_date
-        }
-        var data = JSON.stringify(params)
-        $.ajax({
-            url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m3_10.ashx',
-            type: "POST",
-            dataType: 'json',
-            data: data,
-            error: function (request) {      // 设置表单提交出错
-                mui.toast("系统错误，返回状态码为：" + request.status);
-            },
-            success: function (data) {
-                if(data.ecode==3007){
-                    $("#list-content").html("");
-                    $("#empty-content").css("display","block");
-                }else if(data.ecode==1000){
-                    $("#empty-content").css("display","none");
-                    $("#list-content").html("");
-                    var list=data.dailywork_list
-                    var detailPage='workDetail2';
-                    $.each(list, function (i) {
-                        var item='<a class="item" href="/'+detailPage+'?id='+list[i].dailywork_id+'">' +
-                            '<span class="circle"></span>' +
-                            '<p class="anyou">'+list[i].worktitle+'</p>' +
-                            '<p class="bottom">' +
-                            '<span class="left">'+list[i].worknumber+'</span>' +
-                            '<span class="left">'+list[i].username+'</span>' +
-                            '<span class="left">'+ list[i].createdate.split(" ")[0] +'</span>' +
-                            '<span class="right">'+list[i].state+'</span>' +
-                            '</p>' +
-                            '</a>'
-                        $("#list-content").append(item);
-                    })
-                }else {
-                    mui.toast("查询失败")
-                }
-            }
+    $(function () {
+        var workSearchList=sessionStorage.getItem("workSearchList")
+        $(".list-content").append(workSearchList)
+        var _offset = sessionStorage.getItem("offsetTopSearch");
+        $(".wrap").scrollTop(_offset);  //进页面时跳到记录的位置
+        $(".wrap").scroll(function() {
+            sessionStorage.setItem("offsetTopSearch", $(this).scrollTop());
         });
+        var keyword,start_date,end_date;
+        $("#search").click(function () {
+            keyword=$("#info").val();
+            start_date=$("#date1").text();
+            end_date=$("#date2").text();
+            if(start_date>end_date){
+                mui.toast("结束日期不能小于起始日期")
+                return ;
+            }
+            var params = {
+                keyword: keyword,
+                start_date: start_date,
+                end_date: end_date
+            }
+            var data = JSON.stringify(params)
+            $.ajax({
+                url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m3_10.ashx',
+                type: "POST",
+                dataType: 'json',
+                data: data,
+                error: function (request) {      // 设置表单提交出错
+                    mui.toast("系统错误，返回状态码为：" + request.status);
+                },
+                success: function (data) {
+                    if(data.ecode==3007){
+                        $("#list-content").html("");
+                        $("#empty-content").css("display","block");
+                    }else if(data.ecode==1000){
+                        $("#empty-content").css("display","none");
+                        $("#list-content").html("");
+                        var list=data.dailywork_list
+                        var detailPage='workDetail2';
+                        $.each(list, function (i) {
+                            var item='<a class="item" href="/'+detailPage+'?id='+list[i].dailywork_id+'">' +
+                                '<span class="circle"></span>' +
+                                '<p class="anyou">'+list[i].worktitle+'</p>' +
+                                '<p class="bottom">' +
+                                '<span class="left">'+list[i].worknumber+'</span>' +
+                                '<span class="left">'+list[i].username+'</span>' +
+                                '<span class="left">'+ list[i].createdate.split(" ")[0] +'</span>' +
+                                '<span class="right">'+list[i].state+'</span>' +
+                                '</p>' +
+                                '</a>'
+                            $("#list-content").append(item);
+                        })
+                        sessionStorage.setItem("workSearchList", $("#list-content").html());
+                    }else {
+                        mui.toast("查询失败")
+                    }
+                }
+            });
+        })
     })
 
 </script>

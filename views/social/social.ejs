@@ -1,33 +1,6 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <div class="wrap">
-        <ul class="list">
-            <li>
-                <a href="/socialSubmit?tabIndex=0">
-                    <img src="images/icons/msg1.png">
-                    <span>信息提交</span>
-                </a>
-            </li>
-            <li>
-                <a href="/socialSelected">
-                    <img src="images/icons/msg2.png">
-                    <span>信息选登</span>
-                </a>
-            </li>
-            <li>
-                <a href="/socialFine">
-                    <img src="images/icons/msg3.png">
-                    <span>优秀信息</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
-</body>
 <style>
     .container{
         padding: 42px 0 0 0;
@@ -42,20 +15,52 @@
         padding: 0 0 10% 0;
         width: 100%;
     }
-    .list li{
+    .list .item{
         border-bottom: 1px solid #adaaaa;
         padding: 7% 10px;
     }
-    .list li a img{
+    .list .item img{
         width: 60px;
         vertical-align: middle;
         margin-right: 20px;
     }
-    .list li a span{
+    .list .item span{
         color: #000;
         font-size: 18px;
         font-weight: bold;
     }
-
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap">
+        <ul class="list">
+            <li class="item" data-url="/socialManage1?pageType=0">
+                <img src="images/icons/msg1.png">
+                <span>信息提交</span>
+            </li>
+            <li class="item" data-url="/socialSelected">
+                <img src="images/icons/msg2.png">
+                <span>信息选登</span>
+            </li>
+            <li class="item" data-url="/socialFine">
+                <img src="images/icons/msg3.png">
+                <span>优秀信息</span>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<script>
+    $(document).on('click','.item',function () {
+        sessionStorage.setItem("socialManagerList","")
+        sessionStorage.setItem("socialManagerTop",0)
+        sessionStorage.setItem("selectedList","")
+        sessionStorage.setItem("selectedTop",0)
+        sessionStorage.setItem("fineList","")
+        sessionStorage.setItem("fineTop",0)
+        var url=$(this).attr("data-url")
+        location.href=url
+    })
+</script>
 </html>

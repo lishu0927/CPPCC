@@ -3,7 +3,7 @@
 <%-include ../base/checkHead.ejs%>
 <style>
     .container{
-        padding: 136px 0 0 0;
+        padding: 82px 0 0 0;
     }
     .header-right{
         position: absolute;
@@ -16,48 +16,12 @@
         padding: 0 15px 0 10px;
         color: #fff;
         font-size: 14px;
-    }
-    .proposals-search{
-        padding:10px 15px;
-        position: fixed;
-        top: 42px;
-        width: 100%;
-        z-index: 100000;
-    }
-    .states-content{
-        position: fixed;
-        top:96px;
-        width: 100%;
-        height: 40px;
-        z-index: 100000;
-    }
-    .list-tab{
-        display: flex;
-        background: #0071bd;
-        height: 40px;
-        padding: 5px 0;
-    }
-    .list-tab .tab-item{
-        flex: 1;
-        height: 100%;
-        float: left;
-        line-height: 30px;
-        text-align: center;
-        color: #9a9898;
-        font-size: 14px;
-        border-right: 1px solid #fff;
-        cursor: pointer;
-    }
-    .list-tab .tab-item:last-child{
-        border-right: 0;
-    }
-    .list-tab .tab-item.active{
-        color: #fff;
+        display: none;
     }
     .mescroll{
         position: fixed;
-        top: 136px;
-        bottom: 0;
+        top: 82px;
+        bottom: 50px;
         height: auto;
     }
     .item{
@@ -96,34 +60,83 @@
         float: right;
         padding: 0 5px;
     }
+    .states-content{
+        position: fixed;
+        top:42px;
+        width: 100%;
+        height: 40px;
+        z-index: 1000000;
+    }
+    .list-tab{
+        display: flex;
+        border:1px solid #0071bd;
+        height: 40px;
+        padding: 5px 0;
+    }
+    .list-tab .tab-item{
+        flex: 1;
+        height: 100%;
+        float: left;
+        line-height: 30px;
+        text-align: center;
+        color: #585757;
+        font-size: 14px;
+        border-right: 1px solid #0071bd;
+        cursor: pointer;
+    }
+    .list-tab .tab-item:last-child{
+        border-right: 0;
+    }
+    .list-tab .tab-item.active{
+        color: #0071bd;
+    }
+    .bottom-content{
+        position: fixed;
+        height: 50px;
+        width: 100%;
+        bottom: 0;
+        right: 0;
+        background: #e1edfd;
+        border: 1px solid #00a0e9;
+        display: none;
+    }
+    .bottom-content .content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+    }
 </style>
 <body>
 <div class="container">
     <%-include ../base/header.ejs%>
-    <span class="header-right">提案管理</span>
+    <span class="header-right">信息审核</span>
     <div class="wrap">
-        <div class="proposals-search">
-            <%-include ../base/search-box.ejs%>
-        </div>
         <div class="states-content">
             <div class="list-tab">
-                <span class="tab-item" data-url="/proposalCheck1">申请审核</span>
-                <span class="tab-item" data-url="/proposalCheck2">修改重提</span>
-                <span class="tab-item" data-url="/proposalCheck3">恭喜立案</span>
-                <span class="tab-item" data-url="/proposalCheck4">退回</span>
+                <span class="tab-item" data-url="/socialManage1">草稿</span>
+                <span class="tab-item" data-url="/socialManage2">申请审核</span>
+                <span class="tab-item" data-url="/socialManage3">通过</span>
+                <span class="tab-item" data-url="/socialManage4">退回</span>
             </div>
         </div>
         <div class="mescroll listWrap" id="mescroll">
             <div class="list-content" id="list-content">
-                <%for(var i=0 ;i<tian_list.length;i++){%>
-                <div class="item" id="<%=tian_list[i].tian_id%>" data-zhuangtai="<%=tian_list[i].zhuangtai%>">
+                <%for(var i=0 ;i<sqmy_list.length;i++){%>
+                <div class="item" id="<%=sqmy_list[i].sqmy_id%>">
                     <span class="circle"></span>
-                    <p class="anyou"><%=tian_list[i].anyou%></p>
+                    <p class="anyou"><%=sqmy_list[i].ideatitle%></p>
                     <p class="bottom">
-                        <span class="left"><%=tian_list[i].creattime.split(" ")[0]%></span>
+                        <span class="left"><%=sqmy_list[i].statecode%></span>
+                        <span class="left"><%=sqmy_list[i].createtime.split(" ")[0]%></span>
                     </p>
                 </div>
                 <%}%>
+            </div>
+        </div>
+        <div class="bottom-content" id="bottom-content">
+            <div class="content" id="submit" onclick="location.href='/submitDetail'">
+                提交信息
             </div>
         </div>
     </div>
@@ -132,33 +145,50 @@
 <script>
     $(function () {
         var user_id=sessionStorage.getItem("user_id")
+        if(role==1 || role==2){
+            $(".header-right").css("display","block")
+        }else{
+            $(".header-right").css("display","none")
+        }
+        if (role == 4 || role == 5 || user_id=='' || user_id<=0 || user_id==null) {
+            $("#bottom-content").css("display", "none")
+            $(".mescroll").css("bottom",0)
+        }else{
+            $("#bottom-content").css("display", "block")
+        }
         var pageType="<%=pageType%>"
-        var detail_id=parseInt(pageType)+2
+        var sqmy_kind=parseInt(pageType)+1
+        var detail_type=2,back=0;
+        if(pageType==0){
+            detail_type=1
+        }
+        if(pageType==3){
+            back=1
+        }
         $(".tab-item").eq(pageType).addClass("active")
         $(document).on('click','.tab-item',function () {
             var index=$(this).index()
-            sessionStorage.setItem("checkList", "");
-            sessionStorage.setItem("checkTop", 0);
+            sessionStorage.setItem("socialManagerList", "");
+            sessionStorage.setItem("socialManagerTop", 0);
             var url=$(this).attr("data-url");
-            location.replace(url+"?id="+user_id+"&pageType="+index)
+            location.replace(url+"?pageType="+index)
         })
         $(document).on('click','.item',function () {
             var id=$(this).attr("id")
-            var zhuangtai=$(this).attr("data-zhuangtai")
-            location.href='/proposalDetail'+detail_id+'?id='+id+'&type=2&zhuangtai='+zhuangtai
+            location.href='/submitDetail'+detail_type+'?id='+id+'&sqmy_kind='+sqmy_kind+"&back="+back
         })
         $(document).on('click','.header-right',function () {
-            sessionStorage.setItem("manageList", "");
-            sessionStorage.setItem("manageTop", 0);
-            location.href="/proposalManage1?pageType=0&id="+user_id
+            sessionStorage.setItem("socialCheckList", "");
+            sessionStorage.setItem("socialCheckTop", 0);
+            location.href="/socialCheck1?pageType=0"
         })
-        var loadContent=sessionStorage.getItem("checkList");
-        var checkList=sessionStorage.getItem("checkList")
-        $(".list-content").append(checkList)
-        var checkTop = sessionStorage.getItem("checkTop");
-        $(".listWrap").scrollTop(checkTop);
+        var loadContent=sessionStorage.getItem("socialManagerList");
+        var socialManagerList=sessionStorage.getItem("socialManagerList")
+        $(".list-content").append(socialManagerList)
+        var socialManagerTop = sessionStorage.getItem("socialManagerTop");
+        $(".listWrap").scrollTop(socialManagerTop);
         $(".listWrap").scroll(function() {
-            sessionStorage.setItem("checkTop", $(this).scrollTop());
+            sessionStorage.setItem("socialManagerTop", $(this).scrollTop());
         });
         //创建MeScroll对象
         var mescroll = new MeScroll("mescroll", {
@@ -174,29 +204,26 @@
 
         /*下拉刷新的回调 */
         function downCallback(){
-            sessionStorage.setItem("checkList", "");
-            sessionStorage.setItem("checkTop", 0);
+            sessionStorage.setItem("socialManagerList", "");
+            sessionStorage.setItem("socialManagerTop", 0);
             window.location.reload()
         }
         function upCallback(){
             var kind;
-            if(pageType==2){
-                kind=3
-            }else if(pageType==1){
-                kind=4
+            if(pageType==3){
+                kind=6
             }else{
-                kind=parseInt(pageType)+2
+                kind=parseInt(pageType)+1
             }
             var params = {
-                user_id: user_id,
-                tian_list_kind: kind,
+                sqmy_list_kind: kind,
                 startid: $(".item:last").attr("id"),
                 num: 10,
                 start: 0
             }
             var data = JSON.stringify(params)
             $.ajax({
-                url: 'http://<%= reqHost %>:<%= reqPort %>/ZxApi/m2_12.ashx',
+                url: 'http://<%= reqHost %>:<%= reqPort %>/ZxApi/m2_23.ashx',
                 type: "POST",
                 dataType: 'json',
                 data: data,
@@ -205,23 +232,22 @@
                 },
                 success: function (data) {
                     if (data.ecode == 1000) {
-                        var list = data.tian_list
-                        console.log(data.num)
+                        var list = data.sqmy_list
                         if (data.num > 0) {
                             mescroll.endSuccess(data.length);
                             $.each(list, function (i) {
-                                var item = '<div class="item" id="' + list[i].tian_id + '" data-zhuangtai="'+list[i].zhuangtai+'">' +
+                                var item = '<div class="item" id="' + list[i].sqmy_id + '">' +
                                     '<span class="circle"></span>' +
-                                    '<p class="anyou">' + list[i].anyou + '</p>' +
+                                    '<p class="anyou">'+list[i].ideatitle+'</p>' +
                                     '<p class="bottom">' +
-                                    '<span class="left">'+list[i].zhuangtai+'</span>' +
-                                    '<span class="left">' + list[i].creattime.split(" ")[0] + '</span>' +
+                                    '<span class="left">'+list[i].statecode+'</span>' +
+                                    '<span class="left">'+ list[i].createtime.split(" ")[0] +'</span>' +
                                     '</p>' +
                                     '</div>'
                                 $(".list-content").append(item);
                                 loadContent += item;
                             })
-                            sessionStorage.setItem("checkList", loadContent);
+                            sessionStorage.setItem("socialManagerList", loadContent);
                         } else {
                             mescroll.endUpScroll(true)
                         }

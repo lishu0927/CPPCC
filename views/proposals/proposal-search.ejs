@@ -1,29 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <div class="wrap">
-        <div class="proposals-search">
-            <%-include ../base/search-box.ejs%>
-        </div>
-        <div class="list-content" id="list-content">
-            <%for(var i=0 ;i<tian_list.length;i++){%>
-            <a class="item" href="/proposalDetail1?id=<%=tian_list[i].tian_id%>">
-                <span class="circle"></span>
-                <p class="anyou"><%=tian_list[i].anyou%></p>
-                <p class="bottom">
-                    <span class="left">保存</span>
-                    <span class="left"><%=tian_list[i].creattime.split(' ')[0]%></span>
-                    <span class="right">下载</span>
-                </p>
-            </a>
-            <%}%>
-        </div>
-    </div>
-</div>
-</body>
+<%-include ../base/checkHead.ejs%>
 <style>
     .container{
         padding: 96px 0 0 0;
@@ -42,7 +19,7 @@
     }
     .item .circle{
         position: absolute;
-        top:17px;
+        top:15px;
         left: 13px;
         background: #0071bd;
         width: 10px;
@@ -68,65 +45,87 @@
     }
     .item .bottom .right{
         float: right;
+        padding: 0 5px;
     }
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap">
+        <div class="proposals-search">
+            <%-include ../base/search-box-back.ejs%>
+        </div>
+        <div class="list-content" id="list-content">
+            <%for(var i=0 ;i<tian_list.length;i++){%>
+            <div class="item" id="<%=tian_list[i].tian_id%>" data-kind="<%=tian_list[i].tian_kind%>" data-zhuangtai="<%=tian_list[i].zhuangtai%>">
+                <span class="circle"></span>
+                <p class="anyou"><%=tian_list[i].anyou%></p>
+                <p class="bottom">
+                    <span class="left"><%=tian_list[i].zhuangtai%></span>
+                    <span class="left"><%=tian_list[i].creattime.split(" ")[0]%></span>
+                    <span class="right download" data-kind="<%=tian_list[i].tian_kind%>" data-tian-id="<%=tian_list[i].tian_id%>">下载</span>
+                </p>
+            </div>
+            <%}%>
+        </div>
+    </div>
+</div>
+</body>
 <script>
-    var tian_list_kind;
-    var detail_id;
-    $(".tab-item").each(function () {
-        $(this).click(function () {
-            $(this).addClass("active");
-            $(this).siblings().attr("class","tab-item");
-            var itemId=$(this).attr("id");
-            if(itemId=='item1'){
-                tian_list_kind=1
-                detail_id=1
-            }else if(itemId=='item2'){
-                tian_list_kind=2
-                detail_id=2
-            }else if(itemId=='item3'){
-                tian_list_kind=4
-                detail_id=3
-            }else if(itemId=='item4'){
-                tian_list_kind=3
-                detail_id=4
-            }else if(itemId=='item5'){
-                tian_list_kind=5
-                detail_id=5
-            }
-            var params = {tian_list_kind:tian_list_kind}
-            var data = JSON.stringify(params)
-            $.ajax({
-                url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_12.ashx',
-                type: "POST",
-                dataType: 'json',
-                data: data,
-                error: function (request) {      // 设置表单提交出错
-                    mui.toast("系统错误，返回状态码为：" + request.status);
-                },
-                success: function (data) {
-                    if(data.ecode==1000){
-                        $("#list-content").html("");
-                        console.log(data.num);
-                        var list=data.tian_list
-                        $.each(list, function (i) {
-                            var item='<a class="item" href="/proposalDetail'+detail_id+'?id='+list[i].tian_id +'">' +
-                                '<span class="circle"></span>' +
-                                '<p class="anyou">'+list[i].anyou+'</p>' +
-                                '<p class="bottom">' +
-                                '<span class="left">保存</span>' +
-                                '<span class="left">'+ list[i].creattime.split(" ")[0] +'</span>' +
-                                '<span class="right">下载</span>' +
-                                '</p>' +
-                                '</a>'
-                            $("#list-content").append(item);
-                        })
+    $(function () {
+        var _offset = sessionStorage.getItem("proSearchTop");
+        $(".wrap").scrollTop(_offset);  //进页面时跳到记录的位置
+        $(".wrap").scroll(function() {
+            sessionStorage.setItem("proSearchTop", $(this).scrollTop());
+        });
+    })
+    $(document).on('click','.item',function () {
+        var id=$(this).attr("id")
+        var page_kind=$(this).attr("data-kind")
+        var kind;
+        if(page_kind==6){
+            kind=5
+        }else{
+            kind=page_kind
+        }
+        var zhuangtai=$(this).attr("data-zhuangtai")
+        location.href='/proposalDetail'+kind+'?id='+id+'&type=1&zhuangtai='+zhuangtai
+    })
+    $(document).on('click','.download',function (e) {
+        e.preventDefault()
+        e.stopPropagation()
+        var filename=$(this).parent().prev(".anyou").html()
+        var data_kind=$(this).attr("data-kind")
+        var tian_kind;
+        if(data_kind==6){
+            tian_kind=5
+        }else{
+            tian_kind=data_kind
+        }
+        var params = {
+            tian_kind:tian_kind,
+            tian_id:$(this).attr("data-tian-id")
+        }
+        var data = JSON.stringify(params)
+        $.ajax({
+            url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_15.ashx',
+            type: "POST",
+            dataType: 'json',
+            data: data,
+            error: function (request) {      // 设置表单提交出错
+                mui.toast("系统错误");
+            },
+            success: function (data) {
+                if (data.ecode == 1000) {
+                    try {
+                        window.native.setDownload(filename,data.download_url)
+                    }catch (err){
+                        mui.toast("下载失败")
                     }
+                    mui.toast("正在下载")
                 }
-            });
-
+            }
         })
-
     })
 </script>
 </html>

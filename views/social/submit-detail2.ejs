@@ -28,6 +28,12 @@
                 <p class="desc">内容简介</p>
                 <p><%-sqmy_info.ideacontent%></p>
             </div>
+            <%if(back==1){%>
+            <div class="row">
+                <p class="desc">退回原因</p>
+                <p><%-sqmy_info.backreason%></p>
+            </div>
+            <%}%>
             <%if(check==1){%>
             <div class="row back">
                 <textarea placeholder="退回时请填写理由" rows="5" maxlength="250" id="backreason"></textarea>

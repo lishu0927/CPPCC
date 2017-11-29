@@ -17,19 +17,21 @@
         color: #fff;
         font-size: 14px;
     }
-    .list-content{
-        padding-bottom: 60px;
+    .mescroll{
+        position: fixed;
+        top: 82px;
+        bottom: 50px;
+        height: auto;
     }
     .item{
         padding: 10px;
         border-bottom: 1px solid #bcbcbc;
         position: relative;
         display: block;
-        min-height: 44px;
     }
     .item .circle{
         position: absolute;
-        top:17px;
+        top:15px;
         left: 13px;
         background: #0071bd;
         width: 10px;
@@ -40,6 +42,7 @@
         color: #3b3b3b;
         text-indent: 20px;
         font-size: 13px;
+        min-height: 22px;
     }
     .item .bottom{
         font-size: 12px;
@@ -54,12 +57,14 @@
     }
     .item .bottom .right{
         float: right;
+        padding: 0 5px;
     }
     .states-content{
         position: fixed;
         top:42px;
         width: 100%;
         height: 40px;
+        z-index: 1000000;
     }
     .list-tab{
         display: flex;
@@ -92,6 +97,7 @@
         right: 0;
         background: #e1edfd;
         border: 1px solid #00a0e9;
+        display: none;
     }
     .bottom-content .content{
         display: flex;
@@ -103,15 +109,27 @@
 <body>
 <div class="container">
     <%-include ../base/header.ejs%>
-    <a class="header-right" href="/socialSubmit?tabIndex=0">信息提交</a>
+    <span class="header-right">信息提交</span>
     <div class="wrap">
         <div class="states-content">
             <div class="list-tab">
-                <span class="tab-item active" id="item1">申请审核</span>
-                <span class="tab-item" id="item2">通过</span>
+                <span class="tab-item" data-url="/socialCheck1">申请审核</span>
+                <span class="tab-item" data-url="/socialCheck2">通过</span>
             </div>
         </div>
-        <div class="list-content" id="list-content">
+        <div class="mescroll listWrap" id="mescroll">
+            <div class="list-content" id="list-content">
+                <%for(var i=0 ;i<sqmy_list.length;i++){%>
+                <div class="item" id="<%=sqmy_list[i].sqmy_id%>">
+                    <span class="circle"></span>
+                    <p class="anyou"><%=sqmy_list[i].ideatitle%></p>
+                    <p class="bottom">
+                        <span class="left"><%=sqmy_list[i].statecode%></span>
+                        <span class="left"><%=sqmy_list[i].createtime.split(" ")[0]%></span>
+                    </p>
+                </div>
+                <%}%>
+            </div>
         </div>
         <div class="bottom-content" id="bottom-content">
             <div class="content" id="submit" onclick="location.href='/submitDetail'">
@@ -122,28 +140,74 @@
 </div>
 </body>
 <script>
-    var sqmy_list_kind,sqmy_kind,check;
-    $(".tab-item").each(function (i) {
-        $(this).click(function () {
-            window.history.replaceState({},0,window.location.href.split("?")[0]+"?tabIndex="+i)
-            $(this).addClass("active");
-            $(this).siblings().attr("class","tab-item");
-            var itemId=$(this).attr("id");
-            if(itemId=='item1'){
-                sqmy_list_kind=2
-                sqmy_kind=2
-                check=1
-            }else if(itemId=='item2'){
-                sqmy_list_kind=3
-                sqmy_kind=3
-                check=''
-            }else{
-                return ;
+    $(function () {
+        var user_id=sessionStorage.getItem("user_id")
+        if (role == 4 || role == 5 || user_id=='' || user_id<=0 || user_id==null) {
+            $("#bottom-content").css("display", "none")
+            $(".mescroll").css("bottom",0)
+        }else{
+            $("#bottom-content").css("display", "block")
+        }
+        var pageType="<%=pageType%>"
+        var sqmy_kind=parseInt(pageType)+2
+        var check=0;
+        if(pageType==0){
+            check=1
+        }
+        $(".tab-item").eq(pageType).addClass("active")
+        $(document).on('click','.tab-item',function () {
+            var index=$(this).index()
+            sessionStorage.setItem("socialCheckList", "");
+            sessionStorage.setItem("socialCheckTop", 0);
+            var url=$(this).attr("data-url");
+            location.replace(url+"?pageType="+index)
+        })
+        $(document).on('click','.item',function () {
+            var id=$(this).attr("id")
+            location.href='/submitDetail2?id='+id+'&sqmy_kind='+sqmy_kind+"&check="+check
+        })
+        $(document).on('click','.header-right',function () {
+            sessionStorage.setItem("socialManageList", "");
+            sessionStorage.setItem("socialManageTop", 0);
+            location.href="/socialManage1?pageType=0"
+        })
+        var loadContent=sessionStorage.getItem("socialCheckList");
+        var socialCheckList=sessionStorage.getItem("socialCheckList")
+        $(".list-content").append(socialCheckList)
+        var socialCheckTop = sessionStorage.getItem("socialCheckTop");
+        $(".listWrap").scrollTop(socialCheckTop);
+        $(".listWrap").scroll(function() {
+            sessionStorage.setItem("socialCheckTop", $(this).scrollTop());
+        });
+        //创建MeScroll对象
+        var mescroll = new MeScroll("mescroll", {
+            down: {
+                auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+                callback: downCallback //下拉刷新的回调
+            },
+            up: {
+                auto: false, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+                callback: upCallback //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
             }
-            var params = {sqmy_list_kind:sqmy_list_kind}
+        });
+
+        /*下拉刷新的回调 */
+        function downCallback(){
+            sessionStorage.setItem("socialCheckList", "");
+            sessionStorage.setItem("socialCheckTop", 0);
+            window.location.reload()
+        }
+        function upCallback(){
+            var kind=parseInt(pageType)+2
+            var params = {
+                sqmy_list_kind: kind,
+                startid: $(".item:last").attr("id"),
+                num: 10,
+                start: 0
+            }
             var data = JSON.stringify(params)
             $.ajax({
-                url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_23.ashx',
+                url: 'http://<%= reqHost %>:<%= reqPort %>/ZxApi/m2_23.ashx',
                 type: "POST",
                 dataType: 'json',
                 data: data,
@@ -151,32 +215,33 @@
                     mui.toast("系统错误，返回状态码为：" + request.status);
                 },
                 success: function (data) {
-                    if(data.ecode==1000){
-                        $("#list-content").html("");
-                        var list=data.sqmy_list
-                        $.each(list, function (i) {
-                            var item='<a class="item" href="/submitDetail2?id='+list[i].sqmy_id +'&sqmy_kind='+sqmy_kind+'&check='+check+'">' +
-                                '<span class="circle"></span>' +
-                                '<p class="anyou">'+list[i].ideatitle+'</p>' +
-                                '<p class="bottom">' +
-                                '<span class="left">'+list[i].statecode+'</span>' +
-                                '<span class="left">'+ list[i].createtime.split(" ")[0] +'</span>' +
-                                '</p>' +
-                                '</a>'
-                            $("#list-content").append(item);
-                        })
+                    if (data.ecode == 1000) {
+                        var list = data.sqmy_list
+                        if (data.num > 0) {
+                            mescroll.endSuccess(data.length);
+                            $.each(list, function (i) {
+                                var item = '<div class="item" id="' + list[i].sqmy_id + '">' +
+                                    '<span class="circle"></span>' +
+                                    '<p class="anyou">'+list[i].ideatitle+'</p>' +
+                                    '<p class="bottom">' +
+                                    '<span class="left">'+list[i].statecode+'</span>' +
+                                    '<span class="left">'+ list[i].createtime.split(" ")[0] +'</span>' +
+                                    '</p>' +
+                                    '</div>'
+                                $(".list-content").append(item);
+                                loadContent += item;
+                            })
+                            sessionStorage.setItem("socialCheckList", loadContent);
+                        } else {
+                            mescroll.endUpScroll(true)
+                        }
+                    } else {
+                        mui.toast("系统错误")
+                        mescroll.endErr()
                     }
                 }
             });
-        })
-    })
-    $(function () {
-        var user_id=sessionStorage.getItem("user_id")
-        if (user_id=='' || user_id<=0 || user_id==null) {
-            $("#bottom-content").css("display", "none")
         }
-        var tabIndex="<%=tabIndex%>"
-        $(".tab-item").eq(tabIndex).click();
     })
 </script>
 </html>

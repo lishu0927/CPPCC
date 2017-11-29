@@ -44,18 +44,265 @@ module.exports = {
         req.write(content);
         req.end();
     },
-    manage: function (req, res, next) {
-        var keyword = req.query.keyword||'';
-        var tabIndex = req.query.tabIndex;
+    manage1: function (req1, res, next) {
+        var id = req1.query.id;
+        var pageType = req1.query.pageType;
+        var keyword = req1.query.keyword||'';
         var search_type = "proposal";
-        res.render('proposals/proposal-manage',
-            {
-                title: '提案管理',
-                keyword: keyword,
-                search_type: search_type,
-                tabIndex: tabIndex,
+        var data = {
+            user_id: id,
+            tian_list_kind:1,
+            startid: -1,
+            num: 20,
+            start: 0
+        };
+        var content = JSON.stringify(data);
+        var options = {
+            host: global.reqHost,
+            port: global.reqPort,
+            path: "/ZxApi/m2_12.ashx",
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
             }
-        );
+        };
+        var req = http.request(options, function (serverFeedback) {
+            if (serverFeedback.statusCode == 200) {
+                var body = "";
+                serverFeedback.setEncoding('utf8');
+                serverFeedback.on('data', function (data) {
+                    body += data;
+                }).on('end', function () {
+                    body = JSON.parse(body);
+                    var tian_list=body.tian_list
+                    res.render('proposals/proposal-manage',
+                        {
+                            title: '提案管理',
+                            keyword: keyword,
+                            search_type: search_type,
+                            pageType:pageType,
+                            tian_list:tian_list
+                        }
+                    );
+                })
+            } else {
+                res.send(500, "error");
+            }
+        });
+        req.on('error', function (e) {
+            console.log('problem with request: ' + e.message);
+        });
+        // write data to request body
+        req.write(content);
+        req.end();
+    },
+    manage2: function (req1, res, next) {
+        var id = req1.query.id;
+        var pageType = req1.query.pageType;
+        var keyword = req1.query.keyword||'';
+        var search_type = "proposal";
+        var data = {
+            user_id: id,
+            tian_list_kind:2,
+            startid: -1,
+            num: 20,
+            start: 0
+        };
+        var content = JSON.stringify(data);
+        var options = {
+            host: global.reqHost,
+            port: global.reqPort,
+            path: "/ZxApi/m2_12.ashx",
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
+            }
+        };
+        var req = http.request(options, function (serverFeedback) {
+            if (serverFeedback.statusCode == 200) {
+                var body = "";
+                serverFeedback.setEncoding('utf8');
+                serverFeedback.on('data', function (data) {
+                    body += data;
+                }).on('end', function () {
+                    body = JSON.parse(body);
+                    var tian_list=body.tian_list
+                    res.render('proposals/proposal-manage',
+                        {
+                            title: '提案管理',
+                            keyword: keyword,
+                            search_type: search_type,
+                            pageType:pageType,
+                            tian_list:tian_list
+                        }
+                    );
+                })
+            } else {
+                res.send(500, "error");
+            }
+        });
+        req.on('error', function (e) {
+            console.log('problem with request: ' + e.message);
+        });
+        // write data to request body
+        req.write(content);
+        req.end();
+    },
+    manage3: function (req1, res, next) {
+        var id = req1.query.id;
+        var pageType = req1.query.pageType;
+        var keyword = req1.query.keyword||'';
+        var search_type = "proposal";
+        var data = {
+            user_id: id,
+            tian_list_kind:4,
+            startid: -1,
+            num: 20,
+            start: 0
+        };
+        var content = JSON.stringify(data);
+        var options = {
+            host: global.reqHost,
+            port: global.reqPort,
+            path: "/ZxApi/m2_12.ashx",
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
+            }
+        };
+        var req = http.request(options, function (serverFeedback) {
+            if (serverFeedback.statusCode == 200) {
+                var body = "";
+                serverFeedback.setEncoding('utf8');
+                serverFeedback.on('data', function (data) {
+                    body += data;
+                }).on('end', function () {
+                    body = JSON.parse(body);
+                    var tian_list=body.tian_list
+                    res.render('proposals/proposal-manage',
+                        {
+                            title: '提案管理',
+                            keyword: keyword,
+                            search_type: search_type,
+                            pageType:pageType,
+                            tian_list:tian_list
+                        }
+                    );
+                })
+            } else {
+                res.send(500, "error");
+            }
+        });
+        req.on('error', function (e) {
+            console.log('problem with request: ' + e.message);
+        });
+        // write data to request body
+        req.write(content);
+        req.end();
+    },
+    manage4: function (req1, res, next) {
+        var id = req1.query.id;
+        var pageType = req1.query.pageType;
+        var keyword = req1.query.keyword||'';
+        var search_type = "proposal";
+        var data = {
+            user_id: id,
+            tian_list_kind:3,
+            startid: -1,
+            num: 20,
+            start: 0
+        };
+        var content = JSON.stringify(data);
+        var options = {
+            host: global.reqHost,
+            port: global.reqPort,
+            path: "/ZxApi/m2_12.ashx",
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
+            }
+        };
+        var req = http.request(options, function (serverFeedback) {
+            if (serverFeedback.statusCode == 200) {
+                var body = "";
+                serverFeedback.setEncoding('utf8');
+                serverFeedback.on('data', function (data) {
+                    body += data;
+                }).on('end', function () {
+                    body = JSON.parse(body);
+                    var tian_list=body.tian_list
+                    res.render('proposals/proposal-manage',
+                        {
+                            title: '提案管理',
+                            keyword: keyword,
+                            search_type: search_type,
+                            pageType:pageType,
+                            tian_list:tian_list
+                        }
+                    );
+                })
+            } else {
+                res.send(500, "error");
+            }
+        });
+        req.on('error', function (e) {
+            console.log('problem with request: ' + e.message);
+        });
+        // write data to request body
+        req.write(content);
+        req.end();
+    },
+    manage5: function (req1, res, next) {
+        var id = req1.query.id;
+        var pageType = req1.query.pageType;
+        var keyword = req1.query.keyword||'';
+        var search_type = "proposal";
+        var data = {
+            user_id: id,
+            tian_list_kind:5,
+            startid: -1,
+            num: 20,
+            start: 0
+        };
+        var content = JSON.stringify(data);
+        var options = {
+            host: global.reqHost,
+            port: global.reqPort,
+            path: "/ZxApi/m2_12.ashx",
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
+            }
+        };
+        var req = http.request(options, function (serverFeedback) {
+            if (serverFeedback.statusCode == 200) {
+                var body = "";
+                serverFeedback.setEncoding('utf8');
+                serverFeedback.on('data', function (data) {
+                    body += data;
+                }).on('end', function () {
+                    body = JSON.parse(body);
+                    var tian_list=body.tian_list
+                    res.render('proposals/proposal-manage',
+                        {
+                            title: '提案管理',
+                            keyword: keyword,
+                            search_type: search_type,
+                            pageType:pageType,
+                            tian_list:tian_list
+                        }
+                    );
+                })
+            } else {
+                res.send(500, "error");
+            }
+        });
+        req.on('error', function (e) {
+            console.log('problem with request: ' + e.message);
+        });
+        // write data to request body
+        req.write(content);
+        req.end();
     },
     search: function (req1, res, next) {
         var keyword = req1.query.keyword || '';
@@ -495,6 +742,214 @@ module.exports = {
                 search_type:search_type
             }
         );
+    },
+    check1: function (req1, res, next) {
+        var id = req1.query.id;
+        var pageType = req1.query.pageType;
+        var keyword = req1.query.keyword||'';
+        var search_type = "proposal";
+        var data = {
+            user_id: id,
+            tian_list_kind:2,
+            startid: -1,
+            num: 20,
+            start: 0
+        };
+        var content = JSON.stringify(data);
+        var options = {
+            host: global.reqHost,
+            port: global.reqPort,
+            path: "/ZxApi/m2_12.ashx",
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
+            }
+        };
+        var req = http.request(options, function (serverFeedback) {
+            if (serverFeedback.statusCode == 200) {
+                var body = "";
+                serverFeedback.setEncoding('utf8');
+                serverFeedback.on('data', function (data) {
+                    body += data;
+                }).on('end', function () {
+                    body = JSON.parse(body);
+                    var tian_list=body.tian_list
+                    res.render('proposals/proposal-check',
+                        {
+                            title: '审核提案',
+                            keyword: keyword,
+                            search_type: search_type,
+                            pageType:pageType,
+                            tian_list:tian_list
+                        }
+                    );
+                })
+            } else {
+                res.send(500, "error");
+            }
+        });
+        req.on('error', function (e) {
+            console.log('problem with request: ' + e.message);
+        });
+        // write data to request body
+        req.write(content);
+        req.end();
+    },
+    check2: function (req1, res, next) {
+        var id = req1.query.id;
+        var pageType = req1.query.pageType;
+        var keyword = req1.query.keyword||'';
+        var search_type = "proposal";
+        var data = {
+            user_id: id,
+            tian_list_kind:4,
+            startid: -1,
+            num: 20,
+            start: 0
+        };
+        var content = JSON.stringify(data);
+        var options = {
+            host: global.reqHost,
+            port: global.reqPort,
+            path: "/ZxApi/m2_12.ashx",
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
+            }
+        };
+        var req = http.request(options, function (serverFeedback) {
+            if (serverFeedback.statusCode == 200) {
+                var body = "";
+                serverFeedback.setEncoding('utf8');
+                serverFeedback.on('data', function (data) {
+                    body += data;
+                }).on('end', function () {
+                    body = JSON.parse(body);
+                    var tian_list=body.tian_list
+                    res.render('proposals/proposal-check',
+                        {
+                            title: '审核提案',
+                            keyword: keyword,
+                            search_type: search_type,
+                            pageType:pageType,
+                            tian_list:tian_list
+                        }
+                    );
+                })
+            } else {
+                res.send(500, "error");
+            }
+        });
+        req.on('error', function (e) {
+            console.log('problem with request: ' + e.message);
+        });
+        // write data to request body
+        req.write(content);
+        req.end();
+    },
+    check3: function (req1, res, next) {
+        var id = req1.query.id;
+        var pageType = req1.query.pageType;
+        var keyword = req1.query.keyword||'';
+        var search_type = "proposal";
+        var data = {
+            user_id: id,
+            tian_list_kind:3,
+            startid: -1,
+            num: 20,
+            start: 0
+        };
+        var content = JSON.stringify(data);
+        var options = {
+            host: global.reqHost,
+            port: global.reqPort,
+            path: "/ZxApi/m2_12.ashx",
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
+            }
+        };
+        var req = http.request(options, function (serverFeedback) {
+            if (serverFeedback.statusCode == 200) {
+                var body = "";
+                serverFeedback.setEncoding('utf8');
+                serverFeedback.on('data', function (data) {
+                    body += data;
+                }).on('end', function () {
+                    body = JSON.parse(body);
+                    var tian_list=body.tian_list
+                    res.render('proposals/proposal-check',
+                        {
+                            title: '审核提案',
+                            keyword: keyword,
+                            search_type: search_type,
+                            pageType:pageType,
+                            tian_list:tian_list
+                        }
+                    );
+                })
+            } else {
+                res.send(500, "error");
+            }
+        });
+        req.on('error', function (e) {
+            console.log('problem with request: ' + e.message);
+        });
+        // write data to request body
+        req.write(content);
+        req.end();
+    },
+    check4: function (req1, res, next) {
+        var id = req1.query.id;
+        var pageType = req1.query.pageType;
+        var keyword = req1.query.keyword||'';
+        var search_type = "proposal";
+        var data = {
+            user_id: id,
+            tian_list_kind:5,
+            startid: -1,
+            num: 20,
+            start: 0
+        };
+        var content = JSON.stringify(data);
+        var options = {
+            host: global.reqHost,
+            port: global.reqPort,
+            path: "/ZxApi/m2_12.ashx",
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
+            }
+        };
+        var req = http.request(options, function (serverFeedback) {
+            if (serverFeedback.statusCode == 200) {
+                var body = "";
+                serverFeedback.setEncoding('utf8');
+                serverFeedback.on('data', function (data) {
+                    body += data;
+                }).on('end', function () {
+                    body = JSON.parse(body);
+                    var tian_list=body.tian_list
+                    res.render('proposals/proposal-check',
+                        {
+                            title: '审核提案',
+                            keyword: keyword,
+                            search_type: search_type,
+                            pageType:pageType,
+                            tian_list:tian_list
+                        }
+                    );
+                })
+            } else {
+                res.send(500, "error");
+            }
+        });
+        req.on('error', function (e) {
+            console.log('problem with request: ' + e.message);
+        });
+        // write data to request body
+        req.write(content);
+        req.end();
     },
     publicity: function (req1, res, next) {
         var data = {

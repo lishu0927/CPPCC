@@ -20,6 +20,12 @@
         font-size: 14px;
         display: none;
     }
+    .mescroll{
+        position: fixed;
+        top: 42px;
+        bottom: 0;
+        height: auto;
+    }
     .members-datail{
         position: relative;
         padding: 10px 0;
@@ -197,7 +203,7 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <span class="header-right" onclick="javascript:location.href='/editMember?id=<%=member.user_id%>'">编辑</span>
-    <div class="wrap">
+    <div class="wrap mescroll" id="mescroll">
         <div class="members-datail">
             <div class="pic">
                 <img src="<%=member.headImage%>" onerror="this.src='images/default3.png'" data-preview-src=""/>
@@ -264,11 +270,27 @@
 </body>
 <script>
     mui.previewImage();
-    var member_id="<%=member.user_id%>"
-    var user_id=sessionStorage.getItem("user_id")
-    if(user_id==member_id){
-        $(".header-right").css("display","block")
-    }
-</script>
+    $(function () {
+        var member_id="<%=member.user_id%>"
+        var user_id=sessionStorage.getItem("user_id")
+        if(user_id==member_id){
+            $(".header-right").css("display","block")
+        }
+        //创建MeScroll对象
+        var mescroll = new MeScroll("mescroll", {
+            down: {
+                auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+                callback: downCallback //下拉刷新的回调
+            },
+            up: {
+                use: false
+            }
+        });
+        /*下拉刷新的回调 */
+        function downCallback() {
+            window.location.reload()
+        }
+    })
 
+</script>
 </html>

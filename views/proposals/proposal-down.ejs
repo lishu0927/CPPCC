@@ -69,6 +69,7 @@
 <script>
     $(document).on('click','.download',function (e) {
         e.preventDefault()
+        e.stopPropagation()
         var filename=$(this).parent().prev(".anyou").html()
         console.log(filename)
         var params = {

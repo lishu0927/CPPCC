@@ -238,19 +238,105 @@ module.exports = {
         req.write(content);
         req.end();
     },
-    startWorkDraft: function (req, res, next) {
-        res.render('work/start-work-draft',
-            {
-                title: '发起流转',
+    startWorkDraft: function (req1, res, next) {
+        var user_id=req1.query.id;
+        var manager_id=req1.query.manager_id;
+        var role_type=req1.query.role_type;
+        var data = {
+            dailywork_list_kind: 1,
+            manager_id: manager_id,
+            role_type: role_type,
+            user_id:user_id,
+            startid:-1,
+            num:20,
+            start:0
+        };
+        var content = JSON.stringify(data);
+        var options = {
+            host: global.reqHost,
+            port: global.reqPort,
+            path: "/ZxApi/m3_05.ashx",
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
             }
-        );
+        };
+        var req = http.request(options, function (serverFeedback) {
+            if (serverFeedback.statusCode == 200) {
+                var body = "";
+                serverFeedback.setEncoding('utf8');
+                serverFeedback.on('data', function (data) {
+                    body += data;
+                }).on('end', function () {
+                    body = JSON.parse(body);
+                    var dailywork_list=body.dailywork_list
+                    res.render('work/start-work-draft',
+                        {
+                            title: '发起流转',
+                            dailywork_list: dailywork_list
+                        }
+                    );
+                })
+            } else {
+                res.send(500, "error");
+            }
+        });
+        req.on('error', function (e) {
+            console.log('problem with request: ' + e.message);
+        });
+        // write data to request body
+        req.write(content);
+        req.end();
     },
-    startWorkPass: function (req, res, next) {
-        res.render('work/start-work-pass',
-            {
-                title: '发起流转',
+    startWorkPass: function (req1, res, next) {
+        var user_id=req1.query.id;
+        var manager_id=req1.query.manager_id;
+        var role_type=req1.query.role_type;
+        var data = {
+            dailywork_list_kind: 2,
+            manager_id: manager_id,
+            role_type: role_type,
+            user_id:user_id,
+            startid:-1,
+            num:20,
+            start:0
+        };
+        var content = JSON.stringify(data);
+        var options = {
+            host: global.reqHost,
+            port: global.reqPort,
+            path: "/ZxApi/m3_05.ashx",
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
             }
-        );
+        };
+        var req = http.request(options, function (serverFeedback) {
+            if (serverFeedback.statusCode == 200) {
+                var body = "";
+                serverFeedback.setEncoding('utf8');
+                serverFeedback.on('data', function (data) {
+                    body += data;
+                }).on('end', function () {
+                    body = JSON.parse(body);
+                    var dailywork_list=body.dailywork_list
+                    res.render('work/start-work-pass',
+                        {
+                            title: '发起流转',
+                            dailywork_list: dailywork_list
+                        }
+                    );
+                })
+            } else {
+                res.send(500, "error");
+            }
+        });
+        req.on('error', function (e) {
+            console.log('problem with request: ' + e.message);
+        });
+        // write data to request body
+        req.write(content);
+        req.end();
     },
     addWork: function (req, res, next) {
         res.render('work/add-work',
