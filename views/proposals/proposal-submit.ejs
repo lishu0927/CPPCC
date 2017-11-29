@@ -20,20 +20,20 @@
         padding: 7% 10px;
         text-align: center;
     }
-    .list li a{
+    .list li .item{
         display: inline-block;
         white-space: nowrap;
     }
-    .list li a .left{
+    .list li .item .left{
         width: 70px;
         text-align: left;
         display: inline-block;
     }
-    .list li a .left img{
+    .list li .item .left img{
         width: 60px;
         vertical-align: middle;
     }
-    .list li a .right{
+    .list li .item .right{
         color: #000;
         font-size: 18px;
         font-weight: bold;
@@ -48,34 +48,40 @@
     <div class="wrap">
         <ul class="list">
             <li>
-                <a href="/proposalDown">
+                <div class="item" data-url="/proposalDown">
                     <span class="left">
                         <img src="images/ta_bxz.png">
                     </span>
                     <span class="right">提案表下载</span>
-                </a>
+                </div>
             </li>
             <li id="subProposal">
-                <a href="/submitProposal">
+                <div class="item" data-url="/submitProposal">
                     <span class="left">
                         <img src="images/ta_tj.png">
                     </span>
                     <span class="right">提案提交</span>
-                </a>
+                </div>
             </li>
             <li>
-                <a href="/proposalManage?tabIndex=0">
+                <div class="item" data-url="/proposalManage?tabIndex=0">
                     <span class="left">
                         <img src="images/ta_gl.png">
                     </span>
                     <span class="right">提案管理</span>
-                </a>
+                </div>
             </li>
         </ul>
     </div>
 </div>
 </body>
 <script>
+    $(document).on('click','.item',function () {
+        sessionStorage.setItem("downList","")
+        sessionStorage.setItem("downTop",0)
+        var url=$(this).attr("data-url")
+        location.href=url
+    })
     $(function () {
         var user_id=sessionStorage.getItem("user_id")
         if (role == 4 || role == 5 || user_id<=0 || user_id=='' || user_id==null) {

@@ -45,40 +45,38 @@
         text-align: center;
         line-height: 28px;
     }
-    .news-list {
+    .list-content {
         padding: 0;
     }
-    .news-list .item {
-        border-bottom: 1px solid #bcbcbc;
-    }
-    .news-list .item .item-wrap {
+    .list-content .item {
         position: relative;
         width: 100%;
         display: block;
         padding: 15px 10px 10px 120px;
+        border-bottom: 1px solid #bcbcbc;
     }
-    .news-list .item .image {
+    .list-content .item .image {
         position: absolute;
         top: 15px;
         left: 10px;
         width: 110px;
         height: 80px;
     }
-    .news-list .item .info {
+    .list-content .item .info {
         padding-left: 10px;
     }
-    .news-list .item .info .title {
+    .list-content .item .info .title {
         font-size: 15px;
         color: #323232;
         line-height: 24px;
     }
-    .news-list .item .info .desc {
+    .list-content .item .info .desc {
         color: #808080;
         line-height: 18px;
         height: 36px;
         font-size: 12px;
     }
-    .news-list .item .info .time {
+    .list-content .item .info .time {
         color: #fa1414;
         font-size: 12px;
         line-height: 24px;
@@ -95,7 +93,7 @@
                     <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
                     <div class="mui-slider-item mui-slider-item-duplicate">
                         <a href="/newsDetail?id=<%= sliderList[sliderList.length - 1].article_id %>">
-                            <img src="<%= sliderList[sliderList.length - 1].img_url %>">
+                            <img src="<%= sliderList[sliderList.length - 1].img_url %>" onerror="this.src='images/default-slide.png'">
                             <div class="slide-layer">
                                 <p class="mui-ellipsis"><%= sliderList[sliderList.length - 1].title %></p>
                             </div>
@@ -105,7 +103,7 @@
                     <!-- 第一张 -->
                     <div class="mui-slider-item">
                         <a href="/newsDetail?id=<%= sliderList[i].article_id %>">
-                            <img src="<%= sliderList[i].img_url %>">
+                            <img src="<%= sliderList[i].img_url %>" onerror="this.src='images/default-slide.png'">
                             <div class="slide-layer">
                                 <p class="mui-ellipsis"><%= sliderList[i].title %></p>
                             </div>
@@ -115,7 +113,7 @@
                     <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
                     <div class="mui-slider-item mui-slider-item-duplicate">
                         <a href="/newsDetail?id=<%= sliderList[0].article_id %>">
-                            <img src="<%= sliderList[0].img_url %>">
+                            <img src="<%= sliderList[0].img_url %>" onerror="this.src='images/default-slide.png'">
                             <div class="slide-layer">
                                 <p class="mui-ellipsis"><%= sliderList[0].title %></p>
                             </div>
@@ -132,40 +130,34 @@
                 </div>
             </div>
         </div>
-        <div class="news-content ">
-            <ul class="news-list" id="list-content">
-                <% for(var i = 0;i < articleList.length;i++){ %>
-                <li class="item" id="<%= articleList[i].article_id %>">
-                    <div class="item-wrap" onclick="dis(<%= articleList[i].article_id %>)">
-                        <img class="image" src="<%= articleList[i].img_url %>">
-                        <div class="info">
-                            <p class="title mui-ellipsis"><%= articleList[i].title %></p>
-                            <p class="desc mui-ellipsis-2"><%= articleList[i].zhaiyao %></p>
-                            <p class="time"><%= articleList[i].add_time.split(' ')[0] %></p>
-                        </div>
-                    </div>
-                </li>
-                <% } %>
-            </ul>
-        </div>
+        <ul class="list-content">
+            <% for(var i = 0;i < article_list.length;i++){ %>
+            <li class="item" id="<%= article_list[i].article_id %>">
+                <img class="image" onerror="this.src='images/default1.png'"  src="<%= article_list[i].img_url %>">
+                <div class="info">
+                    <p class="title mui-ellipsis"><%= article_list[i].title %></p>
+                    <p class="desc mui-ellipsis-2"><%= article_list[i].zhaiyao %></p>
+                    <p class="time"><%= article_list[i].add_time.split(' ')[0] %></p>
+                </div>
+            </li>
+            <%}%>
+        </ul>
     </div>
 </div>
 </body>
 <script>
     var slider = mui("#slider");
-    var loadContent='';
     slider.slider({
         interval: 3000
     });
-
-    function dis(id) {
-        sessionStorage.setItem("newsList", loadContent);
-        location.href="/newsDetail?id="+id
-    }
-
+    $(document).on('click','.list-content .item',function () {
+        var id=$(this).attr("id")
+        location.href='/newsDetail?id='+id
+    })
     $(function () {
+        var loadContent=sessionStorage.getItem("newsList");
         var newsList=sessionStorage.getItem("newsList")
-        $(".news-list").append(newsList)
+        $(".list-content").append(newsList)
         var _offset = sessionStorage.getItem("newsTop");
         $(".wrap").scrollTop(_offset);
         $(".wrap").scroll(function() {
@@ -193,7 +185,7 @@
         /*上拉加载的回调 page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
         function upCallback(){
             var params = {
-                startid: $(".news-list .item:last").attr("id"),
+                startid: $(".list-content .item:last").attr("id"),
                 num: 10,
                 start: 0
             }
@@ -213,20 +205,19 @@
                         if(list.length>0){
                             $.each(list, function (i) {
                                 var item='<li class="item" id='+list[i].article_id+'>'+
-                                    '<div class="item-wrap" onclick="dis('+list[i].article_id+')">'+
-                                    '<img class="image" src="'+list[i].img_url+'">'+
+                                    '<img class="image" onerror="this.src=\'images/default1.png\'" src="'+list[i].img_url+'">'+
                                     '<div class="info">'+
                                     '<p class="title mui-ellipsis">'+list[i].title +'</p>'+
                                     '<p class="desc mui-ellipsis-2">'+list[i].zhaiyao +'</p>'+
                                     '<p class="time">'+list[i].add_time.split(' ')[0] +'</p>'+
                                     '</div>'+
-                                    '</div>'+
                                     '</li>'
-                                $("#list-content").append(item);
+                                $(".list-content").append(item);
                                 loadContent+=item;
                             })
+                            sessionStorage.setItem("newsList", loadContent);
                         }else{
-                            mescroll.endSuccess(0)
+                            mescroll.endUpScroll(true)
                         }
 
                     }else{

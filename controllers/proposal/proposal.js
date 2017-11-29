@@ -292,7 +292,6 @@ module.exports = {
                 }).on('end', function () {
                     body = JSON.parse(body);
                     var tian_detail_info=body.tian_detail_info
-                    console.log(tian_detail_info)
                     res.render('proposals/proposal-detail4',
                         {
                             title: '提案详情',
@@ -498,7 +497,12 @@ module.exports = {
         );
     },
     publicity: function (req1, res, next) {
-        var data = {tian_list_kind:6};
+        var data = {
+            tian_list_kind:6,
+            startid: -1,
+            num: 20,
+            start: 0
+        };
         var content = JSON.stringify(data);
         var options = {
             host: global.reqHost,
@@ -537,7 +541,12 @@ module.exports = {
         req.end();
     },
     honor: function (req1, res, next) {
-        var data = {tian_list_kind:7};
+        var data = {
+            tian_list_kind:7,
+            startid: -1,
+            num: 20,
+            start: 0
+        };
         var content = JSON.stringify(data);
         var options = {
             host: global.reqHost,
@@ -616,7 +625,12 @@ module.exports = {
         req.end();
     },
     know: function (req1, res, next) {
-        var data = {startid:-1,article_kind:1};
+        var data = {
+            article_kind:1,
+            startid:-1,
+            num:20,
+            start:0
+        };
         var content = JSON.stringify(data);
         var options = {
             host: global.reqHost,

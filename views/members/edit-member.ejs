@@ -267,7 +267,7 @@
         </div>
         <div class="input-row">
             <label>照片：</label>
-            <img src="<%= member.headImage %>" class="member-pic" id="img" data-preview-src=""/>
+            <img src="<%= member.headImage %>" onerror="this.src='images/default3.png'" class="member-pic" id="img" data-preview-src=""/>
         </div>
         <div class="input-row">
             <label>选择分组：</label>
@@ -347,6 +347,7 @@
 </body>
 
 <script>
+    var sSid=sessionStorage.getItem("user_id");
     mui.previewImage();
     (function ($) {
         $.init();
@@ -461,6 +462,28 @@
                 success: function (data) {
                     if (data.ecode == 1000) {
                         mui.toast("编辑成功！");
+                        if(user_id==sSid) {
+                            var params1 = { //如果编辑的是自己的信息, 需将更新后的信息存入sessionStorage中
+                                user_id: user_id
+                            }
+                            var data1 = JSON.stringify(params1)
+                            $.ajax({
+                                url: 'http://<%= reqHost %>:<%= reqPort %>/ZxApi/m2_03.ashx',
+                                type: "POST",
+                                dataType: 'json',
+                                data: data1,
+                                error: function (request) {      // 设置表单提交出错
+                                    mui.toast("系统错误");
+                                },
+                                success: function (data) {
+                                    if (data.ecode == 1000) {
+                                        sessionStorage.setItem("user", JSON.stringify(data.user_info));
+                                    } else {
+                                        mui.toast("系统出错")
+                                    }
+                                }
+                            })
+                        }
                         setTimeout(function () {
                             history.go(-1)
                         },1000);

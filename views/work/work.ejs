@@ -1,41 +1,6 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header-search.ejs%>
-    <%-include ../base/footer-nav.ejs%>
-    <div class="wrap work-content">
-        <ul>
-            <li>
-                <a href="/workInfo">
-                    <p>政协简介</p>
-                </a>
-            </li>
-            <li>
-                <a href="/workOrder">
-                    <p>政协领导</p>
-                </a>
-            </li>
-            <li>
-                <a href="/workFiles">
-                    <p>政协文件</p>
-                </a>
-            </li>
-            <li>
-                <a href="/workFlow">
-                    <p>文件流转</p>
-                </a>
-            </li>
-            <li>
-                <a href="/workNotices">
-                    <p>通知</p>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
-</body>
 <style>
     .work-content ul li{
         height: 50px;
@@ -51,6 +16,40 @@
         font-size: 16px;
         color: #000;
     }
-
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header-search.ejs%>
+    <%-include ../base/footer-nav.ejs%>
+    <div class="wrap work-content">
+        <ul>
+            <li class="item" data-url="/workInfo">
+                <p>政协简介</p>
+            </li>
+            <li class="item" data-url="/workOrder">
+                <p>政协领导</p>
+            </li>
+            <li class="item" data-url="/workFiles">
+                <p>政协文件</p>
+            </li>
+            <li class="item" data-url="/workFlow">
+                <p>文件流转</p>
+            </li>
+            <li class="item" data-url="/workNotices">
+                <p>通知</p>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<script>
+    $(document).on('click','.item',function () {
+        sessionStorage.setItem("noticesList","")
+        sessionStorage.setItem("noticesTop",0)
+        sessionStorage.setItem("filesList","")
+        sessionStorage.setItem("filesTop",0)
+        var url=$(this).attr("data-url")
+        location.href=url
+    })
+</script>
 </html>

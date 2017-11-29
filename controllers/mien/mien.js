@@ -1,7 +1,12 @@
 var http = require("http");
 module.exports = {
     init: function (req1, res, next) {
-        var data = {startid:-1,article_kind:2};
+        var data = {
+            article_kind:2,
+            startid:-1,
+            num:20,
+            start:0
+        };
         var content = JSON.stringify(data);
         var options = {
             host: global.reqHost,

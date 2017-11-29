@@ -1,71 +1,150 @@
 <!DOCTYPE html>
 <html>
 <%- include ../base/checkHead.ejs %>
-<body>
-<div class="container">
-    <%- include ../base/header.ejs %>
-    <div class="wrap">
-        <div class="news-content">
-            <ul class="news-list">
-                <%for(var i=0 ;i<article_list.length;i++){%>
-                <li class="item">
-                    <a href="/mienDetail?id=<%=article_list[i].article_id%>">
-                        <img class="image" src="<%=article_list[i].img_url%>">
-                        <div class="info">
-                            <p class="title mui-ellipsis"><%=article_list[i].title%></p>
-                            <p class="desc mui-ellipsis-2"><%=article_list[i].zhaiyao%></p>
-                            <p class="time"><%=article_list[i].add_time.split(' ')[0]%></p>
-                        </div>
-                    </a>
-                </li>
-                <%}%>
-            </ul>
-        </div>
-    </div>
-</div>
-</body>
 <style>
     .container{
         padding: 42px 0 0 0;
     }
-    .news-list {
+    .mescroll{
+        position: fixed;
+        top: 42px;
+        bottom: 0;
+        height: auto;
+    }
+    .list-content {
         padding: 0;
     }
-    .news-list .item {
-        border-bottom: 1px solid #bcbcbc;
-    }
-    .news-list .item a {
+    .list-content .item {
         position: relative;
         width: 100%;
         display: block;
         padding: 15px 10px 10px 120px;
+        border-bottom: 1px solid #bcbcbc;
     }
-    .news-list .item .image {
+    .list-content .item .image {
         position: absolute;
         top: 15px;
         left: 10px;
         width: 110px;
         height: 80px;
     }
-    .news-list .item .info {
+    .list-content .item .info {
         padding-left: 10px;
     }
-    .news-list .item .info .title {
+    .list-content .item .info .title {
         font-size: 15px;
         color: #323232;
         line-height: 24px;
     }
-    .news-list .item .info .desc {
+    .list-content .item .info .desc {
         color: #808080;
         line-height: 18px;
         height: 36px;
         font-size: 12px;
     }
-    .news-list .item .info .time {
+    .list-content .item .info .time {
         color: #fa1414;
         font-size: 12px;
         line-height: 24px;
     }
 </style>
+<body>
+<div class="container">
+    <%- include ../base/header.ejs %>
+    <div class="wrap mescroll" id="mescroll">
+        <ul class="list-content">
+            <% for(var i = 0;i < article_list.length;i++){ %>
+            <li class="item" id="<%= article_list[i].article_id %>">
+                <img class="image" onerror="this.src='images/default1.png'"  src="<%= article_list[i].img_url %>">
+                <div class="info">
+                    <p class="title mui-ellipsis"><%= article_list[i].title %></p>
+                    <p class="desc mui-ellipsis-2"><%= article_list[i].zhaiyao %></p>
+                    <p class="time"><%= article_list[i].add_time.split(' ')[0] %></p>
+                </div>
+            </li>
+            <%}%>
+        </ul>
+    </div>
+</div>
+</body>
+<script>
+    $(document).on('click','.list-content .item',function () {
+        var id=$(this).attr("id")
+        location.href='/mienDetail?id='+id
+    })
+    $(function () {
+        var loadContent=sessionStorage.getItem("mienList");
+        var mienList=sessionStorage.getItem("mienList")
+        $(".list-content").append(mienList)
+        var _offset = sessionStorage.getItem("mienTop");
+        $(".wrap").scrollTop(_offset);
+        $(".wrap").scroll(function() {
+            sessionStorage.setItem("mienTop", $(this).scrollTop());
+        });
+        //创建MeScroll对象
+        var mescroll = new MeScroll("mescroll", {
+            down: {
+                auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+                callback: downCallback //下拉刷新的回调
+            },
+            up: {
+                auto: false, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+                callback: upCallback //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+            }
+        });
 
+        /*下拉刷新的回调 */
+        function downCallback(){
+            sessionStorage.setItem("mienList", "");
+            sessionStorage.setItem("mienTop", 0);
+            window.location.reload()
+        }
+
+        /*上拉加载的回调 page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
+        function upCallback(){
+            var params = {
+                article_kind:2,
+                startid: $(".list-content .item:last").attr("id"),
+                num: 10,
+                start: 0
+            }
+            var data = JSON.stringify(params)
+            $.ajax({
+                url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_21.ashx',
+                type: "POST",
+                dataType: 'json',
+                data: data,
+                error: function (request) {      // 设置表单提交出错
+                    mui.toast("系统错误，返回状态码为：" + request.status);
+                },
+                success: function (data) {
+                    if(data.ecode==1000){
+                        mescroll.endSuccess(data.length);
+                        var list=data.article_list
+                        if(list.length>0){
+                            $.each(list, function (i) {
+                                var item='<li class="item" id='+list[i].article_id+'>'+
+                                    '<img class="image" onerror="this.src=\'images/default1.png\'" src="'+list[i].img_url+'">'+
+                                    '<div class="info">'+
+                                    '<p class="title mui-ellipsis">'+list[i].title +'</p>'+
+                                    '<p class="desc mui-ellipsis-2">'+list[i].zhaiyao +'</p>'+
+                                    '<p class="time">'+list[i].add_time.split(' ')[0] +'</p>'+
+                                    '</div>'+
+                                    '</li>'
+                                $(".list-content").append(item);
+                                loadContent+=item;
+                            })
+                            sessionStorage.setItem("mienList", loadContent);
+                        }else{
+                            mescroll.endUpScroll(true)
+                        }
+
+                    }else{
+                        mui.toast("系统错误")
+                    }
+                }
+            });
+        }
+    })
+</script>
 </html>

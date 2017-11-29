@@ -22,13 +22,13 @@ module.exports = {
                 }).on('end', function () {
                     body = JSON.parse(body);
                     var sliderList = body.bannerArticle_list;
-                    var articleList = body.article_list;
+                    var article_list = body.article_list;
                     res.render('news/news',
                         {
                             title: '政协要闻',
                             type: 1,
                             sliderList: sliderList,
-                            articleList: articleList,
+                            article_list: article_list,
                             keyword: keyword
                         }
                     );

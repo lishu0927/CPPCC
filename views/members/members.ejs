@@ -58,37 +58,49 @@
     <div class="wrap">
         <div class="member-content">
             <div class="member-row">
-                <a class="member-item" href="/membersMd">
+                <div class="member-item" data-url="/membersMd">
                     <img src="/images/wymd.png">
                     <p>委员名单</p>
-                </a>
-                <a class="member-item" href="/proposals">
+                </div>
+                <div class="member-item" data-url="/proposals">
                     <img src="/images/zxta.png">
                     <p>政协提案</p>
-                </a>
+                </div>
             </div>
             <div class="member-row">
-                <a class="member-item" href="/social">
+                <div class="member-item" data-url="/social">
                     <img src="/images/sqmy.png">
                     <p>社情民意</p>
-                </a>
-                <a class="member-item" href="/mien">
+                </div>
+                <div class="member-item" data-url="/mien">
                     <img src="/images/wyfc.png">
                     <p>委员风采</p>
-                </a>
+                </div>
             </div>
             <div class="member-row">
-                <a class="member-item" href="study">
+                <div class="member-item" data-url="study">
                     <img src="/images/xxyd.png">
                     <p>学习园地</p>
-                </a>
-                <a class="member-item" href="/video">
+                </div>
+                <div class="member-item" data-url="/video">
                     <img src="/images/spdb.png">
                     <p>视频点播</p>
-                </a>
+                </div>
             </div>
         </div>
     </div>
 </div>
 </body>
+<script>
+    $(document).on('click','.member-item',function () {
+        sessionStorage.setItem("studyList", "");
+        sessionStorage.setItem("studyTop", 0);
+        sessionStorage.setItem("mienList", "");
+        sessionStorage.setItem("mienTop", 0);
+        sessionStorage.setItem("videoList", "");
+        sessionStorage.setItem("videoTop", 0);
+        var url=$(this).attr("data-url")
+        location.href=url
+    })
+</script>
 </html>

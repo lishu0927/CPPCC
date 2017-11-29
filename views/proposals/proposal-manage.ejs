@@ -185,7 +185,6 @@
     $(document).on('click','.download',function (e) {
         e.preventDefault()
         var filename=$(this).parent().prev(".anyou").html()
-        console.log(filename)
         var params = {
             tian_kind:$(this).attr("data-kind"),
             tian_id:$(this).attr("data-tian-id")

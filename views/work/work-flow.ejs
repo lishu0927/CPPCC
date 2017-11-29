@@ -1,39 +1,6 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <div class="wrap">
-        <ul class="list">
-            <li id="start">
-                <a href="/startWorkDraft" >
-                    <img src="images/icons/flow1.png">
-                    <span>发起流转</span>
-                </a>
-            </li>
-            <li>
-                <a href="/todoWork" id="todo">
-                    <img src="images/icons/flow2.png">
-                    <span>待办流转</span>
-                </a>
-            </li>
-            <li>
-                <a href="/doneWork" id="done">
-                    <img src="images/icons/flow3.png">
-                    <span>已办流转</span>
-                </a>
-            </li>
-            <li>
-                <a href="/searchWork">
-                    <img src="images/icons/flow4.png">
-                    <span>查询流转</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
-</body>
 <style>
     .container{
         padding: 42px 0 0 0;
@@ -48,32 +15,63 @@
         padding: 0 0 10% 0;
         width: 100%;
     }
-    .list li{
+    .list .item{
         border-bottom: 1px solid #adaaaa;
         padding: 7% 10px;
     }
-    .list li a img{
+    .list .item img{
         width: 60px;
         vertical-align: middle;
         margin-right: 20px;
     }
-    .list li a span{
+    .list .item span{
         color: #000;
         font-size: 18px;
         font-weight: bold;
     }
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap">
+        <ul class="list">
+            <li id="start" class="item" data-url="/startWorkDraft">
+                <img src="images/icons/flow1.png">
+                <span>发起流转</span>
+            </li>
+            <li id="todo" class="item" data-url="/todoWork">
+                <img src="images/icons/flow2.png">
+                <span>待办流转</span>
+            </li>
+            <li id="done" class="item" data-url="/doneWork">
+                <img src="images/icons/flow3.png">
+                <span>已办流转</span>
+            </li>
+            <li class="item" data-url="/searchWork">
+                <img src="images/icons/flow4.png">
+                <span>查询流转</span>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
 <script>
+    $(document).on('click','.item',function () {
+        sessionStorage.setItem("todoList","")
+        sessionStorage.setItem("todoTop",0)
+        sessionStorage.setItem("doneList","")
+        sessionStorage.setItem("doneTop",0)
+        var url=$(this).attr("data-url")
+        location.href=url
+    })
     $(function () {
         if(role==3 || role==5){
             $("#start").css("display","none")
         }
         var user_id=sessionStorage.getItem("user_id");
         var user=JSON.parse(sessionStorage.getItem('user'))
-        $("#todo").attr("href","/todoWork?id="+user_id+"&manager_id="+user.manager_id+"&role_type="+user.role_type);
-        $("#done").attr("href","/doneWork?id="+user_id+"&manager_id="+user.manager_id+"&role_type="+user.role_type);
-
-
+        $("#todo").attr("data-url","/todoWork?id="+user_id+"&manager_id="+user.manager_id+"&role_type="+user.role_type);
+        $("#done").attr("data-url","/doneWork?id="+user_id+"&manager_id="+user.manager_id+"&role_type="+user.role_type);
     })
 </script>
 </html>

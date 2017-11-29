@@ -79,7 +79,11 @@ module.exports = {
         req.end();
     },
     files: function (req1, res, next) {
-        var data = {startid: -1};
+        var data = {
+            startid: -1,
+            num:20,
+            start:0
+        };
         var content = JSON.stringify(data);
         var options = {
             host: global.reqHost,
@@ -98,12 +102,11 @@ module.exports = {
                     body += data;
                 }).on('end', function () {
                     body = JSON.parse(body);
-                    var list = body.article_list;
+                    var article_list = body.article_list;
                     res.render('work/work-files',
                         {
                             title: '政协文件',
-                            type: 1,
-                            result: list
+                            article_list: article_list
                         }
                     );
                 })
@@ -119,7 +122,7 @@ module.exports = {
         req.end();
     },
     fileDetail: function (req1, res, next) {
-        var data = {article_id: req1.query.article_id};
+        var data = {article_id: req1.query.id};
         var content = JSON.stringify(data);
         var options = {
             host: global.reqHost,
@@ -177,12 +180,11 @@ module.exports = {
                     body += data;
                 }).on('end', function () {
                     body = JSON.parse(body);
-                    var list = body.article_list;
+                    var article_list = body.article_list;
                     res.render('work/work-notices',
                         {
                             title: '通知',
-                            type: 1,
-                            result: list
+                            article_list: article_list
                         }
                     );
                 })
@@ -198,7 +200,7 @@ module.exports = {
         req.end();
     },
     noticeDetail: function (req1, res, next) {
-        var data = {article_id: req1.query.article_id};
+        var data = {article_id: req1.query.id};
         var content = JSON.stringify(data);
         var options = {
             host: global.reqHost,
@@ -355,7 +357,10 @@ module.exports = {
             dailywork_list_kind: 3,
             manager_id: manager_id,
             role_type: role_type,
-            user_id:user_id
+            user_id:user_id,
+            startid:-1,
+            num:20,
+            start:0
         };
         var content = JSON.stringify(data);
         var options = {
@@ -447,7 +452,10 @@ module.exports = {
             dailywork_list_kind: 4,
             manager_id: manager_id,
             role_type: role_type,
-            user_id:user_id
+            user_id:user_id,
+            startid:-1,
+            num:20,
+            start:0
         };
         var content = JSON.stringify(data);
         var options = {

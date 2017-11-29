@@ -9,6 +9,7 @@
         padding: 0 10%;
         display: flex;
         align-items: center;
+        overflow: hidden;
     }
     .list{
         text-align: center;
@@ -19,12 +20,12 @@
         border-bottom: 1px solid #adaaaa;
         padding: 5% 10px;
     }
-    .list li a img{
+    .list li .item img{
         width: 60px;
         vertical-align: middle;
         margin-right: 20px;
     }
-    .list li a span{
+    .list li .item span{
         color: #000;
         font-size: 18px;
         font-weight: bold;
@@ -36,31 +37,31 @@
     <div class="wrap">
         <ul class="list">
             <li>
-                <a href="/proposalSubmit">
+                <div class="item" data-url="/proposalSubmit">
                     <img src="images/ta1.png">
                     <span>提案提交</span>
-                </a>
+                </div>
             </li>
             <li>
-                <a href="/proposalPublicity">
+                <div class="item" data-url="/proposalPublicity">
                     <img src="images/ta2.png">
                     <span>提案公示</span>
-                </a>
+                </div>
             </li>
             <li>
-                <a href="/proposalHonor">
+                <div class="item" data-url="/proposalHonor">
                     <img src="images/ta3.png">
                     <span>提案表彰</span>
-                </a>
+                </div>
             </li>
             <li>
-                <a href="/proposalKnow">
+                <div class="item" data-url="/proposalKnow">
                     <img src="images/ta4.png">
                     <span>提案知识</span>
-                </a>
+                </div>
             </li>
            <!-- <li>
-                <a href="/proposalLecture">
+                <div class="item" data-url="/proposalLecture">
                     <img src="images/ta5.png">
                     <span>提案讲座</span>
                 </a>
@@ -69,4 +70,16 @@
     </div>
 </div>
 </body>
+<script>
+    $(document).on('click','.item',function () {
+        sessionStorage.setItem("honorList","")
+        sessionStorage.setItem("honorTop",0)
+        sessionStorage.setItem("knowList","")
+        sessionStorage.setItem("knowTop",0)
+        sessionStorage.setItem("publicityList","")
+        sessionStorage.setItem("publicityTop",0)
+        var url=$(this).attr("data-url")
+        location.href=url
+    })
+</script>
 </html>

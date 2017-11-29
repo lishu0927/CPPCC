@@ -19,7 +19,7 @@
     }
     .item .circle{
         position: absolute;
-        top:17px;
+        top:15px;
         left: 13px;
         background: #0071bd;
         width: 10px;
@@ -31,108 +31,54 @@
         text-indent: 20px;
         font-size: 13px;
     }
-    .item .time{
+    .item .bottom{
         font-size: 12px;
         color: #0071bd;
-    }
-    .page{
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #ffffff;
-        display: none;
-        z-index: 100000000000000;
-        padding-top: 42px;
-    }
-    .page-content{
-        height: 100%;
+        text-align: right;
         overflow-y: auto;
+        padding-top: 3px;
     }
-    .page-content .title{
-        background: #b8cae2;
-        padding: 10px;
-        line-height: 26px;
-        color: #0d0d0d;
-        text-align: center;
-        font-size: 16px;
+    .item .bottom .left{
+        float: left;
+        padding: 0 10px 0 0;
     }
-    .page-content .content{
-        padding: 10px;
-        word-break: break-word;
-        width: 100%;
-        overflow-x: hidden;
-    }
-    .page-content .content table,.content img{
-        width: 100%!important;
-    }
-    .page-content .content p{
-        color: #3b3b3b;
-        font-size: 15px;
-        letter-spacing: 1px;
-        word-break: break-word;
+    .item .bottom .right{
+        float: right;
+        padding: 0 5px;
     }
 </style>
 <body>
 <div class="container">
     <%-include ../base/header.ejs%>
-    <div id="mescroll" class="mescroll wrap">
-        <div class=" content " id="list-content">
-            <%for(var i = 0;i < result.length;i++){ %>
-            <div class="item" onclick="dis(<%=result[i].article_id%>)" id="<%=result[i].article_id%>" >
+    <div class="wrap mescroll" id="mescroll">
+        <div class="list-content">
+            <%for(var i=0 ;i<article_list.length;i++){%>
+            <div class="item" id="<%=article_list[i].article_id%>">
                 <span class="circle"></span>
-                <p class="anyou"><%= result[i].title%></p>
-                <p class="time"><%= result[i].add_time%></p>
+                <p class="anyou"><%=article_list[i].title%></p>
+                <p class="bottom">
+                    <span class="left"><%=article_list[i].add_time.split(" ")[0]%></span>
+                </p>
             </div>
             <%}%>
         </div>
     </div>
 </div>
-<div class="page">
-    <header>
-        <span class="header-icon-left" onclick="back()">
-            <img src="/images/icons/back.png">
-        </span>
-        <p class="header-title">
-            通知详情
-        </p>
-    </header>
-    <div class="page-content">
-
-    </div>
-</div>
 </body>
 <script>
-    function dis(id) {
-        $(".page-content").html("");
-        $(".page").css("display","block")
-        var params = {
-            article_id: id
-        }
-        var data = JSON.stringify(params)
-        $.ajax({
-            url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m3_12.ashx',
-            type: "POST",
-            dataType: 'json',
-            data: data,
-            error: function (request) {      // 设置表单提交出错
-                mui.toast("系统错误，返回状态码为：" + request.status);
-            },
-            success: function (data) {
-                if (data.ecode == 1000) {
-                    var detail= '<p class="title">'+data.title+'</p>'+
-                        '<div class="content">'+data.content+'</div>'
-                    $(".page-content").append(detail)
-                }
-            }
-        })
-    }
-    function back() {
-        $(".page").css("display","none")
-    }
+    $(document).on('click','.item',function () {
+        var id=$(this).attr("id")
+        location.href='/noticeDetail?id='+id
+    })
     $(function () {
-
+        var loadContent=sessionStorage.getItem("noticesList");
+        var noticesList = sessionStorage.getItem("noticesList")
+        $(".list-content").append(noticesList)
+        var noticesTop = sessionStorage.getItem("noticesTop");
+        $(".wrap").scrollTop(noticesTop);
+        $(".wrap").scroll(function () {
+            sessionStorage.setItem("noticesTop", $(this).scrollTop());
+        });
         //创建MeScroll对象
         var mescroll = new MeScroll("mescroll", {
             down: {
@@ -146,10 +92,13 @@
         });
 
         /*下拉刷新的回调 */
-        function downCallback(){
+        function downCallback() {
+            sessionStorage.setItem("noticesList", "");
+            sessionStorage.setItem("noticesTop", 0);
             window.location.reload()
         }
-        function upCallback(){
+
+        function upCallback() {
             var params = {
                 startid: $(".item:last").attr("id"),
                 num: 10,
@@ -157,7 +106,7 @@
             }
             var data = JSON.stringify(params)
             $.ajax({
-                url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m3_11.ashx',
+                url: 'http://<%= reqHost %>:<%= reqPort %>/ZxApi/m3_11.ashx',
                 type: "POST",
                 dataType: 'json',
                 data: data,
@@ -165,23 +114,26 @@
                     mui.toast("系统错误，返回状态码为：" + request.status);
                 },
                 success: function (data) {
-                    if(data.ecode==1000){
-                        mescroll.endSuccess(data.length);
-                        var list=data.article_list
-                        if(list.length>0){
+                    if (data.ecode == 1000) {
+                        var list = data.article_list
+                        if (data.num > 0) {
+                            mescroll.endSuccess(data.length);
                             $.each(list, function (i) {
-                                var item='<div class="item" onclick="dis('+list[i].article_id+')" id="'+list[i].article_id+'" >'+
-                                    '<span class="circle"></span>'+
-                                    '<p class="anyou">'+list[i].title+'</p>'+
-                                    '<p class="time">'+list[i].add_time+'</p>'+
+                                var item = '<div class="item" id="' + list[i].article_id + '">' +
+                                    '<span class="circle"></span>' +
+                                    '<p class="anyou">' + list[i].title + '</p>' +
+                                    '<p class="bottom">' +
+                                    '<span class="left">' + list[i].add_time.split(" ")[0] + '</span>' +
+                                    '</p>' +
                                     '</div>'
-                                $("#list-content").append(item);
+                                $(".list-content").append(item);
+                                loadContent += item;
                             })
-                        }else{
-                            mescroll.endSuccess(0)
+                            sessionStorage.setItem("noticesList", loadContent);
+                        } else {
+                            mescroll.endUpScroll(true)
                         }
-
-                    }else{
+                    } else {
                         mui.toast("系统错误")
                         mescroll.endErr()
                     }

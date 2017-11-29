@@ -19,7 +19,7 @@
     }
     .item .circle{
         position: absolute;
-        top:17px;
+        top:15px;
         left: 13px;
         background: #0071bd;
         width: 10px;
@@ -51,16 +51,18 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <div class="wrap mescroll" id="mescroll">
-        <%for(var i=0 ;i<tian_list.length;i++){%>
-        <a class="item" id="<%=tian_list[i].tian_id%>" href="/proposalDetail3?type=1&id=<%=tian_list[i].tian_id%>">
-            <span class="circle"></span>
-            <p class="anyou"><%=tian_list[i].anyou%></p>
-            <p class="bottom">
-                <span class="left"><%=tian_list[i].creattime.split(" ")[0]%></span>
-                <span class="right download"  data-tian-id="<%=tian_list[i].tian_id%>">下载</span>
-            </p>
-        </a>
-        <%}%>
+        <div class="list-content">
+            <%for(var i=0 ;i<tian_list.length;i++){%>
+            <div class="item" id="<%=tian_list[i].tian_id%>">
+                <span class="circle"></span>
+                <p class="anyou"><%=tian_list[i].anyou%></p>
+                <p class="bottom">
+                    <span class="left"><%=tian_list[i].creattime.split(" ")[0]%></span>
+                    <span class="right download"  data-tian-id="<%=tian_list[i].tian_id%>">下载</span>
+                </p>
+            </div>
+            <%}%>
+        </div>
     </div>
 </div>
 </body>
@@ -94,12 +96,18 @@
             }
         });
     })
+    $(document).on('click','.item',function () {
+        var id=$(this).attr("id")
+        location.href='/proposalDetail3?type=1&id='+id
+    })
     $(function () {
-        var _offset = sessionStorage.getItem("offsetTop");
-        $(".wrap").scrollTop(_offset);
+        var loadContent=sessionStorage.getItem("downList");
+        var downList=sessionStorage.getItem("downList")
+        $(".list-content").append(downList)
+        var downTop = sessionStorage.getItem("downTop");
+        $(".wrap").scrollTop(downTop);
         $(".wrap").scroll(function() {
-            sessionStorage.setItem("offsetTop", $(this).scrollTop());
-            console.log($(this).scrollTop())
+            sessionStorage.setItem("downTop", $(this).scrollTop());
         });
         //创建MeScroll对象
         var mescroll = new MeScroll("mescroll", {
@@ -108,23 +116,27 @@
                 callback: downCallback //下拉刷新的回调
             },
             up: {
-                use: false
+                auto: false, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+                callback: upCallback //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
             }
         });
 
         /*下拉刷新的回调 */
         function downCallback(){
+            sessionStorage.setItem("downList", "");
+            sessionStorage.setItem("downTop", 0);
             window.location.reload()
         }
         function upCallback(){
             var params = {
+                tian_list_kind:3,
                 startid: $(".item:last").attr("id"),
                 num: 10,
                 start: 0
             }
             var data = JSON.stringify(params)
             $.ajax({
-                url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m3_11.ashx',
+                url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_12.ashx',
                 type: "POST",
                 dataType: 'json',
                 data: data,
@@ -134,20 +146,24 @@
                 success: function (data) {
                     if(data.ecode==1000){
                         mescroll.endSuccess(data.length);
-                        var list=data.article_list
+                        var list=data.tian_list
                         if(list.length>0){
                             $.each(list, function (i) {
-                                var item='<div class="item" onclick="dis('+list[i].article_id+')" id="'+list[i].article_id+'" >'+
+                                var item='<div class="item" id="'+list[i].tian_id+'">'+
                                     '<span class="circle"></span>'+
-                                    '<p class="anyou">'+list[i].title+'</p>'+
-                                    '<p class="time">'+list[i].add_time+'</p>'+
+                                    '<p class="anyou">'+list[i].anyou+'</p>'+
+                                    '<p class="bottom">'+
+                                    '<span class="left">'+list[i].creattime.split(" ")[0]+'</span>'+
+                                    '<span class="right download"  data-tian-id="'+list[i].tian_id+'">下载</span>'+
+                                    '</p>'+
                                     '</div>'
-                                $("#list-content").append(item);
+                                $(".list-content").append(item);
+                                loadContent+=item;
                             })
+                            sessionStorage.setItem("downList", loadContent);
                         }else{
-                            mescroll.endSuccess(0)
+                            mescroll.endUpScroll(true)
                         }
-
                     }else{
                         mui.toast("系统错误")
                         mescroll.endErr()

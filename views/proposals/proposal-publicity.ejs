@@ -1,23 +1,15 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <div class="wrap">
-        <%for(var i=0 ;i<tian_list.length;i++){%>
-        <a class="item" href="/proposalDetail4?id=<%=tian_list[i].tian_id%>">
-            <span class="circle"></span>
-            <p class="anyou"><%=tian_list[i].anyou%></p>
-            <p class="time"><%=tian_list[i].creattime.split(' ')[0]%></p>
-        </a>
-        <%}%>
-    </div>
-</div>
-</body>
 <style>
     .container{
         padding: 42px 0 0 0;
+    }
+    .mescroll{
+        position: fixed;
+        top: 42px;
+        bottom: 0;
+        height: auto;
     }
     .item{
         padding: 10px;
@@ -27,7 +19,7 @@
     }
     .item .circle{
         position: absolute;
-        top:17px;
+        top:15px;
         left: 13px;
         background: #0071bd;
         width: 10px;
@@ -39,9 +31,117 @@
         text-indent: 20px;
         font-size: 13px;
     }
-    .item .time{
+    .item .bottom{
         font-size: 12px;
         color: #0071bd;
+        text-align: right;
+        overflow-y: auto;
+        padding-top: 3px;
+    }
+    .item .bottom .left{
+        float: left;
+        padding: 0 10px 0 0;
+    }
+    .item .bottom .right{
+        float: right;
+        padding: 0 5px;
     }
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap mescroll" id="mescroll">
+        <div class="list-content">
+            <%for(var i=0 ;i<tian_list.length;i++){%>
+            <div class="item" id="<%=tian_list[i].tian_id%>">
+                <span class="circle"></span>
+                <p class="anyou"><%=tian_list[i].anyou%></p>
+                <p class="bottom">
+                    <span class="left"><%=tian_list[i].creattime.split(" ")[0]%></span>
+                </p>
+            </div>
+            <%}%>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $(document).on('click','.item',function () {
+        var id=$(this).attr("id")
+        location.href='/proposalDetail4?id='+id
+    })
+    $(function () {
+        var loadContent=sessionStorage.getItem("publicityList");
+        var publicityList = sessionStorage.getItem("publicityList")
+        $(".list-content").append(publicityList)
+        var publicityTop = sessionStorage.getItem("publicityTop");
+        $(".wrap").scrollTop(publicityTop);
+        $(".wrap").scroll(function () {
+            sessionStorage.setItem("publicityTop", $(this).scrollTop());
+        });
+        //创建MeScroll对象
+        var mescroll = new MeScroll("mescroll", {
+            down: {
+                auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+                callback: downCallback //下拉刷新的回调
+            },
+            up: {
+                auto: false, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+                callback: upCallback //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+            }
+        });
+
+        /*下拉刷新的回调 */
+        function downCallback() {
+            sessionStorage.setItem("publicityList", "");
+            sessionStorage.setItem("publicityTop", 0);
+            window.location.reload()
+        }
+
+        function upCallback() {
+            var params = {
+                tian_list_kind: 6,
+                startid: $(".item:last").attr("id"),
+                num: 10,
+                start: 0
+            }
+            var data = JSON.stringify(params)
+            $.ajax({
+                url: 'http://<%= reqHost %>:<%= reqPort %>/ZxApi/m2_12.ashx',
+                type: "POST",
+                dataType: 'json',
+                data: data,
+                error: function (request) {      // 设置表单提交出错
+                    mui.toast("系统错误，返回状态码为：" + request.status);
+                },
+                success: function (data) {
+                    if (data.ecode == 1000) {
+                        var list = data.tian_list
+                        console.log(data.num)
+                        if (data.num > 0) {
+                            mescroll.endSuccess(data.length);
+                            $.each(list, function (i) {
+                                var item = '<div class="item" id="' + list[i].tian_id + '">' +
+                                    '<span class="circle"></span>' +
+                                    '<p class="anyou">' + list[i].anyou + '</p>' +
+                                    '<p class="bottom">' +
+                                    '<span class="left">' + list[i].creattime.split(" ")[0] + '</span>' +
+                                    '</p>' +
+                                    '</div>'
+                                $(".list-content").append(item);
+                                loadContent += item;
+                            })
+                            sessionStorage.setItem("publicityList", loadContent);
+                        } else {
+                            mescroll.endUpScroll(true)
+                        }
+                    } else {
+                        mui.toast("系统错误")
+                        mescroll.endErr()
+                    }
+                }
+            });
+        }
+    })
+</script>
 </html>

@@ -188,7 +188,6 @@
 <script>
     $(function () {
         var _offset = sessionStorage.getItem("offsetTopSearch");
-        console.log(_offset)
         $(".wrap").scrollTop(_offset);  //进页面时跳到记录的位置
         $(".wrap").scroll(function() {
             sessionStorage.setItem("offsetTopSearch", $(this).scrollTop());

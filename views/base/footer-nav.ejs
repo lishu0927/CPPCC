@@ -40,11 +40,11 @@
     <ul class="nav-list">
         <%for(var i=0;i<navList.length;i++){
         if(type == i+1){%>
-        <li class="item active">
+        <li class="item active" data-url="<%= navList[i].item_rul%>">
             <%}else{%>
-        <li class="item">
+        <li class="item" data-url="<%= navList[i].item_rul%>">
             <%}%>
-            <div onclick="jump('<%= navList[i].item_rul%>')">
+            <div>
                 <%if(type == i+1){%>
                 <img src="/images/icons/<%= navList[i].item_pic%>.png">
                 <%}else{%>
@@ -57,10 +57,10 @@
     </ul>
 </div>
 <script>
-    function jump(url) {
-        console.log(url)
+    $(document).on('click','.nav-list .item',function () {
         sessionStorage.setItem("newsList", "");
         sessionStorage.setItem("newsTop", 0);
+        var url=$(this).attr("data-url")
         location.href=url
-    }
+    })
 </script>

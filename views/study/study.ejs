@@ -1,23 +1,15 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <div class="wrap">
-        <%for(var i=0 ;i<article_list.length;i++){%>
-        <a class="item" href="/studyDetail?id=<%=article_list[i].article_id%>">
-            <span class="circle"></span>
-            <p class="anyou"><%=article_list[i].title%></p>
-            <p class="time"><%=article_list[i].add_time.split(' ')[0]%></p>
-        </a>
-        <%}%>
-    </div>
-</div>
-</body>
 <style>
     .container{
         padding: 42px 0 0 0;
+    }
+    .mescroll{
+        position: fixed;
+        top: 42px;
+        bottom: 0;
+        height: auto;
     }
     .item{
         padding: 10px;
@@ -27,7 +19,7 @@
     }
     .item .circle{
         position: absolute;
-        top:17px;
+        top:15px;
         left: 13px;
         background: #0071bd;
         width: 10px;
@@ -39,9 +31,117 @@
         text-indent: 20px;
         font-size: 13px;
     }
-    .item .time{
+    .item .bottom{
         font-size: 12px;
         color: #0071bd;
+        text-align: right;
+        overflow-y: auto;
+        padding-top: 3px;
+    }
+    .item .bottom .left{
+        float: left;
+        padding: 0 10px 0 0;
+    }
+    .item .bottom .right{
+        float: right;
+        padding: 0 5px;
     }
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap mescroll" id="mescroll">
+        <div class="content-list">
+            <%for(var i=0 ;i<article_list.length;i++){%>
+            <div class="item" id="<%=article_list[i].article_id%>">
+                <span class="circle"></span>
+                <p class="anyou"><%=article_list[i].title%></p>
+                <p class="bottom">
+                    <span class="left"><%=article_list[i].add_time.split(" ")[0]%></span>
+                </p>
+            </div>
+            <%}%>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $(document).on('click','.item',function () {
+        var id=$(this).attr("id")
+        location.href='/studyDetail?id='+id
+    })
+    $(function () {
+        var loadContent=sessionStorage.getItem("studyList");
+        var studyList = sessionStorage.getItem("studyList")
+        $(".content-list").append(studyList)
+        var studyTop = sessionStorage.getItem("studyTop");
+        $(".wrap").scrollTop(studyTop);
+        $(".wrap").scroll(function () {
+            sessionStorage.setItem("studyTop", $(this).scrollTop());
+        });
+        //创建MeScroll对象
+        var mescroll = new MeScroll("mescroll", {
+            down: {
+                auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+                callback: downCallback //下拉刷新的回调
+            },
+            up: {
+                auto: false, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+                callback: upCallback //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+            }
+        });
+
+        /*下拉刷新的回调 */
+        function downCallback() {
+            sessionStorage.setItem("studyList", "");
+            sessionStorage.setItem("studyTop", 0);
+            window.location.reload()
+        }
+
+        function upCallback() {
+            var params = {
+                article_kind: 3,
+                startid: $(".item:last").attr("id"),
+                num: 10,
+                start: 0
+            }
+            var data = JSON.stringify(params)
+            $.ajax({
+                url: 'http://<%= reqHost %>:<%= reqPort %>/ZxApi/m2_21.ashx',
+                type: "POST",
+                dataType: 'json',
+                data: data,
+                error: function (request) {      // 设置表单提交出错
+                    mui.toast("系统错误，返回状态码为：" + request.status);
+                },
+                success: function (data) {
+                    if (data.ecode == 1000) {
+                        var list = data.tian_list
+                        console.log(data.num)
+                        if (data.num > 0) {
+                            mescroll.endSuccess(data.length);
+                            $.each(list, function (i) {
+                                var item = '<div class="item" id="' + list[i].article_id + '">' +
+                                    '<span class="circle"></span>' +
+                                    '<p class="anyou">' + list[i].title + '</p>' +
+                                    '<p class="bottom">' +
+                                    '<span class="left">' + list[i].add_time.split(" ")[0] + '</span>' +
+                                    '</p>' +
+                                    '</div>'
+                                $(".content-list").append(item);
+                                loadContent += item;
+                            })
+                            sessionStorage.setItem("studyList", loadContent);
+                        } else {
+                            mescroll.endUpScroll(true)
+                        }
+                    } else {
+                        mui.toast("系统错误")
+                        mescroll.endErr()
+                    }
+                }
+            });
+        }
+    })
+</script>
 </html>
