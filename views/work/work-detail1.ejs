@@ -326,8 +326,8 @@
             $(this).click(function () {
                 var tijiao_kind,worktitle,workcontent;
                 var dailyworkattach_list=[],dailyworkuser_list=[];
-                worktitle=$("#title").val();
-                workcontent=$("#content").val();
+                worktitle=$.trim($("#title").val());
+                workcontent=$.trim($("#content").val());
                 $('input[name="leader"]:checked').each(function(){
                     var leader =
                         {

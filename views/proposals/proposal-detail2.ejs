@@ -136,7 +136,7 @@
         $("#submit div").each(function () {
             $(this).click(function () {
                 if($(this).text()=='退回'){
-                    tuihui=$("#tuihui").val();
+                    tuihui=$.trim($("#tuihui").val());
                     if(tuihui == null||tuihui==""){
                         mui.toast("请填写退回理由")
                         return;

@@ -389,7 +389,7 @@
         if(data.ecode==1000){
             $('#img').attr("src",data.imgurl_list[0].imgurl);
         }else{
-            alert("上传失败！");
+            mui.toast("上传失败！");
         }
     });
     $("#upload").change(function () {
@@ -397,24 +397,24 @@
     });
     //保存委员信息
     $('#submit').click(function () {
-        var user_name=$('#name').val()
-        var password=$('#password').val();
-        var sex= $("input[name='sex']:checked").val();
-        var brithdatetime= $('#date').text();
-        var minzu= $('#minzu').val();
-        var mianmao= $('#mianmao').val();
-        var telephone= $('#telephone').val();
-        var fax=$('#fax').val();
-        var mobile= $('#mobile').val();
-        var address= $('#address').val();
-        var email= $('#email').val();
-        var xueli= $('#xueli').val();
-        var jiguan= $('#jiguan').val();
-        var jiebie= $('#jiebie').val();
-        var yuanxiao= $('#yuanxiao').val();
-        var zhicheng= $('#zhicheng').val();
-        var groupName= $('#groups').val();
-        var headImage= $('#img').attr("src");
+        var user_name=$.trim($('#name').val())
+        var password=$.trim($('#password').val());
+        var sex= $.trim($("input[name='sex']:checked").val());
+        var brithdatetime= $.trim($('#date').text());
+        var minzu= $.trim($('#minzu').val());
+        var mianmao= $.trim($('#mianmao').val());
+        var telephone= $.trim($('#telephone').val());
+        var fax=$.trim($('#fax').val());
+        var mobile= $.trim($('#mobile').val());
+        var address= $.trim($('#address').val());
+        var email= $.trim($('#email').val());
+        var xueli= $.trim($('#xueli').val());
+        var jiguan= $.trim($('#jiguan').val());
+        var jiebie= $.trim($('#jiebie').val());
+        var yuanxiao= $.trim($('#yuanxiao').val());
+        var zhicheng= $.trim($('#zhicheng').val());
+        var groupName= $.trim($('#groups').val());
+        var headImage= $.trim($('#img').attr("src"));
         if(user_name==''||password==''||sex==''||brithdatetime==''||minzu==''||
             mianmao==''||telephone==''||fax==''||mobile==''||address==''||email==''||
                 xueli==''||jiguan==''||jiebie==''||yuanxiao==''||zhicheng==''||

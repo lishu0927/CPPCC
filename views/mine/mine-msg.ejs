@@ -1,41 +1,6 @@
 <!DOCTYPE html>
 <html>
 <%- include ../base/checkHead.ejs %>
-<body>
-<div class="container">
-    <%- include ../base/header.ejs %>
-    <div class="wrap">
-        <div class="request-content">
-            <div class="row">
-                <p class="title">咨询标题</p>
-                <textarea id="title" placeholder="咨询标题" rows="1"></textarea>
-            </div>
-            <div class="row">
-                <p class="title">咨询内容</p>
-                <textarea id="content" placeholder="咨询内容..." rows="3"></textarea>
-            </div>
-            <div class="confirm">
-                <span>提交</span>
-            </div>
-        </div>
-        <div class="msg-content">
-            <p class="title">【留言内容选登】</p>
-            <div class="item">
-                <% for(var i = 0;i < result.length;i++){ %>
-                <p class="req">
-                    <span class="left">问：</span>
-                    <span><%=result[i].messagecontent%>（<%=result[i].createtime%>）</span>
-                </p>
-                <p class="res">
-                    <span class="left">答：</span>
-                    <span><%=result[i].messageanswer%>（<%=result[i].createtime%>）</span>
-                </p>
-                <% } %>
-            </div>
-        </div>
-    </div>
-</div>
-</body>
 <style>
     .container {
         padding: 42px 0 0 0;
@@ -82,14 +47,46 @@
         color: #0071bd;
     }
 </style>
+<body>
+<div class="container">
+    <%- include ../base/header.ejs %>
+    <div class="wrap">
+        <div class="request-content">
+            <div class="row">
+                <p class="title">咨询标题</p>
+                <textarea id="title" placeholder="咨询标题" rows="1"></textarea>
+            </div>
+            <div class="row">
+                <p class="title">咨询内容</p>
+                <textarea id="content" placeholder="咨询内容..." rows="3"></textarea>
+            </div>
+            <div class="confirm">
+                <span>提交</span>
+            </div>
+        </div>
+        <div class="msg-content">
+            <p class="title">【留言内容选登】</p>
+            <div class="item">
+                <% for(var i = 0;i < result.length;i++){ %>
+                <p class="req">
+                    <span class="left">问：</span>
+                    <span><%=result[i].messagecontent%>（<%=result[i].createtime%>）</span>
+                </p>
+                <p class="res">
+                    <span class="left">答：</span>
+                    <span><%=result[i].messageanswer%>（<%=result[i].createtime%>）</span>
+                </p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
 <script>
-    mui.init({
-        swipeBack:true //启用右滑关闭功能
-    });
-    var user=JSON.parse(sessionStorage.getItem('user'))
+    var user_id=sessionStorage.getItem("user_id")
     $('.confirm').click(function () {
-        var title = $('#title').val();
-        var content = $('#content').val();
+        var title = $.trim($('#title').val());
+        var content = $.trim($('#content').val());
         if(title==""||title==null){
             mui.toast('请填写标题');
             return;
@@ -98,7 +95,7 @@
             return;
         }
         var params = {
-            user_id: user.user_id,
+            user_id: user_id,
             messagetitle: title,
             messagecontent: content
         }

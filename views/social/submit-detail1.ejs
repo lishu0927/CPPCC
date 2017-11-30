@@ -162,8 +162,8 @@
         sqmy_id="<%=sqmy_info.sqmy_id%>"
         $("#submit div").each(function () {
             $(this).click(function () {
-                ideatitle=$("#title").val();
-                ideacontent=$("#content").val();
+                ideatitle=$.trim($("#title").val());
+                ideacontent=$.trim($("#content").val());
                 if($(this).text()=='提交'){
                     tijiao_kind=4;
                 }else if($(this).text()=='保存'){

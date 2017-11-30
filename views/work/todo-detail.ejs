@@ -251,7 +251,7 @@
         var touserid=sSId;
         var suggestion;
         $("#submit").click(function () {
-            suggestion=$("#suggestion").val();
+            suggestion=$.trim($("#suggestion").val());
             if(suggestion == null||suggestion==""){
                 mui.toast("请填写处理意见")
                 return;

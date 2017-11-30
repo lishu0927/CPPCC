@@ -124,12 +124,12 @@ $(function() {
     var mobile="<%=tian.mobile%>";
     var company,weinum,anyou,problem,analyse,advice;
     $("#submit").click(function () {
-        company=$("#company").val();
-        weinum=$("#weinum").val();
-        anyou=$("#anyou").val();
-        problem=$("#problem").val();
-        analyse=$("#analyse").val();
-        advice=$("#advice").val();
+        company=$.trim($("#company").val());
+        weinum=$.trim($("#weinum").val());
+        anyou=$.trim($("#anyou").val());
+        problem=$.trim($("#problem").val());
+        analyse=$.trim($("#analyse").val());
+        advice=$.trim($("#advice").val());
         if(user_name == ''||mobile==''||company==''||weinum=='' ||
             anyou==''||problem==''||analyse==''||advice==''){
             mui.toast("请填写完整")

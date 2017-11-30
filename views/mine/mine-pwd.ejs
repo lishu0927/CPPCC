@@ -48,9 +48,9 @@
 <script>
     var manager_id=sessionStorage.getItem("manager_id")
     $('.confirm').click(function () {
-        var psw = $('#pwd').val();
-        var newpsw = $('#newpwd').val();
-        var reppwd = $('#reppwd').val();
+        var psw = $.trim($('#pwd').val());
+        var newpsw = $.trim($('#newpwd').val());
+        var reppwd = $.trim($('#reppwd').val());
         if(newpsw==""){
             mui.toast('新密码不能为空');
             return;

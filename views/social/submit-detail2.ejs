@@ -1,56 +1,6 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <div class="wrap">
-        <div class="proposal-content">
-            <div class="row">
-                <span class="left">姓名</span>
-                <span class="right"><%=sqmy_info.username%></span>
-            </div>
-            <div class="row">
-                <span class="left">单位</span>
-                <span class="right"><%=sqmy_info.userfax%></span>
-            </div>
-            <div class="row">
-                <span class="left">组别</span>
-                <span class="right"><%=sqmy_info.usergroupname%></span>
-            </div>
-        </div>
-        <div class="submit-content">
-            <div class="row">
-                <p class="desc">事由</p>
-                <p><%-sqmy_info.ideatitle%></p>
-            </div>
-            <div class="row">
-                <p class="desc">内容简介</p>
-                <p><%-sqmy_info.ideacontent%></p>
-            </div>
-            <%if(back==1){%>
-            <div class="row">
-                <p class="desc">退回原因</p>
-                <p><%-sqmy_info.backreason%></p>
-            </div>
-            <%}%>
-            <%if(check==1){%>
-            <div class="row back">
-                <textarea placeholder="退回时请填写理由" rows="5" maxlength="250" id="backreason"></textarea>
-            </div>
-            <%}%>
-        </div>
-    </div>
-    <%if(check==1){%>
-    <div class="bottom">
-        <div class="content" id="submit">
-            <div class="left">退回</div>
-            <div class="right">通过立案</div>
-        </div>
-    </div>
-    <%}%>
-</div>
-</body>
 <style>
     .container{
         padding: 42px 0 10px 0;
@@ -135,6 +85,56 @@
         flex: 1;
     }
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap">
+        <div class="proposal-content">
+            <div class="row">
+                <span class="left">姓名</span>
+                <span class="right"><%=sqmy_info.username%></span>
+            </div>
+            <div class="row">
+                <span class="left">单位</span>
+                <span class="right"><%=sqmy_info.userfax%></span>
+            </div>
+            <div class="row">
+                <span class="left">组别</span>
+                <span class="right"><%=sqmy_info.usergroupname%></span>
+            </div>
+        </div>
+        <div class="submit-content">
+            <div class="row">
+                <p class="desc">事由</p>
+                <p><%-sqmy_info.ideatitle%></p>
+            </div>
+            <div class="row">
+                <p class="desc">内容简介</p>
+                <p><%-sqmy_info.ideacontent%></p>
+            </div>
+            <%if(back==1){%>
+            <div class="row">
+                <p class="desc">退回原因</p>
+                <p><%-sqmy_info.backreason%></p>
+            </div>
+            <%}%>
+            <%if(check==1){%>
+            <div class="row back">
+                <textarea placeholder="退回时请填写理由" rows="5" maxlength="250" id="backreason"></textarea>
+            </div>
+            <%}%>
+        </div>
+    </div>
+    <%if(check==1){%>
+    <div class="bottom">
+        <div class="content" id="submit">
+            <div class="left">退回</div>
+            <div class="right">通过立案</div>
+        </div>
+    </div>
+    <%}%>
+</div>
+</body>
 <script>
     var sqmy_id,audit_jieguo,tuihui;
     sqmy_id="<%=sqmy_info.sqmy_id%>"
@@ -142,7 +142,7 @@
         $(this).click(function () {
             if($(this).text()=='退回'){
                 audit_jieguo=0;
-                tuihui=$("#backreason").val();
+                tuihui=$.trim($("#backreason").val());
                 if(tuihui == null||tuihui == ""){
                     mui.toast("请填写退回理由")
                     return;

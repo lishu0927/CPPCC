@@ -139,12 +139,12 @@ $(function() {
     $("#company").val(company)
     $("#submit div").each(function () {
         $(this).click(function () {
-            company=$("#company").val();
-            weinum=$("#weinum").val();
-            anyou=$("#anyou").val();
-            problem=$("#problem").val();
-            analyse=$("#analyse").val();
-            advice=$("#advice").val();
+            company=$.trim($("#company").val());
+            weinum=$.trim($("#weinum").val());
+            anyou=$.trim($("#anyou").val());
+            problem=$.trim($("#problem").val());
+            analyse=$.trim($("#analyse").val());
+            advice=$.trim($("#advice").val());
             if($(this).text()=='提交'){
                 tijiao_kind=2;
             }else if($(this).text()=='保存'){

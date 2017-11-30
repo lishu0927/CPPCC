@@ -75,7 +75,7 @@
     $("#info").val(keyword);
     $("#search").click(function () {
         sessionStorage.setItem("newsSearchTop", 0)
-        var info = $("#info").val();
+        var info = $.trim($("#info").val())
         if(info==""){
             mui.toast("请输入查找关键字")
         }else{

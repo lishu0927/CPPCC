@@ -112,9 +112,10 @@
 </div>
 </body>
 <script>
+    var user_id=sessionStorage.getItem("user_id")
     var user=JSON.parse(sessionStorage.getItem('user'))
     var userid,username,fax,groupName,tijiao_kind,sqmy_id,ideatitle,ideacontent;
-    userid=user.user_id;
+    userid=user_id;
     username=user.user_name;
     fax=user.fax;
     groupName=user.groupName;
@@ -123,8 +124,8 @@
     $("#groupName").html(groupName)
     $("#submit div").each(function () {
         $(this).click(function () {
-            ideatitle=$("#title").val();
-            ideacontent=$("#content").val();
+            ideatitle=$.trim($("#title").val());
+            ideacontent=$.trim($("#content").val());
             if($(this).text()=='提交'){
                 tijiao_kind=2;
                 sqmy_id=0;

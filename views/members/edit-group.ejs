@@ -42,7 +42,7 @@
 <script>
     var groupid="<%= groupid %>";
     $("#changeName").click(function () {
-        var groupname = $("#groupname").val();
+        var groupname = $.trim($("#groupname").val());
         if (groupname == '') {
             mui.toast("名称不可以为空！");
             return;
