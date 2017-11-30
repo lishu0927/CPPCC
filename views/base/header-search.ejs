@@ -61,6 +61,10 @@
     $("#search").click(function () {
         sessionStorage.setItem("newsSearchTop", 0)
         var info = $("#info").val();
-        location.href = "/search?keyword=" + info;
+        if(info==""){
+            mui.toast("请输入查找关键字")
+        }else{
+            location.href = "/search?keyword=" + info;
+        }
     });
 </script>

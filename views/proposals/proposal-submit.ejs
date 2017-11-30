@@ -48,7 +48,7 @@
     <div class="wrap">
         <ul class="list">
             <li>
-                <div class="item" data-url="/proposalDown">
+                <div class="item" data-url="/proposalDown" id="down">
                     <span class="left">
                         <img src="images/ta_bxz.png">
                     </span>
@@ -89,6 +89,7 @@
         if (role == 4 || role == 5 || user_id<=0 || user_id=='' || user_id==null) {
             $("#subProposal").css("display", "none")
         }
+        $("#down").attr("data-url","/proposalDown?id="+user_id)
         $("#manage").attr("data-url","/proposalManage1?pageType=0&id="+user_id)
     })
 </script>

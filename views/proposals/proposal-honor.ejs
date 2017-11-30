@@ -71,6 +71,7 @@
         location.href='/honorDetail?id='+id
     })
     $(function () {
+        var user_id=sessionStorage.getItem("user_id")
         var loadContent=sessionStorage.getItem("honorList");
         var honorList = sessionStorage.getItem("honorList")
         $(".list-content").append(honorList)
@@ -100,6 +101,7 @@
 
         function upCallback() {
             var params = {
+                user_id:user_id,
                 tian_list_kind: 7,
                 startid: $(".item:last").attr("id"),
                 num: 10,

@@ -15,9 +15,7 @@
 <script>
     var mId=sessionStorage.getItem('manager_id')
     var role=sessionStorage.getItem('role_type')
-    if(mId != null && mId != ""){
-
-    }else{
+    if(mId == null || mId == ""){
         location.href="/login"
     }
 </script>

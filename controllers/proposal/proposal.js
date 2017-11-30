@@ -1,7 +1,9 @@
 var http = require("http");
 module.exports = {
     init: function (req1, res, next) {
+        var user_id=req1.query.id
         var data = {
+            user_id:user_id,
             tian_list_kind:3,
             num:20,
             start:0,
@@ -952,7 +954,9 @@ module.exports = {
         req.end();
     },
     publicity: function (req1, res, next) {
+        var user_id=req1.query.id
         var data = {
+            user_id:user_id,
             tian_list_kind:6,
             startid: -1,
             num: 20,
@@ -996,7 +1000,9 @@ module.exports = {
         req.end();
     },
     honor: function (req1, res, next) {
+        var user_id=req1.query.id
         var data = {
+            user_id:user_id,
             tian_list_kind:7,
             startid: -1,
             num: 20,

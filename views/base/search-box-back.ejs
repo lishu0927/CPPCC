@@ -46,11 +46,15 @@
     $("#info").val(keyword)
     $("#search").click(function () {
         var info = $("#info").val();
-        if(search_type=='member'){
-            location.replace("/membersSearch?keyword=" + info);
-        }else if(search_type=='proposal'){
-            sessionStorage.setItem("proSearchTop", 0)
-            location.replace("/proposalSearch?keyword=" + info);
+        if(info==""){
+            mui.toast("请输入查找关键字")
+        }else{
+            if(search_type=='member'){
+                location.replace("/membersSearch?keyword=" + info);
+            }else if(search_type=='proposal'){
+                sessionStorage.setItem("proSearchTop", 0)
+                location.replace("/proposalSearch?keyword=" + info);
+            }
         }
     });
 </script>

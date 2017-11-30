@@ -73,10 +73,9 @@
         location.href='/doneDetail?id='+id
     })
     $(function () {
-        var user=JSON.parse(sessionStorage.getItem('user'))
-        var user_id=user.user_id
-        var manager_id=user.manager_id
-        var role_type=user.role_type
+        var user_id=sessionStorage.getItem("user_id")
+        var manager_id=sessionStorage.getItem("manager_id")
+        var role_type=sessionStorage.getItem("role_type")
         var loadContent=sessionStorage.getItem("doneList");
         var doneList = sessionStorage.getItem("doneList")
         $(".list-content").append(doneList)

@@ -71,6 +71,7 @@
         location.href='/proposalDetail4?id='+id
     })
     $(function () {
+        var user_id=sessionStorage.getItem("user_id")
         var loadContent=sessionStorage.getItem("publicityList");
         var publicityList = sessionStorage.getItem("publicityList")
         $(".list-content").append(publicityList)
@@ -100,6 +101,7 @@
 
         function upCallback() {
             var params = {
+                user_id:user_id,
                 tian_list_kind: 6,
                 startid: $(".item:last").attr("id"),
                 num: 10,
@@ -117,7 +119,6 @@
                 success: function (data) {
                     if (data.ecode == 1000) {
                         var list = data.tian_list
-                        console.log(data.num)
                         if (data.num > 0) {
                             mescroll.endSuccess(data.length);
                             $.each(list, function (i) {

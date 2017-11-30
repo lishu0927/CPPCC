@@ -128,8 +128,7 @@
 
 <script>
     var user=JSON.parse(sessionStorage.getItem('user'))
-    console.log(user)
-    var id=sessionStorage.getItem('user_id');
+    var user_id=sessionStorage.getItem('user_id');
 
     $('#name').html(user.user_name);
     $('#headImage').attr("src",user.headImage);
@@ -143,10 +142,10 @@
     }
 
     $("#detail").click(function () {
-        if(id==null || id<=0 || id==''){
+        if(user_id==null || user_id<=0 || user_id==''){
             mui.toast("当前用户不支持此功能")
         }else{
-            location.href='/membersDetail?id='+id
+            location.href='/membersDetail?id='+user_id
         }
     })
 

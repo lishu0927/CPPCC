@@ -43,13 +43,13 @@
                 </div>
             </li>
             <li>
-                <div class="item" data-url="/proposalPublicity">
+                <div class="item" data-url="/proposalPublicity" id="publicity">
                     <img src="images/ta2.png">
                     <span>提案公示</span>
                 </div>
             </li>
             <li>
-                <div class="item" data-url="/proposalHonor">
+                <div class="item" data-url="/proposalHonor" id="honor">
                     <img src="images/ta3.png">
                     <span>提案表彰</span>
                 </div>
@@ -71,6 +71,11 @@
 </div>
 </body>
 <script>
+    $(function () {
+        var user_id=sessionStorage.getItem("user_id")
+        $("#publicity").attr("data-url","/proposalPublicity?id="+user_id)
+        $("#honor").attr("data-url","/proposalHonor?id="+user_id)
+    })
     $(document).on('click','.item',function () {
         sessionStorage.setItem("honorList","")
         sessionStorage.setItem("honorTop",0)

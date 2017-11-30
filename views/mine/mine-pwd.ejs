@@ -46,7 +46,7 @@
 </div>
 </body>
 <script>
-    var user=JSON.parse(sessionStorage.getItem('user'))
+    var manager_id=sessionStorage.getItem("manager_id")
     $('.confirm').click(function () {
         var psw = $('#pwd').val();
         var newpsw = $('#newpwd').val();
@@ -59,7 +59,7 @@
             return;
         }
         var params = {
-            manager_id: user.manager_id,
+            manager_id: manager_id,
             old_password: psw,
             new_password: newpsw
         }

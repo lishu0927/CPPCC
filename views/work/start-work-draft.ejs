@@ -123,9 +123,8 @@
 <script>
     $(function () {
         var user_id=sessionStorage.getItem("user_id")
-        var user=JSON.parse(sessionStorage.getItem('user'))
-        var manager_id=user.manager_id
-        var role_type=user.role_type
+        var manager_id=sessionStorage.getItem("manager_id")
+        var role_type=sessionStorage.getItem("role_type")
         var loadContent=sessionStorage.getItem("draftList");
         var draftList=sessionStorage.getItem("draftList")
         $(".list-content").append(draftList)

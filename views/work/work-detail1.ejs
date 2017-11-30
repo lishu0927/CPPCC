@@ -215,7 +215,9 @@
 
 <script>
     $(function () {
-        $(".file-list").on('click','.delete',function () {
+        $(".file-list").on('click','.delete',function (e) {
+            e.preventDefault()
+            e.stopPropagation()
             $(this).parent().remove();
         })
 

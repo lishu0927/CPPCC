@@ -73,10 +73,11 @@
             $("#start").css("display","none")
         }
         var user_id=sessionStorage.getItem("user_id");
-        var user=JSON.parse(sessionStorage.getItem('user'))
-        $("#start").attr("data-url","/startWorkDraft?id="+user_id+"&manager_id="+user.manager_id+"&role_type="+user.role_type);
-        $("#todo").attr("data-url","/todoWork?id="+user_id+"&manager_id="+user.manager_id+"&role_type="+user.role_type);
-        $("#done").attr("data-url","/doneWork?id="+user_id+"&manager_id="+user.manager_id+"&role_type="+user.role_type);
+        var manager_id=sessionStorage.getItem("manager_id");
+        var role_type=sessionStorage.getItem("role_type");
+        $("#start").attr("data-url","/startWorkDraft?id="+user_id+"&manager_id="+manager_id+"&role_type="+role_type);
+        $("#todo").attr("data-url","/todoWork?id="+user_id+"&manager_id="+manager_id+"&role_type="+role_type);
+        $("#done").attr("data-url","/doneWork?id="+user_id+"&manager_id="+manager_id+"&role_type="+role_type);
     })
 </script>
 </html>
