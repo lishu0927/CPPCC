@@ -128,12 +128,15 @@
                 <p class="desc">内容</p>
                 <div class="con"><%=work.workcontent%></div>
             </div>
-            <%for(var j=0;j<user_list.length;j++){%>
+            <%
+            for(var j=0;j<user_list.length;j++){
+                if(user_list[j].suggestion!=""){
+            %>
             <div class="content-row">
                 <p class="desc">处理人<%=user_list[j].tousername%></p>
                 <div class="con"><%=user_list[j].suggestion%></div>
             </div>
-            <%}%>
+            <%}}%>
         </div>
     </div>
 </div>
