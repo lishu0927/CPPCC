@@ -160,6 +160,58 @@ module.exports = {
         req.write(content);
         req.end();
     },
+    work: function (req1, res, next) {
+        var user_id=req1.query.id;
+        var manager_id=req1.query.manager_id;
+        var role_type=req1.query.role_type;
+        var data = {
+            dailywork_list_kind: 3,
+            manager_id: manager_id,
+            role_type: role_type,
+            user_id:user_id,
+            startid:-1,
+            num:20,
+            start:0
+        };
+        var content = JSON.stringify(data);
+        var options = {
+            host: global.reqHost,
+            port: global.reqPort,
+            path: "/ZxApi/m3_05.ashx",
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
+            }
+        };
+        var req = http.request(options, function (serverFeedback) {
+            if (serverFeedback.statusCode == 200) {
+                var body = "";
+                serverFeedback.setEncoding('utf8');
+                serverFeedback.on('data', function (data) {
+                    body += data;
+                }).on('end', function () {
+                    body = JSON.parse(body);
+                    var num=body.dailywork_list.length
+                    res.render('work/work',
+                        {
+                            title: '政协工作',
+                            keyword: '',
+                            type: 3,
+                            num: num
+                        }
+                    );
+                })
+            } else {
+                res.send(500, "error");
+            }
+        });
+        req.on('error', function (e) {
+            console.log('problem with request: ' + e.message);
+        });
+        // write data to request body
+        req.write(content);
+        req.end();
+    },
     notices: function (req1, res, next) {
         var data = {startid: -1, num: 20, start: 0};
         var content = JSON.stringify(data);

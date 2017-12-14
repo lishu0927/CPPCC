@@ -3,9 +3,10 @@
 <%-include ../base/checkHead.ejs%>
 <style>
     .work-content ul li{
+        position: relative;
         height: 50px;
         line-height: 50px;
-        border-bottom: 1px solid #adaaaa;
+        border-bottom: 1px solid #ddd;
         padding: 0 10px;
         background-image: url("/images/icons/back-right.png");
         background-size: 8px;
@@ -15,6 +16,14 @@
     .work-content ul li p{
         font-size: 16px;
         color: #000;
+    }
+    .work-content ul li .num{
+        position: absolute;
+        right: 20px;
+        top:0;
+        padding: 0 10px;
+        color: #fa1414;
+        font-size: 15px;
     }
 </style>
 <body>
@@ -32,8 +41,9 @@
             <li class="item" data-url="/workFiles">
                 <p>政协文件</p>
             </li>
-            <li class="item" data-url="/workFlow">
+            <li class="item" data-url="/workFlow" id="flow" style="display: none">
                 <p>文件流转</p>
+                <span class="num"><%=num%></span>
             </li>
             <li class="item" data-url="/workNotices">
                 <p>通知</p>
@@ -50,6 +60,11 @@
         sessionStorage.setItem("filesTop",0)
         var url=$(this).attr("data-url")
         location.href=url
+    })
+    $(function () {
+        if(role==4 || role==5){
+            $("#flow").css("display","block")
+        }
     })
 </script>
 </html>

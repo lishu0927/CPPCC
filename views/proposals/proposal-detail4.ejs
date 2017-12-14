@@ -30,7 +30,7 @@
         text-align: right;
     }
     .proposal-content{
-        border-bottom: 1px solid #adaaaa;
+        border-bottom: 1px solid #ddd;
         margin-top: 10px;
     }
     .proposal-content .row{
@@ -39,7 +39,7 @@
         color: #585757;
         line-height: 30px;
         align-items: center;
-        border: 1px solid #adaaaa;
+        border: 1px solid #ddd;
         border-bottom: 0;
     }
     .proposal-content .row .left{
@@ -48,7 +48,7 @@
     }
     .proposal-content .row .right{
         flex: 1;
-        border-left: 1px solid #adaaaa;
+        border-left: 1px solid #ddd;
         padding: 5px;
         min-height: 30px;
         overflow: hidden;
@@ -85,7 +85,7 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <%if(type==1){%>
-    <a class="header-right" href="/proposalSubmit2?id=<%=tian.tian_id%>">修改重提</a>
+    <span class="header-right" onclick="changeTian(<%=tian.tian_id%>)">修改重提</span>
     <%}%>
     <div class="wrap">
         <p class="text-left">审查意见：立案</p>
@@ -161,6 +161,33 @@
         var value = this.checked?"是":"否";
         this.value=value;
     });
+    function changeTian(id) {
+        if($(".header-right").html()=="已申请修改"){
+            mui.toast("提案已申请修改！")
+            return ;
+        }
+        var params = {
+            tian_id: id
+        }
+        var data = JSON.stringify(params)
+        $.ajax({
+            url: 'http://<%=reqHost%>:<%=reqPort%>/ZxApi/m2_27.ashx',
+            type: "POST",
+            dataType: 'json',
+            data: data,
+            error: function (request) {      // 设置表单提交出错
+                mui.toast("系统错误，返回状态码为：" + request.status);
+            },
+            success: function (data) {
+                if(data.ecode==1000){
+                    mui.toast("申请成功！");
+                    $(".header-right").html("已申请修改")
+                }else{
+                    mui.toast("申请失败！");
+                }
+            }
+        });
+    }
     $(function() {
         if($('#publish').val()== 1){
             $('#publish').attr("checked",true)

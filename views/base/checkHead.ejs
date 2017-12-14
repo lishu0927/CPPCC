@@ -12,6 +12,44 @@
     <script type='text/javascript' src='/js/jquery-1.10.2.js'></script>
     <script type='text/javascript' src='/js/mui.min.js'></script>
 </head>
+<style>
+    .list-normal .item{
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        position: relative;
+        display: block;
+    }
+    .list-normal .item .circle{
+        position: absolute;
+        top:15px;
+        left: 13px;
+        background: #0071bd;
+        width: 10px;
+        height: 10px;
+    }
+    .list-normal .item .anyou{
+        line-height: 22px;
+        color: #3b3b3b;
+        text-indent: 20px;
+        font-size: 15px;
+        min-height: 22px;
+    }
+    .list-normal .item .bottom{
+        font-size: 12px;
+        color: #0071bd;
+        text-align: right;
+        overflow-y: auto;
+        padding-top: 3px;
+    }
+    .list-normal .item .bottom .left{
+        float: left;
+        padding: 0 10px 0 0;
+    }
+    .list-normal .item .bottom .right{
+        float: right;
+        padding: 0 5px;
+    }
+</style>
 <script>
     var mId=sessionStorage.getItem('manager_id')
     var role=sessionStorage.getItem('role_type')

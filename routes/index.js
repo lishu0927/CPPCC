@@ -8,9 +8,6 @@ router.get('/', function (req, res) {
 router.get('/members', function (req, res) {
     res.render('members/members', {title: '政协委员', keyword: '', type: 2});
 });
-router.get('/work', function (req, res) {
-    res.render('work/work', {title: '政协工作', keyword: '', type: 3});
-});
 router.get('/login', function (req, res) {
     res.render('login/login', {title: '登录'});
 });

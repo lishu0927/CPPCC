@@ -16,7 +16,7 @@
         width: 100%;
     }
     .list .item{
-        border-bottom: 1px solid #adaaaa;
+        border-bottom: 1px solid #ddd;
         padding: 7% 10px;
     }
     .list .item img{
@@ -28,6 +28,9 @@
         color: #000;
         font-size: 18px;
         font-weight: bold;
+    }
+    #start{
+        display: none;
     }
 </style>
 <body>
@@ -69,8 +72,8 @@
         location.href=url
     })
     $(function () {
-        if(role==3 || role==5){
-            $("#start").css("display","none")
+        if(role==4){
+            $("#start").css("display","block")
         }
         var user_id=sessionStorage.getItem("user_id");
         var manager_id=sessionStorage.getItem("manager_id");

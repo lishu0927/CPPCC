@@ -4,8 +4,8 @@
         height: 54px;
         bottom: -1px;
         width: 100%;
-        background: #eeeeee;
-        border-top: 1px solid #808080;
+        background: #f2f2f2;
+        border-top: 1px solid #ddd;
     }
     .footer-nav .nav-list{
         display: flex;
@@ -32,7 +32,7 @@
     }
     .footer-nav .nav-list .item div p{
         line-height: 16px;
-        font-size: 14px;
+        font-size: 12px;
         color: #7d7d7d;
     }
 </style>
@@ -58,9 +58,16 @@
 </div>
 <script>
     $(document).on('click','.nav-list .item',function () {
+        var i = $(this).index()
+        var user_id=sessionStorage.getItem("user_id")
+        var manager_id=sessionStorage.getItem("manager_id")
         sessionStorage.setItem("newsList", "");
         sessionStorage.setItem("newsTop", 0);
         var url=$(this).attr("data-url")
-        location.href=url
+        if(i==2){
+            location.href=url+'?id='+user_id+"&manager_id="+manager_id+"&role_type="+role
+        }else{
+            location.href=url
+        }
     })
 </script>

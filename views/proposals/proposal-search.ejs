@@ -11,42 +11,6 @@
         top: 42px;
         width: 100%;
     }
-    .item{
-        padding: 10px;
-        border-bottom: 1px solid #bcbcbc;
-        position: relative;
-        display: block;
-    }
-    .item .circle{
-        position: absolute;
-        top:15px;
-        left: 13px;
-        background: #0071bd;
-        width: 10px;
-        height: 10px;
-    }
-    .item .anyou{
-        line-height: 22px;
-        color: #3b3b3b;
-        text-indent: 20px;
-        font-size: 13px;
-        min-height: 22px;
-    }
-    .item .bottom{
-        font-size: 12px;
-        color: #0071bd;
-        text-align: right;
-        overflow-y: auto;
-        padding-top: 3px;
-    }
-    .item .bottom .left{
-        float: left;
-        padding: 0 10px 0 0;
-    }
-    .item .bottom .right{
-        float: right;
-        padding: 0 5px;
-    }
 </style>
 <body>
 <div class="container">
@@ -55,7 +19,7 @@
         <div class="proposals-search">
             <%-include ../base/search-box-back.ejs%>
         </div>
-        <div class="list-content" id="list-content">
+        <div class="list-content list-normal" id="list-content">
             <%for(var i=0 ;i<tian_list.length;i++){%>
             <div class="item" id="<%=tian_list[i].tian_id%>" data-kind="<%=tian_list[i].tian_kind%>" data-zhuangtai="<%=tian_list[i].zhuangtai%>">
                 <span class="circle"></span>

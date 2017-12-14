@@ -11,7 +11,7 @@
         padding: 5px 10px;
     }
     .other-files-content{
-        border-bottom: 1px solid #adaaaa;
+        border-bottom: 1px solid #ddd;
         padding: 10px;
     }
     .other-files-content .left{
@@ -37,7 +37,7 @@
     }
     .file-list .item {
         display: flex;
-        border: 1px solid #adaaaa;
+        border: 1px solid #ddd;
         border-radius: 4px;
         margin: 10px 0;
         padding: 10px;
@@ -69,7 +69,7 @@
         display: flex;
         font-size: 14px;
         line-height: 40px;
-        border-bottom: 1px solid #adaaaa;
+        border-bottom: 1px solid #ddd;
     }
     .proposal-content .row .left {
         width: 75px;
@@ -81,7 +81,7 @@
         padding-left: 15px;
     }
     .lead-content{
-        border-bottom: 1px solid #adaaaa;
+        border-bottom: 1px solid #ddd;
     }
     .mui-table-view-cell{
         padding:0;
@@ -120,27 +120,21 @@
         margin: 0;
         font-size: 14px;
     }
-    .bottom {
-        position: fixed;
-        height: 50px;
-        width: 100%;
-        bottom: 0;
-        right: 0;
-        background: #e1edfd;
-        border: 1px solid #00a0e9;
-    }
-    .bottom .content {
-        display: flex;
+    .bottom{
+        padding:20px 0 20px 0;
         text-align: center;
-        height: 50px;
-        line-height: 50px;
     }
-    .bottom .content .left {
-        width: 40%;
-        border-right: 1px solid #00a0e9;
+    .bottom .content > div{
+        background: #e1edfd;
+        border-radius: 3px;
+        padding: 5px 30px;
+        display: inline-block;
+        color: #343232;
+        font-size: 14px;
+        border: 1px solid #0071bd;
     }
-    .bottom .content .right {
-        flex: 1;
+    .bottom .content .left{
+        margin-right: 30px;
     }
 </style>
 <body>
@@ -193,11 +187,11 @@
                 <textarea id="content" placeholder="" rows="5" maxlength="250"></textarea>
             </div>
         </div>
-    </div>
-    <div class="bottom">
-        <div class="content" id="submit">
-            <div class="left">保存草稿</div>
-            <div class="right">完成提交</div>
+        <div class="bottom">
+            <div class="content" id="submit">
+                <div class="left">保存草稿</div>
+                <div class="right">完成提交</div>
+            </div>
         </div>
     </div>
 </div>

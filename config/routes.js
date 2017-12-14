@@ -63,6 +63,7 @@ module.exports = function (app) {
     app.get("/workOrder", controlles.work.order);
     app.get("/workFiles", controlles.work.files);
     app.get("/fileDetail", controlles.work.fileDetail);
+    app.get("/work", controlles.work.work);
     app.get("/workNotices", controlles.work.notices);
     app.get("/noticeDetail", controlles.work.noticeDetail);
     app.get("/startWorkDraft", controlles.work.startWorkDraft);

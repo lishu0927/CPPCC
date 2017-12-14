@@ -35,26 +35,7 @@
     .search-content .weiyuan_list p{
         line-height: 30px;
     }
-    .tian_list .item{
-        padding: 10px 20px 15px;
-        border-bottom: 1px solid #bcbcbc;
-        position: relative;
-    }
-    .tian_list .item .circle{
-        position: absolute;
-        top:16px;
-        left: 20px;
-        background: #0071bd;
-        width: 10px;
-        height: 10px;
-    }
-    .tian_list .item .anyou{
-        line-height: 22px;
-        color: #3b3b3b;
-        text-indent: 20px;
-        font-size: 13px;
-    }
-    .article_list{
+    .article_list,.tian_list{
         margin-top: 20px;
     }
     .list-title{
@@ -64,7 +45,7 @@
     .list-title .left{
         padding: 0 20px;
         color: #3b3b3b;
-        font-size: 14px;
+        font-size: 15px;
     }
     .list-title .center{
         flex: 1;
@@ -80,7 +61,7 @@
         padding: 0;
     }
     .article_list .list .item {
-        border-bottom: 1px solid #bcbcbc;
+        border-bottom: 1px solid #ddd;
     }
     .article_list .list .item a {
         position: relative;
@@ -144,16 +125,19 @@
         <%}%>
 
         <%if(tian_list!=null&&tian_list.length>0){%>
-        <div class="tian_list">
+        <div class="tian_list list-normal">
             <div class="list-title">
                 <span class="left">政协提案</span>
                 <span class="center"></span>
                 <span class="right">找到<%= tian_list.length%>条</span>
             </div>
             <%for(var i=0;i<tian_list.length;i++){%>
-            <div class="item">
+            <div class="item"  onclick="location.href='/proposalDetail4?id=<%=tian_list[i].tian_id%>&type=1&zhuangtai=立案'">
                 <span class="circle"></span>
-                <p class="anyou" onclick="location.href='/proposalDetail4?id=<%=tian_list[i].tian_id%>&type=1&zhuangtai=立案'"><%= tian_list[i].anyou%></p>
+                <p class="anyou"><%=tian_list[i].anyou%></p>
+                <p class="bottom">
+                    <span class="left"><%=tian_list[i].creattime.split(" ")[0]%></span>
+                </p>
             </div>
             <%}%>
         </div>

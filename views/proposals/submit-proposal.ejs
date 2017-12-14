@@ -3,7 +3,7 @@
 <%-include ../base/checkHead.ejs%>
 <style>
     .container{
-        padding: 42px 0 50px 0;
+        padding: 42px 0 0 0;
     }
     .wrap{
         color: #3b3b3b;
@@ -17,7 +17,7 @@
         text-align: right;
     }
     .proposal-content{
-        border-bottom: 1px solid #adaaaa;
+        border-bottom: 1px solid #ddd;
         margin-top: 10px;
     }
     .proposal-content .row{
@@ -26,7 +26,7 @@
         color: #585757;
         line-height: 30px;
         align-items: center;
-        border: 1px solid #adaaaa;
+        border: 1px solid #ddd;
         border-bottom: 0;
     }
     .proposal-content .row .left{
@@ -35,7 +35,7 @@
     }
     .proposal-content .row .right{
         flex: 1;
-        border-left: 1px solid #adaaaa;
+        border-left: 1px solid #ddd;
         padding: 5px;
         min-height: 30px;
     }
@@ -45,35 +45,29 @@
     .submit-content .row .desc{
         color: #0071bd;
         letter-spacing: 2px;
+        padding-left: 10px;
     }
     .submit-content .row textarea{
-        border: 1px solid #00a0e9;
+        border: 1px solid #ddd;
         padding: 5px 10px;
         font-size: 14px;
     }
     .bottom{
-        position: fixed;
-        height: 50px;
-        width: 100%;
-        bottom: 0;
-        right: 0;
-        background: #e1edfd;
-        border: 1px solid #00a0e9;
-    }
-    .bottom .content{
-        display: flex;
+        padding:0 0 10px 0;
         text-align: center;
-        height: 50px;
-        line-height: 50px;
+    }
+    .bottom .content > div{
+        background: #e1edfd;
+        border-radius: 3px;
+        padding: 5px 30px;
+        display: inline-block;
+        color: #343232;
+        font-size: 14px;
+        border: 1px solid #0071bd;
     }
     .bottom .content .left{
-        width: 100px;
-        border-right: 1px solid #00a0e9;
+        margin-right: 30px;
     }
-    .bottom .content .right{
-        flex: 1;
-    }
-
 </style>
 <body>
 <div class="container">
@@ -115,11 +109,11 @@
                 <textarea placeholder="" rows="5" id="advice"></textarea>
             </div>
         </div>
-    </div>
-    <div class="bottom">
-        <div class="content" id="submit">
-            <div class="left">保存</div>
-            <div class="right">提交</div>
+        <div class="bottom">
+            <div class="content" id="submit">
+                <div class="left">保存</div>
+                <div class="right">提交</div>
+            </div>
         </div>
     </div>
 </div>
