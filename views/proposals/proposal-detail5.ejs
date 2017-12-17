@@ -13,6 +13,9 @@
         color: #585757;
         line-height: 24px;
     }
+    .wrap p.text-right{
+        text-align: right;
+    }
     .desc-content{
         padding: 5px 0;
     }
@@ -69,7 +72,6 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <div class="wrap">
-        <p class="text-left">审查意见：立案 <span>第123456号</span></p>
         <div class="desc-content">
             <p><span class="desc">提案人姓名：</span><span class="content"><%=tian.tianername%></span></p>
             <p><span class="desc">单位：</span><span class="content"><%=tian.company%></span></p>

@@ -9,7 +9,7 @@
         background: #fff;
     }
     .search-box input {
-        height: 100%;
+        height: 32px;
         text-indent: 10px;
         display: inline-block;
         width: 100%;
@@ -20,7 +20,10 @@
         margin: 0;
         font-size: 14px;
     }
-    .search-box span {
+    .mui-input-row .mui-input-clear~.mui-icon-clear{
+        top:7px
+    }
+    .search-box .header-icon-right {
         position: absolute;
         right: 0;
         top: 4px;
@@ -29,13 +32,15 @@
         border-left: 1px solid #0071bd;
         text-align: center;
     }
-    .search-box span img {
+    .search-box .header-icon-right img {
         height: 18px;
         margin-top: 3px;
     }
 </style>
 <div class="search-box">
-    <input type="text" placeholder="请输入您需要的内容" data-keyword="<%=keyword%>" id="info"/>
+    <div class="mui-input-row">
+        <input type="text" class="mui-input-clear" placeholder="请输入您需要的内容" data-keyword="<%=keyword%>" id="info"/>
+    </div>
     <span class="header-icon-right" id="search">
         <img src="/images/icons/search.png">
     </span>

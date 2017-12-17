@@ -348,11 +348,14 @@
                 }else if($(this).text()=='保存草稿'){
                     tijiao_kind=3;
                 }
-                if(worktitle == ""||workcontent==""){
-                    mui.toast("请填写完整")
-                    return;
-                }else if(dailyworkuser_list.length==0){
-                    mui.toast("请选择审批人员")
+                if (worktitle == "") {
+                    mui.toast("请填写文件标题")
+                    return false
+                } else if (workcontent == ""){
+                    mui.toast("请填写内容")
+                    return false
+                } else if (dailyworkuser_list.length==0){
+                    mui.toast("请选择处理人")
                     return;
                 }else {
                     var params = {

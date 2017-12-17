@@ -19,6 +19,9 @@
     .desc-content p{
         padding: 5px 0;
     }
+    .wrap p.text-right{
+        text-align: right;
+    }
     .desc-content p .desc{
         color: #0071bd;
         padding-right: 5px;
@@ -70,7 +73,6 @@
 <div class="container">
     <%-include ../base/header.ejs%>
     <div class="wrap">
-        <p class="text-left">审查意见：立案 <span>第123456号</span></p>
         <div class="desc-content">
             <p><span class="desc">提案人姓名：</span><span class="content"><%=repeat.tianername%></span></p>
             <p><span class="desc">单位：</span><span class="content"><%=repeat.company%></span></p>

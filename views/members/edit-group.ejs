@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html>
 <%- include ../base/checkHead.ejs %>
-<body>
-<div class="container">
-    <%- include ../base/header.ejs %>
-    <span class="header-right" id="changeName">确定</span>
-    <div class="wrap">
-        <input type="text" placeholder="编辑组名" id="groupname" maxlength="25"/>
-    </div>
-</div>
-</body>
 <style>
     .header-right {
         position: absolute;
@@ -31,20 +22,31 @@
         text-indent: 10px;
         display: inline-block;
         width: 100%;
-        border: 1px solid #00a0e9 !important;
-        outline: none;
         padding: 0;
         background: none;
         margin: 0;
-        font-size: 14px;
+    }
+    .mui-input-row .mui-input-clear~.mui-icon-clear{
+        top:7px
     }
 </style>
+<body>
+<div class="container">
+    <%- include ../base/header.ejs %>
+    <span class="header-right" id="changeName">确定</span>
+    <div class="wrap">
+        <div class="mui-input-row">
+            <input type="text" class="mui-input-clear" placeholder="编辑组名" id="groupname" maxlength="25"/>
+        </div>
+    </div>
+</div>
+</body>
 <script>
     var groupid="<%= groupid %>";
     $("#changeName").click(function () {
         var groupname = $.trim($("#groupname").val());
         if (groupname == '') {
-            mui.toast("名称不可以为空！");
+            mui.toast("组名不能为空！");
             return;
         }
         var params

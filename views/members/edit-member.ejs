@@ -71,9 +71,7 @@
         text-indent: 10px;
         display: inline-block;
         border: 1px solid #ddd !important;
-        outline: none;
         padding: 0;
-        background: none;
         margin: 0;
         font-size: 14px;
         flex: 1;
@@ -86,10 +84,15 @@
         margin-right: 5px;
         white-space: nowrap;
         font-size: 14px;
+        padding: 0;
+        width: auto;
     }
     label.radio-lable {
         color: #3b3b3b !important;
         padding: 7px 0 5px 45px !important;
+    }
+    .input-row .mui-input-clear~.mui-icon-clear{
+        top:7px
     }
     .input-row .date {
         width: 100%;
@@ -250,12 +253,14 @@
         max-width: 100%;
         height: auto;
     }
+
 </style>
 <body>
 <div class="container">
     <%- include ../base/header.ejs %>
     <span class="header-right" id="submit">确定</span>
     <div class="wrap">
+        <div onclick="upImage()">上传头像</div>
         <div class="upload-content">
             <div class="upload">
                 <form action="http://<%=reqHost%>:<%=reqPort%>/ZxApi/uploadfile.aspx" enctype="multipart/form-data"
@@ -274,9 +279,9 @@
             <select id="groups">
             </select>
         </div>
-        <div class="input-row">
+        <div class="input-row mui-input-row">
             <label>姓名：</label>
-            <input type="text" value="<%= member.user_name %>" id="name" maxlength="25"/>
+            <input type="text" class="mui-input-clear"  value="<%= member.user_name %>" id="name" maxlength="25"/>
         </div>
         <div class="input-row">
             <label>姓别：</label>
@@ -294,53 +299,53 @@
             <button id='date' class="date"
                     data-options='{"type":"date","beginYear":1900,"endYear":2020}'><%= member.brithdatetime.split(" ")[0] %></button>
         </div>
-        <div class="input-row">
+        <div class="input-row mui-input-row">
             <label>联系电话：</label>
-            <input type="text" value="<%= member.telephone %>" id="telephone" maxlength="25"/>
+            <input type="text" class="mui-input-clear" value="<%= member.telephone %>" id="telephone" maxlength="25"/>
         </div>
-        <div class="input-row">
+        <div class="input-row mui-input-row">
             <label>民族：</label>
-            <input type="text" value="<%= member.minzu %>" id="minzu" maxlength="25"/>
+            <input type="text" class="mui-input-clear" value="<%= member.minzu %>" id="minzu" maxlength="25"/>
         </div>
-        <div class="input-row">
+        <div class="input-row mui-input-row">
             <label>籍贯：</label>
-            <input type="text" value="<%= member.jiguan %>" id="jiguan" maxlength="25"/>
+            <input type="text" class="mui-input-clear" value="<%= member.jiguan %>" id="jiguan" maxlength="25"/>
         </div>
-        <div class="input-row">
+        <div class="input-row mui-input-row">
             <label>党派：</label>
-            <input type="text" value="<%= member.mianmao %>" id="mianmao" maxlength="25"/>
+            <input type="text" class="mui-input-clear" value="<%= member.mianmao %>" id="mianmao" maxlength="25"/>
         </div>
-        <div class="input-row">
+        <div class="input-row mui-input-row">
             <label>手机：</label>
-            <input type="text" value="<%= member.mobile %>" id="mobile" maxlength="25"/>
+            <input type="text" class="mui-input-clear" value="<%= member.mobile %>" id="mobile" maxlength="25"/>
         </div>
-        <div class="input-row">
+        <div class="input-row mui-input-row">
             <label>地址：</label>
-            <input type="text" value="<%= member.address %>" id="address" maxlength="50"/>
+            <input type="text" class="mui-input-clear" value="<%= member.address %>" id="address" maxlength="50"/>
         </div>
-        <div class="input-row">
+        <div class="input-row mui-input-row">
             <label>邮箱：</label>
-            <input type="text" value="<%= member.email %>" id="email" maxlength="25"/>
+            <input type="text" class="mui-input-clear" value="<%= member.email %>" id="email" maxlength="25"/>
         </div>
-        <div class="input-row">
+        <div class="input-row mui-input-row">
             <label>学历：</label>
-            <input type="text" value="<%= member.xueli %>" id="xueli" maxlength="25"/>
+            <input type="text" class="mui-input-clear" value="<%= member.xueli %>" id="xueli" maxlength="25"/>
         </div>
-        <div class="input-row">
+        <div class="input-row mui-input-row">
             <label>毕业院校：</label>
-            <input type="text" value="<%= member.yuanxiao %>" id="yuanxiao" maxlength="25"/>
+            <input type="text" class="mui-input-clear" value="<%= member.yuanxiao %>" id="yuanxiao" maxlength="25"/>
         </div>
-        <div class="input-row">
+        <div class="input-row mui-input-row">
             <label>单位职务：</label>
-            <input type="text" value="<%= member.fax %>" id="fax" maxlength="250"/>
+            <input type="text" class="mui-input-clear" value="<%= member.fax %>" id="fax" maxlength="250"/>
         </div>
-        <div class="input-row">
+        <div class="input-row mui-input-row">
             <label>职称：</label>
-            <input type="text" value="<%= member.zhicheng %>" id="zhicheng" maxlength="25"/>
+            <input type="text" class="mui-input-clear" value="<%= member.zhicheng %>" id="zhicheng" maxlength="25"/>
         </div>
-        <div class="input-row">
+        <div class="input-row mui-input-row">
             <label>界别：</label>
-            <input type="text" value="<%= member.jiebie %>" id="jiebie" maxlength="25"/>
+            <input type="text" class="mui-input-clear" value="<%= member.jiebie %>" id="jiebie" maxlength="25"/>
         </div>
     </div>
 </div>
@@ -349,6 +354,16 @@
 <script>
     var sSid=sessionStorage.getItem("user_id");
     mui.previewImage();
+    function upImage() {
+        try {
+            window.native.getImage('http://<%=reqHost%>:<%=reqPort%>/ZxApi/uploadfile.aspx','changeHeadimg')
+        }catch (err){
+        }
+    }
+    function changeHeadimg(data) {
+        window.native.alert(data)
+        $('#img').attr("src", data);
+    }
     (function ($) {
         $.init();
         var date = $('#date')[0];
@@ -398,9 +413,12 @@
     $("#upload").change(function () {
         $('#uploadForm').submit();
     });
+    
+
 
     //保存委员信息
     $('#submit').click(function () {
+        var key;
         var user_id='<%=member.user_id%>'
         var user_name=$.trim($('#name').val())
         var password='';
@@ -420,14 +438,22 @@
         var zhicheng= $.trim($('#zhicheng').val());
         var groupName= $.trim($('#groups').val());
         var headImage= $.trim($('#img').attr("src"));
-        if(user_id==''||user_name==''||sex==''||brithdatetime==''||minzu=='' ||
-            mianmao==''||telephone==''||fax==''||mobile==''||address==''||email=='' ||
-            xueli==''||jiguan==''||jiebie==''||yuanxiao==''||zhicheng=='' ||
-            groupName==''||headImage==''){
-            mui.toast("请将信息填写完整")
-            setTimeout(function () {
-                return ;
-            },1000)
+        if(user_id==''||user_name==''){
+            mui.toast("请填写姓名")
+            return false
+        }else if(brithdatetime==''){
+            mui.toast("请填写出生日期")
+            return false
+        }else if(minzu==''|| mianmao==''||telephone==''||fax==''||mobile==''||address==''||email==''||
+            xueli==''||jiguan==''||jiebie==''||yuanxiao==''||zhicheng==''){
+            $(".mui-input-clear").each(function () {
+                if($(this).val()==''){
+                    key=$(this).prev().html()
+                    key=key.substring(0,key.length-1)
+                    mui.toast("请填写"+key)
+                    return false
+                }
+            })
         }else {
             var params = {
                 user_id:user_id,

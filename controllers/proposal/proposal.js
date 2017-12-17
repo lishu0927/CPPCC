@@ -698,46 +698,6 @@ module.exports = {
         req.write(content);
         req.end();
     },
-    submit2:function (req1, res, next) {
-        var tian_id = req1.query.id;
-        var data = {tian_kind:4,tian_id:tian_id};
-        var content = JSON.stringify(data);
-        var options = {
-            host: global.reqHost,
-            port: global.reqPort,
-            path: "/ZxApi/m2_13.ashx",
-            method: "POST",
-            headers: {
-                "Content-Type": 'application/json'
-            }
-        };
-        var req = http.request(options, function (serverFeedback) {
-            if (serverFeedback.statusCode == 200) {
-                var body = "";
-                serverFeedback.setEncoding('utf8');
-                serverFeedback.on('data', function (data) {
-                    body += data;
-                }).on('end', function () {
-                    body = JSON.parse(body);
-                    var tian_detail_info=body.tian_detail_info
-                    res.render('proposals/submit2-proposal',
-                        {
-                            title: '提案提交',
-                            tian:tian_detail_info
-                        }
-                    );
-                })
-            } else {
-                res.send(500, "error");
-            }
-        });
-        req.on('error', function (e) {
-            console.log('problem with request: ' + e.message);
-        });
-        // write data to request body
-        req.write(content);
-        req.end();
-    },
     check:function (req, res, next) {
         var keyword = req.query.keyword||'';
         var tabIndex = req.query.tabIndex;

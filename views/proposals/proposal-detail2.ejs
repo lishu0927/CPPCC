@@ -135,14 +135,18 @@
                     tuihui=$.trim($("#tuihui").val());
                     if(tuihui == null||tuihui==""){
                         mui.toast("请填写退回理由")
-                        return;
+                        return false
                     }
                     tian_num="";
                     audit_jieguo=0;
                 }else if($(this).text()=='通过立案'){
                     tuihui="";
                     audit_jieguo=1;
-                    tian_num=$("#num").val();
+                    tian_num=$.trim($("#num").val());
+                    if(tian_num == null||tian_num==""){
+                        mui.toast("请填写立案编号")
+                        return false
+                    }
                 }
                 var params = {
                     audit_jieguo: audit_jieguo,

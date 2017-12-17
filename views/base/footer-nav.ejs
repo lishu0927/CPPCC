@@ -18,22 +18,16 @@
     .footer-nav .nav-list .item{
         text-align: center;
     }
-    .footer-nav .nav-list .item.active a p{
-        color: #006fb8;
-    }
-    .footer-nav .nav-list .item div{
-        text-decoration: none;
-        color: inherit;
-        display: inline-block;
-        height: 100%;
-    }
-    .footer-nav .nav-list .item div img{
+    .footer-nav .nav-list .item  img{
         width: 20px;
     }
-    .footer-nav .nav-list .item div p{
-        line-height: 16px;
+    .footer-nav .nav-list .item  p{
+        line-height: 14px;
         font-size: 12px;
         color: #7d7d7d;
+    }
+    .footer-nav .nav-list .item.active  p{
+        color: #006fb8;
     }
 </style>
 <div class="footer-nav">
@@ -44,14 +38,12 @@
             <%}else{%>
         <li class="item" data-url="<%= navList[i].item_rul%>">
             <%}%>
-            <div>
-                <%if(type == i+1){%>
-                <img src="/images/icons/<%= navList[i].item_pic%>.png">
-                <%}else{%>
-                <img src="/images/icons/<%= navList[i].item_pic%>-a.png">
-                <%}%>
-                <p><%= navList[i].item_text%></p>
-            </div>
+            <%if(type == i+1){%>
+            <img src="/images/icons/<%= navList[i].item_pic%>.png">
+            <%}else{%>
+            <img src="/images/icons/<%= navList[i].item_pic%>-a.png">
+            <%}%>
+            <p><%= navList[i].item_text%></p>
         </li>
         <%}%>
     </ul>

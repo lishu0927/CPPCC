@@ -149,10 +149,24 @@ $(function() {
             }else if($(this).text()=='保存'){
                 tijiao_kind=1;
             }
-            if(user_name == ''||mobile==''||company==''||weinum=='' ||
-                anyou==''||problem==''||analyse==''||advice==''){
-                mui.toast("请填写完整")
-                return;
+            if(user_name == ''||mobile==''){
+                mui.toast("系统错误")
+                return false
+            }else if(company==''){
+                mui.toast("单位不能为空")
+                return false
+            }else if(anyou==''){
+                mui.toast("案由不能为空")
+                return false
+            }else if(problem==''){
+                mui.toast("问题不能为空")
+                return false
+            }else if(analyse==''){
+                mui.toast("分析不能为空")
+                return false
+            }else if(advice==''){
+                mui.toast("建议不能为空")
+                return false
             }else {
                 var params = {
                     tijiao_kind: tijiao_kind,

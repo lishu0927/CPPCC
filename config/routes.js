@@ -26,7 +26,6 @@ module.exports = function (app) {
     app.get("/proposalDetail3", controlles.proposal.detail3);
     app.get("/proposalDetail4", controlles.proposal.detail4);
     app.get("/proposalDetail5", controlles.proposal.detail5);
-    app.get("/proposalSubmit2", controlles.proposal.submit2);
     app.get("/proposalSearch", controlles.proposal.search);
     app.get("/proposalCheck1", controlles.proposal.check1);
     app.get("/proposalCheck2", controlles.proposal.check2);

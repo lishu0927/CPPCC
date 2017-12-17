@@ -166,10 +166,13 @@
                 }else if($(this).text()=='保存'){
                     tijiao_kind=3;
                 }
-                if(ideatitle == null||ideatitle == ""||ideacontent==null||ideacontent == ""){
-                    mui.toast("请填写完整")
-                    return;
-                }else {
+                if(ideatitle == null||ideatitle == ""){
+                    mui.toast("请填写事由")
+                    return false
+                }else if(ideacontent==null||ideacontent == ""){
+                    mui.toast("请填写内容")
+                    return false
+                }else{
                     var params = {
                         tijiao_kind: tijiao_kind,
                         sqmy_id: sqmy_id,

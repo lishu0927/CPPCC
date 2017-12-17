@@ -88,7 +88,6 @@
                 success: function (data) {
                     if (data.ecode == 1000) {
                         var list = data.tian_list
-                        console.log(data.num)
                         if (data.num > 0) {
                             mescroll.endSuccess(data.length);
                             $.each(list, function (i) {

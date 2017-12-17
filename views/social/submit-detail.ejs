@@ -131,9 +131,12 @@
                 tijiao_kind=1;
                 sqmy_id=0;
             }
-            if(ideatitle == ''||ideacontent== ''){
-                mui.toast("请填写完整")
+            if(ideatitle == ''){
+                mui.toast("请填写事由")
                 return;
+            }else if(ideacontent == ""){
+                mui.toast("请填写内容")
+                return false
             }else {
                 var params = {
                     tijiao_kind: tijiao_kind,
