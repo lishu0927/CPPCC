@@ -14,33 +14,32 @@
         text-indent: 10px;
     }
     .confirm{
+        padding:10px 0;
         text-align: center;
     }
-    .confirm span{
-        background: #e1edfd;
-        border-radius: 5px;
-        padding: 12px ;
-        display: block;
-        color: #343232;
-        margin-top: 30px;
-        font-size: 16px;
+    .mui-btn-primary{
+        display: inline-block;
+        width: 100%;
+        letter-spacing: 1px;
+        padding: 8px;
+        font-size: 15px;
     }
 </style>
 <body>
 <div class="container">
     <%-include ../base/header.ejs%>
     <div class="wrap">
-        <div class="row">
-            <input type="text" placeholder="请输入原始密码" id="pwd" maxlength="50"/>
+        <div class="row mui-input-row mui-password">
+            <input type="password" class="mui-input-password" placeholder="请输入原始密码" id="pwd" maxlength="50"/>
         </div>
-        <div class="row">
-            <input type="text" placeholder="请输入新密码" id="newpwd" maxlength="50"/>
+        <div class="row mui-input-row mui-password">
+            <input type="password" class="mui-input-password" placeholder="请输入新密码" id="newpwd" maxlength="50"/>
         </div>
-        <div class="row">
-            <input type="text" placeholder="请再次输入新密码" id="reppwd" maxlength="50"/>
+        <div class="row mui-input-row mui-password">
+            <input type="password" class="mui-input-password" placeholder="请再次输入新密码" id="reppwd" maxlength="50"/>
         </div>
         <div class="confirm">
-            <span>确认修改</span>
+            <button type="button" class="mui-btn mui-btn-primary" data-loading-icon="">确认修改</button>
         </div>
     </div>
 </div>

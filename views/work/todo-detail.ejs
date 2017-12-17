@@ -7,7 +7,7 @@
     }
     .wrap{
         color: #3b3b3b;
-        padding: 5px 10px 60px 10px;
+        padding: 5px 10px 10px 10px;
     }
     .desc-content{
         padding:10px;
@@ -94,19 +94,14 @@
         font-size: 14px;
     }
     .bottom{
-        position: fixed;
-        height: 50px;
-        width: 100%;
-        bottom: 0;
-        right: 0;
-        background: #e1edfd;
-        border: 1px solid #00a0e9;
+        padding:0 0 10px 0;
+        text-align: center;
     }
-    .bottom .content{
-        display: flex;
-        justify-content: center;
-        height: 50px;
-        line-height: 50px;
+    .mui-btn-primary{
+        display: inline-block;
+        width: 100%;
+        letter-spacing: 1px;
+        padding: 8px;
     }
 </style>
 <body>
@@ -202,7 +197,7 @@
             </div>
             <div class="bottom">
                 <div class="content" id="submit">
-                    我要审批
+                    <button type="button" class="mui-btn mui-btn-primary" data-loading-icon="">我要审批</button>
                 </div>
             </div>
         </div>

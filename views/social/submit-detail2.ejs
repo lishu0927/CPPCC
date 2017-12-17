@@ -63,26 +63,20 @@
         padding-bottom: 40px !important;
     }
     .bottom{
-        position: fixed;
-        height: 50px;
-        width: 100%;
-        bottom: 0;
-        right: 0;
-        background: #e1edfd;
-        border: 1px solid #00a0e9;
-    }
-    .bottom .content{
-        display: flex;
         text-align: center;
-        height: 50px;
-        line-height: 50px;
+        padding: 20px 0;
     }
-    .bottom .content .left{
-        width: 100px;
-        border-right: 1px solid #00a0e9;
+    .bottom .content  button{
+        width: 48%;
+        display: inline-block;
+        padding: 8px;
+        letter-spacing: 2px;
     }
-    .bottom .content .right{
-        flex: 1;
+    .mui-btn-gray{
+        color: #fff;
+        border: 1px solid #888;
+        background-color: #888;
+        margin-right: 2%;
     }
 </style>
 <body>
@@ -124,21 +118,21 @@
             </div>
             <%}%>
         </div>
-    </div>
-    <%if(check==1){%>
-    <div class="bottom">
-        <div class="content" id="submit">
-            <div class="left">退回</div>
-            <div class="right">通过立案</div>
+        <%if(check==1){%>
+        <div class="bottom">
+            <div class="content" id="submit">
+                <button type="button" class="mui-btn mui-btn-gray" data-loading-icon="" style="letter-spacing: 10px">退回</button>
+                <button type="button" class="mui-btn mui-btn-primary" data-loading-icon="">通过立案</button>
+            </div>
         </div>
+        <%}%>
     </div>
-    <%}%>
 </div>
 </body>
 <script>
     var sqmy_id,audit_jieguo,tuihui;
     sqmy_id="<%=sqmy_info.sqmy_id%>"
-    $("#submit div").each(function () {
+    $("#submit button").each(function () {
         $(this).click(function () {
             if($(this).text()=='退回'){
                 audit_jieguo=0;

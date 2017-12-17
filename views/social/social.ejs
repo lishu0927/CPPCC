@@ -35,9 +35,13 @@
     <%-include ../base/header.ejs%>
     <div class="wrap">
         <ul class="list">
-            <li class="item" data-url="/socialManage1?pageType=0">
+            <li class="item tijiao suSocial" data-url="/submitDetail">
                 <img src="images/icons/msg1.png">
                 <span>信息提交</span>
+            </li>
+            <li class="item tijiao" id="manager" data-url="/socialManage1">
+                <img src="images/icons/msg4.png">
+                <span>信息管理</span>
             </li>
             <li class="item" data-url="/socialSelected">
                 <img src="images/icons/msg2.png">
@@ -52,6 +56,17 @@
 </div>
 </body>
 <script>
+    $(function () {
+        var user_id = sessionStorage.getItem("user_id")
+        if (user_id == '' || user_id <= 0 || user_id == null) {
+            if(role==1 || role==2){
+                $(".suSocial").css("display", "none")
+            } else if(role == 4 || role == 5){
+                $(".tijiao").css("display", "none")
+            }
+        }
+        $("#manager").attr("data-url", "/socialManage1?pageType=0&id=" + user_id)
+    })
     $(document).on('click','.item',function () {
         sessionStorage.setItem("socialManagerList","")
         sessionStorage.setItem("socialManagerTop",0)

@@ -86,7 +86,7 @@
     })
     $(function () {
         var user_id=sessionStorage.getItem("user_id")
-        if (role == 4 || role == 5 || user_id<=0 || user_id=='' || user_id==null) {
+        if ((role == 1 || role == 2) && (user_id<=0 || user_id=='' || user_id==null)) {
             $("#subProposal").css("display", "none")
         }
         $("#down").attr("data-url","/proposalDown?id="+user_id)

@@ -3,7 +3,7 @@
 <%-include ../base/checkHead.ejs%>
 <style>
     .container{
-        padding: 42px 0 50px 0;
+        padding: 42px 0 0 0;
     }
     .wrap{
         color: #3b3b3b;
@@ -53,33 +53,31 @@
     .submit-content .row .desc{
         color: #0071bd;
         letter-spacing: 2px;
+        padding-left: 10px;
     }
     .submit-content .row textarea{
-        border: 1px solid #00a0e9;
+        border: 1px solid #ddd;
         padding: 5px 10px;
         font-size: 14px;
     }
     .bottom{
-        position: fixed;
-        height: 50px;
-        width: 100%;
-        bottom: 0;
-        right: 0;
-        background: #e1edfd;
-        border: 1px solid #00a0e9;
-    }
-    .bottom .content{
-        display: flex;
         text-align: center;
-        height: 50px;
-        line-height: 50px;
+        position: absolute;
+        left: 10px;
+        bottom: 20px;
+        right: 10px;
     }
-    .bottom .content .left{
-        width: 100px;
-        border-right: 1px solid #00a0e9;
+    .bottom .content  button{
+        width: 48%;
+        display: inline-block;
+        padding: 8px;
+        letter-spacing: 2px;
     }
-    .bottom .content .right{
-        flex: 1;
+    .mui-btn-gray{
+        color: #fff;
+        border: 1px solid #888;
+        background-color: #888;
+        margin-right: 2%;
     }
 </style>
 <body>
@@ -104,17 +102,17 @@
             <div class="submit-content">
                 <div class="row">
                     <p class="desc">事由</p>
-                    <textarea placeholder="" rows="1" id="title" maxlength="25"><%-sqmy_info.ideatitle%></textarea>
+                    <textarea placeholder="" rows="2" id="title" maxlength="25"><%-sqmy_info.ideatitle%></textarea>
                 </div>
                 <div class="row">
                     <p class="desc">内容简介</p>
-                    <textarea placeholder="" rows="5" id="content"><%-sqmy_info.ideacontent%></textarea>
+                    <textarea placeholder="" rows="7" id="content"><%-sqmy_info.ideacontent%></textarea>
                 </div>
             </div>
             <div class="bottom">
                 <div class="content" id="submit">
-                    <div class="left">保存</div>
-                    <div class="right">提交</div>
+                    <button type="button" class="mui-btn mui-btn-gray" data-loading-icon="">保存</button>
+                    <button type="button" class="mui-btn mui-btn-primary" data-loading-icon="">提交</button>
                 </div>
             </div>
         </div>
@@ -145,7 +143,6 @@
             </div>
         </div>
     </div>
-
 </div>
 </body>
 <script>
@@ -160,7 +157,7 @@
         var username,tijiao_kind,sqmy_id,ideatitle,ideacontent;
         username="<%=sqmy_info.username%>"
         sqmy_id="<%=sqmy_info.sqmy_id%>"
-        $("#submit div").each(function () {
+        $("#submit button").each(function () {
             $(this).click(function () {
                 ideatitle=$.trim($("#title").val());
                 ideacontent=$.trim($("#content").val());

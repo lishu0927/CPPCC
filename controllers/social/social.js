@@ -9,7 +9,9 @@ module.exports = {
     },
     manage1: function (req1, res, next) {
         var pageType=req1.query.pageType
+        var user_id=req1.query.id
         var data = {
+            user_id:user_id,
             sqmy_list_kind:1,
             startid:-1,
             num:20,
@@ -36,7 +38,7 @@ module.exports = {
                     var sqmy_list=body.sqmy_list
                     res.render('social/social-manage',
                         {
-                            title: '信息提交',
+                            title: '信息管理',
                             sqmy_list:sqmy_list,
                             pageType:pageType
                         }
@@ -55,7 +57,9 @@ module.exports = {
     },
     manage2: function (req1, res, next) {
         var pageType=req1.query.pageType
+        var user_id=req1.query.id
         var data = {
+            user_id: user_id,
             sqmy_list_kind:2,
             startid:-1,
             num:20,
@@ -82,7 +86,7 @@ module.exports = {
                     var sqmy_list=body.sqmy_list
                     res.render('social/social-manage',
                         {
-                            title: '信息提交',
+                            title: '信息管理',
                             sqmy_list:sqmy_list,
                             pageType:pageType
                         }
@@ -101,7 +105,9 @@ module.exports = {
     },
     manage3: function (req1, res, next) {
         var pageType=req1.query.pageType
+        var user_id=req1.query.id
         var data = {
+            user_id: user_id,
             sqmy_list_kind:3,
             startid:-1,
             num:20,
@@ -128,7 +134,7 @@ module.exports = {
                     var sqmy_list=body.sqmy_list
                     res.render('social/social-manage',
                         {
-                            title: '信息提交',
+                            title: '信息管理',
                             sqmy_list:sqmy_list,
                             pageType:pageType
                         }
@@ -147,7 +153,9 @@ module.exports = {
     },
     manage4: function (req1, res, next) {
         var pageType=req1.query.pageType
+        var user_id=req1.query.id
         var data = {
+            user_id: user_id,
             sqmy_list_kind:6,
             startid:-1,
             num:20,
@@ -174,7 +182,7 @@ module.exports = {
                     var sqmy_list=body.sqmy_list
                     res.render('social/social-manage',
                         {
-                            title: '信息提交',
+                            title: '信息管理',
                             sqmy_list:sqmy_list,
                             pageType:pageType
                         }
@@ -288,7 +296,9 @@ module.exports = {
     },
     check1: function (req1, res, next) {
         var pageType=req1.query.pageType
+        var user_id=req1.query.id
         var data = {
+            user_id: user_id,
             sqmy_list_kind:2,
             startid:-1,
             num:20,
@@ -334,7 +344,9 @@ module.exports = {
     },
     check2: function (req1, res, next) {
         var pageType=req1.query.pageType
+        var user_id=req1.query.id
         var data = {
+            user_id: user_id,
             sqmy_list_kind:3,
             startid:-1,
             num:20,

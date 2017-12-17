@@ -121,20 +121,20 @@
         font-size: 14px;
     }
     .bottom{
-        padding:20px 0 20px 0;
+        padding:20px 0;
         text-align: center;
     }
-    .bottom .content > div{
-        background: #e1edfd;
-        border-radius: 3px;
-        padding: 5px 30px;
+    .bottom .content  button{
+        width: 48%;
         display: inline-block;
-        color: #343232;
-        font-size: 14px;
-        border: 1px solid #0071bd;
+        padding: 8px;
+        letter-spacing: 1px;
     }
-    .bottom .content .left{
-        margin-right: 30px;
+    .mui-btn-gray{
+        color: #fff;
+        border: 1px solid #888;
+        background-color: #888;
+        margin-right: 2%;
     }
 </style>
 <body>
@@ -199,8 +199,8 @@
         </div>
         <div class="bottom">
             <div class="content" id="submit">
-                <div class="left">保存草稿</div>
-                <div class="right">完成提交</div>
+                <button type="button" class="mui-btn mui-btn-gray" data-loading-icon="">保存草稿</button>
+                <button type="button" class="mui-btn mui-btn-primary" data-loading-icon="">完成提交</button>
             </div>
         </div>
     </div>
@@ -316,7 +316,7 @@
         var createuserid="<%=work.createuserid%>";
         var dailywork_id="<%=work.dailywork_id%>";
         var createdate="<%=work.createdate%>";
-        $("#submit div").each(function () {
+        $("#submit button").each(function () {
             $(this).click(function () {
                 var tijiao_kind,worktitle,workcontent;
                 var dailyworkattach_list=[],dailyworkuser_list=[];

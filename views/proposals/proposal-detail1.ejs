@@ -58,17 +58,17 @@
         padding:0 0 10px 0;
         text-align: center;
     }
-    .bottom .content > div{
-        background: #e1edfd;
-        border-radius: 3px;
-        padding: 5px 30px;
+    .bottom .content  button{
+        width: 48%;
         display: inline-block;
-        color: #343232;
-        font-size: 14px;
-        border: 1px solid #0071bd;
+        padding: 8px;
+        letter-spacing: 2px;
     }
-    .bottom .content .left{
-        margin-right: 30px;
+    .mui-btn-gray{
+        color: #fff;
+        border: 1px solid #888;
+        background-color: #888;
+        margin-right: 2%;
     }
 </style>
 <body>
@@ -111,11 +111,15 @@
                     <p class="desc">建议</p>
                     <textarea placeholder="" rows="5" id="advice"><%=tian.advice%></textarea>
                 </div>
+                <div class="row">
+                    <p class="desc">附议人</p>
+                    <textarea placeholder="" rows="1" id="resolutioner"><%=tian.resolutioner%></textarea>
+                </div>
             </div>
             <div class="bottom">
                 <div class="content" id="submit">
-                    <div class="left">保存</div>
-                    <div class="right">提交</div>
+                    <button type="button" class="mui-btn mui-btn-gray" data-loading-icon="">保存</button>
+                    <button type="button" class="mui-btn mui-btn-primary" data-loading-icon="">提交</button>
                 </div>
             </div>
         </div>
@@ -153,6 +157,10 @@
                     <span class="left">建议</span>
                     <span class="right"><%=tian.advice%></span>
                 </div>
+                <div class="row">
+                    <span class="left">附议人</span>
+                    <span class="right"><%=tian.resolutioner%></span>
+                </div>
             </div>
         </div>
     </div>
@@ -172,8 +180,8 @@ $(function() {
     var tian_id="<%=tian.tian_id%>";
     var user_name="<%=tian.tianername%>";
     var mobile="<%=tian.mobile%>";
-    var company,weinum,anyou,problem,analyse,advice;
-    $("#submit div").each(function () {
+    var company,weinum,anyou,problem,analyse,advice,resolutioner;
+    $("#submit button").each(function () {
         $(this).click(function () {
             company=$.trim($("#company").val());
             weinum=$.trim($("#weinum").val());
@@ -181,6 +189,7 @@ $(function() {
             problem=$.trim($("#problem").val());
             analyse=$.trim($("#analyse").val());
             advice=$.trim($("#advice").val());
+            resolutioner=$.trim($("#resolutioner").val());
             if($(this).text()=='提交'){
                 tijiao_kind=4;
             }else if($(this).text()=='保存'){
@@ -202,7 +211,8 @@ $(function() {
                     anyou: anyou,
                     problem: problem,
                     analyse: analyse,
-                    advice: advice
+                    advice: advice,
+                    resolutioner: resolutioner
                 }
                 var data = JSON.stringify(params)
                 $.ajax({

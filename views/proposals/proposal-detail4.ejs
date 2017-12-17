@@ -60,31 +60,27 @@
         align-items: center;
         justify-content: center;
         margin-top: 15px;
-        padding-bottom: 60px;
+        padding-bottom: 20px;
     }
     .publish-content div{
         display: inline-block;
         min-width: 60px;
     }
     .bottom{
-        position: fixed;
-        height: 50px;
-        width: 100%;
-        bottom: 0;
-        right: 0;
-        background: #e1edfd;
-        border: 1px solid #00a0e9;
-    }
-    .bottom .content{
+        padding:0 0 10px 0;
         text-align: center;
-        height: 50px;
-        line-height: 50px;
+    }
+    .mui-btn-primary{
+        display: inline-block;
+        width: 100%;
+        letter-spacing: 2px;
+        padding: 8px;
     }
 </style>
 <body>
 <div class="container">
     <%-include ../base/header.ejs%>
-    <%if(type==1){%>
+    <%if(type==1&&zhuangtai=="立案"){%>
     <span class="header-right" onclick="changeTian(<%=tian.tian_id%>)">修改重提</span>
     <%}%>
     <div class="wrap">
@@ -123,6 +119,10 @@
                 <span class="left">建议</span>
                 <span class="right"><%=tian.advice%></span>
             </div>
+            <div class="row">
+                <span class="left">附议人</span>
+                <span class="right"><%=tian.resolutioner%></span>
+            </div>
         </div>
         <%if(type==2){%>
         <div class="publish-content">
@@ -140,7 +140,7 @@
         </div>
         <div class="bottom">
             <div class="content" id="submit">
-                确定
+                <button type="button" class="mui-btn mui-btn-primary" data-loading-icon="">确定</button>
             </div>
         </div>
         <%}%>
@@ -197,7 +197,7 @@
         }
         var ispublish,isyouxiu;
         var tian_id="<%=tian.tian_id%>";
-        $("#submit").click(function () {
+        $("#submit button").click(function () {
             ispublish=$("#publish").val();
             isyouxiu=$("#honor").val();
             var params = {

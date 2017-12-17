@@ -308,8 +308,12 @@ module.exports = {
     },
     search: function (req1, res, next) {
         var keyword = req1.query.keyword || '';
+        var user_id = req1.query.id;
         var search_type = "proposal";
-        var data = {keyword: keyword};
+        var data = {
+            keyword: keyword,
+            user_id:user_id
+        };
         var content = JSON.stringify(data);
         var options = {
             host: global.reqHost,
@@ -521,6 +525,7 @@ module.exports = {
     detail4:function (req1, res, next) {
         var tian_id = req1.query.id;
         var type=req1.query.type;
+        var zhuangtai=req1.query.zhuangtai;
         var data = {tian_kind:4,tian_id:tian_id};
         var content = JSON.stringify(data);
         var options = {
@@ -545,7 +550,8 @@ module.exports = {
                         {
                             title: '提案详情',
                             type:type,
-                            tian:tian_detail_info
+                            tian:tian_detail_info,
+                            zhuangtai:zhuangtai
                         }
                     );
                 })

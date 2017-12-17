@@ -20,16 +20,11 @@
     }
     .confirm {
         text-align: center;
+        padding: 0 0 10px 0;
     }
-    .confirm span {
-        background: #e1edfd;
-        border-radius: 3px;
-        padding: 5px 30px;
-        display: inline-block;
-        color: #343232;
-        margin-top: 20px;
-        font-size: 14px;
-        border: 1px solid #0071bd;
+    .mui-btn-primary {
+        padding: 7px 15px;
+        width: 30%;
     }
     .msg-content {
         background: #e1edfd;
@@ -39,6 +34,13 @@
         color: #fa1414;
         text-align: center;
         margin-bottom: 10px !important;
+    }
+    .msg-content .item{
+        margin-bottom: 5px;
+    }
+    .msg-content .item p{
+        color: #3b3b3b;
+        font-size: 12px;
     }
     .msg-content .item .req .left {
         color: #fa1414;
@@ -61,13 +63,13 @@
                 <textarea id="content" placeholder="咨询内容..." rows="3"></textarea>
             </div>
             <div class="confirm">
-                <span>提交</span>
+                <button type="button" class="mui-btn mui-btn-primary" data-loading-icon="">提交</button>
             </div>
         </div>
         <div class="msg-content">
             <p class="title">【留言内容选登】</p>
+            <% for(var i = 0;i < result.length;i++){ %>
             <div class="item">
-                <% for(var i = 0;i < result.length;i++){ %>
                 <p class="req">
                     <span class="left">问：</span>
                     <span><%=result[i].messagecontent%>（<%=result[i].createtime%>）</span>
@@ -76,8 +78,8 @@
                     <span class="left">答：</span>
                     <span><%=result[i].messageanswer%>（<%=result[i].createtime%>）</span>
                 </p>
-                <% } %>
             </div>
+            <% } %>
         </div>
     </div>
 </div>

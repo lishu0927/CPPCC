@@ -16,6 +16,7 @@
         padding: 0 15px 0 10px;
         color: #fff;
         font-size: 14px;
+        display: none;
     }
     .members-search{
         padding: 15px;
@@ -95,4 +96,13 @@
     </div>
 </div>
 </body>
+<script>
+    $(function () {
+        if(role==1 || role==2){
+            $(".header-right").css("display","block")
+        }else{
+            $(".header-right").css("display","none")
+        }
+    })
+</script>
 </html>

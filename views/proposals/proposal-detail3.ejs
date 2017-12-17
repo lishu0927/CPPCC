@@ -78,6 +78,9 @@
     .repeat-content .row > div .desc{
         color: #0071bd;
     }
+    .repeat-content .row > div .content{
+        min-height: 24px;
+    }
     .reject-content{
         margin-top: 20px;
     }
@@ -90,17 +93,16 @@
         padding:0 0 10px 0;
         text-align: center;
     }
-    .bottom .content > div{
-        background: #e1edfd;
-        border-radius: 3px;
-        padding: 5px 30px;
+    .bottom .content  button{
+        width: 48%;
         display: inline-block;
-        color: #343232;
-        font-size: 14px;
-        border: 1px solid #0071bd;
+        padding: 8px;
     }
-    .bottom .content .left{
-        margin-right: 30px;
+    .mui-btn-gray{
+        color: #fff;
+        border: 1px solid #888;
+        background-color: #888;
+        margin-right: 2%;
     }
 </style>
 <script type='text/javascript' src='/js/compareText.js'></script>
@@ -143,6 +145,10 @@
             <div class="row">
                 <span class="left">建议</span>
                 <span class="right"><%=tian.advice%></span>
+            </div>
+            <div class="row">
+                <span class="left">附议人</span>
+                <span class="right"><%=tian.resolutioner%></span>
             </div>
         </div>
         <%}%>
@@ -195,14 +201,24 @@
                     <p class="content" id="advice-repeat"><%=repeat.advice%></p>
                 </div>
             </div>
+            <div class="row">
+                <div class="left">
+                    <p class="desc">附议人</p>
+                    <p class="content" id="resolutioner-confirm"><%=confirm.resolutioner%></p>
+                </div>
+                <div class="right">
+                    <p class="desc">附议人</p>
+                    <p class="content" id="resolutioner-repeat"><%=repeat.resolutioner%></p>
+                </div>
+            </div>
         </div>
         <div class="reject-content">
             <textarea id="tuihui" rows="5" placeholder="请填写退回理由" maxlength="250"></textarea>
         </div>
         <div class="bottom">
             <div class="content" id="submit">
-                <div class="left">不同意修改</div>
-                <div class="right">同意修改</div>
+                <button type="button" class="mui-btn mui-btn-gray" data-loading-icon="">不同意修改</button>
+                <button type="button" class="mui-btn mui-btn-primary" data-loading-icon="">同意修改</button>
             </div>
         </div>
         <%}%>
@@ -218,11 +234,12 @@
             compare_str($("#problem-confirm").text(),$("#problem-repeat").text(),$("#problem-confirm")[0],$("#problem-repeat")[0]);
             compare_str($("#analyse-confirm").text(),$("#analyse-repeat").text(),$("#analyse-confirm")[0],$("#analyse-repeat")[0]);
             compare_str($("#advice-confirm").text(),$("#advice-repeat").text(),$("#advice-confirm")[0],$("#advice-repeat")[0]);
+            compare_str($("#resolutioner-confirm").text(),$("#resolutioner-repeat").text(),$("#resolutioner-confirm")[0],$("#resolutioner-repeat")[0]);
         }
         var audit_jieguo;
         var tian_id=$("#tian-id").attr("data-tian-id");
         var tuihui;
-        $("#submit div").each(function () {
+        $("#submit button").each(function () {
             $(this).click(function () {
                 if($(this).text()=='不同意修改'){
                     tuihui=$.trim($("#tuihui").val());

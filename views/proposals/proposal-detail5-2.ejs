@@ -50,11 +50,19 @@
     .proposal-content .row > div .desc{
         color: #0071bd;
     }
+    .proposal-content .row > div .content{
+        min-height: 24px;
+    }
     .back-content{
         padding: 10px 0;
     }
     .back-content .desc{
         color: #0071bd;
+    }
+    .back-content .content {
+        border: 1px solid #ddd;
+        padding: 5px 10px;
+        border-radius: 4px;
     }
 </style>
 <script type='text/javascript' src='/js/compareText.js'></script>
@@ -110,6 +118,16 @@
                     <p class="content" id="advice-repeat"></p>
                 </div>
             </div>
+            <div class="row">
+                <div class="left">
+                    <p class="desc">附议人</p>
+                    <p class="content" id="resolutioner-confirm"></p>
+                </div>
+                <div class="right">
+                    <p class="desc">附议人</p>
+                    <p class="content" id="resolutioner-repeat"></p>
+                </div>
+            </div>
         </div>
         <div class="back-content">
             <p class="desc">退回理由：</p>
@@ -118,12 +136,11 @@
     </div>
 </div>
 </body>
-
 <script>
     compare_str("<%=confirm.anyou%>","<%=repeat.anyou%>",$("#anyou-confirm")[0],$("#anyou-repeat")[0]);
     compare_str("<%=confirm.problem%>","<%=repeat.problem%>",$("#problem-confirm")[0],$("#problem-repeat")[0]);
     compare_str("<%=confirm.analyse%>","<%=repeat.analyse%>",$("#analyse-confirm")[0],$("#analyse-repeat")[0]);
     compare_str("<%=confirm.advice%>","<%=repeat.advice%>",$("#advice-confirm")[0],$("#advice-repeat")[0]);
-
+    compare_str("<%=confirm.resolutioner%>","<%=repeat.resolutioner%>",$("#resolutioner-confirm")[0],$("#resolutioner-repeat")[0]);
 </script>
 </html>

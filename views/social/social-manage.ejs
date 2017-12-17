@@ -21,7 +21,7 @@
     .mescroll{
         position: fixed;
         top: 82px;
-        bottom: 50px;
+        bottom: 0;
         height: auto;
     }
     .states-content{
@@ -54,22 +54,6 @@
     .list-tab .tab-item.active{
         color: #0071bd;
     }
-    .bottom-content{
-        position: fixed;
-        height: 50px;
-        width: 100%;
-        bottom: 0;
-        right: 0;
-        background: #e1edfd;
-        border: 1px solid #00a0e9;
-        display: none;
-    }
-    .bottom-content .content{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 50px;
-    }
 </style>
 <body>
 <div class="container">
@@ -96,11 +80,12 @@
                     </p>
                 </div>
                 <%}%>
-            </div>
-        </div>
-        <div class="bottom-content" id="bottom-content">
-            <div class="content" id="submit" onclick="location.href='/submitDetail'">
-                提交信息
+                <%if(sqmy_list.length<=0){%>
+                <div class="empty">
+                    <img src="/images/search-empty.png">
+                    <p>暂无内容</p>
+                </div>
+                <%}%>
             </div>
         </div>
     </div>
@@ -113,12 +98,6 @@
             $(".header-right").css("display","block")
         }else{
             $(".header-right").css("display","none")
-        }
-        if (role == 4 || role == 5 || user_id=='' || user_id<=0 || user_id==null) {
-            $("#bottom-content").css("display", "none")
-            $(".mescroll").css("bottom",0)
-        }else{
-            $("#bottom-content").css("display", "block")
         }
         var pageType="<%=pageType%>"
         var sqmy_kind=parseInt(pageType)+1
@@ -135,7 +114,7 @@
             sessionStorage.setItem("socialManagerList", "");
             sessionStorage.setItem("socialManagerTop", 0);
             var url=$(this).attr("data-url");
-            location.replace(url+"?pageType="+index)
+            location.replace(url+"?pageType="+index+"&id="+user_id)
         })
         $(document).on('click','.item',function () {
             var id=$(this).attr("id")
@@ -144,7 +123,7 @@
         $(document).on('click','.header-right',function () {
             sessionStorage.setItem("socialCheckList", "");
             sessionStorage.setItem("socialCheckTop", 0);
-            location.href="/socialCheck1?pageType=0"
+            location.href="/socialCheck1?pageType=0&id="+user_id
         })
         var loadContent=sessionStorage.getItem("socialManagerList");
         var socialManagerList=sessionStorage.getItem("socialManagerList")
@@ -180,6 +159,7 @@
                 kind=parseInt(pageType)+1
             }
             var params = {
+                user_id: user_id,
                 sqmy_list_kind: kind,
                 startid: $(".item:last").attr("id"),
                 num: 10,

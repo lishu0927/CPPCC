@@ -16,6 +16,7 @@
         padding: 0 15px 0 10px;
         color: #fff;
         font-size: 14px;
+        display: none;
     }
     .wrap{
         padding-bottom: 20px;
@@ -63,7 +64,7 @@
                 var item=group_list[i]
             %>
             <div class="item">
-                <p class="groupname"><%=item.groupname%>:</p>
+                <p class="groupname"><%=item.groupname%> : </p>
                 <div style="padding-left: 20px">
                     <%for(var j=0;j<item.weiyuan_list.length;j++){ var index=item.weiyuan_list[j]%>
                     <span onclick="window.location.href='/membersDetail?id=<%=index.user_id %>'"><%=index.user_name%></span>
@@ -77,7 +78,9 @@
 </body>
 <script>
     $(function () {
-        if(role==3 || role==4 || role==5){
+        if(role==1 || role==2){
+            $(".header-right").css("display","block")
+        }else{
             $(".header-right").css("display","none")
         }
         //创建MeScroll对象

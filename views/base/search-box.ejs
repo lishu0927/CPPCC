@@ -41,6 +41,7 @@
     </span>
 </div>
 <script>
+    var user_id=sessionStorage.getItem("user_id")
     var search_type="<%=search_type%>";
     var keyword="<%=keyword%>";
     $("#info").val(keyword)
@@ -53,7 +54,7 @@
                 location.href = "/membersSearch?keyword=" + info;
             }else if(search_type=='proposal'){
                 sessionStorage.setItem("proSearchTop", 0)
-                location.href = "/proposalSearch?keyword=" + info;
+                location.href = "/proposalSearch?keyword=" + info+"&id="+user_id;
             }
         }
     });
