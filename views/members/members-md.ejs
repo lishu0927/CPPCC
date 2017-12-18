@@ -41,14 +41,17 @@
     .members-groups .item .groupname{
         color: #0071bd;
         letter-spacing: 1px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 5px;
     }
     .members-groups .item div span{
         color: #3b3b3b;
         font-size: 15px;
         letter-spacing: 1px;
         line-height: 24px;
-        padding:5px 10px;
+        padding:5px 10px 5px 0;
         display: inline-block;
+        min-width: 74px;
     }
 </style>
 <body>
@@ -64,10 +67,10 @@
                 var item=group_list[i]
             %>
             <div class="item">
-                <p class="groupname"><%=item.groupname%> : </p>
-                <div style="padding-left: 20px">
+                <p class="groupname"><%=item.groupname%></p>
+                <div style="padding-left: 2px">
                     <%for(var j=0;j<item.weiyuan_list.length;j++){ var index=item.weiyuan_list[j]%>
-                    <span onclick="window.location.href='/membersDetail?id=<%=index.user_id %>'"><%=index.user_name%></span>
+                    <span onclick="jump(<%=index.user_id %>)"><%=index.user_name%></span>
                     <%}%>
                 </div>
             </div>
@@ -77,6 +80,11 @@
 </div>
 </body>
 <script>
+    function jump(id) {
+        $(this).css("color","#0071bd")
+        window.location.href='/membersDetail?id='+id
+    }
+
     $(function () {
         if(role==1 || role==2){
             $(".header-right").css("display","block")

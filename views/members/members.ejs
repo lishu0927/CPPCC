@@ -2,53 +2,32 @@
 <html>
 <%-include ../base/checkHead.ejs%>
 <style lang="stylus">
-    .member-content{
-        height: 100%;
-        display: flex;
-        flex-direction: column;
+    .container{
+        -webkit-animation-name: slideOut;
+        animation-name: slideOut;
+    }
+    .pic-content{
+        padding: 6px 0 2px 0;
+        background: #f5f5f5;
+    }
+    .pic-content img{
+        width: 100%;
     }
     .member-row{
-        flex: 1;
-        width: 100%;
         display: flex;
         align-items: center;
-        position: relative;
-    }
-    .member-row:before{
-        content: '';
-        position: absolute;
-        bottom:0;
-        left: 10%;
-        height: 1px;
-        width: 30%;
-        background: #0071bd;
-    }
-    .member-row:after{
-        content: '';
-        position: absolute;
-        bottom:0;
-        left: 60%;
-        height: 1px;
-        width: 30%;
-        background: #0071bd;
-    }
-    .member-row:last-child:before,.member-row:last-child:after{
-        display: none;
+        padding: 10px 0 5px 0;
     }
     .member-item{
         flex: 1;
         text-align: center;
     }
-    .member-item:nth-child(2n+1){
-        border-right: 1px solid #0071bd;
-    }
     .member-item img{
-        width: 40%;
+        width: 50%;
     }
     .member-item p{
-        color: #9a9898;
-        font-size: 17px;
-        margin-top: 5% !important;
+        color: #3b3b3b;
+        font-size: 15px;
     }
 </style>
 <body>
@@ -56,34 +35,35 @@
     <%-include ../base/header-search.ejs%>
     <%-include ../base/footer-nav.ejs%>
     <div class="wrap">
+        <div class="pic-content">
+            <img src="images/member-banner.png">
+        </div>
         <div class="member-content">
             <div class="member-row">
                 <div class="member-item" data-url="/membersMd">
-                    <img src="/images/wymd.png">
+                    <img src="/images/member1.png">
                     <p>委员名单</p>
                 </div>
                 <div class="member-item" data-url="/proposals">
-                    <img src="/images/zxta.png">
+                    <img src="/images/member2.png">
                     <p>政协提案</p>
                 </div>
-            </div>
-            <div class="member-row">
                 <div class="member-item" data-url="/social">
-                    <img src="/images/sqmy.png">
+                    <img src="/images/member3.png">
                     <p>社情民意</p>
                 </div>
-                <div class="member-item" data-url="/mien">
-                    <img src="/images/wyfc.png">
-                    <p>委员风采</p>
-                </div>
             </div>
             <div class="member-row">
+                <div class="member-item" data-url="/mien">
+                    <img src="/images/member4.png">
+                    <p>委员风采</p>
+                </div>
                 <div class="member-item" data-url="study">
-                    <img src="/images/xxyd.png">
+                    <img src="/images/member5.png">
                     <p>学习园地</p>
                 </div>
                 <div class="member-item" data-url="/video">
-                    <img src="/images/spdb.png">
+                    <img src="/images/member6.png">
                     <p>视频点播</p>
                 </div>
             </div>

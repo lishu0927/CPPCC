@@ -137,7 +137,7 @@
                 <% for(var i = 0;i < article_list.length;i++){ %>
                 <li class="item">
                     <a href="/newsDetail?id=<%= article_list[i].article_id %>">
-                        <img class="image" src="<%= article_list[i].img_url %>">
+                        <img class="image" src="<%= article_list[i].img_url %>" onerror="this.src='images/default1.png'">
                         <div class="info">
                             <p class="title mui-ellipsis"><%= article_list[i].title %></p>
                             <p class="desc mui-ellipsis-2"><%= article_list[i].zhaiyao %></p>

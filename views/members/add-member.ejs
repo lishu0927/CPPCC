@@ -259,12 +259,8 @@
     <span class="header-right" id="submit">确定</span>
     <div class="wrap">
         <div class="upload-content">
-            <div class="upload">
-                <form action="http://<%=reqHost%>:<%=reqPort%>/ZxApi/uploadfile.aspx" enctype="multipart/form-data"
-                      method="post" id="uploadForm">
-                    <input type="file" name="file" id="upload"/>
-                    上传/替换
-                </form>
+            <div class="upload" onclick="upImage()">
+                上传/替换
             </div>
         </div>
         <div class="input-row">
@@ -365,6 +361,16 @@
             });
         }, false);
     })(mui);
+    //上传图片
+    function upImage() {
+        try {
+            window.native.getImage('http://<%=reqHost%>:<%=reqPort%>/ZxApi/uploadfile.aspx','changeHeadimg')
+        }catch (err){
+        }
+    }
+    function changeHeadimg(data) {
+        $('#img').attr("src", data.imgurl_list[0].imgurl);
+    }
     $(function() {
         $("#groups").html("");
         $.ajax({  //取分组
@@ -386,17 +392,6 @@
             }
         });
     })
-    $('#uploadForm').ajaxForm(function(data) {
-        data= JSON.parse(data);
-        if(data.ecode==1000){
-            $('#img').attr("src",data.imgurl_list[0].imgurl);
-        }else{
-            mui.toast("上传失败！");
-        }
-    });
-    $("#upload").change(function () {
-        $('#uploadForm').submit();
-    });
     //保存委员信息
     $('#submit').click(function () {
         var key;

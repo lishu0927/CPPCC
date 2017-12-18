@@ -59,6 +59,7 @@
         line-height: 1;
         text-decoration: none;
         color: #aaa;
+
     }
     .input-row {
         display: flex;
@@ -260,14 +261,9 @@
     <%- include ../base/header.ejs %>
     <span class="header-right" id="submit">确定</span>
     <div class="wrap">
-        <div onclick="upImage()">上传头像</div>
         <div class="upload-content">
-            <div class="upload">
-                <form action="http://<%=reqHost%>:<%=reqPort%>/ZxApi/uploadfile.aspx" enctype="multipart/form-data"
-                      method="post" id="uploadForm">
-                    <input type="file" name="file" id="upload"/>
-                    上传/替换
-                </form>
+            <div class="upload" onclick="upImage()">
+                上传/替换
             </div>
         </div>
         <div class="input-row">
@@ -354,6 +350,7 @@
 <script>
     var sSid=sessionStorage.getItem("user_id");
     mui.previewImage();
+    //上传图片
     function upImage() {
         try {
             window.native.getImage('http://<%=reqHost%>:<%=reqPort%>/ZxApi/uploadfile.aspx','changeHeadimg')
@@ -361,8 +358,7 @@
         }
     }
     function changeHeadimg(data) {
-        window.native.alert(data)
-        $('#img').attr("src", data);
+        $('#img').attr("src", data.imgurl_list[0].imgurl);
     }
     (function ($) {
         $.init();
@@ -400,21 +396,6 @@
             }
         });
     })
-
-    //上传图片
-    $('#uploadForm').ajaxForm(function (data) {
-        data = JSON.parse(data);
-        if (data.ecode == 1000) {
-            $('#img').attr("src", data.imgurl_list[0].imgurl);
-        } else {
-            mui.toast("上传失败！");
-        }
-    });
-    $("#upload").change(function () {
-        $('#uploadForm').submit();
-    });
-    
-
 
     //保存委员信息
     $('#submit').click(function () {

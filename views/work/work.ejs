@@ -2,16 +2,26 @@
 <html>
 <%-include ../base/checkHead.ejs%>
 <style>
+    .container{
+        -webkit-animation-name: slideOut;
+        animation-name: slideOut;
+    }
     .work-content ul li{
         position: relative;
-        height: 50px;
-        line-height: 50px;
+        height: 54px;
+        line-height: 54px;
         border-bottom: 1px solid #ddd;
-        padding: 0 10px;
+        padding: 0 10px 0 46px;
         background-image: url("/images/icons/back-right.png");
         background-size: 8px;
         background-repeat: no-repeat;
         background-position: center right 10px;
+    }
+    .work-content ul li img{
+        position: absolute;
+        left: 10px;
+        top: 14px;
+        width: 26px;
     }
     .work-content ul li p{
         font-size: 16px;
@@ -30,22 +40,27 @@
 <div class="container">
     <%-include ../base/header-search.ejs%>
     <%-include ../base/footer-nav.ejs%>
-    <div class="wrap work-content">
+    <div class="wrap work-content mescroll" id="mescroll">
         <ul>
             <li class="item" data-url="/workInfo">
+                <img src="images/work1.png">
                 <p>政协简介</p>
             </li>
             <li class="item" data-url="/workOrder">
+                <img src="images/work2.png">
                 <p>政协领导</p>
             </li>
             <li class="item" data-url="/workFiles">
+                <img src="images/work3.png">
                 <p>政协文件</p>
             </li>
             <li class="item" data-url="/workFlow" id="flow" style="display: none">
+                <img src="images/work4.png">
                 <p>文件流转</p>
                 <span class="num"><%=num%></span>
             </li>
             <li class="item" data-url="/workNotices">
+                <img src="images/work5.png">
                 <p>通知</p>
             </li>
         </ul>
@@ -64,6 +79,21 @@
     $(function () {
         if(role==4 || role==5){
             $("#flow").css("display","block")
+        }
+        //创建MeScroll对象
+        var mescroll = new MeScroll("mescroll", {
+            down: {
+                auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+                callback: downCallback //下拉刷新的回调
+            },
+            up: {
+                use: false
+            }
+        });
+
+        /*下拉刷新的回调 */
+        function downCallback() {
+            window.location.reload()
         }
     })
 </script>
