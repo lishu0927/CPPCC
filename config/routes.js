@@ -76,6 +76,7 @@ module.exports = function (app) {
     app.get("/doneDetail", controlles.work.doneDetail);
     app.get("/searchWork", controlles.work.searchWork);
     app.get("/mineMsg", controlles.mine.msg);
+    app.get("/mineFont", controlles.mine.font);
 }
 
 

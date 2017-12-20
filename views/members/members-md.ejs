@@ -15,7 +15,7 @@
         right: 0;
         padding: 0 15px 0 10px;
         color: #fff;
-        font-size: 14px;
+        font-size: var(--size14);
         display: none;
     }
     .wrap{
@@ -44,20 +44,43 @@
         border-bottom: 1px solid #ddd;
         padding-bottom: 5px;
     }
-    .members-groups .item div span{
+    .members-groups .item .name-list{
+        padding-left: 1px;
+    }
+    .members-groups .item .name-list .name{
         color: #3b3b3b;
-        font-size: 15px;
+        font-size: var(--size14);
         letter-spacing: 1px;
         line-height: 24px;
         padding:5px 10px 5px 0;
         display: inline-block;
         min-width: 74px;
     }
+    .ripple {
+        position: relative;
+        overflow: hidden;
+        font-size: var(--size14);
+    }
+    .ripple:after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: #ddd;
+        opacity: 0;
+        transition:opacity .5s;
+    }
+    .ripple:active:after {
+        opacity: 1;
+    }
 </style>
 <body>
 <div class="container">
     <%-include ../base/header.ejs%>
-    <a class="header-right" href="/membersEdit">编辑</a>
+    <span class="header-right">编辑</span>
     <div class="wrap mescroll" id="mescroll">
         <div class="members-search">
             <%-include ../base/search-box.ejs%>
@@ -68,9 +91,11 @@
             %>
             <div class="item">
                 <p class="groupname"><%=item.groupname%></p>
-                <div style="padding-left: 2px">
+                <div class="name-list">
                     <%for(var j=0;j<item.weiyuan_list.length;j++){ var index=item.weiyuan_list[j]%>
-                    <span onclick="jump(<%=index.user_id %>)"><%=index.user_name%></span>
+                    <div class="name" data-id="<%=index.user_id %>">
+                        <span class="ripple" ><%=index.user_name%></span>
+                    </div>
                     <%}%>
                 </div>
             </div>
@@ -80,17 +105,29 @@
 </div>
 </body>
 <script>
-    function jump(id) {
+    $(document).on('click','.header-right',function () {
+        sessionStorage.setItem("membersMdTop",0)
+        sessionStorage.setItem("membersEditTop",0)
+        location.href='/membersEdit'
+    })
+    $(document).on('click','.name',function () {
         $(this).css("color","#0071bd")
-        window.location.href='/membersDetail?id='+id
-    }
-
+        var id=$(this).attr("data-id")
+        setTimeout(function () {
+            location.href='/membersDetail?id='+id
+        },100)
+    })
     $(function () {
         if(role==1 || role==2){
             $(".header-right").css("display","block")
         }else{
             $(".header-right").css("display","none")
         }
+        var _offset = sessionStorage.getItem("membersMdTop");
+        $(".wrap").scrollTop(_offset);  //进页面时跳到记录的位置
+        $(".wrap").scroll(function() {
+            sessionStorage.setItem("membersMdTop", $(this).scrollTop());
+        });
         //创建MeScroll对象
         var mescroll = new MeScroll("mescroll", {
             down: {

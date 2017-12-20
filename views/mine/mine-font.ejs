@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<%-include ../base/checkHead.ejs%>
+<style>
+    .container{
+        padding: 42px 0 0 0;
+    }
+    .wrap{
+        padding: 0 10px;
+    }
+    .mui-table-view:before{
+        display: none;
+    }
+    .mui-table-view-cell>a:not(.mui-btn){
+        font-size: var(--size14);
+        color: #3b3b3b;
+    }
+    .header-right{
+        position: absolute;
+        z-index: 10000000;
+        height: 42px;
+        text-align: center;
+        line-height: 42px;
+        top:0;
+        right: 0;
+        padding: 0 15px 0 10px;
+        color: #fff;
+        font-size: var(--size14);
+    }
+</style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <span class="header-right">确定</span>
+    <div class="wrap">
+        <ul class="mui-table-view mui-table-view-radio">
+            <li class="mui-table-view-cell mui-selected">
+                <a class="mui-navigate-right">标准</a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right">中</a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right">大</a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right">超大</a>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<script>
+    $(document).on('click','.header-right',function () {
+        var fontSize=$.trim($(".mui-selected").children("a").text())
+        localStorage.setItem("fontSizeType", fontSize);
+        try{
+            window.native.saveData("fontSizeType", fontSize);
+        }catch (err){
+
+        }
+        mui.toast("修改成功！")
+        setTimeout(function () {
+            history.go(-1)
+        },1000)
+    })
+    $(function () {
+        $(".mui-table-view-cell").removeClass("mui-selected")
+        var fontSizeType=localStorage.getItem("fontSizeType")
+        $(".mui-navigate-right").each(function () {
+            var type=$.trim($(this).html())
+           if(type==fontSizeType){
+               $(this).parent().addClass("mui-selected")
+               return false
+           }
+        })
+    })
+</script>
+</html>

@@ -26,7 +26,7 @@
     }
     .list .item span{
         color: #3b3b3b;
-        font-size: 16px;
+        font-size: var(--size16);
     }
     #start{
         display: none;
@@ -67,6 +67,7 @@
         sessionStorage.setItem("draftTop",0)
         sessionStorage.setItem("workSearchList","")
         sessionStorage.setItem("workSearchTop",0)
+        sessionStorage.setItem("transitionType","slideIn")
         var url=$(this).attr("data-url")
         location.href=url
     })

@@ -524,8 +524,8 @@ module.exports = {
     },
     detail4:function (req1, res, next) {
         var tian_id = req1.query.id;
-        var type=req1.query.type;
-        var zhuangtai=req1.query.zhuangtai;
+        var type=req1.query.type||'';
+        var zhuangtai=req1.query.zhuangtai||'';
         var data = {tian_kind:4,tian_id:tian_id};
         var content = JSON.stringify(data);
         var options = {

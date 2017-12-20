@@ -4,6 +4,8 @@
 <style>
     .container{
         padding: 82px 0 0 0;
+        -webkit-animation-name: slideOut;
+        animation-name: slideOut;
     }
     .header-right{
         position: absolute;
@@ -15,7 +17,7 @@
         right: 0;
         padding: 0 15px 0 10px;
         color: #fff;
-        font-size: 14px;
+        font-size: var(--size14);
     }
     .states-content{
         position: fixed;
@@ -37,7 +39,7 @@
         line-height: 30px;
         text-align: center;
         color: #585757;
-        font-size: 14px;
+        font-size: var(--size14);
         border-right: 1px solid #0071bd;
         cursor: pointer;
     }
@@ -57,7 +59,7 @@
 <body>
 <div class="container">
     <%-include ../base/header.ejs%>
-    <a class="header-right" href="/addWork">添加</a>
+    <span class="header-right" onclick="javascript:location.href='/addWork'">添加</span>
     <div class="wrap">
         <div class="states-content">
             <div class="list-tab">

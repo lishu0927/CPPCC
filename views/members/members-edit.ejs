@@ -15,7 +15,7 @@
         right: 0;
         padding: 0 15px 0 10px;
         color: #fff;
-        font-size: 14px;
+        font-size: var(--size14);
     }
     .mescroll{
         position: fixed;
@@ -28,7 +28,7 @@
     }
     .weiyuan_list .name{
         padding-left: 80px;
-        font-size: 14px;
+        font-size: var(--size14);
         line-height: 28px;
         color: #3b3b3b;
     }
@@ -40,7 +40,7 @@
     .list-title .left{
         padding: 0 20px;
         color: #3b3b3b;
-        font-size: 14px;
+        font-size: var(--size14);
     }
     .list-title .center{
         flex: 1;
@@ -49,7 +49,7 @@
     }
     .list-title .right{
         padding: 0 10px;
-        font-size: 12px;
+        font-size: var(--size12);
         color: #585757;
     }
     .list-title .delete{
@@ -66,14 +66,12 @@
         margin-top: 10px;
     }
     table .td{
-        display: inline-block;
-        width: 33.333%;
-        text-align: center;
-        border: 1px solid #ddd;
+        border: 1px solid #808080;
         padding: 5px 0;
-        font-size: 14px;
+        font-size: var(--size14);
         color: #3b3b3b;
         position: relative;
+        text-align: center;
     }
     table .td .delete{
         position: absolute;
@@ -93,6 +91,29 @@
         color: #282828;
         font-size: 16px;
         font-family: "Microsoft YaHei";
+    }
+    .ripple {
+        position: relative;
+        overflow: hidden;
+        font-size: var(--size14);
+    }
+    .ripple:after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: #ddd;
+        opacity: 0;
+        transition:opacity .5s;
+    }
+    .ripple:active:after {
+        opacity: 0.5;
+    }
+    .delete:active,table .td:active,table .td .delete:active,.weiyuan_list .name:active,.list-title .right:active{
+        color:#0071bd;
     }
 </style>
 <body>
@@ -119,13 +140,21 @@
                     <%}%>
                 <%}else if(item.weiyuan_list.length>1){%>
                     <table width="100%">
-                    <%for(var j=0;j<item.weiyuan_list.length;j++){
-                        var weiyuan = item.weiyuan_list[j];%>
-                        <td class="td">
-                            <span onclick="window.location.href='/editMember?id=<%=weiyuan.user_id%>'"><%=weiyuan.user_name%></span>
-                            <span class="delete delete-member" id="<%=weiyuan.user_id%>">×</span>
-                        </td>
-                    <%}%>
+                        <% var trLength=item.weiyuan_list.length%3==0?item.weiyuan_list.length/3:item.weiyuan_list.length/3+1;
+                            for(var k=0;k<trLength;k++){
+                                var tdLength=(3*k+3)<=item.weiyuan_list.length?(3*k+3):item.weiyuan_list.length
+                        %>
+                        <tr>
+                            <%for(var j=3*k;j<tdLength;j++){
+                                var weiyuan = item.weiyuan_list[j];
+                            %>
+                            <td class="td" width="33.3333%">
+                                <span class="ripple" onclick="window.location.href='/editMember?id=<%=weiyuan.user_id%>'"><%=weiyuan.user_name%></span>
+                                <span class="delete delete-member" id="<%=weiyuan.user_id%>">×</span>
+                            </td>
+                            <%}%>
+                        </tr>
+                        <%}%>
                     </table>
                 <%}%>
             <%}%>
@@ -151,6 +180,11 @@
 </body>
 <script>
     $(function () {
+        var _offset = sessionStorage.getItem("membersEditTop");
+        $(".wrap").scrollTop(_offset);  //进页面时跳到记录的位置
+        $(".wrap").scroll(function() {
+            sessionStorage.setItem("membersEditTop", $(this).scrollTop());
+        });
         //创建MeScroll对象
         var mescroll = new MeScroll("mescroll", {
             down: {
@@ -167,7 +201,9 @@
             window.location.reload()
         }
     })
-    $(".delete-member").click(function(){
+    $(".delete-member").click(function(event){
+        event.stopPropagation()
+        event.preventDefault()
         var id=this.id;
         mui.confirm('确认删除？', function(e) {
             if (e.index == 1) {

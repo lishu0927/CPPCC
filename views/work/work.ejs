@@ -8,10 +8,10 @@
     }
     .work-content ul li{
         position: relative;
-        height: 54px;
-        line-height: 54px;
+        height: 50px;
+        line-height: 50px;
         border-bottom: 1px solid #ddd;
-        padding: 0 10px 0 46px;
+        padding: 0 10px 0 44px;
         background-image: url("/images/icons/back-right.png");
         background-size: 8px;
         background-repeat: no-repeat;
@@ -20,11 +20,11 @@
     .work-content ul li img{
         position: absolute;
         left: 10px;
-        top: 14px;
-        width: 26px;
+        top: 13px;
+        width: 24px;
     }
     .work-content ul li p{
-        font-size: 16px;
+        font-size: var(--size14);
         color: #000;
     }
     .work-content ul li .num{
@@ -33,7 +33,14 @@
         top:0;
         padding: 0 10px;
         color: #fa1414;
-        font-size: 15px;
+        font-size: var(--size15);
+    }
+    .pic-content{
+        padding: 6px 0 2px 0;
+        background: #f5f5f5;
+    }
+    .pic-content img{
+        width: 100%;
     }
 </style>
 <body>
@@ -41,6 +48,9 @@
     <%-include ../base/header-search.ejs%>
     <%-include ../base/footer-nav.ejs%>
     <div class="wrap work-content mescroll" id="mescroll">
+        <div class="pic-content">
+            <img src="images/work-banner.png">
+        </div>
         <ul>
             <li class="item" data-url="/workInfo">
                 <img src="images/work1.png">

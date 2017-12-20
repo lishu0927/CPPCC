@@ -20,7 +20,7 @@
         right: 0;
         padding: 0 15px 0 10px;
         color: #fff;
-        font-size: 14px;
+        font-size: var(--size14);
     }
     .wrap {
         padding: 10px 20px 10px 10px;
@@ -28,7 +28,7 @@
     }
     .upload-content {
         position: absolute;
-        left: 230px;
+        left: 220px;
         top: 90px;
 
     }
@@ -36,7 +36,7 @@
         display: inline-block;
         width: 80px;
         height: 110px;
-        margin: 0 10px 0 30px;
+        margin: 0 20px;
         vertical-align: bottom;
     }
     .upload {
@@ -46,7 +46,7 @@
         border-radius: 3px;
         padding: 5px 8px;
         color: #fff;
-        font-size: 14px;
+        font-size: var(--size14);
     }
     .upload input {
         position: absolute;
@@ -74,17 +74,17 @@
         border: 1px solid #ddd !important;
         padding: 0;
         margin: 0;
-        font-size: 14px;
+        font-size: var(--size14);
         flex: 1;
         color: #3b3b3b;
     }
     .input-row label {
         color: #0071bd;
-        min-width: 70px;
+        min-width: 77px;
         display: inline-block;
         margin-right: 5px;
         white-space: nowrap;
-        font-size: 14px;
+        font-size: var(--size14);
         padding: 0;
         width: auto;
     }
@@ -131,7 +131,7 @@
         width: 70px;
         background-color: rgba(0, 0, 0, 0.4);
         border-radius: 12px;
-        font-size: 16px;
+        font-size: var(--size16);
     }
     .mui-preview-image {
         display: none;
@@ -267,20 +267,20 @@
             </div>
         </div>
         <div class="input-row">
-            <label>照片：</label>
+            <label>照片:</label>
             <img src="<%= member.headImage %>" onerror="this.src='images/default3.png'" class="member-pic" id="img" data-preview-src=""/>
         </div>
         <div class="input-row">
-            <label>选择分组：</label>
+            <label>选择分组:</label>
             <select id="groups">
             </select>
         </div>
         <div class="input-row mui-input-row">
-            <label>姓名：</label>
+            <label>姓名:</label>
             <input type="text" class="mui-input-clear"  value="<%= member.user_name %>" id="name" maxlength="25"/>
         </div>
         <div class="input-row">
-            <label>姓别：</label>
+            <label>姓别:</label>
             <div class="mui-input-row mui-radio mui-left">
                 <label class="radio-lable">男</label>
                 <input name="sex" type="radio" value="男">
@@ -296,51 +296,51 @@
                     data-options='{"type":"date","beginYear":1900,"endYear":2020}'><%= member.brithdatetime.split(" ")[0] %></button>
         </div>
         <div class="input-row mui-input-row">
-            <label>联系电话：</label>
+            <label>联系电话:</label>
             <input type="text" class="mui-input-clear" value="<%= member.telephone %>" id="telephone" maxlength="25"/>
         </div>
         <div class="input-row mui-input-row">
-            <label>民族：</label>
+            <label>民族:</label>
             <input type="text" class="mui-input-clear" value="<%= member.minzu %>" id="minzu" maxlength="25"/>
         </div>
         <div class="input-row mui-input-row">
-            <label>籍贯：</label>
+            <label>籍贯:</label>
             <input type="text" class="mui-input-clear" value="<%= member.jiguan %>" id="jiguan" maxlength="25"/>
         </div>
         <div class="input-row mui-input-row">
-            <label>党派：</label>
+            <label>党派:</label>
             <input type="text" class="mui-input-clear" value="<%= member.mianmao %>" id="mianmao" maxlength="25"/>
         </div>
         <div class="input-row mui-input-row">
-            <label>手机：</label>
+            <label>手机:</label>
             <input type="text" class="mui-input-clear" value="<%= member.mobile %>" id="mobile" maxlength="25"/>
         </div>
         <div class="input-row mui-input-row">
-            <label>地址：</label>
+            <label>地址:</label>
             <input type="text" class="mui-input-clear" value="<%= member.address %>" id="address" maxlength="50"/>
         </div>
         <div class="input-row mui-input-row">
-            <label>邮箱：</label>
+            <label>邮箱:</label>
             <input type="text" class="mui-input-clear" value="<%= member.email %>" id="email" maxlength="25"/>
         </div>
         <div class="input-row mui-input-row">
-            <label>学历：</label>
+            <label>学历:</label>
             <input type="text" class="mui-input-clear" value="<%= member.xueli %>" id="xueli" maxlength="25"/>
         </div>
         <div class="input-row mui-input-row">
-            <label>毕业院校：</label>
+            <label>毕业院校:</label>
             <input type="text" class="mui-input-clear" value="<%= member.yuanxiao %>" id="yuanxiao" maxlength="25"/>
         </div>
         <div class="input-row mui-input-row">
-            <label>单位职务：</label>
+            <label>单位职务:</label>
             <input type="text" class="mui-input-clear" value="<%= member.fax %>" id="fax" maxlength="250"/>
         </div>
         <div class="input-row mui-input-row">
-            <label>职称：</label>
+            <label>职称:</label>
             <input type="text" class="mui-input-clear" value="<%= member.zhicheng %>" id="zhicheng" maxlength="25"/>
         </div>
         <div class="input-row mui-input-row">
-            <label>界别：</label>
+            <label>界别:</label>
             <input type="text" class="mui-input-clear" value="<%= member.jiebie %>" id="jiebie" maxlength="25"/>
         </div>
     </div>

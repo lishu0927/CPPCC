@@ -57,6 +57,7 @@
         border-radius: 2px;
         border: 0;
         padding: 0;
+        font-size: 14px !important;
     }
     .login-content .form .form-item .but {
         display: inline-block;
@@ -141,11 +142,13 @@
                             sessionStorage.setItem('user_id', data.user_info.user_id);
                             sessionStorage.setItem('role_type', data.user_info.role_type);
                             sessionStorage.setItem('user', JSON.stringify(data.user_info));
+                            localStorage.setItem('fontSizeType', '标准');
                             try {
                                 window.native.saveData("manager_id", data.user_info.manager_id);
                                 window.native.saveData("user_id", data.user_info.user_id);
                                 window.native.saveData("role_type", data.user_info.role_type);
                                 window.native.saveData("user", JSON.stringify(data.user_info));
+                                window.native.saveData("fontSizeType", '标准');
                             } catch (err) {
                                 //找不到原生发方法，可能是环境不是在android应用上打开的，或者调用方法不对
                             }

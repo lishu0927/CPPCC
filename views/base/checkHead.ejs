@@ -23,6 +23,54 @@
         animation-fill-mode: both;
         -webkit-animation-name: slideIn;
         animation-name: slideIn;
+        --size12:12px;
+        --size13:13px;
+        --size14:14px;
+        --size15:15px;
+        --size16:16px;
+        --size17:17px;
+        --size18:18px;
+        --size19:19px;
+    }
+    .fontSmall{
+        --size12:12px;
+        --size13:13px;
+        --size14:14px;
+        --size15:15px;
+        --size16:16px;
+        --size17:17px;
+        --size18:18px;
+        --size19:19px;
+    }
+    .fontMedium{
+        --size12:13px;
+        --size13:14px;
+        --size14:15px;
+        --size15:16px;
+        --size16:17px;
+        --size17:18px;
+        --size18:19px;
+        --size19:20px;
+    }
+    .fontLarge{
+        --size12:14px;
+        --size13:15px;
+        --size14:16px;
+        --size15:17px;
+        --size16:18px;
+        --size17:19px;
+        --size18:20px;
+        --size19:21px;
+    }
+    .fontLargeL{
+        --size12:15px;
+        --size13:16px;
+        --size14:17px;
+        --size15:18px;
+        --size16:19px;
+        --size17:20px;
+        --size18:21px;
+        --size19:22px;
     }
     @-webkit-keyframes slideIn {
         0% {
@@ -31,6 +79,20 @@
         100% {
             left: 0;
         }
+    }
+    @-webkit-keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    p{
+        font-size: var(--size14);
+    }
+    .mui-btn, button{
+        font-size: var(--size14);
     }
     .list-normal .item{
         padding: 10px;
@@ -50,11 +112,11 @@
         line-height: 22px;
         color: #3b3b3b;
         text-indent: 20px;
-        font-size: 15px;
+        font-size: var(--size14);
         min-height: 22px;
     }
     .list-normal .item .bottom{
-        font-size: 12px;
+        font-size: var(--size12);
         color: #0071bd;
         text-align: right;
         overflow-y: auto;
@@ -77,7 +139,7 @@
         margin-bottom: 3%;
     }
     .empty p{
-        font-size: 14px;
+        font-size: var(--size14);
         color: #585757;
     }
 </style>
@@ -87,4 +149,16 @@
     if(mId == null || mId == ""){
         location.href="/login"
     }
+    $(function () {
+        var fontSizeType=localStorage.getItem("fontSizeType")
+        if(fontSizeType=="标准"){
+            $(".container").addClass("fontSmall")
+        }else if(fontSizeType=="中"){
+            $(".container").addClass("fontMedium")
+        }else if(fontSizeType=="大"){
+            $(".container").addClass("fontLarge")
+        }else if(fontSizeType=="超大"){
+            $(".container").addClass("fontLargeL")
+        }
+    })
 </script>

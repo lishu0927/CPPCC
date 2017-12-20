@@ -8,6 +8,13 @@ module.exports = {
             }
         );
     },
+    font: function (req, res,next) {
+        res.render('mine/mine-font',
+            {
+                title: '修改字号',
+            }
+        );
+    },
     msg: function (req1, res, next) {
         var data = {startid: -1};
         var content = JSON.stringify(data);

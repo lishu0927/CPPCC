@@ -16,18 +16,18 @@
     .member-row{
         display: flex;
         align-items: center;
-        padding: 10px 0 5px 0;
+        padding: 35px 0 10px 0;
     }
     .member-item{
         flex: 1;
         text-align: center;
     }
     .member-item img{
-        width: 50%;
+        width: 40%;
     }
     .member-item p{
         color: #3b3b3b;
-        font-size: 15px;
+        font-size: var(--size13);
     }
 </style>
 <body>
@@ -73,6 +73,7 @@
 </body>
 <script>
     $(document).on('click','.member-item',function () {
+        sessionStorage.setItem("membersMdTop",0)
         sessionStorage.setItem("studyList", "");
         sessionStorage.setItem("studyTop", 0);
         sessionStorage.setItem("mienList", "");

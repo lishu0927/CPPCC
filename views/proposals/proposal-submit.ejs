@@ -35,7 +35,7 @@
     }
     .list li .item .right{
         color: #000;
-        font-size: 16px;
+        font-size: var(--size16);
         display: inline-block;
         width: 100px;
         text-align: left;
@@ -80,6 +80,7 @@
         sessionStorage.setItem("downTop",0)
         sessionStorage.setItem("managerList","")
         sessionStorage.setItem("managerTop",0)
+        sessionStorage.setItem("transitionType","slideIn")
         var url=$(this).attr("data-url")
         location.href=url
     })

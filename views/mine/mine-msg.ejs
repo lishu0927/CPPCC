@@ -10,13 +10,13 @@
     }
     .request-content .row .title {
         color: #585757;
-        font-size: 15px;
+        font-size: var(--size15);
         padding: 10px;
     }
     .request-content .row textarea {
         width: 100%;
         border: 1px solid #ddd;
-        font-size: 14px;
+        font-size: var(--size14);
     }
     .confirm {
         text-align: center;
@@ -24,7 +24,8 @@
     }
     .mui-btn-primary {
         padding: 7px 15px;
-        width: 30%;
+        width: 100%;
+        letter-spacing: 2px;
     }
     .msg-content {
         background: #e1edfd;
@@ -40,7 +41,7 @@
     }
     .msg-content .item p{
         color: #3b3b3b;
-        font-size: 12px;
+        font-size: var(--size12);
     }
     .msg-content .item .req .left {
         color: #fa1414;
@@ -66,6 +67,7 @@
                 <button type="button" class="mui-btn mui-btn-primary" data-loading-icon="">提交</button>
             </div>
         </div>
+        <%if(result.length>0){%>
         <div class="msg-content">
             <p class="title">【留言内容选登】</p>
             <% for(var i = 0;i < result.length;i++){ %>
@@ -81,6 +83,7 @@
             </div>
             <% } %>
         </div>
+        <%}%>
     </div>
 </div>
 </body>

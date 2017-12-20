@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
+<script>
+
+</script>
 <style>
     .container{
         padding: 136px 0 0 0;
+        opacity: 0;
+        -webkit-animation-name: slideOut;
+        animation-name: slideOut;
     }
     .header-right{
         position: absolute;
@@ -15,7 +21,7 @@
         right: 0;
         padding: 0 15px 0 10px;
         color: #fff;
-        font-size: 14px;
+        font-size: var(--size14);
         display: none;
     }
     .proposals-search{
@@ -45,7 +51,7 @@
         line-height: 30px;
         text-align: center;
         color: #585757;
-        font-size: 14px;
+        font-size: var(--size14);
         border-right: 1px solid #0071bd;
         cursor: pointer;
     }
@@ -104,6 +110,9 @@
 </div>
 </body>
 <script>
+    window.onbeforeunload=function (){
+        sessionStorage.setItem("transitionType","slideOut")
+    }
     $(document).on('click','.download',function (e) {
         e.preventDefault()
         e.stopPropagation()
@@ -135,6 +144,14 @@
         })
     })
     $(function () {
+        var transitionType=sessionStorage.getItem("transitionType")
+        if(transitionType=="slideIn"){
+            $(".container").css("-webkit-animation-name","slideIn")
+            $(".container").css("animation-name","slideIn")
+            $(".container").css("opacity","1")
+        }else if(transitionType=="slideOut"){
+            $(".container").css("opacity","1")
+        }
         if(role==1 || role==2){
             $(".header-right").css("display","block")
         }else{
