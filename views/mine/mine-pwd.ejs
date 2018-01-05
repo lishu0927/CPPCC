@@ -21,8 +21,8 @@
         display: inline-block;
         width: 100%;
         letter-spacing: 1px;
-        padding: 8px;
-        font-size: var(--size15);
+        padding: 7px 15px;
+        font-size: var(--size14);
     }
 </style>
 <body>
@@ -46,15 +46,19 @@
 </body>
 <script>
     var manager_id=sessionStorage.getItem("manager_id")
-    $('.confirm').click(function () {
+    $('.confirm button').click(function () {
+        var _self=this
+        mui(this).button('loading');
         var psw = $.trim($('#pwd').val());
         var newpsw = $.trim($('#newpwd').val());
         var reppwd = $.trim($('#reppwd').val());
         if(newpsw==""){
             mui.toast('新密码不能为空');
+            mui(this).button('reset');
             return;
         }else if(newpsw!=reppwd){
             mui.toast('新密码两次输入不相同');
+            mui(this).button('reset');
             return;
         }
         var params = {
@@ -70,17 +74,22 @@
             data: data,
             error: function (request) {      // 设置表单提交出错
                 mui.toast("系统错误，返回状态码为：" + request.status);
+                mui(_self).button('reset');
             },
             success: function (data) {
                 if(data.ecode==1000){
                     mui.toast('修改成功');
+                    mui(_self).button('reset');
+                    $(_self).attr("disabled",true);
                     setTimeout(function () {
-                        history.go(-1);
+                        history.go(-1)
                     },1000)
                 }else if(data.ecode==3103){
                     mui.toast('旧密码错误');
+                    mui(_self).button('reset');
                 }else{
                     mui.toast('修改失败');
+                    mui(_self).button('reset');
                 }
             }
         });

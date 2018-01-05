@@ -216,16 +216,17 @@
         mui.toast("正在下载")
     })
     $(function() {
-        var sSId=sessionStorage.getItem('user_id') //当前用户
+        var mId=sessionStorage.getItem('manager_id') //当前用户
 
         //取出处理人
         var leaderStr='';
         var str="<%=leaders%>";
         str=str.replace(/&#34;/g, '"');
         var leaders=JSON.parse(str);
+        console.log(leaders)
         var flag=0;
         for(var i=0;i<leaders.length;i++){
-            if(leaders[i].touserid==sSId){ //取出的处理人中是否有自己
+            if(leaders[i].touserid==mId){ //取出的处理人中是否有自己
                 flag=1;
             }
             leaderStr+=leaders[i].tousername+" , "
@@ -238,15 +239,17 @@
             $(".type2").css("display","block")
         }
 
-
         var dailywork_id="<%=work.dailywork_id%>";
-        var touserid=sSId;
+        var touserid=mId;
         var suggestion;
-        $("#submit").click(function () {
+        $("#submit button").click(function () {
+            var _self=this
+            mui(this).button('loading');
             suggestion=$.trim($("#suggestion").val());
             if(suggestion == null||suggestion==""){
                 mui.toast("请填写处理意见")
-                return;
+                mui(this).button('reset');
+                return false
             }else {
                 var params = {
                     dailywork_id: dailywork_id,
@@ -261,15 +264,19 @@
                     data: data,
                     error: function (request) {      // 设置表单提交出错
                         mui.toast("系统错误，返回状态码为：" + request.status);
+                        mui(_self).button('reset');
                     },
                     success: function (data) {
                         if(data.ecode==1000){
                             mui.toast("审批成功！");
+                            mui(_self).button('reset');
+                            $(_self).attr('disabled',true);
                             setTimeout(function () {
-                                history.go(-1)
+                                location.replace(document.referrer)
                             },1000);
                         }else{
                             mui.toast("审批失败！");
+                            mui(_self).button('reset');
                         }
                     }
                 });

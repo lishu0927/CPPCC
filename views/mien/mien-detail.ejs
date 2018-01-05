@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <div class="wrap">
-        <p class="title"><%=article.title%></p>
-        <div class="content"><%-article.content%></div>
-    </div>
-</div>
-</body>
 <style>
     .container{
         padding: 42px 0 0 0;
@@ -21,6 +12,10 @@
         color: #0d0d0d;
         text-align: center;
         font-size: var(--size16);
+    }
+    .wrap .member-img{
+        width: 94%;
+        margin-left: 3%;
     }
     .content{
         padding: 10px;
@@ -35,8 +30,16 @@
         word-break: break-word;
     }
     .content img{
-        width: 100% !important;
+        max-width: 100% !important;
     }
 </style>
-
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap">
+        <p class="title"><%=article.title%></p>
+        <div class="content"><%-article.content%></div>
+    </div>
+</div>
+</body>
 </html>

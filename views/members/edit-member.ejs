@@ -343,6 +343,10 @@
             <label>界别:</label>
             <input type="text" class="mui-input-clear" value="<%= member.jiebie %>" id="jiebie" maxlength="25"/>
         </div>
+        <div class="input-row mui-input-row">
+            <label>委员排序:</label>
+            <input type="text" class="mui-input-clear" value="<%= member.order %>" id="order"/>
+        </div>
     </div>
 </div>
 </body>
@@ -399,6 +403,7 @@
 
     //保存委员信息
     $('#submit').click(function () {
+        var _self=this
         var key;
         var user_id='<%=member.user_id%>'
         var user_name=$.trim($('#name').val())
@@ -417,6 +422,7 @@
         var jiebie= $.trim($('#jiebie').val());
         var yuanxiao= $.trim($('#yuanxiao').val());
         var zhicheng= $.trim($('#zhicheng').val());
+        var order= $.trim($('#order').val());
         var groupName= $.trim($('#groups').val());
         var headImage= $.trim($('#img').attr("src"));
         if(user_id==''||user_name==''){
@@ -426,7 +432,7 @@
             mui.toast("请填写出生日期")
             return false
         }else if(minzu==''|| mianmao==''||telephone==''||fax==''||mobile==''||address==''||email==''||
-            xueli==''||jiguan==''||jiebie==''||yuanxiao==''||zhicheng==''){
+            xueli==''||jiguan==''||jiebie==''||yuanxiao==''||zhicheng=='' || order==''){
             $(".mui-input-clear").each(function () {
                 if($(this).val()==''){
                     key=$(this).prev().html()
@@ -455,6 +461,7 @@
                 yuanxiao: yuanxiao,
                 zhicheng: zhicheng,
                 groupName: groupName,
+                order: order,
                 headImage: headImage
             }
             var data = JSON.stringify(params)
@@ -469,6 +476,7 @@
                 success: function (data) {
                     if (data.ecode == 1000) {
                         mui.toast("编辑成功！");
+                        $(_self).unbind('click')
                         if(user_id==sSid) {
                             var params1 = { //如果编辑的是自己的信息, 需将更新后的信息存入sessionStorage中
                                 user_id: user_id
@@ -497,7 +505,7 @@
                             })
                         }
                         setTimeout(function () {
-                            history.go(-1)
+                            history.go(-1);
                         },1000);
                     } else {
                         mui.toast("编辑失败！");

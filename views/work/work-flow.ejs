@@ -37,7 +37,7 @@
     <%-include ../base/header.ejs%>
     <div class="wrap">
         <ul class="list">
-            <li id="start" class="item" data-url="/startWorkDraft">
+            <li id="start" class="item" data-url="/workManager1">
                 <img src="images/icons/flow1.png">
                 <span>发起流转</span>
             </li>
@@ -63,8 +63,8 @@
         sessionStorage.setItem("todoTop",0)
         sessionStorage.setItem("doneList","")
         sessionStorage.setItem("doneTop",0)
-        sessionStorage.setItem("draftList","")
-        sessionStorage.setItem("draftTop",0)
+        sessionStorage.setItem("workManagerList","")
+        sessionStorage.setItem("workManagerTop",0)
         sessionStorage.setItem("workSearchList","")
         sessionStorage.setItem("workSearchTop",0)
         sessionStorage.setItem("transitionType","slideIn")
@@ -78,7 +78,7 @@
         var user_id=sessionStorage.getItem("user_id");
         var manager_id=sessionStorage.getItem("manager_id");
         var role_type=sessionStorage.getItem("role_type");
-        $("#start").attr("data-url","/startWorkDraft?id="+user_id+"&manager_id="+manager_id+"&role_type="+role_type);
+        $("#start").attr("data-url","/workManager1?pageType=0&id="+user_id+"&manager_id="+manager_id+"&role_type="+role_type);
         $("#todo").attr("data-url","/todoWork?id="+user_id+"&manager_id="+manager_id+"&role_type="+role_type);
         $("#done").attr("data-url","/doneWork?id="+user_id+"&manager_id="+manager_id+"&role_type="+role_type);
     })

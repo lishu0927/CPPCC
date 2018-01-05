@@ -6,8 +6,8 @@ module.exports = {
         var data = {};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m2_01.ashx",
             method: "POST",
             headers: {
@@ -49,8 +49,8 @@ module.exports = {
         var data = {keyword: keyword};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m2_02.ashx",
             method: "POST",
             headers: {
@@ -87,12 +87,13 @@ module.exports = {
         req.end();
     },
     detail: function (req1, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var id = req1.query.id;
         var data = {user_id: id};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m2_03.ashx",
             method: "POST",
             headers: {
@@ -128,11 +129,12 @@ module.exports = {
         req.end();
     },
     edit: function (req1, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var data = {};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m2_01.ashx",
             method: "POST",
             headers: {
@@ -167,6 +169,7 @@ module.exports = {
         req.end();
     },
     editGroup: function (req, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var id = req.query.id;
         res.render('members/edit-group',
             {
@@ -176,12 +179,13 @@ module.exports = {
         );
     },
     editMember: function (req1, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var id = req1.query.id;
         var data = {user_id: id};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m2_03.ashx",
             method: "POST",
             headers: {

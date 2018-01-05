@@ -183,6 +183,10 @@ $(function() {
     var company,weinum,anyou,problem,analyse,advice,resolutioner;
     $("#submit button").each(function () {
         $(this).click(function () {
+            var _self=this
+            var tj_text=$(this).text()
+            mui(this).button('loading');
+            $(this).siblings().attr("disabled",true);
             company=$.trim($("#company").val());
             weinum=$.trim($("#weinum").val());
             anyou=$.trim($("#anyou").val());
@@ -190,28 +194,40 @@ $(function() {
             analyse=$.trim($("#analyse").val());
             advice=$.trim($("#advice").val());
             resolutioner=$.trim($("#resolutioner").val());
-            if($(this).text()=='提交'){
+            if(tj_text=='提交'){
                 tijiao_kind=4;
-            }else if($(this).text()=='保存'){
+            }else if(tj_text=='保存'){
                 tijiao_kind=3;
             }
             if(user_name == ''||mobile==''){
                 mui.toast("系统错误")
+                mui(this).button('reset');
+                $(this).siblings().attr("disabled",false);
                 return false
             }else if(company==''){
                 mui.toast("单位不能为空")
+                mui(this).button('reset');
+                $(this).siblings().attr("disabled",false);
                 return false
             }else if(anyou==''){
                 mui.toast("案由不能为空")
+                mui(this).button('reset');
+                $(this).siblings().attr("disabled",false);
                 return false
             }else if(problem==''){
                 mui.toast("问题不能为空")
+                mui(this).button('reset');
+                $(this).siblings().attr("disabled",false);
                 return false
             }else if(analyse==''){
                 mui.toast("分析不能为空")
+                mui(this).button('reset');
+                $(this).siblings().attr("disabled",false);
                 return false
             }else if(advice==''){
                 mui.toast("建议不能为空")
+                mui(this).button('reset');
+                $(this).siblings().attr("disabled",false);
                 return false
             }else {
                 var params = {
@@ -236,15 +252,21 @@ $(function() {
                     data: data,
                     error: function (request) {      // 设置表单提交出错
                         mui.toast("系统错误，返回状态码为：" + request.status);
+                        mui(_self).button('reset');
+                        $(_self).siblings().attr("disabled",false);
                     },
                     success: function (data) {
                         if(data.ecode==1000){
                             mui.toast("操作成功！");
+                            mui(_self).button('reset');
+                            $(_self).attr('disabled',true);
                             setTimeout(function () {
                                 history.go(-1)
                             },1000);
                         }else{
                             mui.toast("操作失败！");
+                            mui(_self).button('reset');
+                            $(_self).siblings().attr("disabled",false);
                         }
                     }
                 });

@@ -9,8 +9,8 @@ module.exports = {
         };
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m2_21.ashx",
             method: "POST",
             headers: {
@@ -49,8 +49,8 @@ module.exports = {
         var data = {article_id:article_id};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m2_22.ashx",
             method: "POST",
             headers: {

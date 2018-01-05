@@ -89,14 +89,18 @@
 </body>
 <script>
     var user_id=sessionStorage.getItem("user_id")
-    $('.confirm').click(function () {
+    $('.confirm button').click(function () {
+        var _self=this
+        mui(this).button('loading');
         var title = $.trim($('#title').val());
         var content = $.trim($('#content').val());
         if(title==""||title==null){
             mui.toast('请填写标题');
+            mui(this).button('reset');
             return;
         }else if(content=="" || content==null){
             mui.toast('请填写内容');
+            mui(this).button('reset');
             return;
         }
         var params = {
@@ -112,15 +116,19 @@
             data: data,
             error: function (request) {      // 设置表单提交出错
                 mui.toast("系统错误，返回状态码为：" + request.status);
+                mui(_self).button('reset');
             },
             success: function (data) {
                 if(data.ecode==1000){
                     mui.toast('提交成功');
+                    mui(_self).button('reset');
+                    $(_self).attr("disabled",true);
                     setTimeout(function () {
-                        history.go(-1);
+                        history.go(-1)
                     },1000)
                 }else{
                     mui.toast('提交失败');
+                    mui(_self).button('reset');
                 }
             }
         });

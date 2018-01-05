@@ -64,8 +64,8 @@
     <div class="wrap">
         <div class="states-content">
             <div class="list-tab">
-                <div class="tab-item active" data-url="/startWorkDraft">草稿</div>
-                <div class="tab-item" data-url="/startWorkPass">提交文件</div>
+                <div class="tab-item" data-url="/workManager1">草稿</div>
+                <div class="tab-item" data-url="/workManager2">提交文件</div>
             </div>
         </div>
         <div class="mescroll" id="mescroll">
@@ -78,7 +78,9 @@
                         <span class="left"><%= dailywork_list[i].worknumber%></span>
                         <span class="left"><%= dailywork_list[i].username%></span>
                         <span class="left"><%= dailywork_list[i].createdate%></span>
+                        <%if(pageType==0){%>
                         <span class="right delete" id="<%=dailywork_list[i].dailywork_id%>">删除</span>
+                        <%}%>
                     </p>
                 </div>
                 <%}%>
@@ -106,16 +108,20 @@
         }else if(transitionType=="slideOut"){
             $(".container").css("opacity","1")
         }
+        var pageType="<%=pageType%>"
+        var detail_type=parseInt(pageType)+1
+        $(".tab-item").eq(pageType).addClass("active")
+
         var user_id=sessionStorage.getItem("user_id")
         var manager_id=sessionStorage.getItem("manager_id")
         var role_type=sessionStorage.getItem("role_type")
-        var loadContent=sessionStorage.getItem("draftList");
-        var draftList=sessionStorage.getItem("draftList")
-        $(".list-content").append(draftList)
-        var draftTop = sessionStorage.getItem("draftTop");
-        $(".wrap").scrollTop(draftTop);
+        var loadContent=sessionStorage.getItem("workManagerList");
+        var workManagerList=sessionStorage.getItem("workManagerList")
+        $(".list-content").append(workManagerList)
+        var workManagerTop = sessionStorage.getItem("workManagerTop");
+        $(".wrap").scrollTop(workManagerTop);
         $(".wrap").scroll(function() {
-            sessionStorage.setItem("draftTop", $(this).scrollTop());
+            sessionStorage.setItem("workManagerTop", $(this).scrollTop());
         });
         //创建MeScroll对象
         var mescroll = new MeScroll("mescroll", {
@@ -131,13 +137,14 @@
 
         /*下拉刷新的回调 */
         function downCallback(){
-            sessionStorage.setItem("draftList", "");
-            sessionStorage.setItem("draftTop", 0);
+            sessionStorage.setItem("workManagerList", "");
+            sessionStorage.setItem("workManagerTop", 0);
             window.location.reload()
         }
         function upCallback(){
+            var kind=parseInt(pageType)+1
             var params = {
-                dailywork_list_kind: 1,
+                dailywork_list_kind: kind,
                 manager_id: manager_id,
                 role_type: role_type,
                 user_id:user_id,
@@ -173,7 +180,7 @@
                                 $(".list-content").append(item);
                                 loadContent += item;
                             })
-                            sessionStorage.setItem("draftList", loadContent);
+                            sessionStorage.setItem("workManagerList", loadContent);
                         } else {
                             mescroll.endUpScroll(true)
                         }
@@ -185,12 +192,11 @@
             });
         }
         $(document).on('click','.tab-item',function () {
-            sessionStorage.setItem("draftList", "");
-            sessionStorage.setItem("draftTop", 0);
-            sessionStorage.setItem("passList", "");
-            sessionStorage.setItem("passTop", 0);
+            var index=$(this).index()
+            sessionStorage.setItem("workManagerList", "");
+            sessionStorage.setItem("workManagerTop", 0);
             var url=$(this).attr("data-url");
-            location.replace(url+"?id="+user_id+"&manager_id="+manager_id+"&role_type="+role_type)
+            location.replace(url+"?pageType="+index+"&id="+user_id+"&manager_id="+manager_id+"&role_type="+role_type)
         })
         $(document).on('click','.delete',function(e){
             e.preventDefault()
@@ -225,7 +231,7 @@
         });
         $(document).on('click','.item',function () {
             var id=$(this).attr("id")
-            location.href='/workDetail1?id='+id
+            location.href='/workDetail'+detail_type+'?id='+id
         });
     })
 </script>

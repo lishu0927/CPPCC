@@ -8,6 +8,7 @@ module.exports = {
         );
     },
     manage1: function (req1, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var pageType=req1.query.pageType
         var user_id=req1.query.id
         var data = {
@@ -19,8 +20,8 @@ module.exports = {
         };
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m2_23.ashx",
             method: "POST",
             headers: {
@@ -56,6 +57,7 @@ module.exports = {
         req.end();
     },
     manage2: function (req1, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var pageType=req1.query.pageType
         var user_id=req1.query.id
         var data = {
@@ -67,8 +69,8 @@ module.exports = {
         };
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m2_23.ashx",
             method: "POST",
             headers: {
@@ -104,6 +106,7 @@ module.exports = {
         req.end();
     },
     manage3: function (req1, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var pageType=req1.query.pageType
         var user_id=req1.query.id
         var data = {
@@ -115,8 +118,8 @@ module.exports = {
         };
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m2_23.ashx",
             method: "POST",
             headers: {
@@ -152,6 +155,7 @@ module.exports = {
         req.end();
     },
     manage4: function (req1, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var pageType=req1.query.pageType
         var user_id=req1.query.id
         var data = {
@@ -163,8 +167,8 @@ module.exports = {
         };
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m2_23.ashx",
             method: "POST",
             headers: {
@@ -207,13 +211,14 @@ module.exports = {
         );
     },
     detail1:function (req1, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var sqmy_id = req1.query.id;
         var sqmy_kind = req1.query.sqmy_kind;
         var data = {sqmy_id:sqmy_id,sqmy_kind:sqmy_kind};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m2_26.ashx",
             method: "POST",
             headers: {
@@ -249,6 +254,7 @@ module.exports = {
         req.end();
     },
     detail2:function (req1, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var sqmy_id = req1.query.id;
         var sqmy_kind = req1.query.sqmy_kind;
         var check = req1.query.check||"";
@@ -256,8 +262,8 @@ module.exports = {
         var data = {sqmy_id:sqmy_id,sqmy_kind:sqmy_kind};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m2_26.ashx",
             method: "POST",
             headers: {
@@ -295,6 +301,7 @@ module.exports = {
         req.end();
     },
     check1: function (req1, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var pageType=req1.query.pageType
         var user_id=req1.query.id
         var data = {
@@ -306,8 +313,8 @@ module.exports = {
         };
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m2_23.ashx",
             method: "POST",
             headers: {
@@ -343,6 +350,7 @@ module.exports = {
         req.end();
     },
     check2: function (req1, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var pageType=req1.query.pageType
         var user_id=req1.query.id
         var data = {
@@ -354,8 +362,8 @@ module.exports = {
         };
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m2_23.ashx",
             method: "POST",
             headers: {
@@ -399,8 +407,8 @@ module.exports = {
         };
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m2_23.ashx",
             method: "POST",
             headers: {
@@ -440,8 +448,8 @@ module.exports = {
         var data = {sqmy_id:sqmy_id,sqmy_kind:sqmy_kind};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m2_26.ashx",
             method: "POST",
             headers: {
@@ -479,8 +487,8 @@ module.exports = {
         var data = {sqmy_list_kind:5};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m2_23.ashx",
             method: "POST",
             headers: {
@@ -520,8 +528,8 @@ module.exports = {
         var data = {sqmy_id:sqmy_id,sqmy_kind:sqmy_kind};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m2_26.ashx",
             method: "POST",
             headers: {

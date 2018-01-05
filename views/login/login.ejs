@@ -77,6 +77,10 @@
         color: #ddd;
         margin-top: 15% !important;
     }
+    .mui-btn .mui-spinner {
+        width: 15px;
+        height: 17px;
+    }
 </style>
 <body>
 <div class="container">
@@ -96,7 +100,7 @@
                 <input type="password" id="password" class="mui-input-password" placeholder="密码"/>
             </div>
             <div class="form-item">
-                <button class="but" id="submit">登录</button>
+                <button class="mui-btn but" id="submit">登录</button>
             </div>
         </div>
         <p class="desc">&copy;北京大众在线网络技术有限公司提供技术支持</p>
@@ -106,17 +110,22 @@
 <script>
     $(function () {
         $("#submit").click(function () {
+            var _self=this
+            mui(this).button('loading');
             var username = $("#username").val();
             var telephone = $("#telephone").val();
             var password = $("#password").val();
             if (username == '') {
                 mui.toast('用户名不能为空');
+                mui(this).button('reset');
                 return;
             } else if (telephone == '') {
                 mui.toast('手机号不能为空');
+                mui(this).button('reset');
                 return;
             } else if (password == '') {
                 mui.toast('密码不能为空');
+                mui(this).button('reset');
                 return;
             }
             var params = {
@@ -132,12 +141,15 @@
                 data: data,
                 error: function (request) {      // 设置表单提交出错
                     mui.toast("系统错误，返回状态码为：" + request.status);
+                    mui(_self).button('reset');
                 },
                 success: function (data) {
                     var code = data.ecode;
                     switch (code) {
                         case 1000:
                             mui.toast('登录成功');
+                            mui(_self).button('reset');
+                            $(_self).attr("disabled",true);
                             sessionStorage.setItem('manager_id', data.user_info.manager_id);
                             sessionStorage.setItem('user_id', data.user_info.user_id);
                             sessionStorage.setItem('role_type', data.user_info.role_type);
@@ -153,23 +165,28 @@
                                 //找不到原生发方法，可能是环境不是在android应用上打开的，或者调用方法不对
                             }
                             setTimeout(function () {
-                                location.href = "/news"
+                                location.href="/news"
                             }, 500)
                             break;
                         case 3101:
                             mui.toast('用户名不存在');
+                            mui(_self).button('reset');
                             break;
                         case 3102:
                             mui.toast('手机号不存在');
+                            mui(_self).button('reset');
                             break;
                         case 3103:
                             mui.toast('密码错误');
+                            mui(_self).button('reset');
                             break;
                         case 3104:
                             mui.toast('用户姓名或手机号码错误');
+                            mui(_self).button('reset');
                             break;
                         default:
                             mui.toast('服务器内部错误');
+                            mui(_self).button('reset');
                             break;
                     }
                 }

@@ -1,11 +1,76 @@
 var http = require("http");
 module.exports = {
+    work: function (req1, res, next) {
+        var user_id=req1.query.id;
+        var manager_id=req1.query.manager_id;
+        var role_type=req1.query.role_type;
+        if(role_type==4 || role_type==5){
+            var data = {
+                dailywork_list_kind: 3,
+                manager_id: manager_id,
+                role_type: role_type,
+                user_id:user_id,
+                startid:-1,
+                num:20,
+                start:0
+            };
+            var content = JSON.stringify(data);
+            var options = {
+                host: global.reqHostL,
+                port: global.reqPortL,
+                path: "/ZxApi/m3_05.ashx",
+                method: "POST",
+                headers: {
+                    "Content-Type": 'application/json'
+                }
+            };
+            var req = http.request(options, function (serverFeedback) {
+                if (serverFeedback.statusCode == 200) {
+                    var body = "";
+                    serverFeedback.setEncoding('utf8');
+                    serverFeedback.on('data', function (data) {
+                        body += data;
+                    }).on('end', function () {
+                        body = JSON.parse(body);
+                        var num=body.num||0
+                        res.render('work/work',
+                            {
+                                title: '政协工作',
+                                keyword: '',
+                                type: 3,
+                                num: num
+                            }
+                        );
+                    })
+                } else {
+                    res.send(500, "error");
+                }
+            });
+            req.on('error', function (e) {
+                console.log('problem with request: ' + e.message);
+            });
+            // write data to request body
+            req.write(content);
+            req.end();
+        }else{
+            res.render('work/work',
+                {
+                    title: '政协工作',
+                    keyword: '',
+                    type: 3,
+                    num: 0
+                }
+            );
+        }
+
+
+    },
     info: function (req1, res, next) {
         var data={} ;
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m3_01.ashx",
             method: "POST",
             headers: {
@@ -43,9 +108,9 @@ module.exports = {
         var data={} ;
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
-            path: "/ZxApi/m3_01.ashx",
+            host: global.reqHostL,
+            port: global.reqPortL,
+            path: "/ZxApi/m3_14.ashx",
             method: "POST",
             headers: {
                 "Content-Type": 'application/json'
@@ -59,11 +124,50 @@ module.exports = {
                     body += data;
                 }).on('end', function () {
                     body = JSON.parse(body);
-                    res.render('work/work-info',
+                    var article_list=body.article_list;
+                    res.render('work/work-order',
                         {
                             title: '政协领导',
                             type: 1,
-                            result: body
+                            article_list: article_list
+                        }
+                    );
+                })
+            } else {
+                res.send(500, "error");
+            }
+        });
+        req.on('error', function (e) {
+            console.log('problem with request: ' + e.message);
+        });
+        // write data to request body
+        req.write(content);
+        req.end();
+    },
+    orderDetail: function (req1, res, next) {
+        var data = {article_id: req1.query.id};
+        var content = JSON.stringify(data);
+        var options = {
+            host: global.reqHostL,
+            port: global.reqPortL,
+            path: "/ZxApi/m3_15.ashx",
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json'
+            }
+        };
+        var req = http.request(options, function (serverFeedback) {
+            if (serverFeedback.statusCode == 200) {
+                var body = "";
+                serverFeedback.setEncoding('utf8');
+                serverFeedback.on('data', function (data) {
+                    body += data;
+                }).on('end', function () {
+                    body = JSON.parse(body);
+                    res.render('work/order-detail',
+                        {
+                            title: '详情',
+                            article: body
                         }
                     );
                 })
@@ -86,8 +190,8 @@ module.exports = {
         };
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m3_03.ashx",
             method: "POST",
             headers: {
@@ -125,8 +229,8 @@ module.exports = {
         var data = {article_id: req1.query.id};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m3_04.ashx",
             method: "POST",
             headers: {
@@ -160,64 +264,12 @@ module.exports = {
         req.write(content);
         req.end();
     },
-    work: function (req1, res, next) {
-        var user_id=req1.query.id;
-        var manager_id=req1.query.manager_id;
-        var role_type=req1.query.role_type;
-        var data = {
-            dailywork_list_kind: 3,
-            manager_id: manager_id,
-            role_type: role_type,
-            user_id:user_id,
-            startid:-1,
-            num:20,
-            start:0
-        };
-        var content = JSON.stringify(data);
-        var options = {
-            host: global.reqHost,
-            port: global.reqPort,
-            path: "/ZxApi/m3_05.ashx",
-            method: "POST",
-            headers: {
-                "Content-Type": 'application/json'
-            }
-        };
-        var req = http.request(options, function (serverFeedback) {
-            if (serverFeedback.statusCode == 200) {
-                var body = "";
-                serverFeedback.setEncoding('utf8');
-                serverFeedback.on('data', function (data) {
-                    body += data;
-                }).on('end', function () {
-                    body = JSON.parse(body);
-                    var num=body.dailywork_list.length
-                    res.render('work/work',
-                        {
-                            title: '政协工作',
-                            keyword: '',
-                            type: 3,
-                            num: num
-                        }
-                    );
-                })
-            } else {
-                res.send(500, "error");
-            }
-        });
-        req.on('error', function (e) {
-            console.log('problem with request: ' + e.message);
-        });
-        // write data to request body
-        req.write(content);
-        req.end();
-    },
     notices: function (req1, res, next) {
         var data = {startid: -1, num: 20, start: 0};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m3_11.ashx",
             method: "POST",
             headers: {
@@ -255,8 +307,8 @@ module.exports = {
         var data = {article_id: req1.query.id};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m3_12.ashx",
             method: "POST",
             headers: {
@@ -290,10 +342,11 @@ module.exports = {
         req.write(content);
         req.end();
     },
-    startWorkDraft: function (req1, res, next) {
+    manager1: function (req1, res, next) {
         var user_id=req1.query.id;
         var manager_id=req1.query.manager_id;
         var role_type=req1.query.role_type;
+        var pageType = req1.query.pageType;
         var data = {
             dailywork_list_kind: 1,
             manager_id: manager_id,
@@ -305,8 +358,8 @@ module.exports = {
         };
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m3_05.ashx",
             method: "POST",
             headers: {
@@ -322,10 +375,11 @@ module.exports = {
                 }).on('end', function () {
                     body = JSON.parse(body);
                     var dailywork_list=body.dailywork_list
-                    res.render('work/start-work-draft',
+                    res.render('work/work-manager',
                         {
                             title: '发起流转',
-                            dailywork_list: dailywork_list
+                            dailywork_list: dailywork_list,
+                            pageType: pageType
                         }
                     );
                 })
@@ -340,10 +394,11 @@ module.exports = {
         req.write(content);
         req.end();
     },
-    startWorkPass: function (req1, res, next) {
+    manager2: function (req1, res, next) {
         var user_id=req1.query.id;
         var manager_id=req1.query.manager_id;
         var role_type=req1.query.role_type;
+        var pageType = req1.query.pageType;
         var data = {
             dailywork_list_kind: 2,
             manager_id: manager_id,
@@ -355,8 +410,8 @@ module.exports = {
         };
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m3_05.ashx",
             method: "POST",
             headers: {
@@ -372,10 +427,11 @@ module.exports = {
                 }).on('end', function () {
                     body = JSON.parse(body);
                     var dailywork_list=body.dailywork_list
-                    res.render('work/start-work-pass',
+                    res.render('work/work-manager',
                         {
                             title: '发起流转',
-                            dailywork_list: dailywork_list
+                            dailywork_list: dailywork_list,
+                            pageType:pageType
                         }
                     );
                 })
@@ -401,8 +457,8 @@ module.exports = {
         var data = {dailywork_id: req1.query.id};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m3_06.ashx",
             method: "POST",
             headers: {
@@ -446,8 +502,8 @@ module.exports = {
         var data = {dailywork_id: req1.query.id};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m3_06.ashx",
             method: "POST",
             headers: {
@@ -502,8 +558,8 @@ module.exports = {
         };
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m3_05.ashx",
             method: "POST",
             headers: {
@@ -541,8 +597,8 @@ module.exports = {
         var data = {dailywork_id: req1.query.id};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m3_06.ashx",
             method: "POST",
             headers: {
@@ -597,8 +653,8 @@ module.exports = {
         };
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m3_05.ashx",
             method: "POST",
             headers: {
@@ -636,8 +692,8 @@ module.exports = {
         var data = {dailywork_id: req1.query.id};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m3_06.ashx",
             method: "POST",
             headers: {
@@ -684,8 +740,8 @@ module.exports = {
         var search_type="work";
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m3_05.ashx",
             method: "POST",
             headers: {

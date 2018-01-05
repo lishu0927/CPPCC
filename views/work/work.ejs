@@ -67,7 +67,9 @@
             <li class="item" data-url="/workFlow" id="flow" style="display: none">
                 <img src="images/work4.png">
                 <p>文件流转</p>
+                <%if(num>0){%>
                 <span class="num"><%=num%></span>
+                <%}%>
             </li>
             <li class="item" data-url="/workNotices">
                 <img src="images/work5.png">
@@ -83,6 +85,7 @@
         sessionStorage.setItem("noticesTop",0)
         sessionStorage.setItem("filesList","")
         sessionStorage.setItem("filesTop",0)
+        sessionStorage.setItem("orderTop",0)
         var url=$(this).attr("data-url")
         location.href=url
     })

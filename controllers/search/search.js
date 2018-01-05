@@ -5,8 +5,8 @@ module.exports = {
         var data = {keyword: keyword};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m1_04.ashx",
             method: "POST",
             headers: {

@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html>
 <%-include ../base/checkHead.ejs%>
-<body>
-<div class="container">
-    <%-include ../base/header.ejs%>
-    <div class="wrap">
-        <p class="title"><%=article.title%></p>
-        <div class="content"><%-article.content%></div>
-    </div>
-</div>
-</body>
 <style>
     .container{
         padding: 42px 0 0 0;
@@ -38,4 +29,14 @@
         width: 100%!important;
     }
 </style>
+<body>
+<div class="container">
+    <%-include ../base/header.ejs%>
+    <div class="wrap">
+        <p class="title"><%=article.title%></p>
+        <div class="content"><%-article.content%></div>
+    </div>
+</div>
+</body>
+
 </html>

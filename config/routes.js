@@ -60,13 +60,14 @@ module.exports = function (app) {
     app.get("/videoDetail", controlles.video.detail);
     app.get("/workInfo", controlles.work.info);
     app.get("/workOrder", controlles.work.order);
+    app.get("/orderDetail", controlles.work.orderDetail);
     app.get("/workFiles", controlles.work.files);
     app.get("/fileDetail", controlles.work.fileDetail);
     app.get("/work", controlles.work.work);
     app.get("/workNotices", controlles.work.notices);
     app.get("/noticeDetail", controlles.work.noticeDetail);
-    app.get("/startWorkDraft", controlles.work.startWorkDraft);
-    app.get("/startWorkPass", controlles.work.startWorkPass);
+    app.get("/workManager1", controlles.work.manager1);
+    app.get("/workManager2", controlles.work.manager2);
     app.get("/addWork", controlles.work.addWork);
     app.get("/workDetail1", controlles.work.detail1);
     app.get("/workDetail2", controlles.work.detail2);

@@ -156,18 +156,26 @@
         sqmy_id="<%=sqmy_info.sqmy_id%>"
         $("#submit button").each(function () {
             $(this).click(function () {
+                var _self=this
+                var tj_text=$(this).text()
+                mui(this).button('loading');
+                $(this).siblings().attr("disabled",true);
                 ideatitle=$.trim($("#title").val());
                 ideacontent=$.trim($("#content").val());
-                if($(this).text()=='提交'){
+                if(tj_text=='提交'){
                     tijiao_kind=4;
-                }else if($(this).text()=='保存'){
+                }else if(tj_text=='保存'){
                     tijiao_kind=3;
                 }
                 if(ideatitle == null||ideatitle == ""){
                     mui.toast("请填写事由")
+                    mui(this).button('reset');
+                    $(this).siblings().attr("disabled",false);
                     return false
                 }else if(ideacontent==null||ideacontent == ""){
                     mui.toast("请填写内容")
+                    mui(this).button('reset');
+                    $(this).siblings().attr("disabled",false);
                     return false
                 }else{
                     var params = {
@@ -186,15 +194,21 @@
                         data: data,
                         error: function (request) {      // 设置表单提交出错
                             mui.toast("系统错误，返回状态码为：" + request.status);
+                            mui(_self).button('reset');
+                            $(_self).siblings().attr("disabled",false);
                         },
                         success: function (data) {
                             if(data.ecode==1000){
                                 mui.toast("操作成功！");
+                                mui(_self).button('reset');
+                                $(_self).attr('disabled',true);
                                 setTimeout(function () {
-                                    history.go(-1)
+                                    location.replace(document.referrer)
                                 },1000);
                             }else{
                                 mui.toast("操作失败！");
+                                mui(_self).button('reset');
+                                $(_self).siblings().attr("disabled",false);
                             }
                         }
                     });

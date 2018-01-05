@@ -2,11 +2,11 @@ var http = require("http");
 module.exports = {
     init: function (req1, res, next) {
         var keyword = req1.query.keyword||'';
-        var data = {startid: -1,num:20, start:0};
+        var data = {startid: -1,num:10, start:0};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m1_02.ashx",
             method: "POST",
             headers: {
@@ -50,8 +50,8 @@ module.exports = {
         var data = {article_id: id};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m1_03.ashx",
             method: "POST",
             headers: {

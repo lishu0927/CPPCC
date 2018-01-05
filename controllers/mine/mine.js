@@ -16,11 +16,12 @@ module.exports = {
         );
     },
     msg: function (req1, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var data = {startid: -1};
         var content = JSON.stringify(data);
         var options = {
-            host: global.reqHost,
-            port: global.reqPort,
+            host: global.reqHostL,
+            port: global.reqPortL,
             path: "/ZxApi/m4_03.ashx",
             method: "POST",
             headers: {

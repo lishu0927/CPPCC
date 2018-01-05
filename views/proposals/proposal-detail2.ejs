@@ -131,20 +131,28 @@
         var tuihui,tian_num;
         $("#submit button").each(function () {
             $(this).click(function () {
-                if($(this).text()=='退回'){
+                var _self=this
+                var tj_text=$(this).text()
+                mui(this).button('loading');
+                $(this).siblings().attr("disabled",true);
+                if(tj_text=='退回'){
                     tuihui=$.trim($("#tuihui").val());
                     if(tuihui == null||tuihui==""){
                         mui.toast("请填写退回理由")
+                        mui(this).button('reset');
+                        $(this).siblings().attr("disabled",false);
                         return false
                     }
                     tian_num="";
                     audit_jieguo=0;
-                }else if($(this).text()=='通过立案'){
+                }else if(tj_text=='通过立案'){
                     tuihui="";
                     audit_jieguo=1;
                     tian_num=$.trim($("#num").val());
                     if(tian_num == null||tian_num==""){
                         mui.toast("请填写立案编号")
+                        mui(this).button('reset');
+                        $(this).siblings().attr("disabled",false);
                         return false
                     }
                 }
@@ -162,15 +170,21 @@
                     data: data,
                     error: function (request) {      // 设置表单提交出错
                         mui.toast("系统错误，返回状态码为：" + request.status);
+                        mui(_self).button('reset');
+                        $(_self).siblings().attr("disabled",false);
                     },
                     success: function (data) {
                         if(data.ecode==1000){
                             mui.toast("操作成功！");
+                            mui(_self).button('reset');
+                            $(_self).attr('disabled',true);
                             setTimeout(function () {
                                 history.go(-1)
                             },1000);
                         }else{
                             mui.toast("操作失败！");
+                            mui(_self).button('reset');
+                            $(_self).siblings().attr("disabled",false);
                         }
                     }
                 });
