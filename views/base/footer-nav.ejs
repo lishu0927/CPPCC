@@ -17,6 +17,8 @@
     }
     .footer-nav .nav-list .item{
         text-align: center;
+        position: relative;
+        padding: 5px 0;
     }
     .footer-nav .nav-list .item  img{
         width: 20px;
@@ -28,6 +30,13 @@
     }
     .footer-nav .nav-list .item.active  p{
         color: #006fb8;
+    }
+    .mui-badge-red{
+        position: absolute;
+        top:0;
+        left: 30px;
+        font-size: 8px;
+        padding:2px 4px
     }
 </style>
 <div class="footer-nav">
@@ -43,23 +52,52 @@
             <%}else{%>
             <img src="/images/icons/<%= navList[i].item_pic%>-a.png">
             <%}%>
+            <%if(i==2){%>
+            <span class="mui-badge mui-badge-red" style="display: none"></span>
+            <%}%>
             <p><%= navList[i].item_text%></p>
         </li>
         <%}%>
     </ul>
 </div>
 <script>
+    var params = {
+        manager_id: manager_id,
+        role_type: role_type,
+        user_id: user_id
+    }
+    var data = JSON.stringify(params)
+    $.ajax({
+        url: 'http://<%= reqHost %>:<%= reqPort %>/ZxApi/m3_16.ashx',
+        type: "POST",
+        dataType: 'json',
+        data: data,
+        error: function (request) {      // 设置表单提交出错
+            mui.toast("系统错误，返回状态码为：" + request.status);
+        },
+        success: function (data) {
+            if (data.ecode == 1000) {
+                var work_num
+                if(data.num>0){
+                    $(".mui-badge").css("display","inline-block")
+                    $(".todowork-num").css("display","inline-block")
+                }
+                if(data.num>99){
+                    work_num="99+"
+                }else {
+                    work_num=data.num
+                }
+                $(".mui-badge").html(work_num)
+                $(".todowork-num").html(work_num)
+            }
+        }
+    })
     $(document).on('click','.nav-list .item',function () {
         var i = $(this).index()
-        var user_id=sessionStorage.getItem("user_id")
-        var manager_id=sessionStorage.getItem("manager_id")
         sessionStorage.setItem("newsList", "");
         sessionStorage.setItem("newsTop", 0);
         var url=$(this).attr("data-url")
-        if(i==2){
-            location.href=url+'?id='+user_id+"&manager_id="+manager_id+"&role_type="+role
-        }else{
-            location.href=url
-        }
+        location.href=url
+
     })
 </script>

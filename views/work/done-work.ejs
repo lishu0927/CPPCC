@@ -44,9 +44,6 @@
         location.href='/doneDetail?id='+id
     })
     $(function () {
-        var user_id=sessionStorage.getItem("user_id")
-        var manager_id=sessionStorage.getItem("manager_id")
-        var role_type=sessionStorage.getItem("role_type")
         var loadContent=sessionStorage.getItem("doneList");
         var doneList = sessionStorage.getItem("doneList")
         $(".list-content").append(doneList)
@@ -95,7 +92,7 @@
                 },
                 success: function (data) {
                     if (data.ecode == 1000) {
-                        var list = data.article_list
+                        var list = data.dailywork_list
                         if (data.num > 0) {
                             mescroll.endSuccess(data.length);
                             $.each(list, function (i) {

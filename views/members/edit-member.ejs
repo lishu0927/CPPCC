@@ -352,7 +352,6 @@
 </body>
 
 <script>
-    var sSid=sessionStorage.getItem("user_id");
     mui.previewImage();
     //上传图片
     function upImage() {
@@ -405,7 +404,7 @@
     $('#submit').click(function () {
         var _self=this
         var key;
-        var user_id='<%=member.user_id%>'
+        var weiyuan_user_id='<%=member.user_id%>'
         var user_name=$.trim($('#name').val())
         var password='';
         var sex= $.trim($("input[name='sex']:checked").val());
@@ -425,7 +424,7 @@
         var order= $.trim($('#order').val());
         var groupName= $.trim($('#groups').val());
         var headImage= $.trim($('#img').attr("src"));
-        if(user_id==''||user_name==''){
+        if(user_name==''){
             mui.toast("请填写姓名")
             return false
         }else if(brithdatetime==''){
@@ -443,7 +442,7 @@
             })
         }else {
             var params = {
-                user_id:user_id,
+                user_id:weiyuan_user_id,
                 user_name: user_name,
                 password: password,
                 sex: sex,
@@ -477,9 +476,9 @@
                     if (data.ecode == 1000) {
                         mui.toast("编辑成功！");
                         $(_self).unbind('click')
-                        if(user_id==sSid) {
-                            var params1 = { //如果编辑的是自己的信息, 需将更新后的信息存入sessionStorage中
-                                user_id: user_id
+                        if(user_id==weiyuan_user_id) {
+                            var params1 = { //如果编辑的是自己的信息, 需将更新后的信息存入localStorage中
+                                user_id: weiyuan_user_id
                             }
                             var data1 = JSON.stringify(params1)
                             $.ajax({
@@ -492,7 +491,7 @@
                                 },
                                 success: function (data) {
                                     if (data.ecode == 1000) {
-                                        sessionStorage.setItem("user", JSON.stringify(data.user_info));
+                                        localStorage.setItem("user", JSON.stringify(data.user_info));
                                         try {
                                             window.native.saveData("user", JSON.stringify(data.user_info));
                                         } catch (err) {

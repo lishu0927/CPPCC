@@ -107,8 +107,7 @@
         }else if(transitionType=="slideOut"){
             $(".container").css("opacity","1")
         }
-        var user_id=sessionStorage.getItem("user_id")
-        if(role==1 || role==2){
+        if(role_type==1 || role_type==2){
             $(".header-right").css("display","block")
         }else{
             $(".header-right").css("display","none")

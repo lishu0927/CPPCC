@@ -216,17 +216,15 @@
         mui.toast("正在下载")
     })
     $(function() {
-        var mId=sessionStorage.getItem('manager_id') //当前用户
 
         //取出处理人
         var leaderStr='';
         var str="<%=leaders%>";
         str=str.replace(/&#34;/g, '"');
         var leaders=JSON.parse(str);
-        console.log(leaders)
         var flag=0;
         for(var i=0;i<leaders.length;i++){
-            if(leaders[i].touserid==mId){ //取出的处理人中是否有自己
+            if(leaders[i].touserid==manager_id){ //取出的处理人中是否有自己
                 flag=1;
             }
             leaderStr+=leaders[i].tousername+" , "
@@ -240,7 +238,7 @@
         }
 
         var dailywork_id="<%=work.dailywork_id%>";
-        var touserid=mId;
+        var touserid=manager_id;
         var suggestion;
         $("#submit button").click(function () {
             var _self=this
@@ -272,7 +270,7 @@
                             mui(_self).button('reset');
                             $(_self).attr('disabled',true);
                             setTimeout(function () {
-                                location.replace(document.referrer)
+                                history.go(-1)
                             },1000);
                         }else{
                             mui.toast("审批失败！");

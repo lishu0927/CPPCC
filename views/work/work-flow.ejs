@@ -18,6 +18,7 @@
     .list .item{
         border-bottom: 1px solid #ddd;
         padding: 7% 10px;
+        position: relative;
     }
     .list .item img{
         width: 60px;
@@ -30,6 +31,13 @@
     }
     #start{
         display: none;
+    }
+    .todowork-num{
+        position: absolute;
+        padding: 0 10px;
+        line-height: 58px;
+        color: #fa1414 !important;
+        font-size: var(--size15) !important;
     }
 </style>
 <body>
@@ -44,6 +52,7 @@
             <li id="todo" class="item" data-url="/todoWork">
                 <img src="images/icons/flow2.png">
                 <span>待办流转</span>
+                <span class="todowork-num" style="display: none"></span>
             </li>
             <li id="done" class="item" data-url="/doneWork">
                 <img src="images/icons/flow3.png">
@@ -72,15 +81,42 @@
         location.href=url
     })
     $(function () {
-        if(role==4){
+        if(role_type==4){
             $("#start").css("display","block")
         }
-        var user_id=sessionStorage.getItem("user_id");
-        var manager_id=sessionStorage.getItem("manager_id");
-        var role_type=sessionStorage.getItem("role_type");
         $("#start").attr("data-url","/workManager1?pageType=0&id="+user_id+"&manager_id="+manager_id+"&role_type="+role_type);
         $("#todo").attr("data-url","/todoWork?id="+user_id+"&manager_id="+manager_id+"&role_type="+role_type);
         $("#done").attr("data-url","/doneWork?id="+user_id+"&manager_id="+manager_id+"&role_type="+role_type);
+
+        var params = {
+            manager_id: manager_id,
+            role_type: role_type,
+            user_id: user_id
+        }
+        var data = JSON.stringify(params)
+        $.ajax({
+            url: 'http://<%= reqHost %>:<%= reqPort %>/ZxApi/m3_16.ashx',
+            type: "POST",
+            dataType: 'json',
+            data: data,
+            error: function (request) {      // 设置表单提交出错
+                mui.toast("系统错误，返回状态码为：" + request.status);
+            },
+            success: function (data) {
+                if (data.ecode == 1000) {
+                    var work_num
+                    if(data.num>0){
+                        $(".todowork-num").css("display","inline-block")
+                    }
+                    if(data.num>99){
+                        work_num="99+"
+                    }else {
+                        work_num=data.num
+                    }
+                    $(".todowork-num").html(work_num)
+                }
+            }
+        })
     })
 </script>
 </html>

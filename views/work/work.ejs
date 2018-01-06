@@ -27,7 +27,7 @@
         font-size: var(--size14);
         color: #000;
     }
-    .work-content ul li .num{
+    .work-content ul li .todowork-num{
         position: absolute;
         right: 20px;
         top:0;
@@ -47,7 +47,7 @@
 <div class="container">
     <%-include ../base/header-search.ejs%>
     <%-include ../base/footer-nav.ejs%>
-    <div class="wrap work-content mescroll" id="mescroll">
+    <div class="wrap work-content">
         <div class="pic-content">
             <img src="images/work-banner.png">
         </div>
@@ -67,9 +67,7 @@
             <li class="item" data-url="/workFlow" id="flow" style="display: none">
                 <img src="images/work4.png">
                 <p>文件流转</p>
-                <%if(num>0){%>
-                <span class="num"><%=num%></span>
-                <%}%>
+                <span class="todowork-num" style="display: none"></span>
             </li>
             <li class="item" data-url="/workNotices">
                 <img src="images/work5.png">
@@ -90,24 +88,10 @@
         location.href=url
     })
     $(function () {
-        if(role==4 || role==5){
+        if(role_type==4 || role_type==5){
             $("#flow").css("display","block")
         }
-        //创建MeScroll对象
-        var mescroll = new MeScroll("mescroll", {
-            down: {
-                auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
-                callback: downCallback //下拉刷新的回调
-            },
-            up: {
-                use: false
-            }
-        });
 
-        /*下拉刷新的回调 */
-        function downCallback() {
-            window.location.reload()
-        }
     })
 </script>
 </html>

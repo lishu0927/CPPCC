@@ -1,6 +1,7 @@
 var http = require("http");
 module.exports = {
     init: function (req1, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var keyword = req1.query.keyword||'';
         var data = {startid: -1,num:10, start:0};
         var content = JSON.stringify(data);

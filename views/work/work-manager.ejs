@@ -112,9 +112,6 @@
         var detail_type=parseInt(pageType)+1
         $(".tab-item").eq(pageType).addClass("active")
 
-        var user_id=sessionStorage.getItem("user_id")
-        var manager_id=sessionStorage.getItem("manager_id")
-        var role_type=sessionStorage.getItem("role_type")
         var loadContent=sessionStorage.getItem("workManagerList");
         var workManagerList=sessionStorage.getItem("workManagerList")
         $(".list-content").append(workManagerList)

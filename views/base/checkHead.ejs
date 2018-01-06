@@ -144,9 +144,10 @@
     }
 </style>
 <script>
-    var mId=sessionStorage.getItem('manager_id')
-    var role=sessionStorage.getItem('role_type')
-    if(mId == null || mId == ""){
+    var manager_id=localStorage.getItem('manager_id')
+    var role_type=localStorage.getItem('role_type')
+    var user_id=localStorage.getItem("user_id");
+    if(manager_id == null || manager_id == ""){
         location.href="/login"
     }
     $(function () {

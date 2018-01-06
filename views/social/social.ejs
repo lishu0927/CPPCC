@@ -56,11 +56,10 @@
 </body>
 <script>
     $(function () {
-        var user_id = sessionStorage.getItem("user_id")
         if (user_id == '' || user_id <= 0 || user_id == null) {
-            if(role==1 || role==2){
+            if(role_type==1 || role_type==2){
                 $(".suSocial").css("display", "none")
-            } else if(role == 4 || role == 5){
+            } else if(role_type == 4 || role_type == 5){
                 $(".tijiao").css("display", "none")
             }
         }

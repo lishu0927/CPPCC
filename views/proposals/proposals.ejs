@@ -71,8 +71,7 @@
 </body>
 <script>
     $(function () {
-        var user_id=sessionStorage.getItem("user_id")
-        if ((role==4 || role==5) && (user_id=='' || user_id<=0 || user_id==null)) {
+        if ((role_type==4 || role_type==5) && (user_id=='' || user_id<=0 || user_id==null)) {
             $("#tijiao").css("display", "none")
         }else{
             $("#tijiao").css("display", "block")

@@ -1,6 +1,7 @@
 var http = require("http");
 module.exports = {
     init: function (req1, res ,next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var keyword = req1.query.keyword || '';
         var search_type = 'member';
         var data = {};
@@ -44,6 +45,7 @@ module.exports = {
         req.end();
     },
     search: function (req1, res,next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var keyword = req1.query.keyword || '';
         var search_type = "member";
         var data = {keyword: keyword};

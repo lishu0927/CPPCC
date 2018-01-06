@@ -393,7 +393,7 @@
                                 mui(_self).button('reset');
                                 $(_self).attr('disabled',true);
                                 setTimeout(function () {
-                                    location.replace(document.referrer)
+                                    history.go(-1)
                                 },1000);
                             }else{
                                 mui.toast("操作失败！");

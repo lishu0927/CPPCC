@@ -145,7 +145,6 @@
 <script>
     $(function () {
         var userid="<%=sqmy_info.userid%>"
-        var user_id=sessionStorage.getItem("user_id")
         if (userid==user_id) {
             $("#type1").css("display", "block")
         }else{
@@ -203,7 +202,7 @@
                                 mui(_self).button('reset');
                                 $(_self).attr('disabled',true);
                                 setTimeout(function () {
-                                    location.replace(document.referrer)
+                                    history.go(-1)
                                 },1000);
                             }else{
                                 mui.toast("操作失败！");

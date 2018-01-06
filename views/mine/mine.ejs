@@ -137,8 +137,7 @@
 </body>
 
 <script>
-    var user=JSON.parse(sessionStorage.getItem('user'))
-    var user_id=sessionStorage.getItem('user_id');
+    var user=JSON.parse(localStorage.getItem('user'))
 
     $('#name').html(user.user_name);
     $('#headImage').attr("src",user.headImage);
@@ -160,7 +159,7 @@
     })
 
     $(".exit").click(function () {
-        sessionStorage.setItem("manager_id","");
+        localStorage.setItem("manager_id","");
         localStorage.setItem("fontSizeType", "标准");
         try{
             window.native.saveData("manager_id", "");

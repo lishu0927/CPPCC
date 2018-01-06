@@ -86,7 +86,7 @@
                 },
                 success: function (data) {
                     if (data.ecode == 1000) {
-                        var list = data.article_list
+                        var list = data.dailywork_list
                         if (data.num > 0) {
                             mescroll.endSuccess(data.length);
                             $.each(list, function (i) {

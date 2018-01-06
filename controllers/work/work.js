@@ -1,69 +1,14 @@
 var http = require("http");
 module.exports = {
     work: function (req1, res, next) {
-        var user_id=req1.query.id;
-        var manager_id=req1.query.manager_id;
-        var role_type=req1.query.role_type;
-        if(role_type==4 || role_type==5){
-            var data = {
-                dailywork_list_kind: 3,
-                manager_id: manager_id,
-                role_type: role_type,
-                user_id:user_id,
-                startid:-1,
-                num:20,
-                start:0
-            };
-            var content = JSON.stringify(data);
-            var options = {
-                host: global.reqHostL,
-                port: global.reqPortL,
-                path: "/ZxApi/m3_05.ashx",
-                method: "POST",
-                headers: {
-                    "Content-Type": 'application/json'
-                }
-            };
-            var req = http.request(options, function (serverFeedback) {
-                if (serverFeedback.statusCode == 200) {
-                    var body = "";
-                    serverFeedback.setEncoding('utf8');
-                    serverFeedback.on('data', function (data) {
-                        body += data;
-                    }).on('end', function () {
-                        body = JSON.parse(body);
-                        var num=body.num||0
-                        res.render('work/work',
-                            {
-                                title: '政协工作',
-                                keyword: '',
-                                type: 3,
-                                num: num
-                            }
-                        );
-                    })
-                } else {
-                    res.send(500, "error");
-                }
-            });
-            req.on('error', function (e) {
-                console.log('problem with request: ' + e.message);
-            });
-            // write data to request body
-            req.write(content);
-            req.end();
-        }else{
-            res.render('work/work',
-                {
-                    title: '政协工作',
-                    keyword: '',
-                    type: 3,
-                    num: 0
-                }
-            );
-        }
-
-
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
+        res.render('work/work',
+            {
+                title: '政协工作',
+                keyword: '',
+                type: 3
+            }
+        );
     },
     info: function (req1, res, next) {
         var data={} ;
@@ -343,6 +288,7 @@ module.exports = {
         req.end();
     },
     manager1: function (req1, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var user_id=req1.query.id;
         var manager_id=req1.query.manager_id;
         var role_type=req1.query.role_type;
@@ -395,6 +341,7 @@ module.exports = {
         req.end();
     },
     manager2: function (req1, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var user_id=req1.query.id;
         var manager_id=req1.query.manager_id;
         var role_type=req1.query.role_type;
@@ -454,6 +401,7 @@ module.exports = {
         );
     },
     detail1: function (req1, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var data = {dailywork_id: req1.query.id};
         var content = JSON.stringify(data);
         var options = {
@@ -499,6 +447,7 @@ module.exports = {
         req.end();
     },
     detail2: function (req1, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var data = {dailywork_id: req1.query.id};
         var content = JSON.stringify(data);
         var options = {
@@ -544,6 +493,7 @@ module.exports = {
         req.end();
     },
     todoWork: function (req1, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var user_id=req1.query.id;
         var manager_id=req1.query.manager_id;
         var role_type=req1.query.role_type;
@@ -553,7 +503,7 @@ module.exports = {
             role_type: role_type,
             user_id:user_id,
             startid:-1,
-            num:20,
+            num:10,
             start:0
         };
         var content = JSON.stringify(data);
@@ -594,6 +544,7 @@ module.exports = {
         req.end();
     },
     todoDetail:function (req1, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var data = {dailywork_id: req1.query.id};
         var content = JSON.stringify(data);
         var options = {
@@ -639,6 +590,7 @@ module.exports = {
         req.end();
     },
     doneWork: function (req1, res, next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         var user_id=req1.query.id;
         var manager_id=req1.query.manager_id;
         var role_type=req1.query.role_type;
@@ -648,7 +600,7 @@ module.exports = {
             role_type: role_type,
             user_id:user_id,
             startid:-1,
-            num:20,
+            num:10,
             start:0
         };
         var content = JSON.stringify(data);

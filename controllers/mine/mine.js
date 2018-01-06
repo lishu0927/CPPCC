@@ -1,6 +1,7 @@
 var http = require("http");
 module.exports = {
     init: function (req, res,next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         res.render('mine/mine',
             {
                 title: '我',
@@ -9,6 +10,7 @@ module.exports = {
         );
     },
     font: function (req, res,next) {
+        res.set("Cache-Control","no-cache, no-store, must-revalidate");
         res.render('mine/mine-font',
             {
                 title: '修改字号',
